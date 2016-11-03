@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<agentdef package="rda" version="rda1.0">
+    <entities>
+        <!--AggregateAgent Entity define-->
+        <entity type="aggregateagent">
+            <attribute name="AgentID" type="string" primarykey="true" maxlength="32"/>
+            <attribute name="Data" type="long" />
+            <attribute name="ConnectionCount" type="long" />
+            <attribute name="MessageLatency" type="long" />
+            <attribute name="MessageQueueLength" type="long" />
+        </entity>
+    </entities>
+    <messages>
+        <!--system define-->
+        <!--AggregateAgent Messages -->
+        <message type="initAggregateAgent" class="rda.agent.message.InitMessage"/>
+        <!--agent system define-->
+        <message type="dispose" />
+    </messages>
+    <agents>
+        <!--system define-->
+        <agent type="aggregateagent">
+            <handler message="initAgent" class="apps.count.agent.handler.InitAggregateAgentHandler"/>
+            <handler message="dispose" class="rda.agent.deletor.handler.DisposeHandler"/>
+        </agent>
+    </agents>
+</agentdef>

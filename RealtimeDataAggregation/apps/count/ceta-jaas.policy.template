@@ -1,0 +1,36 @@
+// Required if authorizationMechanism="AUTHORIZATION_MECHANISM_JAAS"
+// -Djava.security.policy=jaas.policy
+
+keystore "file:${ceta.home}${/}@CETA_KEYSTORE_BASENAME@";
+
+
+// Common policy for all authenticated users
+grant codeBase "http://www.ibm.com/com/ibm/ws/objectgrid/security/PrivilegedAction", principal "@CETA_OBJECTGRID_USER@", principal "@CETA_GUEST_OBJECTGRID_USER@" {
+//    permission java.lang.RuntimePermission "accessClassInPackage.com.ibm.ws.objectgrid.security";	// Not required
+    permission java.lang.RuntimePermission "defineClassInPackage.com.ibm.ws.objectgrid.security";	// Required
+//    permission java.lang.RuntimePermission "accessClassInPackage.com.ibm.websphere.objectgrid.security";	// Not required
+//    permission java.lang.RuntimePermission "defineClassInPackage.com.ibm.websphere.objectgrid.security";	// Not required
+};
+
+
+// Policy for each authenticated user
+grant codeBase "http://www.ibm.com/com/ibm/ws/objectgrid/security/PrivilegedAction", principal "@CETA_OBJECTGRID_USER@" {
+//    permission java.security.AllPermission;	// Not required
+
+    // Note: To use following permissions instead of java.security.AllPermission, runtime permission to define class in package com.ibm.ws.objectgrid.security is required.
+    permission com.ibm.websphere.objectgrid.security.MapPermission "*.*", "all";
+    permission com.ibm.websphere.objectgrid.security.AgentPermission "*.*", "com.ibm.agent.*";	// Note: "*" is not allowed for agent classes
+    permission com.ibm.websphere.objectgrid.security.ObjectGridPermission "*", "all";
+    permission com.ibm.websphere.objectgrid.security.ServerMapPermission "*.*", "all";
+};
+
+grant codeBase "http://www.ibm.com/com/ibm/ws/objectgrid/security/PrivilegedAction", principal "@CETA_GUEST_OBJECTGRID_USER@" {
+//    permission java.security.AllPermission;	// Not required
+
+    // Note: To use following permissions instead of java.security.AllPermission, runtime permission to define class in package com.ibm.ws.objectgrid.security is required.
+//    permission com.ibm.websphere.objectgrid.security.MapPermission "*.*", "all";
+    permission com.ibm.websphere.objectgrid.security.MapPermission "*.*", "read";
+//    permission com.ibm.websphere.objectgrid.security.AgentPermission "*.*", "com.ibm.agent.*";	// Note: "*" is not allowed for agent classes
+//    permission com.ibm.websphere.objectgrid.security.ObjectGridPermission "*", "all";
+//    permission com.ibm.websphere.objectgrid.security.ServerMapPermission "*.*", "all";
+};

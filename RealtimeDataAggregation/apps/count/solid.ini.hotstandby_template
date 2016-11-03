@@ -1,0 +1,141 @@
+;/****************************************************************
+;**  File	 * solid.ini 
+;**              * 
+;**  Description * This is a predefined 'solid.ini' file for Solid
+;**		 * DatabaseEngine standalone evaluation database
+;**		 *
+;**  NOTE	 * Please note that most settings are initially 
+;**		 * commented out with ';' and SOLID executes using
+;**		 * the platform-specific default settings.
+;**              * In general, we recommend that you set at least 
+;**              * the following parameters:
+;**              *     Listen
+;**              *     FileSpec_1
+;**		 *
+;**  Copyright 	(c) 1992-2005 Solid Information Technology Ltd 
+;\****************************************************************/
+
+; Server connection definitions as logical names
+;[Data Sources]
+;Solid Database Engine eval server=tcp %LISTEN_PORT%, Local eval db connection
+
+[Com]
+
+;*** NETWORK NAME ***
+;Listen=<protocol> <name or port>
+;
+; Solid listens to the network using certain protocols and listening
+; names or port numbers. Client processes must use a matching network
+; name, when connecting to a server.
+; The default listening names vary depending on platform.
+; Select, edit and uncomment a suitable listening setting from below:
+Listen=tcpip %LISTEN_PORT%			; Generic
+;Listen=tcpip 2315, nmpipe SOLID	; Windows
+;Listen=tcpip 2315, shmem SOLID		; Windows
+;Listen=tcpip 2315, upipe SOLID		; Unix
+;Listen=tcpip 2315, decnet SOLID	; OpenVMS
+;Listen=spx SOLID			; NetWare
+
+[General]
+
+;*** DEFAULT STORAGE ***
+DefaultStoreIsMemory=yes   ;default: no
+;DefaultStoreIsMemory=no   ;default: no
+;
+; Location of a table created with unqualified (standard) CREATE TABLE
+
+;*** REMOVING LOG FILES AUTOMATICALLY IN DEVELOPMENT ENVIRONMENT
+;CheckPointDeleteLog=Yes
+;
+;You may use this parameter to instruct SOLID to erase all log files
+;after all data has been flushed to the database files from cache.
+;
+; WARNING!	This parameter should never be used in production
+;		environments as this makes it impossible to recover
+;		after failures to the latest committed transaction 
+;		by using the latest backup and log files.
+
+;*** BACKUP LOCATION ***
+;BackupDirectory=backup
+;BackupDirectory=<default_backup_path>
+;
+; The default location for backups in this package is the backup directory
+; under the working directory. Note, the backup directory can be 
+; given also as parameter to administration command 'backup'.
+; It is recommended to store the backups on a separate physical drive than
+; where the database files reside. 
+; Replace '<default_backup_path>' above with the actual directory, where 
+; backup files should be stored when 'backup' is started without parameters.
+
+
+[IndexFile]
+
+;*** DATABASE FILES ***
+;FileSpec_1=@CETA_SOLIDDB_FILE@ 2000m  ;filepath & maximum size in bytes
+FileSpec_1=%REGION_NAME%.db 2000m  ;filepath & maximum size in bytes
+; SOLID uses by default 'solid.db' as the first database file,
+; with maximum size of 2 gigabytes.
+; You may use m for megabytes or k for kilobytes.
+
+
+;*** CACHE SIZE ***
+;CacheSize=4m   ; bytes, default: 32m
+;
+; Solid uses platform specific default settings for cache size, until the
+; following setting is uncommented. 
+; Please use multiplies of 8KB (database file block size)
+; You may use m for megabytes or k for kilobytes.
+
+
+[Logging]
+LogEnabled=no     ;default: yes
+;LogEnabled=yes     ;default: yes
+;
+; If full transactional characteristics (ACID) are to be preserved,
+; the transaction log has to be enabled. Otherwise, results of
+; transactions executed since the last checkpoint may be lost.
+
+;*** LOG FILES LOCATION ***
+;FileNameTemplate=<log_file_path>sol#####.log
+FileNameTemplate=%REGION_NAME%_#####.log
+;
+; Solid writes by default the log files into the directory where it is
+; started. However, it is recommended to store the logfiles on a separate
+; physical drive than where the database files reside. 
+; Replace '<log_file_path>' above with the actual directory, where logfiles 
+; should be stored. The string '#####' will be substituted with the current
+; log file sequence number by SOLID when creating new log files.
+
+;*** TRANSACTION DURABILITY ***
+;DurabilityLevel=1; 1=relaxed durability; 2=adaptive, 3=strict, default:2
+; Without HSB, 2=3, resulting in strict durability.
+; If set to '1', asynchronous logging is used,
+; resulting in relaxed durability. A few latest transactions 
+; may be lost upon a server crash.
+
+
+[MME]
+;LockHashSize=1000    ;default: 1000000
+;
+; When in-memory tables are used, for fast access, the size of the 
+; lock hash table should correspond to twice the maximum result set cardinality. 
+; If in-memory tables are not used, a small value can be set (minimum is 1).
+; One entry of the table takes 4 bytes.
+
+[Sorter]
+;TmpDir_1=tmp
+;
+; The default location for temporary sorting files in this package is the 
+; tmp directory under the working directory. 
+; Note, if there are several SOLID processes running in the same server/device
+; they should have separate sorter directories
+
+[HotStandby]
+HsbEnabled=yes
+;Connect=tcp localhost 2325
+;Connect=tcp mtake1.dhcp.yamato.ibm.com 2325
+Connect=tcp %PEER_HOSTNAME% %PEER_PORT%
+;SafenessLevel=2safe		; 1safe, 2safe (default), auto
+;2SafeAckPolicy=1		; 1=2safe received (default), 2=2safe visible, 3=2safe durable
+;MaxMemLogSize=8M		; When file-based logging is disabled (Logging.LogEnabled=no), size of in-memory log before they are sent to the secondary (default 8M)
+;AutoPrimaryAlone=no		; If yes, server is automatically put in PRIMARY ALONE state (rather than PRIMARY UNCERTAIN state) when the connection to the secondary is broken. (default no)

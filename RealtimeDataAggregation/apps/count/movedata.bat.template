@@ -1,0 +1,45 @@
+rem =========================================
+rem current server name=@SERVERNAME@
+rem current region name=@REGIONNAME@
+rem =========================================
+
+@echo off
+if "%1" == "@SERVERNAME@" (
+  echo on
+  @echo the @REGIONNAME@ server is started at the same server
+) else (
+  echo on
+  if not exist solid_prev (
+    md solid_prev
+  )
+  if exist ..\@SERVERNAME@\@REGIONNAME@.db (
+    if exist .\@REGIONNAME@.db (
+      if exist solid_prev\@REGIONNAME@.db (
+          del solid_prev\@REGIONNAME@.db
+      )
+      move @REGIONNAME@.db solid_prev
+    )
+    if exist *.log (
+      if exist solid_prev\*.log (
+        del solid_prev\*.log
+      )
+      move *.log solid_prev
+    )
+    rem @echo call move "..\@SERVERNAME@\@REGIONNAME@.db" . 
+:MOVEDBFILE
+    call move "..\@SERVERNAME@\@REGIONNAME@.db" . 
+    if exist "..\@SERVERNAME@\@REGIONNAME@.db" (
+      ping localhost -n 3 > nul
+      GOTO MOVEDBFILE
+    )
+    @echo @REGIONNAME@.db was moved from ..\@SERVERNAME@ directory
+    rem @echo call move "..\@SERVERNAME@\*.log" . 
+:MOVELOGFILE
+    call move "..\@SERVERNAME@\*.log" . 
+    if exist "..\@SERVERNAME@\*.log" (
+      ping localhost -n 3 > nul
+      GOTO MOVELOGFILE
+    )
+    @echo log files were moved from ..\@SERVERNAME@ directory
+  )
+)
