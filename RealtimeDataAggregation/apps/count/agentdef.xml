@@ -20,7 +20,7 @@
     <agents>
         <!--system define-->
         <agent type="aggregateagent">
-            <handler message="initAgent" class="apps.count.agent.handler.InitAggregateAgentHandler"/>
+            <handler message="initAggregateAgent" class="apps.count.agent.handler.InitAggregateAgentHandler"/>
             <handler message="dispose" class="rda.agent.deletor.handler.DisposeHandler"/>
         </agent>
     </agents>
