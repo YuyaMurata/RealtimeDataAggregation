@@ -21,9 +21,8 @@ import rda.agent.message.InitMessage;
  * @author kaeru
  */
 public abstract class AgentCreator implements AgentExecutor, Serializable{
-    public String messageType;
-    public AgentCreator(String messageType) {
-        this.messageType = messageType;
+
+    public AgentCreator() {
     }
     
     AgentKey agentKey;
@@ -31,6 +30,11 @@ public abstract class AgentCreator implements AgentExecutor, Serializable{
     public AgentCreator(AgentKey agentKey, List state){
         this.agentKey = agentKey;
         this.state = state;
+    }
+    
+    public String messageType;
+    public void setMessageType(String messageType){
+       this.messageType = messageType; 
     }
     
     @Override
