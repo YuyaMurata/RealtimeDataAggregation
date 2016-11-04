@@ -30,7 +30,7 @@ public class AggregateAgentManager extends AgentManager{
     @Override
     public void setDestinationAgent() {
         //Test
-        this.ag = new AgentConnection(8, new String[]{"localhost:2809", "rdarank", "agent"});
+        this.ag = new AgentConnection(8, new String[]{"localhost:2809", "apps.count", "agent"});
     }
     
     @Override
