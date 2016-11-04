@@ -5,6 +5,8 @@
  */
 package apps.count.manager;
 
+import apps.count.agent.aggregate.creator.CreateAggregateAgent;
+import java.util.HashMap;
 import java.util.Map;
 import rda.agent.client.AgentConnection;
 import rda.agent.manager.AgentManager;
@@ -43,7 +45,12 @@ public class AggregateAgentManager extends AgentManager{
 
     @Override
     public void createAgent() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        CreateAggregateAgent creator = new CreateAggregateAgent();
+        for(int i=0; i < 10; i++){
+            Map setter = new HashMap();
+            setter.put("ID", "Agent#00"+i);
+            creator.create(setter);
+        }
     }
 
     @Override
