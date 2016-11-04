@@ -1,4 +1,4 @@
-package rda;
+package apps.count;
 
 import com.ibm.agent.exa.AgentException;
 import com.ibm.agent.exa.impl.HPAEntity;
