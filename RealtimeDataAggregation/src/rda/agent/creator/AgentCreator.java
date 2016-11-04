@@ -43,12 +43,14 @@ public abstract class AgentCreator implements AgentExecutor, Serializable{
     @Override
     public Object execute() {
         // TODO 自動生成されたメソッド・スタブ
+        System.out.println("rda.agent.creator.AgentCreator.execute()::"+agentKey);
+        
         try {
             AgentManager agentManager = AgentManager.getAgentManager();
             if (agentManager.exists(agentKey)) {
                 return "agent (" + agentKey + ") already exists";
             }
-		
+            
             agentManager.createAgent(agentKey);
 	
             MessageFactory factory = MessageFactory.getFactory();
