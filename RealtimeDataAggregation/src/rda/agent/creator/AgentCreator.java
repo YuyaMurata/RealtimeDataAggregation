@@ -26,8 +26,8 @@ public abstract class AgentCreator implements AgentExecutor, Serializable{
         this.messageType = messageType;
     }
     
-    public AgentKey agentKey;
-    public List state;
+    AgentKey agentKey;
+    List state;
     public AgentCreator(AgentKey agentKey, List state){
         this.agentKey = agentKey;
         this.state = state;
@@ -43,14 +43,12 @@ public abstract class AgentCreator implements AgentExecutor, Serializable{
     @Override
     public Object execute() {
         // TODO 自動生成されたメソッド・スタブ
-        return agentKey;
-        
-        /*try {
+        try {
             AgentManager agentManager = AgentManager.getAgentManager();
             if (agentManager.exists(agentKey)) {
                 return "agent (" + agentKey + ") already exists";
             }
-            
+		
             agentManager.createAgent(agentKey);
 	
             MessageFactory factory = MessageFactory.getFactory();
@@ -62,8 +60,9 @@ public abstract class AgentCreator implements AgentExecutor, Serializable{
 		
             return ret;
         } catch (AgentException | IllegalAccessException | InstantiationException e) {
-            return "nullpo!";
-        }*/
+        }
+		
+        return null;
     }
     
     public abstract void create(Map setter);

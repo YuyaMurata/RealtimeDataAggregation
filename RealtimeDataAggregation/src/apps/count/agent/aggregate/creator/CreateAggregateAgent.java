@@ -37,7 +37,7 @@ public class CreateAggregateAgent extends AgentCreator{
             AgentClient client = ag.getClient();
             
             String agID = (String)setter.get("ID");
-            agentKey = new AgentKey(AGENT_TYPE,new Object[]{agID});
+            AgentKey agentKey = new AgentKey(AGENT_TYPE,new Object[]{agID});
             
             //Create Agent
             List msgdata = new ArrayList();
