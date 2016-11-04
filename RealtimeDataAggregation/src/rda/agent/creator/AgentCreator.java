@@ -43,9 +43,9 @@ public abstract class AgentCreator implements AgentExecutor, Serializable{
     @Override
     public Object execute() {
         // TODO 自動生成されたメソッド・スタブ
-        System.out.println("rda.agent.creator.AgentCreator.execute()::"+agentKey);
+        return agentKey;
         
-        try {
+        /*try {
             AgentManager agentManager = AgentManager.getAgentManager();
             if (agentManager.exists(agentKey)) {
                 return "agent (" + agentKey + ") already exists";
@@ -63,7 +63,7 @@ public abstract class AgentCreator implements AgentExecutor, Serializable{
             return ret;
         } catch (AgentException | IllegalAccessException | InstantiationException e) {
             return "nullpo!";
-        }
+        }*/
     }
     
     public abstract void create(Map setter);
