@@ -42,7 +42,7 @@ public class CreateAggregateAgent extends AgentCreator{
             //Create Agent
             List msgdata = new ArrayList();
             msgdata.add("Aggregate Conditios :"+agID);
-            AgentCreator executor = new CreateAggregateAgent(agentKey, msgdata);
+            CreateAggregateAgent executor = new CreateAggregateAgent(agentKey, msgdata);
             
             Object reply = client.execute(agentKey, executor);
             
