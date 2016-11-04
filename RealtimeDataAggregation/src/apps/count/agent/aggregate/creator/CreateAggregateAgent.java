@@ -36,6 +36,8 @@ public class CreateAggregateAgent extends AgentCreator{
             AgentConnection ag = AggregateAgentManager.getInstance().getDestinationAgent();            
             AgentClient client = ag.getClient();
             
+            System.out.println("Client::"+client);
+            
             String agID = (String)setter.get("ID");
             agentKey = new AgentKey(AGENT_TYPE,new Object[]{agID});
             
