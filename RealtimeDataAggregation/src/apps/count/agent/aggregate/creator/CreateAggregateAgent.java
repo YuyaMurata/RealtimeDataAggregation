@@ -36,8 +36,6 @@ public class CreateAggregateAgent extends AgentCreator{
             AgentConnection ag = AggregateAgentManager.getInstance().getDestinationAgent();            
             AgentClient client = ag.getClient();
             
-            System.out.println("Client::"+client);
-            
             String agID = (String)setter.get("ID");
             agentKey = new AgentKey(AGENT_TYPE,new Object[]{agID});
             
@@ -45,6 +43,9 @@ public class CreateAggregateAgent extends AgentCreator{
             List msgdata = new ArrayList();
             msgdata.add("Aggregate Conditios :"+agID);
             CreateAggregateAgent executor = new CreateAggregateAgent(agentKey, msgdata);
+            
+            System.out.println("KEY::"+agentKey+" - "+executor);
+            
             Object reply = client.execute(agentKey, executor);
             
             System.out.println("Agent[" + agentKey + "] was created. Reply is [" + reply + "]");
