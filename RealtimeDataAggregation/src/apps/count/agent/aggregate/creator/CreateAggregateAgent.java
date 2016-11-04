@@ -20,15 +20,15 @@ import rda.agent.creator.AgentCreator;
  * @author kaeru
  */
 public class CreateAggregateAgent extends AgentCreator{
-    private final String AGENT_TYPE = "aggregateagent";
-    private final String MESSAGE_TYPE = "initAggregateAgent";
+    private static final String AGENT_TYPE = "aggregateagent";
+    private static final String MESSAGE_TYPE = "initAggregateAgent";
 
     public CreateAggregateAgent() {
         super();
     }
     
     public CreateAggregateAgent(AgentKey agentKey, List state){
-        super(agentKey, state);
+        super(agentKey, MESSAGE_TYPE, state);
     }
     
     @Override
@@ -45,7 +45,6 @@ public class CreateAggregateAgent extends AgentCreator{
             msgdata.add("Aggregate Conditios :"+agID);
             CreateAggregateAgent executor = new CreateAggregateAgent(agentKey, msgdata);
             
-            executor.setMessageType(messageType);
             Object reply = client.execute(agentKey, executor);
             
             System.out.println("Agent[" + agentKey + "] was created. Reply is [" + reply + "]");

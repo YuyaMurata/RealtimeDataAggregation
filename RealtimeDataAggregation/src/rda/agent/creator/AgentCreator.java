@@ -26,15 +26,12 @@ public abstract class AgentCreator implements AgentExecutor, Serializable{
     }
     
     AgentKey agentKey;
+    String msgtype;
     List state;
-    public AgentCreator(AgentKey agentKey, List state){
+    public AgentCreator(AgentKey agentKey, String msgtype, List state){
         this.agentKey = agentKey;
+        this.msgtype = msgtype;
         this.state = state;
-    }
-    
-    public String messageType;
-    public void setMessageType(String messageType){
-       this.messageType = messageType; 
     }
     
     @Override
@@ -56,7 +53,7 @@ public abstract class AgentCreator implements AgentExecutor, Serializable{
             agentManager.createAgent(agentKey);
 	
             MessageFactory factory = MessageFactory.getFactory();
-            InitMessage msg = (InitMessage)factory.getMessage(messageType);
+            InitMessage msg = (InitMessage)factory.getMessage(msgtype);
 		
             msg.setParams(state);
 		
