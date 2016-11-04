@@ -60,9 +60,8 @@ public abstract class AgentCreator implements AgentExecutor, Serializable{
 		
             return ret;
         } catch (AgentException | IllegalAccessException | InstantiationException e) {
+            return e;
         }
-		
-        return null;
     }
     
     public abstract void create(Map setter);
