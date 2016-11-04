@@ -21,7 +21,7 @@ import rda.agent.message.InitMessage;
  * @author kaeru
  */
 public abstract class AgentCreator implements AgentExecutor, Serializable{
-    private String messageType;
+    public String messageType;
     public AgentCreator(String messageType) {
         this.messageType = messageType;
     }
