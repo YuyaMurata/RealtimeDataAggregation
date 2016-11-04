@@ -62,7 +62,7 @@ public abstract class AgentCreator implements AgentExecutor, Serializable{
 		
             return ret;
         } catch (AgentException | IllegalAccessException | InstantiationException e) {
-            return e;
+            return "nullpo!";
         }
     }
     
