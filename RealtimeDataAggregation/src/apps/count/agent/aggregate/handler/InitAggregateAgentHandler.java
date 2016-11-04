@@ -1,5 +1,6 @@
 package apps.count.agent.aggregate.handler;
 
+import apps.count.Aggregateagent;
 import java.sql.Timestamp;
 
 import rda.agent.message.InitMessage;
@@ -25,12 +26,12 @@ public class InitAggregateAgentHandler extends MessageHandler {
             //Aggregatecondition cond = agent.createCondition(tx);
 
             // 集約条件をセット
-            cond.setConditions(tx, initMsg.msgdata.get(0));
+            //cond.setConditions(tx, initMsg.msgdata.get(0));
                         
             // 登録日
             Long time = System.currentTimeMillis();
             Timestamp registerTime = new Timestamp(time);
-            cond.setLastAccessTime(tx, registerTime);
+            //cond.setLastAccessTime(tx, registerTime);
 
             //AggregateAgent初期化
             //データのクリア

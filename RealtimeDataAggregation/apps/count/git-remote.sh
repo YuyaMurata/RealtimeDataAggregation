@@ -12,13 +12,12 @@ done
 
 if [ "$FLG_F" = "TRUE" ]; then
     echo "delete of classes folder"
-    rm -fR $CETA_HOME/classes/rda
-    rm -fR $CETA_HOME/classes/test
+    rm -fR $CETA_HOME/classes/*
 fi
 
-ant -f ../build.xml > agentsystem_ant-buid.log
+ant -f ../../build.xml > agentsystem_ant-buid.log
 tail -n 2 agentsystem_ant-buid.log
 
-\cp -fr ../build/classes/* $CETA_HOME/classes
+\cp -fr ../../build/classes/* $CETA_HOME/classes
 
 chmod 777 *.sh
