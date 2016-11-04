@@ -1,4 +1,4 @@
-package rda.agent.handler;
+package apps.count.agent.aggregate.handler;
 
 import java.sql.Timestamp;
 
@@ -7,7 +7,6 @@ import rda.agent.message.InitMessage;
 import com.ibm.agent.exa.Message;
 import com.ibm.agent.exa.MessageHandler;
 import com.ibm.agent.exa.TxID;
-import rda.Aggregateagent;
 
 /**
  *　INITメッセージのメッセージハンドラ．エージェントのデータの初期化を行う．

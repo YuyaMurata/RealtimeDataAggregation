@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<agentdef package="rda" version="rda1.0">
+<agentdef package="apps.count" version="rda1.0">
     <entities>
         <!--AggregateAgent Entity define-->
         <entity type="aggregateagent">
@@ -20,7 +20,7 @@
     <agents>
         <!--system define-->
         <agent type="aggregateagent">
-            <handler message="initAggregateAgent" class="apps.count.agent.handler.InitAggregateAgentHandler"/>
+            <handler message="initAggregateAgent" class="apps.count.agent.aggregate.handler.InitAggregateAgentHandler"/>
             <handler message="dispose" class="rda.agent.deletor.handler.DisposeHandler"/>
         </agent>
     </agents>
