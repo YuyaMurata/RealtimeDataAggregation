@@ -44,7 +44,7 @@ public abstract class AgentCreator implements AgentExecutor, Serializable{
     public Object execute() {
         // TODO 自動生成されたメソッド・スタブ
         try {
-            AgentKey agentKey = new AgentKey("aggregateagent",new Object[]{"U#000"});
+            //AgentKey agentKey = new AgentKey("aggregateagent",new Object[]{"U#000"});
             
             AgentManager agentManager = AgentManager.getAgentManager();
             if (agentManager.exists(agentKey)) {
