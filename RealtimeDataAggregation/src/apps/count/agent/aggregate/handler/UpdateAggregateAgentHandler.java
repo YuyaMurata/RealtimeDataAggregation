@@ -46,6 +46,6 @@ public class UpdateAggregateAgentHandler  extends MessageHandler{
         Long time = System.currentTimeMillis();
         Timestamp updateTime = new Timestamp(time);
         
-        return 0L;
+        return updateData;
     }
 }

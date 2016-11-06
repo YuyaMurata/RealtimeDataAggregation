@@ -42,6 +42,8 @@ public class UpdateAggregateAgent extends AgentUpdator{
             
             Object reply = client.execute(agentKey, executor);
             
+            System.out.println("Update "+agID+" = "+reply);
+            
             ag.returnConnection(client);
         } catch (AgentException e) {
             e.printStackTrace();

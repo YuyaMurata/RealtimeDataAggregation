@@ -65,7 +65,7 @@ public abstract class AgentUpdator implements AgentExecutor, Externalizable{
             //Sync Message
             Object ret = agentManager.sendMessage(agentKey, msg);
             //agentManager.putMessage(agentKey, msg);
-
+            
             return ret;
         } catch (IllegalAccessException | InstantiationException e) {
             // TODO 自動生成された catch ブロック
