@@ -18,7 +18,7 @@ import rda.agent.reader.AgentReader;
 public class ReadAggregateAgent extends AgentReader {
 
     private static final String AGENT_TYPE = "aggregateagent";
-    private static final String MESSAGE_TYPE = "updateAggregateAgent";
+    private static final String MESSAGE_TYPE = "readAggregateAgent";
 
     public ReadAggregateAgent() {
     }
