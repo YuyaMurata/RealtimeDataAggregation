@@ -43,7 +43,7 @@ public class AgentSystemMain {
             
             msgdata.add(data);
             
-            updator.update("Agent#00"+i, data);
+            updator.update("Agent#00"+i, msgdata);
         }
         
         //Read Test
