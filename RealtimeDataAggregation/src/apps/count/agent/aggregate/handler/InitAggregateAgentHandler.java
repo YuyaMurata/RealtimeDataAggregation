@@ -40,7 +40,6 @@ public class InitAggregateAgentHandler extends MessageHandler {
             agent.setConnectionCount(tx, 0);
             
             agent.setMessageLatency(tx, 0);
-            agent.setMessageQueueLength(tx, 0);
 
             // set Agent Log
             //Log log = agent.createLog(tx, "init");
