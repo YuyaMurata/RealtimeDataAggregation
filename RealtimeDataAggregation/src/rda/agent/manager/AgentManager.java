@@ -19,7 +19,6 @@ public abstract class AgentManager {
     public abstract AgentConnection getDestinationAgent();
     
     public abstract void setAgentParameter(Map param);
-    public abstract void createAgent();
     
     public abstract void shutdown();
 }

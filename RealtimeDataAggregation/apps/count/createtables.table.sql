@@ -29,7 +29,6 @@ CREATE TRANSIENT TABLE aggregateagent (
     Data BIGINT,
     ConnectionCount BIGINT,
     MessageLatency BIGINT,
-    MessageQueueLength BIGINT,
     PRIMARY KEY(AgentID)
 );
 COMMIT WORK;

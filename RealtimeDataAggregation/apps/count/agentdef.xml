@@ -7,13 +7,14 @@
             <attribute name="Data" type="long" />
             <attribute name="ConnectionCount" type="long" />
             <attribute name="MessageLatency" type="long" />
-            <attribute name="MessageQueueLength" type="long" />
         </entity>
     </entities>
     <messages>
         <!--system define-->
         <!--AggregateAgent Messages -->
         <message type="initAggregateAgent" class="rda.agent.message.InitMessage"/>
+        <message type="updateAggregateAgent" class="rda.agent.message.UpdateMessage"/>
+        <message type="readAggregateAgent" />
         <!--agent system define-->
         <message type="dispose" />
     </messages>
@@ -21,6 +22,8 @@
         <!--system define-->
         <agent type="aggregateagent">
             <handler message="initAggregateAgent" class="apps.count.agent.aggregate.handler.InitAggregateAgentHandler"/>
+            <handler message="updateAggregateAgent" class="apps.count.agent.aggregate.handler.UpdateAggregateAgentHandler"/>
+            <handler message="readAggregateAgent" class="apps.count.agent.aggregate.handler.ReadAggregateAgentHandler"/>
             <handler message="dispose" class="rda.agent.deletor.handler.DisposeHandler"/>
         </agent>
     </agents>

@@ -8,13 +8,16 @@ import com.ibm.agent.exa.AgentKey;
 import com.ibm.agent.exa.AgentManager;
 import com.ibm.agent.exa.Message;
 import com.ibm.agent.exa.MessageFactory;
+import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.exa.client.AgentExecutor;
+import java.util.Set;
+import rda.agent.client.AgentConnection;
 
 /**
  * 全エージェントに削除指令を示すDISPOSEメッセージを送信するエグゼキュータ． エージェントはDISPOSEメッセージを受信すると，自ら削除処理を行う．
  * この削除処理はエージェントメッセージハンドラを抜けた後に行われる．
  */
-abstract class Dispose implements AgentExecutor, Serializable {
+public class Dispose implements AgentExecutor, Serializable {
 
     /**
      *
@@ -50,9 +53,6 @@ abstract class Dispose implements AgentExecutor, Serializable {
         }
     }
     
-    public abstract void delete();
-    
-    /*
     public void delete(AgentConnection ag) {
         // エージェントクライアントの生成
         AgentClient client = ag.getClient();
@@ -84,5 +84,5 @@ abstract class Dispose implements AgentExecutor, Serializable {
         }
 
         ag.close();
-    }*/
+    }
 }
