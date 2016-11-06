@@ -75,7 +75,9 @@ public class Dispose implements AgentExecutor, Serializable {
                 Set<AgentKey> keySet = retFromAgents.keySet();
                 for (AgentKey agentKey : keySet) {
                     String message = (String) retFromAgents.get(agentKey);
-                    System.out.println(agentKey + ":" + message);
+                    System.out.println("Delete "+ agentKey + ":" + message);
+                    
+                    System.out.println("Delete [" + agentKey + "] was deleted. Reply is [" + message + "]");
                 }
             }
         } catch (Exception e) {

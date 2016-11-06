@@ -47,7 +47,7 @@ public class CreateAggregateAgent extends AgentCreator{
             
             Object reply = client.execute(agentKey, executor);
             
-            System.out.println("Agent[" + agentKey + "] was created. Reply is [" + reply + "]");
+            System.out.println("Create [" + agentKey + "] was created. Reply is [" + reply + "]");
             
             ag.returnConnection(client);
             
