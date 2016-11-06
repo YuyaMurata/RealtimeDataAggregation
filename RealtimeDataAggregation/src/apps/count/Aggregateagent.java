@@ -12,7 +12,6 @@ import com.ibm.agent.exa.TxID;
  * attribute name="Data" type="LONG" <br>
  * attribute name="ConnectionCount" type="LONG" <br>
  * attribute name="MessageLatency" type="LONG" <br>
- * attribute name="MessageQueueLength" type="LONG" <br>
 **/
 public class Aggregateagent extends HPAEntity {
     /**
@@ -44,11 +43,6 @@ public class Aggregateagent extends HPAEntity {
     * Column index of MessageLatency
     **/
     public static final int MESSAGELATENCY = 3;
-
-    /**
-    * Column index of MessageQueueLength
-    **/
-    public static final int MESSAGEQUEUELENGTH = 4;
 
     /**
      * This constructor is used by the runtime.
@@ -127,24 +121,6 @@ public class Aggregateagent extends HPAEntity {
     public final void  setMessageLatency(TxID tx, long value) throws AgentException {
         // generated code
         setLong(tx,3,value);
-    }
-
-    /**
-     * @return MessageQueueLength
-     **/
-    public final long getMessageQueueLength(TxID tx) {
-        // generated code
-        return getLong(tx,4);
-    }
-
-    /**
-     * Set a value to MessageQueueLength. 
-     * @param tx a transaction context
-     * @param value a value to be set to MessageQueueLength
-     **/
-    public final void  setMessageQueueLength(TxID tx, long value) throws AgentException {
-        // generated code
-        setLong(tx,4,value);
     }
 
 }
