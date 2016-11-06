@@ -38,7 +38,8 @@ public class AgentSystemMain {
         for(int i=0; i < 10; i++){
             List msgdata = new ArrayList();
             List data = new ArrayList();
-            for(int j=0; j < i; j++) data.add(1);
+            data.add(0L);
+            for(int j=0; j < i; j++) data.add(1L);
             
             msgdata.add(data);
             
