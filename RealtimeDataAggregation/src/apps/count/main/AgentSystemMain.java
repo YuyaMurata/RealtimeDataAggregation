@@ -50,7 +50,7 @@ public class AgentSystemMain {
         ReadAggregateAgent reader = new ReadAggregateAgent();
         for(int i=0; i < 10; i++){
             Object d = reader.read(manager.getDestinationAgent(), "Agent#00"+i);
-            System.out.println("Agent#00"+i+" = "+d);
+            System.out.println("Read Agent#00"+i+" = "+d);
         }
         
         //Delete Test
