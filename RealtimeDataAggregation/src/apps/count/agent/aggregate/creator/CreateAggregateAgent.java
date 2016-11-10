@@ -5,55 +5,65 @@
  */
 package apps.count.agent.aggregate.creator;
 
-import apps.count.manager.AggregateAgentManager;
+import apps.count.agent.aggregate.profile.AggregateAgentProfile;
 import com.ibm.agent.exa.AgentException;
 import com.ibm.agent.exa.AgentKey;
 import com.ibm.agent.exa.client.AgentClient;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import rda.agent.client.AgentConnection;
 import rda.agent.creator.AgentCreator;
 
 /**
  *
  * @author kaeru
  */
-public class CreateAggregateAgent extends AgentCreator{
+public class CreateAggregateAgent extends AgentCreator {
+
     private static final String AGENT_TYPE = "aggregateagent";
     private static final String MESSAGE_TYPE = "initAggregateAgent";
 
     public CreateAggregateAgent() {
         super();
     }
-    
-    public CreateAggregateAgent(AgentKey agentKey, List state){
+
+    public CreateAggregateAgent(AgentKey agentKey, List state) {
         super(agentKey, MESSAGE_TYPE, state);
     }
-    
+
     @Override
-    public void create(Map setter) {
+    public String create(AgentClient client, Map setter) {
         try {
-            AgentConnection ag = AggregateAgentManager.getInstance().getDestinationAgent();            
-            AgentClient client = ag.getClient();
-            
-            String agID = (String)setter.get("ID");
-            AgentKey agentKey = new AgentKey(AGENT_TYPE,new Object[]{agID});
-            
+            String agID = (String) setter.get(AggregateAgentProfile.paramID.ID);
+            AgentKey agentKey = new AgentKey(AGENT_TYPE, new Object[]{agID});
+
             //Create Agent
-            List msgdata = new ArrayList();
-            msgdata.add("Aggregate Conditios :"+agID);
+            List msgdata = (List) setter.get(AggregateAgentProfile.paramID.MESSAG_DATA);
             CreateAggregateAgent executor = new CreateAggregateAgent(agentKey, msgdata);
-            
+
             Object reply = client.execute(agentKey, executor);
             
-            System.out.println("Create [" + agentKey + "] was created. Reply is [" + reply + "]");
-            
-            ag.returnConnection(client);
-            
-            //return mq;
+            String msg = "Create [" + agentKey + "] was created. Reply is [" + reply + "]";
+            System.out.println(msg);
+
+            return msg;
         } catch (AgentException e) {
-            //return null;
+            return e.toString();
         }
+    }
+
+    @Override
+    public String create(Map setter) {
+        String agID = (String) setter.get(AggregateAgentProfile.paramID.ID);
+        AgentKey agentKey = new AgentKey(AGENT_TYPE, new Object[]{agID});
+
+        //Create Agent
+        List msgdata = (List) setter.get(AggregateAgentProfile.paramID.MESSAG_DATA);
+        CreateAggregateAgent executor = new CreateAggregateAgent(agentKey, msgdata);
+
+        Object reply = executor.execute();
+        
+        String msg = "Create [" + agentKey + "] was created. Reply is [" + reply + "]";
+        
+        return msg;
     }
 }

@@ -9,6 +9,7 @@ import com.ibm.agent.exa.AgentKey;
 import com.ibm.agent.exa.AgentException;
 import com.ibm.agent.exa.AgentManager;
 import com.ibm.agent.exa.MessageFactory;
+import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.exa.client.AgentExecutor;
 import java.io.Serializable;
 import java.util.Collection;
@@ -66,5 +67,7 @@ public abstract class AgentCreator implements AgentExecutor, Serializable{
         }
     }
     
-    public abstract void create(Map setter);
+    public abstract String create(AgentClient client, Map setter);
+    
+    public abstract String create(Map setter);
 }
