@@ -59,7 +59,7 @@ public class AgentSystemInitializer implements AgentExecutor, Serializable {
             else
                 reply = client.executeAt(regionName, executor);
             
-            String msg = "Initializer : " + "Reply is " + reply;
+            String msg = "Initialize AgentSystemExtension : Reply is " + reply;
             
             return msg;
         } catch (AgentException ex) {
