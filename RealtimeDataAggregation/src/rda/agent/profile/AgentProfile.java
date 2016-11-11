@@ -5,6 +5,7 @@
  */
 package rda.agent.profile;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,7 @@ import java.util.Map;
  *
  * @author kaeru
  */
-public abstract class AgentProfile {
+public abstract class AgentProfile implements Serializable{
     private Map<String, Map> profile = new HashMap();
     public AgentProfile(List agIDLists){
         this.profile = initAgentProfile(agIDLists);
