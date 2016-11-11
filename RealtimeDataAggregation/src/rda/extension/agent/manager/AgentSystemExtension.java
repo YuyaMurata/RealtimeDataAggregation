@@ -13,6 +13,7 @@ import java.util.Properties;
 import rda.agent.creator.AgentCreator;
 import rda.agent.profile.AgentProfile;
 import rda.agent.profile.AgentProfileGenerator;
+import rda.extension.agent.exec.AgentSystemInitializer;
 
 /**
  *
@@ -96,14 +97,10 @@ public class AgentSystemExtension implements Extension {
         System.out.println("    ***      ************  **********       ***    ");
     }
     
-    public static enum paramID {
-        AGENT_PROFILE, AGENT_CREATOR
-    }
-    
     public String initAgentSystem(Map param){
         try{
-            agentProf = new AgentProfileGenerator((AgentProfile)param.get(paramID.AGENT_PROFILE));
-            creator = (AgentCreator) param.get(paramID.AGENT_CREATOR);
+            agentProf = new AgentProfileGenerator((AgentProfile)param.get(AgentSystemInitializer.paramID.AGENT_PROFILE));
+            creator = (AgentCreator) param.get(AgentSystemInitializer.paramID.AGENT_CREATOR);
             
             return "Success AgentSystem Initialize !";
         }catch(Exception e){

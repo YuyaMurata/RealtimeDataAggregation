@@ -17,9 +17,8 @@ import java.util.List;
 import java.util.Map;
 import rda.agent.client.AgentConnection;
 import rda.agent.deletor.Dispose;
-import rda.agent.profile.AgentProfile;
 import rda.agent.profile.AgentProfileGenerator;
-import rda.extension.agent.manager.AgentSystemExtension;
+import rda.extension.agent.exec.AgentSystemInitializer;
 
 /**
  *
@@ -43,15 +42,25 @@ public class AgentSystemMain {
         AgentConnection ag = manager.getDestinationAgent();
         AgentClient client = ag.getClient();
         
-        //Create Agent
+        //Extension Initialize
+        Map param = new HashMap();
+        AgentSystemInitializer init = new AgentSystemInitializer();
+        CreateAggregateAgent creator = new CreateAggregateAgent();
+        param.put(AgentSystemInitializer.paramID.REGION_NAME, "");
+        param.put(AgentSystemInitializer.paramID.AGENT_CREATOR, creator);
+        param.put(AgentSystemInitializer.paramID.AGENT_PROFILE, agentProf);
+        Object msg = init.initalize(client, param);
+        System.out.println(msg);
+        
+        //Client
+        ag.returnConnection(client);
+        
+        /*//Create Agent
         CreateAggregateAgent creator = new CreateAggregateAgent();
         for(String agID : (List<String>)agIDLists){
             Map setter = agentProf.generate(agID);
             creator.create(client, setter);
         }
-        
-        //Client
-        ag.returnConnection(client);
         
         //Update Test
         UpdateAggregateAgent updator = new UpdateAggregateAgent();
@@ -75,5 +84,6 @@ public class AgentSystemMain {
         //Delete Test
         Dispose deletor = new Dispose();
         deletor.delete(manager.getDestinationAgent());
+        */
     }
 }
