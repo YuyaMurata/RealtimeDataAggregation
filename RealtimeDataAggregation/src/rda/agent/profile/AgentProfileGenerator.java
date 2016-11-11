@@ -5,14 +5,14 @@
  */
 package rda.agent.profile;
 
+import java.io.Serializable;
 import java.util.Map;
-import sun.java2d.cmm.Profile;
 
 /**
  *
  * @author kaeru
  */
-public class AgentProfileGenerator {
+public class AgentProfileGenerator implements Serializable{
     private AgentProfile prof;
     
     public AgentProfileGenerator(AgentProfile prof) {
