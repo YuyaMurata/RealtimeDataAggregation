@@ -113,24 +113,10 @@ public class AgentSystemExtension implements Extension {
         }
     }
 
-    public String createAgent(AgentClient client, String agID) {
+    public String createAgent(String agID) {
         Map setter = agentProf.generate(agID);
-        System.out.println(agID+":"+setter);
-        String msg = creator.create(client, setter);
+        String msg = creator.create(setter);
         
         return msg;
-    }
-
-    public String createAgents(List agIDLists) {
-        StringBuilder sb = new StringBuilder();
-        for (String agID : (List<String>) agIDLists) {
-            Map setter = agentProf.generate(agID);
-            String msg = creator.create(setter);
-
-            sb.append(msg);
-            sb.append("\n");
-        }
-
-        return sb.toString();
     }
 }

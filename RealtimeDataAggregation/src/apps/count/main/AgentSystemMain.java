@@ -55,7 +55,6 @@ public class AgentSystemMain {
         
         //Create Agent
         AgentSystemCreator agCreate = new AgentSystemCreator();
-        param = new HashMap();
         param.put(AgentSystemCreator.paramID.AGENT_LISTS, agIDLists);
         msg = agCreate.creator(client, param);
         System.out.println(msg);
