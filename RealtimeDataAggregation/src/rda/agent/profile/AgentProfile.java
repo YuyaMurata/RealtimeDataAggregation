@@ -25,4 +25,15 @@ public abstract class AgentProfile implements Serializable{
     public Map getProfile(String agID){
         return profile.get(agID);
     }
+    
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        for(String agID : profile.keySet()){
+            sb.append(agID);
+            sb.append(" : ");
+            sb.append(profile.get(agID));
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
 }

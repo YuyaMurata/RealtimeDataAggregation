@@ -37,9 +37,6 @@ public class AgentSystemInitializer implements AgentExecutor, Serializable {
     }
 
     @Override
-    /**
-     * 全エージェントにDISPOSEメッセージを送信する．
-     */
     public Object execute() {
         AgentSystemExtension extension = AgentSystemExtension.getInstance();
         String msg = extension.initAgentSystem(param);

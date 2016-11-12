@@ -106,7 +106,10 @@ public class AgentSystemExtension implements Extension {
         try {
             agentProf = (AgentProfileGenerator) param.get(AgentSystemInitializer.paramID.AGENT_PROFILE);
             creator = (AgentCreator) param.get(AgentSystemInitializer.paramID.AGENT_CREATOR);
-
+            
+            System.out.println(regionName + "[Success AgentSystem Initialize !]");
+            System.out.println(agentProf.toString());
+            
             return regionName + "[Success AgentSystem Initialize !]";
         } catch (Exception e) {
             return e.toString();
