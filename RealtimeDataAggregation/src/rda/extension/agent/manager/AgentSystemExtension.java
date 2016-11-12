@@ -115,6 +115,7 @@ public class AgentSystemExtension implements Extension {
 
     public String createAgent(AgentClient client, String agID) {
         Map setter = agentProf.generate(agID);
+        System.out.println(agID+":"+setter);
         String msg = creator.create(client, setter);
         
         return msg;
