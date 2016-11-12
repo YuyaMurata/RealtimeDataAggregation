@@ -50,15 +50,9 @@ public class AgentSystemInitializer implements AgentExecutor, Serializable {
     public String initalize(AgentClient client, Map param){
         try {
             AgentSystemInitializer executor = new AgentSystemInitializer(param);
-            
-            String regionName = (String) param.get(paramID.REGION_NAME);
 
-            Object reply;
-            if(regionName.equals(""))
-                reply = client.execute(executor);
-            else
-                reply = client.executeAt(regionName, executor);
-            
+            Object reply = client.execute(executor);
+
             String msg = "Initialize AgentSystemExtension : Reply is " + reply;
             
             return msg;

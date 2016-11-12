@@ -18,6 +18,7 @@ import java.util.Map;
 import rda.agent.client.AgentConnection;
 import rda.agent.deletor.Dispose;
 import rda.agent.profile.AgentProfileGenerator;
+import rda.extension.agent.exec.AgentSystemCreator;
 import rda.extension.agent.exec.AgentSystemInitializer;
 
 /**
@@ -44,25 +45,24 @@ public class AgentSystemMain {
         
         //Extension Initialize
         Map param = new HashMap();
-        AgentSystemInitializer init = new AgentSystemInitializer();
+        AgentSystemInitializer agInit = new AgentSystemInitializer();
         CreateAggregateAgent creator = new CreateAggregateAgent();
         param.put(AgentSystemInitializer.paramID.REGION_NAME, "");
         param.put(AgentSystemInitializer.paramID.AGENT_CREATOR, creator);
         param.put(AgentSystemInitializer.paramID.AGENT_PROFILE, agentProf);
-        Object msg = init.initalize(client, param);
+        Object msg = agInit.initalize(client, param);
         System.out.println(msg);
+        
+        //Create Agent
+        AgentSystemCreator agCreate = new AgentSystemCreator();
+        param = new HashMap();
+        param.put(AgentSystemCreator.paramID.AGENT_LISTS, agIDLists);
+        agCreate.creator(client, param);
         
         //Client
         ag.returnConnection(client);
         
-        /*//Create Agent
-        CreateAggregateAgent creator = new CreateAggregateAgent();
-        for(String agID : (List<String>)agIDLists){
-            Map setter = agentProf.generate(agID);
-            creator.create(client, setter);
-        }
-        
-        //Update Test
+        /*//Update Test
         UpdateAggregateAgent updator = new UpdateAggregateAgent();
         for(String agID : (List<String>)agIDLists){
             List msgdata = new ArrayList();

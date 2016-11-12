@@ -6,6 +6,7 @@
 package rda.extension.agent.manager;
 
 import com.ibm.agent.exa.AgentKey;
+import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.soliddb.extension.Extension;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ import rda.extension.agent.exec.AgentSystemInitializer;
  * @author kaeru
  */
 public class AgentSystemExtension implements Extension {
+
     private static AgentSystemExtension extention = new AgentSystemExtension();
 
     public static AgentSystemExtension getInstance() {
@@ -29,7 +31,7 @@ public class AgentSystemExtension implements Extension {
 
     public AgentSystemExtension() {
     }
-    
+
     // リージョン名
     String regionName;
 
@@ -63,13 +65,14 @@ public class AgentSystemExtension implements Extension {
             startService();
         }
     }
-    
+
     private Boolean runnable;
+
     @Override
     public void shutdown() {
         this.runnable = false;
     }
-    
+
     @Override
     public void start(int serverRole, String regionName) throws Exception {
         // リージョン名のセット
@@ -82,7 +85,7 @@ public class AgentSystemExtension implements Extension {
             startService();
         }
     }
-    
+
     private void startService() {
         System.out.println("Start AgentSystem Extension");
 
@@ -95,30 +98,38 @@ public class AgentSystemExtension implements Extension {
         System.out.println("    ***      ************ ************      ***    ");
         System.out.println("    ***      ************  **********       ***    ");
     }
-    
-    public String initAgentSystem(Map param){
-        try{
-            agentProf = (AgentProfileGenerator)param.get(AgentSystemInitializer.paramID.AGENT_PROFILE);
+
+    private AgentProfileGenerator agentProf;
+    private AgentCreator creator;
+
+    public String initAgentSystem(Map param) {
+        try {
+            agentProf = (AgentProfileGenerator) param.get(AgentSystemInitializer.paramID.AGENT_PROFILE);
             creator = (AgentCreator) param.get(AgentSystemInitializer.paramID.AGENT_CREATOR);
-            
-            return regionName+"[Success AgentSystem Initialize !]";
-        }catch(Exception e){
+
+            return regionName + "[Success AgentSystem Initialize !]";
+        } catch (Exception e) {
             return e.toString();
         }
     }
-    
-    private AgentProfileGenerator agentProf;
-    private AgentCreator creator;
-    public String createAgents(List agIDLists){
+
+    public String createAgent(AgentClient client, String agID) {
+        Map setter = agentProf.generate(agID);
+        String msg = creator.create(client, setter);
+        
+        return msg;
+    }
+
+    public String createAgents(List agIDLists) {
         StringBuilder sb = new StringBuilder();
-        for(String agID : (List<String>)agIDLists){
+        for (String agID : (List<String>) agIDLists) {
             Map setter = agentProf.generate(agID);
             String msg = creator.create(setter);
-            
+
             sb.append(msg);
             sb.append("\n");
         }
-        
+
         return sb.toString();
     }
 }
