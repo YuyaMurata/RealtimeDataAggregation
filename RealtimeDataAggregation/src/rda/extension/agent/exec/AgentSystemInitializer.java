@@ -6,6 +6,7 @@
 package rda.extension.agent.exec;
 
 import com.ibm.agent.exa.AgentException;
+import com.ibm.agent.exa.AgentManager;
 import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.exa.client.AgentExecutor;
 import java.io.Serializable;
@@ -41,7 +42,10 @@ public class AgentSystemInitializer implements AgentExecutor, Serializable {
         AgentSystemExtension extension = AgentSystemExtension.getInstance();
         String msg = extension.initAgentSystem(param);
         
-        return msg;
+        AgentManager am = AgentManager.getAgentManager();
+        String regionName = am.getRegionName();
+        
+        return regionName + " : " + msg;
     }
     
     public String initalize(AgentClient client, Map param){
