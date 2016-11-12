@@ -22,4 +22,8 @@ public class AgentProfileGenerator implements Serializable{
     public Map generate(String agID){
         return prof.getProfile(agID);
     }
+    
+    public String toString(){
+        return prof.toString();
+    }
 }
