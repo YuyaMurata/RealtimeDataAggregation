@@ -87,7 +87,7 @@ public class AgentSystemExtension implements Extension {
     }
 
     private void startService() {
-        System.out.println("Start AgentSystem Extension");
+        System.out.println("Start AgentSystem Extension Region-"+regionName);
 
         System.out.println("************ ************  **********  ************");
         System.out.println("************ ************ ************ ************");
