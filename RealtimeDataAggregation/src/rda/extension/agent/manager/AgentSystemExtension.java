@@ -123,7 +123,12 @@ public class AgentSystemExtension implements Extension {
     public String createAgent(String agID) {
         Map setter = agentProf.generate(agID);
         String msg = creator.create(setter);
+        
+        try{
         agentMap.put(agID, new AgentMessageQueue(agID, updator));
+        }catch(Exception e){
+            msg = msg +" , "+e.toString();
+        }
         
         return msg;
     }
