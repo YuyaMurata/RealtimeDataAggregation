@@ -5,12 +5,10 @@
  */
 package apps.count.agent.aggregate.updator;
 
-import apps.count.manager.AggregateAgentManager;
 import com.ibm.agent.exa.AgentException;
 import com.ibm.agent.exa.AgentKey;
 import com.ibm.agent.exa.client.AgentClient;
 import java.util.List;
-import rda.agent.client.AgentConnection;
 import rda.agent.updator.AgentUpdator;
 
 /**
@@ -29,13 +27,10 @@ public class UpdateAggregateAgent extends AgentUpdator{
     }
     
     @Override
-    public void update(String agID, List data) {
+    public void update(AgentClient client, String agID, List data) {
         if(data == null) return;
         
-        try {
-            AgentConnection ag = AggregateAgentManager.getInstance().getDestinationAgent();
-            AgentClient client = ag.getClient();
-            
+        try {    
             AgentKey agentKey = new AgentKey(AGENT_TYPE, new Object[]{agID});
                 
             UpdateAggregateAgent executor = new UpdateAggregateAgent(agentKey, agID, data);
@@ -44,10 +39,21 @@ public class UpdateAggregateAgent extends AgentUpdator{
             
             System.out.println("Update "+agID+" = "+reply);
             
-            ag.returnConnection(client);
         } catch (AgentException e) {
             e.printStackTrace();
         } 
+    }
+
+    @Override
+    public void update(String agID, List data) {
+        AgentKey agentKey = new AgentKey(AGENT_TYPE, new Object[]{agID});
+
+        //Update Agent
+        UpdateAggregateAgent executor = new UpdateAggregateAgent(agentKey, agID, data);
+
+        Object reply = executor.execute();
+        
+        String msg = "Update [" + agentKey + "] was updated. Reply is [" + reply + "]";
     }
     
 }

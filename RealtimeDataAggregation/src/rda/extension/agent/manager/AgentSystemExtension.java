@@ -8,11 +8,14 @@ package rda.extension.agent.manager;
 import com.ibm.agent.exa.AgentKey;
 import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.soliddb.extension.Extension;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import rda.agent.creator.AgentCreator;
+import rda.agent.mq.AgentMessageQueue;
 import rda.agent.profile.AgentProfileGenerator;
+import rda.agent.updator.AgentUpdator;
 import rda.extension.agent.exec.AgentSystemInitializer;
 
 /**
@@ -101,11 +104,14 @@ public class AgentSystemExtension implements Extension {
 
     private AgentProfileGenerator agentProf;
     private AgentCreator creator;
-
+    private AgentUpdator updator;
     public String initAgentSystem(Map param) {
         try {
             agentProf = (AgentProfileGenerator) param.get(AgentSystemInitializer.paramID.AGENT_PROFILE);
             creator = (AgentCreator) param.get(AgentSystemInitializer.paramID.AGENT_CREATOR);
+            updator = (AgentUpdator) param.get(AgentSystemInitializer.paramID.AGENT_UPDATOR);
+            
+            AgentMessageQueue.setParameter(param);
             
             return "[Success AgentSystem Initialize !]";
         } catch (Exception e) {
@@ -113,10 +119,18 @@ public class AgentSystemExtension implements Extension {
         }
     }
 
+    private Map agentMap = new HashMap();
     public String createAgent(String agID) {
         Map setter = agentProf.generate(agID);
         String msg = creator.create(setter);
+        agentMap.put(agID, new AgentMessageQueue(agID, updator));
         
         return msg;
+    }
+    
+    public Boolean updateAgent(String agID, List data){
+        AgentMessageQueue agmq = (AgentMessageQueue) agentMap.get(agID);
+        System.out.println(agmq.toString());
+        return agmq.put(data);
     }
 }

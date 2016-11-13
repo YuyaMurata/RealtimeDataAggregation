@@ -7,7 +7,6 @@ package apps.count.main;
 
 import apps.count.agent.aggregate.creator.CreateAggregateAgent;
 import apps.count.agent.aggregate.profile.AggregateAgentProfile;
-import apps.count.agent.aggregate.reader.ReadAggregateAgent;
 import apps.count.agent.aggregate.updator.UpdateAggregateAgent;
 import apps.count.manager.AggregateAgentManager;
 import com.ibm.agent.exa.client.AgentClient;
@@ -16,10 +15,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import rda.agent.client.AgentConnection;
-import rda.agent.deletor.Dispose;
 import rda.agent.profile.AgentProfileGenerator;
 import rda.extension.agent.exec.AgentSystemCreator;
 import rda.extension.agent.exec.AgentSystemInitializer;
+import rda.extension.agent.exec.AgentSystemUpdator;
 
 /**
  *
@@ -47,23 +46,30 @@ public class AgentSystemMain {
         Map param = new HashMap();
         AgentSystemInitializer agInit = new AgentSystemInitializer();
         CreateAggregateAgent creator = new CreateAggregateAgent();
+        UpdateAggregateAgent updator = new UpdateAggregateAgent();
+        
+        //Init Parameter
         param.put(AgentSystemInitializer.paramID.REGION_NAME, "");
         param.put(AgentSystemInitializer.paramID.AGENT_CREATOR, creator);
         param.put(AgentSystemInitializer.paramID.AGENT_PROFILE, agentProf);
+        param.put(AgentSystemCreator.paramID.AGENT_LISTS, agIDLists);
+        param.put(AgentSystemInitializer.paramID.AGENT_UPDATOR, updator);
+        param.put(AgentSystemInitializer.paramID.AGENT_WAIT, 100L);
+        param.put(AgentSystemInitializer.paramID.QUEUE_WAIT, 100L);
+        param.put(AgentSystemInitializer.paramID.QUEUE_LENGTH, 1000);
+        
         Object msg = agInit.initalize(client, param);
         System.out.println(msg);
         
         //Create Agent
         AgentSystemCreator agCreate = new AgentSystemCreator();
-        param.put(AgentSystemCreator.paramID.AGENT_LISTS, agIDLists);
         msg = agCreate.creator(client, param);
         System.out.println(msg);
         
-        //Client
-        ag.returnConnection(client);
         
-        /*//Update Test
-        UpdateAggregateAgent updator = new UpdateAggregateAgent();
+        
+        //Update Test
+        AgentSystemUpdator agUpdate = new AgentSystemUpdator();
         for(String agID : (List<String>)agIDLists){
             List msgdata = new ArrayList();
             List data = new ArrayList();
@@ -71,9 +77,13 @@ public class AgentSystemMain {
             
             msgdata.add(data);
             
-            updator.update(agID, msgdata);
+            agUpdate.updator(client, agID, msgdata);
         }
         
+        //Client
+        ag.returnConnection(client);
+        
+        /*
         //Read Test
         ReadAggregateAgent reader = new ReadAggregateAgent();
         for(String agID : (List<String>)agIDLists){

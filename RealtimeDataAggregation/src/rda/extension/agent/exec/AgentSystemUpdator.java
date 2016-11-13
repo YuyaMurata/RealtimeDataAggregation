@@ -11,24 +11,25 @@ import com.ibm.agent.exa.client.AgentExecutor;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import rda.extension.agent.manager.AgentSystemExtension;
 
 /**
  *
  * @author kaeru
  */
-public class AgentSystemCreator implements AgentExecutor, Serializable {
+public class AgentSystemUpdator  implements AgentExecutor, Serializable{
     public static enum paramID{
         AGENT_LISTS
     }
 
-    public AgentSystemCreator() {
+    public AgentSystemUpdator() {
     }
     
     String agID;
-    public AgentSystemCreator(String agID) {
+    List data;
+    public AgentSystemUpdator(String agID, List data) {
         this.agID = agID;
+        this.data = data;
     }
 
     @Override
@@ -39,26 +40,21 @@ public class AgentSystemCreator implements AgentExecutor, Serializable {
     @Override
     public Object execute() {
         AgentSystemExtension extension = AgentSystemExtension.getInstance();
-        String msg = extension.createAgent(agID);
+        Boolean result = extension.updateAgent(agID, data);
         
+        String msg = agID + " : Update Agent = "+result;
         return msg;
     }
     
-    public String creator(AgentClient client, Map param){
+    public String updator(AgentClient client, String agID, List data){
         try {
-            StringBuilder sb = new StringBuilder();
             
-            for(String id : (List<String>) param.get(paramID.AGENT_LISTS)){
-                AgentSystemCreator executor = new AgentSystemCreator(id);
-                String region = client.getRegionNameFor(id);
+            AgentSystemUpdator executor = new AgentSystemUpdator(agID, data);
+            String region = client.getRegionNameFor(agID);
                 
-                Object reply = client.executeAt(region, executor);
-                
-                sb.append(reply);
-                sb.append("\n");
-            }
+            Object reply = client.executeAt(region, executor);
             
-            String msg = "Create AgentSystemExtension : Reply is " + sb.toString();
+            String msg = "Update Agent : Reply is " + reply;
             
             return msg;
         } catch (AgentException ex) {

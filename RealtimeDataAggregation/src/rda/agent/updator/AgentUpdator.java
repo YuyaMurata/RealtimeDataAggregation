@@ -5,6 +5,7 @@ import java.util.Collection;
 import com.ibm.agent.exa.AgentKey;
 import com.ibm.agent.exa.AgentManager;
 import com.ibm.agent.exa.MessageFactory;
+import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.exa.client.AgentExecutor;
 import java.io.Externalizable;
 import java.io.IOException;
@@ -73,5 +74,6 @@ public abstract class AgentUpdator implements AgentExecutor, Externalizable{
         }
     }
     
+    public abstract void update(AgentClient client, String agID, List data);
     public abstract void update(String agID, List data);
 }
