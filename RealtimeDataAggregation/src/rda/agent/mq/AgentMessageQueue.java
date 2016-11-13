@@ -18,6 +18,10 @@ import rda.extension.agent.exec.AgentSystemInitializer;
  * @author kaeru
  */
 public class AgentMessageQueue implements Runnable{
+    public static enum paramID{
+        QUEUE_LENGTH, QUEUE_WAIT, AGENT_WAIT
+    }
+    
     private String agID;
     private BlockingQueue<Object> queue;
     private AgentUpdator agent;
@@ -30,9 +34,9 @@ public class AgentMessageQueue implements Runnable{
     private static Integer size;
     private static Long putwait, getwait;
     public static void setParameter(Map param){
-        size = (Integer) param.get(AgentSystemInitializer.paramID.QUEUE_LENGTH);
-        putwait = (Long) param.get(AgentSystemInitializer.paramID.QUEUE_WAIT);
-        getwait = (Long) param.get(AgentSystemInitializer.paramID.AGENT_WAIT);
+        size = (Integer) param.get(paramID.QUEUE_LENGTH);
+        putwait = (Long) param.get(paramID.QUEUE_WAIT);
+        getwait = (Long) param.get(paramID.AGENT_WAIT);
     }
     
     public static String getParameter(){

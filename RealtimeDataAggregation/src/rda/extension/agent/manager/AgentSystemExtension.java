@@ -6,7 +6,6 @@
 package rda.extension.agent.manager;
 
 import com.ibm.agent.exa.AgentKey;
-import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.soliddb.extension.Extension;
 import java.util.HashMap;
 import java.util.List;

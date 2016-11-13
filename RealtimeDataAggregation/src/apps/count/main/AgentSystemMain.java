@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import rda.agent.client.AgentConnection;
+import rda.agent.mq.AgentMessageQueue;
 import rda.agent.profile.AgentProfileGenerator;
 import rda.extension.agent.exec.AgentSystemCreator;
 import rda.extension.agent.exec.AgentSystemInitializer;
@@ -54,9 +55,9 @@ public class AgentSystemMain {
         param.put(AgentSystemInitializer.paramID.AGENT_PROFILE, agentProf);
         param.put(AgentSystemCreator.paramID.AGENT_LISTS, agIDLists);
         param.put(AgentSystemInitializer.paramID.AGENT_UPDATOR, updator);
-        param.put(AgentSystemInitializer.paramID.AGENT_WAIT, 100L);
-        param.put(AgentSystemInitializer.paramID.QUEUE_WAIT, 100L);
-        param.put(AgentSystemInitializer.paramID.QUEUE_LENGTH, 1000);
+        param.put(AgentMessageQueue.paramID.AGENT_WAIT, 100L);
+        param.put(AgentMessageQueue.paramID.QUEUE_WAIT, 100L);
+        param.put(AgentMessageQueue.paramID.QUEUE_LENGTH, 1000);
         
         Object msg = agInit.initalize(client, param);
         System.out.println(msg);
