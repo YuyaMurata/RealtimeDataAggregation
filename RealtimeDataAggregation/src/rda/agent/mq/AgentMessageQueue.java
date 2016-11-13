@@ -25,10 +25,6 @@ public class AgentMessageQueue implements Runnable{
     private BlockingQueue<Object> queue;
     private AgentUpdator agent;
     public AgentMessageQueue(String agID, AgentUpdator updator) {
-        if(size == 0) {
-            System.out.println("Not Define AgentMessageQueue Paramerter!");
-            System.exit(0);
-        }
         this.agID = agID;
         this.queue = new LinkedBlockingDeque<>(size+1);
         this.agent = updator;
