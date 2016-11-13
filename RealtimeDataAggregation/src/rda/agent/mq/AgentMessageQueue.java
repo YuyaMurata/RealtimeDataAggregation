@@ -38,6 +38,10 @@ public class AgentMessageQueue implements Runnable{
         getwait = (Long) param.get(paramID.AGENT_WAIT);
     }
     
+    public static String getParameter(){
+        return "MQParameter wait = "+putwait+","+getwait+" length = "+size;
+    }
+    
     public static Boolean runnable = true;
     
     public Boolean put(Object obj){

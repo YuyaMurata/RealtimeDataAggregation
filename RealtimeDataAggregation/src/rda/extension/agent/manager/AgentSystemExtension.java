@@ -125,12 +125,10 @@ public class AgentSystemExtension implements Extension {
         Map setter = agentProf.generate(agID);
         String msg = creator.create(setter);
         
-        AgentMessageQueue mq = new AgentMessageQueue(agID, updator);
-        
         try{
-            agentMap.put(agID, mq);
+            agentMap.put(agID, new AgentMessageQueue(agID, updator));
         }catch(Exception e){
-            msg = msg +" , "+e.toString();
+            msg = msg +" , "+AgentMessageQueue.getParameter()+" - "+e.toString();
         }
         
         return msg;
