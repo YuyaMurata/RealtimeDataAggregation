@@ -112,6 +112,7 @@ public class AgentSystemExtension implements Extension {
             updator = (AgentUpdator) param.get(AgentSystemInitializer.paramID.AGENT_UPDATOR);
             
             AgentMessageQueue.setParameter(param);
+            agentMap = new HashMap();
             
             return "[Success AgentSystem Initialize !]";
         } catch (Exception e) {
@@ -119,13 +120,13 @@ public class AgentSystemExtension implements Extension {
         }
     }
 
-    private Map agentMap = new HashMap();
+    private Map agentMap;
     public String createAgent(String agID) {
         Map setter = agentProf.generate(agID);
         String msg = creator.create(setter);
         
         try{
-        agentMap.put(agID, new AgentMessageQueue(agID, updator));
+            agentMap.put(agID, new AgentMessageQueue(agID, updator));
         }catch(Exception e){
             msg = msg +" , "+e.toString();
         }
