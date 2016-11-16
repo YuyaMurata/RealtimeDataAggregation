@@ -92,7 +92,7 @@ public class AgentSystemMain {
         //Read Test
         ReadAggregateAgent reader = new ReadAggregateAgent();
         for(String agID : (List<String>)agIDLists){
-            Object d = reader.read(manager.getDestinationAgent(), agID);
+            Object d = reader.read(client, agID);
             System.out.println("Read "+agID+" = "+d);
         }
         

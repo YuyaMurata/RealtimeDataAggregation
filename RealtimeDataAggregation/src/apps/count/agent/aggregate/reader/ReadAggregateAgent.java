@@ -28,17 +28,13 @@ public class ReadAggregateAgent extends AgentReader {
     }
 
     @Override
-    public Object read(AgentConnection ag, String agID) {
+    public Object read(AgentClient client, String agID) {
         try {
-            AgentClient client = ag.getClient();
-
             AgentKey agentKey = new AgentKey(AGENT_TYPE, new Object[]{agID});
 
             ReadAggregateAgent executor = new ReadAggregateAgent(agentKey);
 
             Object reply = client.execute(agentKey, executor);
-
-            ag.returnConnection(client);
 
             return reply;
         } catch (AgentException e) {
