@@ -142,7 +142,7 @@ public class AgentSystemExtension implements Extension {
     public String stopAgentSystem(){
         AgentMessageQueue.runnable = false;
         for(AgentMessageQueue agmq : agentMap.values())
-            agmq.put(null);
+            agmq.put("quit");
         
         return "[Success AgentSystem Shutdown !]";
     }

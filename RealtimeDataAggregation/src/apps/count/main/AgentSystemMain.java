@@ -84,7 +84,8 @@ public class AgentSystemMain {
         }
         
         AgentSystemShutdown agShutdown = new AgentSystemShutdown();
-        agShutdown.shutdown(client);
+        msg = agShutdown.shutdown(client);
+        System.out.println(msg);
         
         //Read Test
         ReadAggregateAgent reader = new ReadAggregateAgent();
