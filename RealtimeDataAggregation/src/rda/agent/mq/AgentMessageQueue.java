@@ -11,7 +11,6 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
 import rda.agent.updator.AgentUpdator;
-import rda.extension.agent.exec.AgentSystemInitializer;
 
 /**
  *
@@ -58,7 +57,7 @@ public class AgentMessageQueue implements Runnable{
     public Object get(){
         Object obj = null;
         try {
-            obj = queue.poll(getwait, TimeUnit.MILLISECONDS);
+            obj = queue.take();
         } catch (InterruptedException ex) {
         }
         
@@ -71,7 +70,6 @@ public class AgentMessageQueue implements Runnable{
         
         while(runnable){
             Object obj = get();
-            
             if(obj != null) agent.update(agID, (List) obj);
         }
         

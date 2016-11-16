@@ -68,11 +68,8 @@ public class AgentSystemExtension implements Extension {
         }
     }
 
-    private Boolean runnable;
-
     @Override
     public void shutdown() {
-        this.runnable = false;
     }
 
     @Override
@@ -119,16 +116,16 @@ public class AgentSystemExtension implements Extension {
         }
     }
 
-    private Map agentMap;
+    private Map<String, AgentMessageQueue> agentMap;
     public String createAgent(String agID) {
+        AgentMessageQueue agmq = new AgentMessageQueue(agID, updator);
+        agentMap.put(agID, agmq);
+        
         Map setter = agentProf.generate(agID);
         String msg = creator.create(setter);
         
-        try{
-            agentMap.put(agID, new AgentMessageQueue(agID, updator));
-        }catch(Exception e){
-            msg = msg +" , "+AgentMessageQueue.getParameter()+" - "+e.toString();
-        }
+        Thread thread = new Thread(agmq);
+        thread.start();
         
         return msg;
     }
@@ -137,8 +134,16 @@ public class AgentSystemExtension implements Extension {
         AgentMessageQueue agmq = (AgentMessageQueue) agentMap.get(agID);
         Boolean result = agmq.put(data);
         
-        System.out.println(agmq.toString());
+        //System.out.println(agmq.toString());
         
         return result;
+    }
+    
+    public String stopAgentSystem(){
+        AgentMessageQueue.runnable = false;
+        for(AgentMessageQueue agmq : agentMap.values())
+            agmq.put(null);
+        
+        return "[Success AgentSystem Shutdown !]";
     }
 }

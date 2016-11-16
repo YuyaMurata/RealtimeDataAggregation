@@ -7,6 +7,7 @@ package apps.count.main;
 
 import apps.count.agent.aggregate.creator.CreateAggregateAgent;
 import apps.count.agent.aggregate.profile.AggregateAgentProfile;
+import apps.count.agent.aggregate.reader.ReadAggregateAgent;
 import apps.count.agent.aggregate.updator.UpdateAggregateAgent;
 import apps.count.manager.AggregateAgentManager;
 import com.ibm.agent.exa.client.AgentClient;
@@ -19,6 +20,7 @@ import rda.agent.mq.AgentMessageQueue;
 import rda.agent.profile.AgentProfileGenerator;
 import rda.extension.agent.exec.AgentSystemCreator;
 import rda.extension.agent.exec.AgentSystemInitializer;
+import rda.extension.agent.exec.AgentSystemShutdown;
 import rda.extension.agent.exec.AgentSystemUpdator;
 
 /**
@@ -81,10 +83,9 @@ public class AgentSystemMain {
             agUpdate.updator(client, agID, msgdata);
         }
         
-        //Client
-        ag.returnConnection(client);
+        AgentSystemShutdown agShutdown = new AgentSystemShutdown();
+        agShutdown.shutdown(client);
         
-        /*
         //Read Test
         ReadAggregateAgent reader = new ReadAggregateAgent();
         for(String agID : (List<String>)agIDLists){
@@ -92,6 +93,10 @@ public class AgentSystemMain {
             System.out.println("Read "+agID+" = "+d);
         }
         
+        //Client
+        ag.returnConnection(client);
+        
+        /*
         //Delete Test
         Dispose deletor = new Dispose();
         deletor.delete(manager.getDestinationAgent());
