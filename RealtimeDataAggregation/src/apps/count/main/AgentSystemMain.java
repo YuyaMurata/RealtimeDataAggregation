@@ -83,6 +83,11 @@ public class AgentSystemMain {
         AgentSystemShutdown agShutdown = new AgentSystemShutdown();
         msg = agShutdown.shutdown(client);
         System.out.println(msg);
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+        }
         
         //Read Test
         ReadAggregateAgent reader = new ReadAggregateAgent();
