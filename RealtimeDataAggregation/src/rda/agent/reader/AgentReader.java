@@ -13,7 +13,6 @@ import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.exa.client.AgentExecutor;
 import java.io.Serializable;
 import java.util.Collection;
-import rda.agent.client.AgentConnection;
 
 /**
  *
@@ -52,6 +51,8 @@ public abstract class AgentReader implements AgentExecutor, Serializable{
             Message msg = factory.getMessage(msgtype);
 
             Object ret = agentManager.sendMessage(agentKey, msg);
+            
+            System.out.println("rda.agent.reader.AgentReader.execute()"+ret);
 
             return ret;
         }catch(IllegalAccessException | InstantiationException e){
