@@ -8,7 +8,6 @@ package apps.count.agent.aggregate.reader;
 import com.ibm.agent.exa.AgentException;
 import com.ibm.agent.exa.AgentKey;
 import com.ibm.agent.exa.client.AgentClient;
-import rda.agent.client.AgentConnection;
 import rda.agent.reader.AgentReader;
 
 /**
