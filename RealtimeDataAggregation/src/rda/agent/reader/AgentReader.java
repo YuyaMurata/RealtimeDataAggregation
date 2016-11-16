@@ -51,8 +51,6 @@ public abstract class AgentReader implements AgentExecutor, Serializable{
             Message msg = factory.getMessage(msgtype);
 
             Object ret = agentManager.sendMessage(agentKey, msg);
-            
-            System.out.println("rda.agent.reader.AgentReader.execute()"+ret);
 
             return ret;
         }catch(IllegalAccessException | InstantiationException e){
