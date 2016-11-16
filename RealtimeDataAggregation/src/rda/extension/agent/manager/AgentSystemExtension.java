@@ -7,6 +7,7 @@ package rda.extension.agent.manager;
 
 import com.ibm.agent.exa.AgentKey;
 import com.ibm.agent.soliddb.extension.Extension;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -141,8 +142,11 @@ public class AgentSystemExtension implements Extension {
     
     public String stopAgentSystem(){
         AgentMessageQueue.runnable = false;
-        for(AgentMessageQueue agmq : agentMap.values())
-            agmq.put("quit");
+        for(AgentMessageQueue agmq : agentMap.values()){
+            List dummy = new ArrayList();
+            dummy.add("quit");
+            agmq.put(dummy);
+        }
         
         return "[Success AgentSystem Shutdown !]";
     }

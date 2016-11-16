@@ -30,7 +30,7 @@ public class UpdateAggregateAgentHandler  extends MessageHandler{
         // トランザクションIDを取得
         TxID tx = getTx();
         long updateData = 0;
-        for(Object data : (List)updateMsg.msgdata.get(0)){
+        for(Object data : (List)updateMsg.msgdata){
             updateData =  updateData + (int)data;
         }
         

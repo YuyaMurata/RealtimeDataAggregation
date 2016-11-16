@@ -74,13 +74,10 @@ public class AgentSystemMain {
         //Update Test
         AgentSystemUpdator agUpdate = new AgentSystemUpdator();
         for(String agID : (List<String>)agIDLists){
-            List msgdata = new ArrayList();
             List data = new ArrayList();
             data.add(1);
             
-            msgdata.add(data);
-            
-            agUpdate.updator(client, agID, msgdata);
+            agUpdate.updator(client, agID, data);
         }
         
         AgentSystemShutdown agShutdown = new AgentSystemShutdown();

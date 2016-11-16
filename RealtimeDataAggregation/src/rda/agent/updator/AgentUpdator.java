@@ -57,6 +57,9 @@ public abstract class AgentUpdator implements AgentExecutor, Externalizable{
     public Object execute() {
         // TODO 自動生成されたメソッド・スタブ
         try {
+            if(data.get(0) == "quit")
+                return "Shutdown AgentSystem !";
+            
             AgentManager agentManager = AgentManager.getAgentManager();
                 
             MessageFactory factory = MessageFactory.getFactory();
