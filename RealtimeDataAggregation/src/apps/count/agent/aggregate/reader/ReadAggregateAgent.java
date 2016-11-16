@@ -38,7 +38,7 @@ public class ReadAggregateAgent extends AgentReader {
 
             return reply;
         } catch (AgentException e) {
-            return null;
+            return e.toString();
         }
     }
 }
