@@ -24,10 +24,8 @@ public class ReadAggregateAgentHandler extends MessageHandler {
         // トランザクションIDを取得
         TxID tx = getTx();
         
-        //Long data = agent.getData(tx);
-        //String agID = agent.getAgentID(tx);
         //System.out.println(agent.getAgentID(tx)+" - "+agent.getData(tx));
         
-        return "Call Agent ";
+        return agent.getData(tx);
     }
 }

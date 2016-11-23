@@ -61,5 +61,4 @@ public abstract class AgentReader implements AgentExecutor, Serializable{
     }
 
     public abstract Object read(AgentClient client, String agID);
-    
 }

@@ -8,6 +8,8 @@ package apps.count.agent.aggregate.reader;
 import com.ibm.agent.exa.AgentException;
 import com.ibm.agent.exa.AgentKey;
 import com.ibm.agent.exa.client.AgentClient;
+import java.util.ArrayList;
+import java.util.List;
 import rda.agent.reader.AgentReader;
 
 /**
@@ -29,11 +31,18 @@ public class ReadAggregateAgent extends AgentReader {
     @Override
     public Object read(AgentClient client, String agID) {
         try {
+            Long start = System.currentTimeMillis();
+            
             AgentKey agentKey = new AgentKey(AGENT_TYPE, new Object[]{agID});
 
             ReadAggregateAgent executor = new ReadAggregateAgent(agentKey);
-
-            Object reply = client.execute(agentKey, executor);
+            
+            List reply = new ArrayList();
+            reply.add(client.execute(agentKey, executor));
+            
+            Long stop = System.currentTimeMillis();
+            
+            reply.add((stop-start)+" ms");
             
             return reply;
         } catch (AgentException e) {
