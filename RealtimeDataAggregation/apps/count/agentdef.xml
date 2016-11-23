@@ -23,7 +23,7 @@
         <agent type="aggregateagent">
             <handler message="initAggregateAgent" class="apps.count.agent.aggregate.handler.InitAggregateAgentHandler"/>
             <handler message="updateAggregateAgent" class="apps.count.agent.aggregate.handler.UpdateAggregateAgentHandler"/>
-            <handler message="readAggregateAgent" class="apps.count.agent.aggregate.handler.ReadAggregateAgentHandler"/>
+            <handler message="readAggregateAgent" class="apps.count.agent.aggregate.handler.ReadAggregateAgentH"/>
             <handler message="dispose" class="rda.agent.deletor.handler.DisposeHandler"/>
         </agent>
     </agents>
