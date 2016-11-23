@@ -65,15 +65,15 @@ public class AgentSystemMain {
         System.out.println(msg);
         
         //Create Agent
-        AgentSystemCreator agCreate = new AgentSystemCreator();
-        msg = agCreate.creator(client, param);
-        System.out.println(msg);
+        //AgentSystemCreator agCreate = new AgentSystemCreator();
+        //msg = agCreate.creator(client, param);
+        //System.out.println(msg);
         
-        /*for(String agID : (List<String>)agIDLists){
+        for(String agID : (List<String>)agIDLists){
             Map setter = agentProf.generate(agID);
             String msgc = creator.create(client, setter);
             System.out.println("Create "+agID+" = "+msgc);
-        }*/
+        }
         
         //Update Test
         AgentSystemUpdator agUpdate = new AgentSystemUpdator();
