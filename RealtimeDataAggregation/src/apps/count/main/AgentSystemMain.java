@@ -19,10 +19,8 @@ import java.util.Map;
 import rda.agent.client.AgentConnection;
 import rda.agent.mq.AgentMessageQueue;
 import rda.agent.profile.AgentProfileGenerator;
-import rda.extension.agent.exec.AgentSystemCreator;
 import rda.extension.agent.exec.AgentSystemInitializer;
 import rda.extension.agent.exec.AgentSystemShutdown;
-import rda.extension.agent.exec.AgentSystemUpdator;
 
 /**
  *
@@ -56,7 +54,6 @@ public class AgentSystemMain {
         param.put(AgentSystemInitializer.paramID.REGION_NAME, "");
         param.put(AgentSystemInitializer.paramID.AGENT_CREATOR, creator);
         param.put(AgentSystemInitializer.paramID.AGENT_PROFILE, agentProf);
-        param.put(AgentSystemCreator.paramID.AGENT_LISTS, agIDLists);
         param.put(AgentSystemInitializer.paramID.AGENT_UPDATOR, updator);
         param.put(AgentMessageQueue.paramID.AGENT_WAIT, 100L);
         param.put(AgentMessageQueue.paramID.QUEUE_WAIT, 100L);

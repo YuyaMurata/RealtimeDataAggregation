@@ -119,14 +119,9 @@ public class AgentSystemExtension implements Extension {
 
     private Map<Object, AgentMessageQueue> agentMap;
     public String createAgent(String agID) {
-        AgentMessageQueue agmq = new AgentMessageQueue(agID, updator);
-        agentMap.put(agID, agmq);
-        
+
         Map setter = agentProf.generate(agID);
         String msg = creator.create(setter);
-        
-        Thread thread = new Thread(agmq);
-        thread.start();
         
         return msg;
     }
