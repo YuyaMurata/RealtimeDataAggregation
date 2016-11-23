@@ -69,8 +69,6 @@ public class AgentSystemMain {
         msg = agCreate.creator(client, param);
         System.out.println(msg);
         
-        
-        
         //Update Test
         AgentSystemUpdator agUpdate = new AgentSystemUpdator();
         for(String agID : (List<String>)agIDLists){
