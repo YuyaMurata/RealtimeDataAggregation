@@ -62,7 +62,7 @@ public class CreateAggregateAgent extends AgentCreator {
 
         Object reply = executor.execute();
         
-        String msg = "Create [" + agentKey + "] was created. Reply is [" + reply + "]";
+        String msg = "Create [" + agentKey.getType()+", "+agentKey.getValues()+","+agentKey.toString() + "] was created. Reply is [" + reply + "]";
         
         return msg;
     }

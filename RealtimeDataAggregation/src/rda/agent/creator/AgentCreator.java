@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import rda.agent.message.InitMessage;
+import rda.extension.agent.manager.AgentSystemExtension;
 
 /**
  *
@@ -59,6 +60,10 @@ public abstract class AgentCreator implements AgentExecutor, Serializable{
             msg.setParams(state);
 		
             Object ret = agentManager.sendMessage(agentKey, msg);
+            
+            //Register Extension
+            //AgentSystemExtension extension = AgentSystemExtension.getInstance();
+            //extension.registeAgent(agentKey);
 		
             return ret;
         } catch (AgentException | IllegalAccessException | InstantiationException e) {
