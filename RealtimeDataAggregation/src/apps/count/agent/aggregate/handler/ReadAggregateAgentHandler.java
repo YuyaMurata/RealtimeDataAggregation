@@ -27,6 +27,6 @@ public class ReadAggregateAgentHandler extends MessageHandler {
         Long data = agent.getData(tx);
         //System.out.println(agent.getAgentID(tx)+" - "+agent.getData(tx));
         
-        return data;
+        return "Call Agent "+agent.getAgentID(tx);
     }
 }
