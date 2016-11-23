@@ -77,16 +77,16 @@ public class AgentSystemMain {
             
             agUpdate.updator(client, agID, data);
         }
-        
-        AgentSystemShutdown agShutdown = new AgentSystemShutdown();
-        msg = agShutdown.shutdown(client);
-        System.out.println(msg);
 
         try {
             Thread.sleep(5000);
         } catch (InterruptedException ex) {
         }
         
+        AgentSystemShutdown agShutdown = new AgentSystemShutdown();
+        msg = agShutdown.shutdown(client);
+        System.out.println(msg);
+
         //Read Test
         ReadAggregateAgent reader = new ReadAggregateAgent();
         for(String agID : (List<String>)agIDLists){
