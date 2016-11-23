@@ -77,11 +77,6 @@ public class AgentSystemMain {
             
             agUpdate.updator(client, agID, data);
         }
-
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException ex) {
-        }
         
         AgentSystemShutdown agShutdown = new AgentSystemShutdown();
         msg = agShutdown.shutdown(client);
