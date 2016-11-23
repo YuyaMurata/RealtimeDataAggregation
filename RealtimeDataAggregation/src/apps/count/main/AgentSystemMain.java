@@ -6,6 +6,7 @@
 package apps.count.main;
 
 import apps.count.agent.aggregate.creator.CreateAggregateAgent;
+import apps.count.agent.aggregate.extension.ExtensionPutMessageQueue;
 import apps.count.agent.aggregate.profile.AggregateAgentProfile;
 import apps.count.agent.aggregate.reader.ReadAggregateAgent;
 import apps.count.agent.aggregate.updator.UpdateAggregateAgent;
@@ -76,12 +77,12 @@ public class AgentSystemMain {
         }
         
         //Update Test
-        AgentSystemUpdator agUpdate = new AgentSystemUpdator();
+        ExtensionPutMessageQueue agUpdate = new ExtensionPutMessageQueue();
         for(String agID : (List<String>)agIDLists){
             List data = new ArrayList();
             data.add(1);
             
-            agUpdate.updator(client, "aggregateagent",agID, data);
+            agUpdate.update(client, agID, data);
         }
         
         AgentSystemShutdown agShutdown = new AgentSystemShutdown();
