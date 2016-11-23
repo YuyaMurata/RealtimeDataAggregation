@@ -34,9 +34,7 @@ public abstract class AgentReader implements AgentExecutor, Serializable{
 
     @Override
     public Object complete(Collection<Object> results) {
-        // TODO 自動生成されたメソッド・スタブ
-        if (results == null) return null;
-        
+        // TODO 自動生成されたメソッド・スタブ 
         Object[] ret = results.toArray();
         return ret[0];
     }

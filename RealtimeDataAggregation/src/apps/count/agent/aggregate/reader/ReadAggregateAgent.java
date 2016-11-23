@@ -33,7 +33,7 @@ public class ReadAggregateAgent extends AgentReader {
 
             ReadAggregateAgent executor = new ReadAggregateAgent(agentKey);
 
-            Object reply = client.getRegionNameFor(agID);//execute(agentKey, executor);
+            Object reply = client.execute(agentKey, executor);
 
             return reply;
         } catch (AgentException e) {
