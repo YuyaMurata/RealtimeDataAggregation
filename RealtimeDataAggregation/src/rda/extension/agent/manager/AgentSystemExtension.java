@@ -117,7 +117,7 @@ public class AgentSystemExtension implements Extension {
         }
     }
 
-    private Map<String, AgentMessageQueue> agentMap;
+    private Map<Object, AgentMessageQueue> agentMap;
     public String createAgent(String agID) {
         AgentMessageQueue agmq = new AgentMessageQueue(agID, updator);
         agentMap.put(agID, agmq);
@@ -131,7 +131,9 @@ public class AgentSystemExtension implements Extension {
         return msg;
     }
     
-    public void registeAgent(String agID) {
+    public void registeAgent(Object agID) {
+        if(agentMap.containsKey(agID)) return ;
+        
         AgentMessageQueue agmq = new AgentMessageQueue(agID, updator);
         agentMap.put(agID, agmq);
         

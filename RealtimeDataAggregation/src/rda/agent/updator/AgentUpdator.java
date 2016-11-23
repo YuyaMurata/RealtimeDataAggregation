@@ -20,13 +20,12 @@ public abstract class AgentUpdator implements AgentExecutor, Externalizable{
     }
 
     AgentKey agentKey;
-    String msgtype, agID;
+    String msgtype;
     List data;
-    public AgentUpdator(AgentKey agentKey, String msgtype, String agID, List data) {
+    public AgentUpdator(AgentKey agentKey, String msgtype, List data) {
         // TODO 自動生成されたコンストラクター・スタブ
         this.agentKey = agentKey;
         this.msgtype = msgtype;
-        this.agID = agID;
         this.data = data;
     }
     
@@ -34,7 +33,6 @@ public abstract class AgentUpdator implements AgentExecutor, Externalizable{
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeObject(agentKey);
         out.writeObject(msgtype);
-        out.writeObject(agID);
         out.writeObject(data);
     }
 
@@ -42,7 +40,6 @@ public abstract class AgentUpdator implements AgentExecutor, Externalizable{
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         this.agentKey = (AgentKey) in.readObject();
         this.msgtype = (String) in.readObject();
-        this.agID = (String) in.readObject();
         this.data = (List) in.readObject();
     }
 
@@ -77,6 +74,6 @@ public abstract class AgentUpdator implements AgentExecutor, Externalizable{
         }
     }
     
-    public abstract void update(AgentClient client, String agID, List data);
-    public abstract void update(String agID, List data);
+    public abstract void update(AgentClient client, Object agID, List data);
+    public abstract void update(Object agID, List data);
 }

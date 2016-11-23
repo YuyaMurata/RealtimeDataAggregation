@@ -62,8 +62,8 @@ public abstract class AgentCreator implements AgentExecutor, Serializable{
             Object ret = agentManager.sendMessage(agentKey, msg);
             
             //Register Extension
-            //AgentSystemExtension extension = AgentSystemExtension.getInstance();
-            //extension.registeAgent(agentKey);
+            AgentSystemExtension extension = AgentSystemExtension.getInstance();
+            extension.registeAgent(agentKey.getValue(0));
 		
             return ret;
         } catch (AgentException | IllegalAccessException | InstantiationException e) {

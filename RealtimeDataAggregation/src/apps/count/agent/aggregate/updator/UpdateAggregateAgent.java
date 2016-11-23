@@ -22,18 +22,18 @@ public class UpdateAggregateAgent extends AgentUpdator{
     public UpdateAggregateAgent() {
     }
     
-    public UpdateAggregateAgent(AgentKey agentKey, String agID, List data) {
-        super(agentKey, MESSAGE_TYPE, agID, data);
+    public UpdateAggregateAgent(AgentKey agentKey, List data) {
+        super(agentKey, MESSAGE_TYPE, data);
     }
     
     @Override
-    public void update(AgentClient client, String agID, List data) {
+    public void update(AgentClient client, Object agID, List data) {
         if(data == null) return;
         
         try {    
             AgentKey agentKey = new AgentKey(AGENT_TYPE, new Object[]{agID});
                 
-            UpdateAggregateAgent executor = new UpdateAggregateAgent(agentKey, agID, data);
+            UpdateAggregateAgent executor = new UpdateAggregateAgent(agentKey, data);
             
             Object reply = client.execute(agentKey, executor);
             
@@ -45,11 +45,11 @@ public class UpdateAggregateAgent extends AgentUpdator{
     }
 
     @Override
-    public void update(String agID, List data) {
+    public void update(Object agID, List data) {
         AgentKey agentKey = new AgentKey(AGENT_TYPE, new Object[]{agID});
 
         //Update Agent
-        UpdateAggregateAgent executor = new UpdateAggregateAgent(agentKey, agID, data);
+        UpdateAggregateAgent executor = new UpdateAggregateAgent(agentKey, data);
 
         Object reply = executor.execute();
         

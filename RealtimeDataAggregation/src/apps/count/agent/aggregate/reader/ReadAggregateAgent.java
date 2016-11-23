@@ -35,8 +35,7 @@ public class ReadAggregateAgent extends AgentReader {
 
             Object reply = client.execute(agentKey, executor);
             
-            return agentKey +","+ agentKey.getValue(0);
-            //return reply;
+            return reply;
         } catch (AgentException e) {
             return e.toString();
         }

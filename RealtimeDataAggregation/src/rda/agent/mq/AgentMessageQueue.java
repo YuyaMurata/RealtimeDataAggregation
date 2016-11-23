@@ -21,10 +21,10 @@ public class AgentMessageQueue implements Runnable{
         QUEUE_LENGTH, QUEUE_WAIT, AGENT_WAIT
     }
     
-    private String agID;
+    private Object agID;
     private BlockingQueue<Object> queue;
     private AgentUpdator agent;
-    public AgentMessageQueue(String agID, AgentUpdator updator) {
+    public AgentMessageQueue(Object agID, AgentUpdator updator) {
         this.agID = agID;
         this.queue = new LinkedBlockingDeque<>(size+1);
         this.agent = updator;
