@@ -44,6 +44,7 @@ public class AgentSystemCreator implements AgentExecutor, Serializable {
         return msg;
     }
     
+    public static String AGENT_TYPE;
     public String creator(AgentClient client, Map param){
         try {
             StringBuilder sb = new StringBuilder();

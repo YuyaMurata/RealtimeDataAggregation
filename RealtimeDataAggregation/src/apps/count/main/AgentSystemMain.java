@@ -81,7 +81,7 @@ public class AgentSystemMain {
             List data = new ArrayList();
             data.add(1);
             
-            agUpdate.updator(client, agID, data);
+            agUpdate.updator(client, "aggregateagent",agID, data);
         }
         
         AgentSystemShutdown agShutdown = new AgentSystemShutdown();

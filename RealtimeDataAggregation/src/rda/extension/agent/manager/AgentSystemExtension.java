@@ -141,7 +141,7 @@ public class AgentSystemExtension implements Extension {
         thread.start();
     }
     
-    public Boolean updateAgent(String agID, List data){
+    public Boolean updateAgent(Object agID, List data){
         AgentMessageQueue agmq = (AgentMessageQueue) agentMap.get(agID);
         Boolean result = agmq.put(data);
         

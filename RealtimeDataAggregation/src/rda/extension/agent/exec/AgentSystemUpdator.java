@@ -6,6 +6,7 @@
 package rda.extension.agent.exec;
 
 import com.ibm.agent.exa.AgentException;
+import com.ibm.agent.exa.AgentKey;
 import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.exa.client.AgentExecutor;
 import java.io.Serializable;
@@ -25,10 +26,10 @@ public class AgentSystemUpdator  implements AgentExecutor, Serializable{
     public AgentSystemUpdator() {
     }
     
-    String agID;
+    AgentKey agentKey;
     List data;
-    public AgentSystemUpdator(String agID, List data) {
-        this.agID = agID;
+    public AgentSystemUpdator(AgentKey agentKey, List data) {
+        this.agentKey = agentKey;
         this.data = data;
     }
 
@@ -40,17 +41,18 @@ public class AgentSystemUpdator  implements AgentExecutor, Serializable{
     @Override
     public Object execute() {
         AgentSystemExtension extension = AgentSystemExtension.getInstance();
-        Boolean result = extension.updateAgent(agID, data);
+        Boolean result = extension.updateAgent(agentKey.getValue(0), data);
         
-        String msg = agID + " : Update Agent = "+result;
+        String msg = agentKey.getValue(0) + " : Update Agent = "+result;
         return msg;
     }
     
-    public String updator(AgentClient client, String agID, List data){
+    public String updator(AgentClient client, String agenttype, String agID, List data){
         try {
+            AgentKey agentKey = new AgentKey(agenttype, new Object[]{agID});
             
-            AgentSystemUpdator executor = new AgentSystemUpdator(agID, data);
-            String region = client.getRegionNameFor(agID);
+            AgentSystemUpdator executor = new AgentSystemUpdator(agentKey, data);
+            String region = client.getRegionNameFor(agentKey.toString());
                 
             Object reply = client.executeAt(region, executor);
             
