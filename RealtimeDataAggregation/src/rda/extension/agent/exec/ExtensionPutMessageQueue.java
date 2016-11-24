@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package apps.count.agent.aggregate.extension;
+package rda.extension.agent.exec;
 
-import com.ibm.agent.exa.AgentException;
 import com.ibm.agent.exa.AgentKey;
 import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.exa.client.AgentExecutor;
@@ -18,9 +17,8 @@ import rda.extension.agent.manager.AgentSystemExtension;
  *
  * @author kaeru
  */
-public class ExtensionPutMessageQueue implements AgentExecutor, Serializable{
-    private static final String AGENT_TYPE = "aggregateagent";
-
+public abstract class ExtensionPutMessageQueue implements AgentExecutor, Serializable{
+    
     public ExtensionPutMessageQueue() {
     }
     
@@ -45,19 +43,5 @@ public class ExtensionPutMessageQueue implements AgentExecutor, Serializable{
         return msg;
     }
     
-    public String update(AgentClient client, String agID, List data){
-        try {
-            AgentKey agentKey = new AgentKey(AGENT_TYPE, new Object[]{agID});
-            
-            ExtensionPutMessageQueue executor = new ExtensionPutMessageQueue(agentKey, data);
-            
-            Object reply = client.execute(agentKey, executor);
-            
-            String msg = "Update Agent : Reply is " + reply;
-            
-            return msg;
-        } catch (AgentException ex) {
-            return ex.toString();
-        }
-    }
+    public abstract String send(AgentClient client, String agID, List data);
 }

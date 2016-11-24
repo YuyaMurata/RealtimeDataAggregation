@@ -5,7 +5,7 @@
  */
 package rda.control.stream;
 
-import apps.count.agent.aggregate.extension.ExtensionPutMessageQueue;
+import rda.extension.agent.exec.ExtensionPutMessageQueue;
 import com.ibm.agent.exa.client.AgentClient;
 import rda.agent.client.AgentConnection;
 import rda.control.flow.Window;
@@ -18,10 +18,12 @@ import rda.control.flow.WindowController;
 public class WindowStream implements Runnable{
     private WindowController flow;
     private AgentConnection agcon;
+    private ExtensionPutMessageQueue sender;
     
-    public WindowStream(WindowController flow, AgentConnection agcon) {
+    public WindowStream(WindowController flow, AgentConnection agcon, ExtensionPutMessageQueue sender) {
         this.flow = flow;
         this.agcon = agcon;
+        this.sender = sender;
     }
     
     private static Boolean runnable;
@@ -31,15 +33,13 @@ public class WindowStream implements Runnable{
     
     @Override
     public void run() {
-        ExtensionPutMessageQueue agUpdate = new ExtensionPutMessageQueue();
-        
         while(runnable){
             //Get Window
             Window window = flow.get();
             
             //Update
             AgentClient client = agcon.getClient();
-            agUpdate.update(client, window.id, window.unpack());
+            sender.send(client, window.id, window.unpack());
             agcon.returnConnection(client);
         }
     }
