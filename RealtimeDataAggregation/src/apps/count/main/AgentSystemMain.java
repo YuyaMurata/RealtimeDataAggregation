@@ -108,8 +108,6 @@ public class AgentSystemMain {
             System.out.println("Read "+agID+" = "+d);
         }
         
-        
-        
         //Client
         ag.returnConnection(client);
         
