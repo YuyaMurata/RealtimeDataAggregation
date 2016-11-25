@@ -49,7 +49,7 @@ public class WindowController extends Thread{
     }
     
     public Window get(){
-        return (Window)executableQueue.peek();
+        return (Window)executableQueue.poll();
     }
     
     public void remove(){
