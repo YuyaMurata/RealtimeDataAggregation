@@ -36,6 +36,8 @@ public class AggregateAgentMessageSender extends ExtensionPutMessageQueue{
             
             String msg = "Update Agent : Reply is " + reply;
             
+            System.out.println(msg+" "+agID+" = "+data);
+            
             return msg;
         } catch (AgentException ex) {
             return ex.toString();

@@ -37,7 +37,7 @@ public abstract class ExtensionPutMessageQueue implements AgentExecutor, Seriali
     @Override
     public Object execute() {
         AgentSystemExtension extension = AgentSystemExtension.getInstance();
-        System.out.println(data);
+        
         Boolean result = extension.updateAgent(agentKey.getValue(0), data);
         
         String msg = agentKey.getValue(0) + " : Update Agent = "+result;
