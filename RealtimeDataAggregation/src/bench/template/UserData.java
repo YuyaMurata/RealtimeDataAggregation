@@ -5,13 +5,18 @@
  */
 package bench.template;
 
+import java.io.Serializable;
+
 /**
  *
  * @author kaeru
  */
-public class UserData {
+public class UserData implements Serializable{
     public String id;
     public Object data;
+
+    public UserData() {
+    }
     
     public UserData(String id, Object data) {
         // TODO 自動生成されたコンストラクター・スタブ
