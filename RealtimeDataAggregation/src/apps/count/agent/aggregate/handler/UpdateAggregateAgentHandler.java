@@ -6,6 +6,7 @@
 package apps.count.agent.aggregate.handler;
 
 import apps.count.Aggregateagent;
+import bench.template.UserData;
 import com.ibm.agent.exa.Message;
 import com.ibm.agent.exa.MessageHandler;
 import com.ibm.agent.exa.TxID;
@@ -30,8 +31,8 @@ public class UpdateAggregateAgentHandler  extends MessageHandler{
         // トランザクションIDを取得
         TxID tx = getTx();
         long updateData = 0;
-        for(Object data : (List)updateMsg.msgdata){
-            updateData =  updateData + (int)data;
+        for(UserData user : (List<UserData>)updateMsg.msgdata){
+            updateData =  updateData + (Integer)user.data;
         }
         
         agent.setData(tx, agent.getData(tx)+updateData);

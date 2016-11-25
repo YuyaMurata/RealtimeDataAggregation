@@ -11,6 +11,7 @@ import apps.count.agent.aggregate.profile.AggregateAgentProfile;
 import apps.count.agent.aggregate.reader.ReadAggregateAgent;
 import apps.count.agent.aggregate.updator.UpdateAggregateAgent;
 import apps.count.manager.AggregateAgentManager;
+import bench.template.UserData;
 import com.ibm.agent.exa.client.AgentClient;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -80,8 +81,9 @@ public class AgentSystemMain {
                 agUpdate);
         WindowStream.setRunnable(true);
         for(String agID : (List<String>)agIDLists){
-            List data = new ArrayList();
-            data.add(1);
+            String userID = agID;
+            UserData data = new UserData(userID, 1);
+            
             win.pack(agID, data);
         }
         
