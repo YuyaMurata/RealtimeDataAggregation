@@ -15,7 +15,7 @@ import rda.control.flow.WindowController;
  *
  * @author kaeru
  */
-public class WindowStream implements Runnable{
+public class WindowStream extends Thread{
     private WindowController flow;
     private AgentConnection agcon;
     private ExtensionPutMessageQueue sender;
@@ -29,6 +29,7 @@ public class WindowStream implements Runnable{
     private static Boolean runnable;
     public static void setRunnable(Boolean state){
         runnable = state;
+        WindowController.setRunnable(state);
     }
     
     @Override

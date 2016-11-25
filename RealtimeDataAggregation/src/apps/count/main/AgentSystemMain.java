@@ -19,6 +19,8 @@ import java.util.Map;
 import rda.agent.client.AgentConnection;
 import rda.agent.mq.AgentMessageQueue;
 import rda.agent.profile.AgentProfileGenerator;
+import rda.control.flow.WindowController;
+import rda.control.stream.WindowStream;
 import rda.extension.agent.exec.AgentSystemInitializer;
 import rda.extension.agent.exec.AgentSystemShutdown;
 
@@ -71,11 +73,16 @@ public class AgentSystemMain {
         
         //Update Test
         AggregateAgentMessageSender agUpdate = new AggregateAgentMessageSender();
+        WindowController win = new WindowController(10, 10L);
+        WindowStream dataStream = new WindowStream(
+                win,
+                ag,
+                agUpdate);
+        WindowStream.setRunnable(true);
         for(String agID : (List<String>)agIDLists){
             List data = new ArrayList();
             data.add(1);
-            
-            agUpdate.send(client, agID, data);
+            win.pack(agID, data);
         }
         
         AgentSystemShutdown agShutdown = new AgentSystemShutdown();
