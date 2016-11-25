@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import rda.agent.client.AgentConnection;
 import rda.agent.mq.AgentMessageQueue;
 import rda.agent.profile.AgentProfileGenerator;
@@ -89,6 +91,12 @@ public class AgentSystemMain {
             win.pack(agID, data);
         }
         
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException ex) {
+        }
+        
+        WindowStream.setRunnable(false);
         AgentSystemShutdown agShutdown = new AgentSystemShutdown();
         msg = agShutdown.shutdown(client);
         System.out.println(msg);
@@ -99,6 +107,8 @@ public class AgentSystemMain {
             Object d = reader.read(client, agID);
             System.out.println("Read "+agID+" = "+d);
         }
+        
+        
         
         //Client
         ag.returnConnection(client);
