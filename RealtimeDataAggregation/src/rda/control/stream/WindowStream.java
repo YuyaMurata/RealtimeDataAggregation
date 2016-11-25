@@ -42,7 +42,6 @@ public class WindowStream extends Thread{
             
             //Update
             AgentClient client = agcon.getClient();
-            System.out.println(window.id+":"+window.unpack());
             sender.send(client, window.id, window.unpack());
             agcon.returnConnection(client);
         }
