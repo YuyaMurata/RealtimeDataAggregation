@@ -140,7 +140,7 @@ public class AgentSystemExtension implements Extension {
         AgentMessageQueue agmq = (AgentMessageQueue) agentMap.get(agID);
         Boolean result = agmq.put(data);
         
-        //System.out.println(agmq.toString());
+        System.out.println(agmq.toString()+", "+agID+" = "+data);
         
         return result;
     }
