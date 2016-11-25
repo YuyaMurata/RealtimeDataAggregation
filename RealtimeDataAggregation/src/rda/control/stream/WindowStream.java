@@ -38,9 +38,10 @@ public class WindowStream extends Thread{
             //Get Window
             Window window = flow.get();
             
+            if(window == null) continue;
+            
             //Update
             AgentClient client = agcon.getClient();
-            System.out.println(window.toString());
             //sender.send(client, window.id, window.unpack());
             agcon.returnConnection(client);
         }

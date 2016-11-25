@@ -3,16 +3,18 @@ package rda.control.flow;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Queue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class WindowController extends Thread{
     private Map<String, Window> windowMap = new ConcurrentHashMap<>();
-    private Queue executableQueue;
+    private BlockingQueue executableQueue;
     private Long aliveTime;
     
     public WindowController(int limit, Long aliveTime) {
-        this.executableQueue = new ConcurrentLinkedQueue<>();
+        this.executableQueue = new LinkedBlockingQueue();
         this.aliveTime = aliveTime;
         
         Window.setParameter(limit, executableQueue);
