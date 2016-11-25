@@ -80,6 +80,8 @@ public class AgentSystemMain {
                 ag,
                 agUpdate);
         WindowStream.setRunnable(true);
+        win.start();
+        dataStream.start();
         for(String agID : (List<String>)agIDLists){
             String userID = agID;
             UserData data = new UserData(userID, 1);

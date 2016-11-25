@@ -6,7 +6,7 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class WindowController implements Runnable{
+public class WindowController extends Thread{
     private Map<String, Window> windowMap = new ConcurrentHashMap<>();
     private Queue executableQueue;
     private Long aliveTime;
