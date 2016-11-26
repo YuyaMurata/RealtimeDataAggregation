@@ -104,6 +104,7 @@ public class AgentSystemMain {
         dataStream.start();
         for(String userID : (List<String>)userLists){
             Object id = userProf.generate(userID).get(UserProfile.profileID.ID);
+            System.out.println(id);
             UserData data = new UserData(userID, 1);
             
             Object agID = table.getDestAgentID(id);
