@@ -20,6 +20,7 @@ import java.util.Map;
 import rda.agent.client.AgentConnection;
 import rda.agent.mq.AgentMessageQueue;
 import rda.agent.profile.AgentProfileGenerator;
+import rda.agent.table.DestinationAgentTable;
 import rda.control.flow.WindowController;
 import rda.control.stream.WindowStream;
 import rda.extension.agent.exec.AgentSystemInitializer;
@@ -39,6 +40,11 @@ public class AgentSystemMain {
         List agIDLists = new ArrayList();
         for(int i=0; i < 10; i++)
             agIDLists.add("Agent#00"+i);
+        
+        //Destination Table
+        DestinationAgentTable table = DestinationAgentTable.getInstance();
+        table.createTable(agIDLists);
+        System.out.println(table.toString());
         
         //Profile
         AgentProfileGenerator agentProf = new AgentProfileGenerator(new AggregateAgentProfile(agIDLists));

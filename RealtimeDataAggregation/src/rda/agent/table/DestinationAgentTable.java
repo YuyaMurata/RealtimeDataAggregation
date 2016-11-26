@@ -25,9 +25,9 @@ public class DestinationAgentTable {
         size = indexSize;
     }
     
-    private static Map<Object, List<Object>> destTable;
-    private static List<Object> idList;
-    public static void createTable(List<Object> agentList){
+    private Map<Object, List<Object>> destTable;
+    private List<Object> idList;
+    public void createTable(List<Object> agentList){
         destTable = new ConcurrentHashMap<>();
         idList = new ArrayList<>();
         for(int i=0; i < agentList.size(); i++){
@@ -44,7 +44,7 @@ public class DestinationAgentTable {
         }
     }
     
-    public static Object getDestAgentID(Object id){
+    public Object getDestAgentID(Object id){
         Integer hashID = id.toString().hashCode();
         List destAgList = destTable.get(idList.get(hashID % size));
         return destAgList.get(hashID % destAgList.size());
