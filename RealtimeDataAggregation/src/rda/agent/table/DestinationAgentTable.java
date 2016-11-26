@@ -45,7 +45,7 @@ public class DestinationAgentTable {
     }
     
     public Object getDestAgentID(Object id){
-        Integer hashID = id.hashCode();
+        Integer hashID = Math.abs(id.hashCode());
         List destAgList = destTable.get(idList.get(hashID % size));
         return destAgList.get(hashID % destAgList.size());
     }
