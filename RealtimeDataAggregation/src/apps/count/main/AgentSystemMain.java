@@ -24,6 +24,7 @@ import rda.agent.table.DestinationAgentTable;
 import rda.control.flow.WindowController;
 import rda.control.stream.WindowStream;
 import rda.extension.agent.exec.AgentSystemInitializer;
+import rda.extension.agent.exec.AgentSystemLaunch;
 import rda.extension.agent.exec.AgentSystemShutdown;
 
 /**
@@ -78,6 +79,11 @@ public class AgentSystemMain {
             System.out.println("Create "+agID+" = "+msgc);
         }
         
+        //Start AgentSystem
+        AgentSystemLaunch agLaunch = new AgentSystemLaunch();
+        msg = agLaunch.launch(client);
+        System.out.println(msg);
+        
         //Update Test
         AggregateAgentMessageSender agUpdate = new AggregateAgentMessageSender();
         WindowController win = new WindowController(10, 10L);
@@ -100,6 +106,7 @@ public class AgentSystemMain {
         } catch (InterruptedException ex) {
         }
         
+        //Stop AgentSystem
         WindowStream.setRunnable(false);
         AgentSystemShutdown agShutdown = new AgentSystemShutdown();
         msg = agShutdown.shutdown(client);

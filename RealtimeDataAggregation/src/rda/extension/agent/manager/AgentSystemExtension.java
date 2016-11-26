@@ -111,8 +111,6 @@ public class AgentSystemExtension implements Extension {
             AgentMessageQueue.setParameter(param);
             agentMap = new HashMap();
             
-            AgentMessageQueue.runnable = true;
-            
             return "[Success AgentSystem Initialize !] - "+AgentMessageQueue.getParameter();
         } catch (Exception e) {
             return e.toString();
@@ -133,9 +131,6 @@ public class AgentSystemExtension implements Extension {
         
         AgentMessageQueue agmq = new AgentMessageQueue(agID, updator);
         agentMap.put(agID, agmq);
-        
-        Thread thread = new Thread(agmq);
-        thread.start();
     }
     
     public Boolean updateAgent(Object agID, List data){
@@ -143,6 +138,18 @@ public class AgentSystemExtension implements Extension {
         Boolean result = agmq.put(data);
         
         return result;
+    }
+    
+    public String startAgentSystem(){
+        AgentMessageQueue.runnable = true;
+        
+        agentMap.values().stream()
+                .map(e -> new Thread(e))
+                .forEach(t -> ((Thread)t).start());
+        //Thread thread = new Thread(agmq);
+        //thread.start();
+        
+        return "[Success AgentSystem Start !]";
     }
     
     public String stopAgentSystem(){

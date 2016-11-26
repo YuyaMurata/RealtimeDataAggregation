@@ -17,13 +17,8 @@ import rda.extension.agent.manager.AgentSystemExtension;
  *
  * @author kaeru
  */
-public class AgentSystemShutdown implements AgentExecutor, Serializable {
-
-    public static enum paramID{
-        REGION_NAME, AGENT_PROFILE, AGENT_CREATOR, AGENT_UPDATOR
-    }
-
-    public AgentSystemShutdown() {
+public class AgentSystemLaunch implements AgentExecutor, Serializable {
+    public AgentSystemLaunch() {
     }
     
 
@@ -35,7 +30,7 @@ public class AgentSystemShutdown implements AgentExecutor, Serializable {
     @Override
     public Object execute() {
         AgentSystemExtension extension = AgentSystemExtension.getInstance();
-        String msg = extension.stopAgentSystem();
+        String msg = extension.startAgentSystem();
         
         AgentManager am = AgentManager.getAgentManager();
         String regionName = am.getRegionName();
@@ -43,13 +38,13 @@ public class AgentSystemShutdown implements AgentExecutor, Serializable {
         return regionName + " : " + msg;
     }
     
-    public String shutdown(AgentClient client){
+    public String launch(AgentClient client){
         try {
-            AgentSystemShutdown executor = new AgentSystemShutdown();
+            AgentSystemLaunch executor = new AgentSystemLaunch();
 
             Object reply = client.execute(executor);
 
-            String msg = "Stopped AgentSystemExtension : Reply is " + reply;
+            String msg = "Start AgentSystemExtension : Reply is " + reply;
             
             return msg;
         } catch (AgentException ex) {
