@@ -38,11 +38,11 @@ public class UserProfile extends AgentProfile{
         for(String userID : (List<String>)userList){
             Map map = new HashMap();
             
-            map.put(UserProfileGenerator.profileID.ID, userID);
-            map.put(UserProfileGenerator.profileID.NAME, "NAME-"+userID);
-            map.put(UserProfileGenerator.profileID.AGE, getAge(dataMode));
-            map.put(UserProfileGenerator.profileID.SEX, getSex(dataMode));
-            map.put(UserProfileGenerator.profileID.ADDRESS, "CITY-"+userID);
+            map.put(profileID.ID, userID);
+            map.put(profileID.NAME, "NAME-"+userID);
+            map.put(profileID.AGE, getAge(dataMode));
+            map.put(profileID.SEX, getSex(dataMode));
+            map.put(profileID.ADDRESS, "CITY-"+userID);
             
             profMap.put(userID, map);
         }
