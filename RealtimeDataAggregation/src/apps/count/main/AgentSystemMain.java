@@ -44,6 +44,7 @@ public class AgentSystemMain {
             userLists.add("User#00"+i);
         //UserProfile
         AgentProfileGenerator userProf = new AgentProfileGenerator(new UserProfile(userLists));
+        System.out.println(userProf.toString());
         
         //Create Agent ID
         List agIDLists = new ArrayList();

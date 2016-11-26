@@ -27,7 +27,7 @@ public class UserProfile extends AgentProfile{
     
     private static final RandomDataGenerator rand = new RandomDataGenerator();
     private static Integer dataMode = 0;
-    public static void setParameter(Integer num, Integer mode, Long seed){
+    public static void setParameter(Integer mode, Long seed){
         if(seed != -1L) rand.reSeed(seed);
         dataMode = mode;
     }
