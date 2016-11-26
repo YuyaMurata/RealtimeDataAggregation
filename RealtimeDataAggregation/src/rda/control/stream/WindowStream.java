@@ -37,7 +37,6 @@ public class WindowStream extends Thread{
         while(runnable){
             //Get Window
             Window window = flow.get();
-            
             if(window == null) continue;
             
             //Update
