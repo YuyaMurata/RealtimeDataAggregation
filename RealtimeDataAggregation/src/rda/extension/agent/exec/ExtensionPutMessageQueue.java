@@ -45,5 +45,5 @@ public abstract class ExtensionPutMessageQueue implements AgentExecutor, Seriali
         return msg;
     }
     
-    public abstract String send(AgentClient client, String agID, List data);
+    public abstract String send(AgentClient client, Object agID, List data);
 }

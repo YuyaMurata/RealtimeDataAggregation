@@ -8,6 +8,7 @@ package apps.count.main;
 import apps.count.agent.aggregate.creator.CreateAggregateAgent;
 import apps.count.agent.aggregate.extension.AggregateAgentMessageSender;
 import apps.count.agent.aggregate.profile.AggregateAgentProfile;
+import apps.count.agent.aggregate.profile.UserProfile;
 import apps.count.agent.aggregate.reader.ReadAggregateAgent;
 import apps.count.agent.aggregate.updator.UpdateAggregateAgent;
 import apps.count.manager.AggregateAgentManager;
@@ -37,18 +38,25 @@ public class AgentSystemMain {
         AggregateAgentManager manager = AggregateAgentManager.getInstance();
         manager.setDestinationAgent();
         
+        //Create User ID
+        List userLists = new ArrayList();
+        for(int i=0; i < 10; i++)
+            userLists.add("User#00"+i);
+        //UserProfile
+        AgentProfileGenerator userProf = new AgentProfileGenerator(new UserProfile(userLists));
+        
         //Create Agent ID
         List agIDLists = new ArrayList();
         for(int i=0; i < 10; i++)
             agIDLists.add("Agent#00"+i);
+        //AgentProfile
+        AgentProfileGenerator agentProf = new AgentProfileGenerator(new AggregateAgentProfile(agIDLists));
+        
         
         //Destination Table
         DestinationAgentTable table = DestinationAgentTable.getInstance();
         table.createTable(agIDLists);
         System.out.println(table.toString());
-        
-        //Profile
-        AgentProfileGenerator agentProf = new AgentProfileGenerator(new AggregateAgentProfile(agIDLists));
         
         //Client
         AgentConnection ag = manager.getDestinationAgent();
@@ -94,11 +102,13 @@ public class AgentSystemMain {
         WindowStream.setRunnable(true);
         win.start();
         dataStream.start();
-        for(String agID : (List<String>)agIDLists){
-            String userID = agID;
+        for(String userID : (List<String>)userLists){
+            Object id = userProf.generate(userID).get(UserProfile.profileID.ID);
             UserData data = new UserData(userID, 1);
             
+            Object agID = table.getDestAgentID(id);
             win.pack(agID, data);
+            System.out.println(data.toString());
         }
         
         try {

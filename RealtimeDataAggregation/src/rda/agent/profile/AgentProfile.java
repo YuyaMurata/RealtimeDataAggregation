@@ -17,10 +17,10 @@ import java.util.Map;
 public abstract class AgentProfile implements Serializable{
     private Map<String, Map> profile = new HashMap();
     public AgentProfile(List agIDLists){
-        this.profile = initAgentProfile(agIDLists);
+        this.profile = initProfile(agIDLists);
     }
     
-    public abstract Map initAgentProfile(List agIDLists);
+    public abstract Map initProfile(List agIDLists);
     
     public Map getProfile(String agID){
         return profile.get(agID);

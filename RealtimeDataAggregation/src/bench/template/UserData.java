@@ -24,4 +24,7 @@ public class UserData implements Serializable{
         this.data = data;
     }
     
+    public String toString(){
+        return "UserID = "+id+" Data = "+data;
+    }
 }

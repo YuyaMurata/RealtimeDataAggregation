@@ -14,10 +14,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @author kaeru
  */
 public class Window{
-    public String id;
+    public Object id;
     private List win = new CopyOnWriteArrayList();
 
-    public Window(String id) {
+    public Window(Object id) {
         this.id = id;
     }
     

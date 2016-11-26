@@ -25,7 +25,7 @@ public class AggregateAgentProfile extends AgentProfile{
     }
     
     @Override
-    public Map initAgentProfile(List agIDLists) {
+    public Map initProfile(List agIDLists) {
         Map map = new HashMap();
         
         for(String agID : (List<String>)agIDLists){

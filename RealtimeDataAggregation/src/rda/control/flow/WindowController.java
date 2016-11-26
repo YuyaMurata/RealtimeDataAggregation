@@ -2,14 +2,12 @@ package rda.control.flow;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class WindowController extends Thread{
-    private Map<String, Window> windowMap = new ConcurrentHashMap<>();
+    private Map<Object, Window> windowMap = new ConcurrentHashMap<>();
     private BlockingQueue executableQueue;
     private Long aliveTime;
     
@@ -20,7 +18,7 @@ public class WindowController extends Thread{
         Window.setParameter(limit, executableQueue);
     }
         
-    public void pack(String id, Object data){
+    public void pack(Object id, Object data){
         try{
             windowMap.get(id).pack(data);
         }catch(NullPointerException e){

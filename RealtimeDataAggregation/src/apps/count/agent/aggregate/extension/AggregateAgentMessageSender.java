@@ -26,7 +26,7 @@ public class AggregateAgentMessageSender extends ExtensionPutMessageQueue{
     }
     
     @Override
-    public String send(AgentClient client, String agID, List data) {
+    public String send(AgentClient client, Object agID, List data) {
         try {
             AgentKey agentKey = new AgentKey(AGENT_TYPE, new Object[]{agID});
             
