@@ -52,9 +52,9 @@ public class DestinationAgentTable {
     
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("Destination Agent Table {");
+        sb.append("Destination Agent Table {\n");
         for(Object id : destTable.keySet()){
-            sb.append(" ");
+            sb.append("\t");
             sb.append(id);
             sb.append(":");
             sb.append(destTable.get(id));
