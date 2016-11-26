@@ -111,6 +111,8 @@ public class AgentSystemExtension implements Extension {
             AgentMessageQueue.setParameter(param);
             agentMap = new HashMap();
             
+            AgentMessageQueue.runnable = true;
+            
             return "[Success AgentSystem Initialize !] - "+AgentMessageQueue.getParameter();
         } catch (Exception e) {
             return e.toString();

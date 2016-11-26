@@ -42,7 +42,7 @@ public class AgentMessageQueue implements Runnable{
         return "MQParameter wait = "+putwait+","+getwait+" length = "+size;
     }
     
-    public static Boolean runnable = true;
+    public static Boolean runnable;
     
     public Boolean put(Object obj){
         boolean success = false;
