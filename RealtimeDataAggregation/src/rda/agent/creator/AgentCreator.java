@@ -48,6 +48,11 @@ public abstract class AgentCreator implements AgentExecutor, Serializable{
         // TODO 自動生成されたメソッド・スタブ
         try {
             AgentManager agentManager = AgentManager.getAgentManager();
+            
+            //Register Extension
+            AgentSystemExtension extension = AgentSystemExtension.getInstance();
+            extension.registeAgent(agentKey.getValue(0));
+            
             if (agentManager.exists(agentKey)) {
                 return "agent (" + agentKey + ") already exists";
             }
@@ -60,11 +65,7 @@ public abstract class AgentCreator implements AgentExecutor, Serializable{
             msg.setParams(state);
 		
             Object ret = agentManager.sendMessage(agentKey, msg);
-            
-            //Register Extension
-            AgentSystemExtension extension = AgentSystemExtension.getInstance();
-            extension.registeAgent(agentKey.getValue(0));
-		
+            	
             return ret;
         } catch (AgentException | IllegalAccessException | InstantiationException e) {
             e.printStackTrace();
