@@ -13,7 +13,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  *
  * @author kaeru
  */
-public class Window{
+public class Window {
     public Object id;
     private List win = new CopyOnWriteArrayList();
 
