@@ -5,8 +5,6 @@
  */
 package apps.count.manager;
 
-import apps.count.agent.aggregate.creator.CreateAggregateAgent;
-import java.util.HashMap;
 import java.util.Map;
 import rda.agent.client.AgentConnection;
 import rda.agent.manager.AgentManager;
@@ -16,6 +14,10 @@ import rda.agent.manager.AgentManager;
  * @author kaeru
  */
 public class AggregateAgentManager extends AgentManager{
+    public enum paramID{
+        ID_RULE, AMOUNT_AGENTS
+    }
+    
     private static AggregateAgentManager manager = new AggregateAgentManager();
     public static AggregateAgentManager getInstance(){
         return manager;

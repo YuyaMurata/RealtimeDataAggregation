@@ -7,6 +7,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class WindowController extends Thread{
+    public enum paramID{
+        WINDOW_SIZE, WINDOW_TIME
+    }
+    
     private Map<Object, Window> windowMap = new ConcurrentHashMap<>();
     private BlockingQueue executableQueue;
     private Long aliveTime;

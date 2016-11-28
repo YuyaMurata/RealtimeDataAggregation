@@ -115,13 +115,13 @@ public class AgentBenchmark {
             
             //Test
             sleepTime = System.currentTimeMillis() - watch;
-            System.out.println("Term[s] = "+term+" TimePeriod[ms] : "+sleepTime);
+            System.out.println("Time[s] = "+time+" TimePeriod[ms] : "+sleepTime);
             
             timerFlg = true;
             time++;
             
             if(term < time)
-                throw new TimeOverEvent("AgentBenchmark", term);
+                throw new TimeOverEvent("AgentBenchmark", time);
         }
         
         return user;
@@ -142,32 +142,15 @@ public class AgentBenchmark {
         dparam.put(paramID.TYPE_SELECT, 0);
 
         setParameter(dparam);
-
-        /*UserData user;
-        Map datalog = new HashMap();
-        Long test = 0L;
-        for (long t = 0; t < numRun; t++) {
-            while ((user = datagen.generate(t)) != null) {
-                if (datalog.get(user.id) == null) {
-                    datalog.put(user.id, 1);
-                }
-                datalog.put(user.id, (int) datalog.get(user.id) + (int) user.data);
-            }
-
-            //Check DataLog
-            System.out.print("t-" + t + " ");
-            for (Object id : datalog.keySet()) {
-                System.out.print(id + "," + datalog.get(id) + " / ");
-            }
-            test += Long.valueOf(datagen.toString(t));
-            System.out.println(test);
-        }
-
-        //DataLog Results
-        System.out.println("\n Results :");
-        for (Object id : datalog.keySet()) {
-            System.out.println(id + "," + datalog.get(id));
-        }
-        System.out.println(datagen.toString());*/
+    }
+    
+    public List getUserList(){
+        if(userLists == null)
+            System.out.println("Do not set parameters!");
+        return userLists;
+    }
+    
+    public Long getTotalGenerate(){
+        return datagen.getAmountData();
     }
 }

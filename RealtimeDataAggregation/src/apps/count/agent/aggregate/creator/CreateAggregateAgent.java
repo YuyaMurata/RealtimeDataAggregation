@@ -18,7 +18,7 @@ import rda.agent.creator.AgentCreator;
  * @author kaeru
  */
 public class CreateAggregateAgent extends AgentCreator {
-
+    
     private static final String AGENT_TYPE = "aggregateagent";
     private static final String MESSAGE_TYPE = "initAggregateAgent";
 

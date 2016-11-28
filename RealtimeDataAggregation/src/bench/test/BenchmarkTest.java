@@ -44,6 +44,6 @@ public class BenchmarkTest {
         System.out.println("Results {");
         for(Object id : datalog.keySet())
             System.out.println("\t "+id+", "+datalog.get(id));
-        System.out.println("} Total="+totalData+" Time[s]:"+(stop-start));
+        System.out.println("} Total="+totalData+"-"+ag.getTotalGenerate()+" Time[s]:"+(stop-start));
     }
 }

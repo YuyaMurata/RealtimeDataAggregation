@@ -15,6 +15,10 @@ import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
  * @author kaeru
  */
 public class AgentConnection {
+    public enum paramID{
+        POOL_SIZE
+    }
+    
     private ObjectPool<AgentClient> _pool;
     private String[] aghost;
     

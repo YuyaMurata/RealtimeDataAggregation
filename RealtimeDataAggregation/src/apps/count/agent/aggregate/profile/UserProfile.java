@@ -16,6 +16,9 @@ import rda.agent.profile.AgentProfile;
  * @author kaeru
  */
 public class UserProfile extends AgentProfile{
+    public enum paramID{
+        USER_SEED, USER_MODE
+    }
     public enum profileID{
         ID, NAME, AGE, SEX, ADDRESS
     }
