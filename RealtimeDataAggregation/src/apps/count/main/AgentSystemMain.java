@@ -114,7 +114,7 @@ public class AgentSystemMain {
                 
                 System.out.println(agID+" - "+user.toString());
                 
-                window.in(agID, user.data);
+                window.in(agID, user);
                 totalData++;
             }
         } catch (TimeOverEvent ex) {
