@@ -53,10 +53,7 @@ public class Dispose implements AgentExecutor, Serializable {
         }
     }
     
-    public void delete(AgentConnection ag) {
-        // エージェントクライアントの生成
-        AgentClient client = ag.getClient();
-
+    public void delete(AgentClient client) {
         try {
             // エージェントエグゼキュータを生成
             Dispose executor = new Dispose();
@@ -79,10 +76,6 @@ public class Dispose implements AgentExecutor, Serializable {
                 }
             }
         } catch (Exception e) {
-        } finally {
-            ag.returnConnection(client);
-        }
-
-        ag.close();
+        } 
     }
 }

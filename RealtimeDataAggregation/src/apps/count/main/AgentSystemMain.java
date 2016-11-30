@@ -144,12 +144,12 @@ public class AgentSystemMain {
         //Total Time
         System.out.println(totalData+","+(stop-start));
         
-        //Client
-        ag.returnConnection(client);
-        
         //Delete Test
         Dispose deletor = new Dispose();
-        deletor.delete(manager.getDestinationAgent());
+        deletor.delete(client);
+        
+        //Client
+        ag.returnConnection(client);
         
     }
 }
