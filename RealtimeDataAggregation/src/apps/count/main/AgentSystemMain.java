@@ -123,11 +123,6 @@ public class AgentSystemMain {
         }
         Long stop = System.currentTimeMillis();
         
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ex) {
-        }
-        
         //Stop AgentSystem
         WindowStream.setRunnable(false);
         AgentSystemShutdown agShutdown = new AgentSystemShutdown();
@@ -136,13 +131,15 @@ public class AgentSystemMain {
 
         //Read Test
         ReadAggregateAgent reader = new ReadAggregateAgent();
+        Long total = 0L;
         for(String agID : (List<String>)agIDLists){
             Object d = reader.read(client, agID);
             System.out.println("Read "+agID+" = "+d);
+            total = ((List<Long>)d).get(0) + total;
         }
         
         //Total Time
-        System.out.println(totalData+","+(stop-start));
+        System.out.println(total+"/"+totalData+","+(stop-start));
         
         //Delete Test
         Dispose deletor = new Dispose();
