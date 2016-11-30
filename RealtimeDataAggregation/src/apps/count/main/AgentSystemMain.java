@@ -110,7 +110,7 @@ public class AgentSystemMain {
                 if(user== null) continue;
                 
                 //Object id = userProf.generate(user.id).get(UserProfile.profileID.ID);
-                Object agID = table.getDestAgentID(user.id);
+                //Object agID = table.getDestAgentID(user.id);
                 
                 //System.out.println(agID+" - "+user.toString());
                 
