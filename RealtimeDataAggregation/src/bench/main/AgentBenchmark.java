@@ -113,7 +113,7 @@ public class AgentBenchmark {
             Long sleepTime = System.currentTimeMillis() - watch;
             if(period > sleepTime){
                 try {
-                    Thread.sleep(period - sleepTime);
+                    Thread.sleep(period - sleepTime-1);
                 } catch (InterruptedException ex) {
                 }
             }
