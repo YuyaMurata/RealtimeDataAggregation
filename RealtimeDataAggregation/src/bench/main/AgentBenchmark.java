@@ -141,7 +141,7 @@ public class AgentBenchmark {
         dparam.put(paramID.DATA_VOLUME, 1000L);
         dparam.put(paramID.AMOUNT_USER, 10);
         dparam.put(paramID.AGENT_DEFAULT_VALUE, 1);
-        dparam.put(paramID.DATA_MODE, 1);
+        dparam.put(paramID.DATA_MODE, 0);
         dparam.put(paramID.DATA_SEED, Long.MAX_VALUE);
         dparam.put(paramID.ID_RULE, "TEST#00");
         dparam.put(paramID.TYPE_SELECT, 0);

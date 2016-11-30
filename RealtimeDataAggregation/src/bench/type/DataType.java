@@ -44,15 +44,14 @@ public abstract class DataType{
     
     public UserData nextData(Long time) {
         count++;
-        UserData d = (UserData) data.getData();
         
         if(count >= timeToVolume(time, volume)) {
-            d = null;
             total += count;
             count = -1L;
+            return null;
+        }else{
+            return (UserData) data.getData();
         }
-        
-        return d;
     }
     
     public String getName(){
