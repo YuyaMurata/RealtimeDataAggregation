@@ -20,6 +20,7 @@ import com.ibm.agent.exa.client.AgentClient;
 import java.util.List;
 import java.util.Map;
 import rda.agent.client.AgentConnection;
+import rda.agent.deletor.Dispose;
 import rda.agent.profile.AgentProfileGenerator;
 import rda.agent.table.DestinationAgentTable;
 import rda.control.stream.WindowStream;
@@ -146,10 +147,9 @@ public class AgentSystemMain {
         //Client
         ag.returnConnection(client);
         
-        /*
         //Delete Test
         Dispose deletor = new Dispose();
         deletor.delete(manager.getDestinationAgent());
-        */
+        
     }
 }
