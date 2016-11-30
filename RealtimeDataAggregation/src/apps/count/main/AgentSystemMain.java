@@ -112,6 +112,8 @@ public class AgentSystemMain {
                 Object id = userProf.generate(user.id).get(UserProfile.profileID.ID);
                 Object agID = table.getDestAgentID(id);
                 
+                System.out.println(agID+" - "+user.toString());
+                
                 window.in(agID, user.data);
                 totalData++;
             }
