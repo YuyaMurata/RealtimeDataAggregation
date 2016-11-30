@@ -15,6 +15,7 @@ import apps.count.manager.AggregateAgentManager;
 import bench.main.AgentBenchmark;
 import bench.property.BenchmarkProperty;
 import bench.template.UserData;
+import bench.time.TimeOverEvent;
 import com.ibm.agent.exa.client.AgentClient;
 import java.util.List;
 import java.util.Map;
@@ -94,13 +95,30 @@ public class AgentSystemMain {
                 ag,
                 agUpdate);
         window.start();
-        for(String userID : (List<String>)userLists){
+        /*for(String userID : (List<String>)userLists){
             Object id = userProf.generate(userID).get(UserProfile.profileID.ID);
             UserData data = new UserData(userID, 1);
             
             Object agID = table.getDestAgentID(id);
             window.in(agID, data);
+        }*/
+        Long totalData = 0L;
+        Long start = System.currentTimeMillis();
+        try {
+            while (true) {
+                UserData user = agBench.bench();
+                if(user== null) continue;
+                
+                Object id = userProf.generate(user.id).get(UserProfile.profileID.ID);
+                Object agID = table.getDestAgentID(id);
+                
+                window.in(agID, user.data);
+                totalData++;
+            }
+        } catch (TimeOverEvent ex) {
+            //ex.printStackTrace();
         }
+        Long stop = System.currentTimeMillis();
         
         try {
             Thread.sleep(1000);
@@ -119,6 +137,9 @@ public class AgentSystemMain {
             Object d = reader.read(client, agID);
             System.out.println("Read "+agID+" = "+d);
         }
+        
+        //Total Time
+        System.out.println(totalData+","+(stop-start));
         
         //Client
         ag.returnConnection(client);

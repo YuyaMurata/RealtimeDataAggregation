@@ -42,6 +42,9 @@ public abstract class ExtensionPutMessageQueue implements AgentExecutor, Seriali
         
         String msg = agentKey.getValue(0) + " : Update Agent = "+result;
         
+        if(!result)
+            System.out.println(msg);
+        
         return msg;
     }
     
