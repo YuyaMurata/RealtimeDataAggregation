@@ -7,19 +7,19 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-public class BenchProperty {
+public class BenchmarkProperty {
     private static final String filename ="/agent.properties";
-    private static BenchProperty benchProp = new BenchProperty(filename);
+    private static BenchmarkProperty benchProp = new BenchmarkProperty(filename);
     private Map propMap = new HashMap();
     private Properties prop = new Properties();
     
-    private BenchProperty(String filename) {
+    private BenchmarkProperty(String filename) {
         // TODO 自動生成されたコンストラクター・スタブ
         load(prop, filename);
         setPropertyToMap();
     }
     
-    public static BenchProperty getInstance(){
+    public static BenchmarkProperty getInstance(){
         return benchProp;
     }
     
@@ -57,7 +57,7 @@ public class BenchProperty {
     private void setPropertyToMap(){
         propMap.put(AgentBenchmark.paramID.TIME_RUN, Long.valueOf(getValue("time.run")));
         propMap.put(AgentBenchmark.paramID.TIME_PERIOD, Long.valueOf(getValue("time.period")));
-        propMap.put(AgentBenchmark.paramID.DATA_VOLUME, Integer.valueOf(getValue("data.volume")));
+        propMap.put(AgentBenchmark.paramID.DATA_VOLUME, Long.valueOf(getValue("data.volume")));
         
         propMap.put(AgentBenchmark.paramID.AMOUNT_USER, Integer.valueOf(getValue("number.user")));
         propMap.put(AgentBenchmark.paramID.ID_RULE, getValue("user.idrule"));
@@ -84,6 +84,6 @@ public class BenchProperty {
     }
     
     public static void main(String args[]){
-        BenchProperty bprop = BenchProperty.getInstance();
+        BenchmarkProperty bprop = BenchmarkProperty.getInstance();
     }
 }

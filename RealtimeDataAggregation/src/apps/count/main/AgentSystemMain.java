@@ -13,7 +13,7 @@ import apps.count.agent.aggregate.reader.ReadAggregateAgent;
 import apps.count.agent.aggregate.updator.UpdateAggregateAgent;
 import apps.count.manager.AggregateAgentManager;
 import bench.main.AgentBenchmark;
-import bench.property.BenchProperty;
+import bench.property.BenchmarkProperty;
 import bench.template.UserData;
 import com.ibm.agent.exa.client.AgentClient;
 import java.util.List;
@@ -39,7 +39,7 @@ public class AgentSystemMain {
         AgentBenchmark agBench = AgentBenchmark.getInstance();
         
         //Benchmark Initializer
-        BenchProperty bprop = BenchProperty.getInstance();
+        BenchmarkProperty bprop = BenchmarkProperty.getInstance();
         agBench.setParameter(bprop.getParameter());
         
         //Create User ID
