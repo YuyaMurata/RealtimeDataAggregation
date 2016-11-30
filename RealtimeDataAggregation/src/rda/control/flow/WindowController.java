@@ -15,11 +15,11 @@ public class WindowController extends Thread{
     private BlockingQueue executableQueue;
     private Long aliveTime;
     
-    public WindowController(int limit, Long aliveTime) {
+    public WindowController(Map param) {
         this.executableQueue = new LinkedBlockingQueue();
-        this.aliveTime = aliveTime;
+        this.aliveTime = (Long) param.get(paramID.WINDOW_TIME);
         
-        Window.setParameter(limit, executableQueue);
+        Window.setParameter((Integer) param.get(paramID.WINDOW_SIZE), executableQueue);
     }
         
     public void pack(Object id, Object data){

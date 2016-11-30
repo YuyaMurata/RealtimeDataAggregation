@@ -8,6 +8,7 @@ import java.util.Properties;
 import rda.agent.client.AgentConnection;
 import rda.agent.mq.AgentMessageQueue;
 import rda.control.flow.WindowController;
+import rda.server.ServerConnectionManager;
 
 public class RDAProperty {
     private static final String filename ="/agent.properties";
@@ -54,6 +55,15 @@ public class RDAProperty {
     }
     
     private void setPropertyToMap(){
+        //Server Parameter
+        propMap.put(ServerConnectionManager.paramID.AMOUNT_SERVERS, Integer.valueOf(getValue("number.server")));
+        propMap.put(ServerConnectionManager.paramID.AMOUNT_REGIONS, Integer.valueOf(getValue("number.region")));
+        propMap.put(ServerConnectionManager.paramID.HOSTNAME_RULE, getValue("server.namerule"));
+        propMap.put(ServerConnectionManager.paramID.SERVER_PORT, Integer.valueOf(getValue("server.port")));
+        
+        //Application Class
+        propMap.put(ServerConnectionManager.paramID.APP_CLASS, getValue("app.class"));
+        
         //AgentClient Parameter
         propMap.put(AgentConnection.paramID.POOL_SIZE, Integer.valueOf(getValue("pool.size")));
         
@@ -68,6 +78,21 @@ public class RDAProperty {
         
         //Console Out
         displayProperty();
+    }
+    
+    public Map getAllParameter(){
+        return propMap;
+    }
+    
+    public Object getParameter(Object id){
+        return propMap.get(id);
+    }
+    
+    public Map getWindowParameter(){
+        Map map = new HashMap();
+        map.put(WindowController.paramID.WINDOW_SIZE, (Integer)getParameter(WindowController.paramID.WINDOW_SIZE));
+        map.put(WindowController.paramID.WINDOW_TIME, (Long)getParameter(WindowController.paramID.WINDOW_TIME));
+        return map;
     }
     
     private void displayProperty(){

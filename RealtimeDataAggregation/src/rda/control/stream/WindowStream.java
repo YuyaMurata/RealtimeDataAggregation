@@ -7,6 +7,7 @@ package rda.control.stream;
 
 import rda.extension.agent.exec.ExtensionPutMessageQueue;
 import com.ibm.agent.exa.client.AgentClient;
+import java.util.Map;
 import rda.agent.client.AgentConnection;
 import rda.control.flow.Window;
 import rda.control.flow.WindowController;
@@ -20,16 +21,27 @@ public class WindowStream extends Thread{
     private AgentConnection agcon;
     private ExtensionPutMessageQueue sender;
     
-    public WindowStream(WindowController flow, AgentConnection agcon, ExtensionPutMessageQueue sender) {
-        this.flow = flow;
+    public WindowStream(Map param, AgentConnection agcon, ExtensionPutMessageQueue sender) {
+        this.flow = new WindowController(param);
         this.agcon = agcon;
         this.sender = sender;
+        
+        setRunnable(true);
     }
     
     private static Boolean runnable;
     public static void setRunnable(Boolean state){
         runnable = state;
         WindowController.setRunnable(state);
+    }
+    
+    public void in(Object id, Object data){
+        flow.pack(id, data);
+    }
+    
+    @Override
+    public void start(){
+        flow.start();
     }
     
     @Override

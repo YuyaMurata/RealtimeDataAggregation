@@ -72,6 +72,10 @@ public class BenchProperty {
         displayProperty();
     }
     
+    public Object getParameter(Object id){
+        return propMap.get(id);
+    }
+    
     private void displayProperty(){
         System.out.println("****** -Get "+filename+" Property Value- ******");
         for(Object key: propMap.keySet())

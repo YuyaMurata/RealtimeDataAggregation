@@ -28,10 +28,10 @@ public class UserProfile extends AgentProfile{
     }
     
     private static final RandomDataGenerator rand = new RandomDataGenerator();
-    private static Integer dataMode = 0;
+    private static Integer userMode = 0;
     public static void setParameter(Integer mode, Long seed){
         if(seed != -1L) rand.reSeed(seed);
-        dataMode = mode;
+        userMode = mode;
     }
     
     @Override
@@ -42,8 +42,8 @@ public class UserProfile extends AgentProfile{
             
             map.put(profileID.ID, userID);
             map.put(profileID.NAME, "NAME-"+userID);
-            map.put(profileID.AGE, getAge(dataMode));
-            map.put(profileID.SEX, getSex(dataMode));
+            map.put(profileID.AGE, getAge(userMode));
+            map.put(profileID.SEX, getSex(userMode));
             map.put(profileID.ADDRESS, "CITY-"+userID);
             
             profMap.put(userID, map);

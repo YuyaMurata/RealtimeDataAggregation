@@ -18,7 +18,7 @@ import java.util.Map;
 public class BenchmarkTest {
 
     public static void main(String[] args) {
-        AgentBenchmark ag = new AgentBenchmark();
+        AgentBenchmark ag = AgentBenchmark.getInstance();
         ag.setDummyParameter();
 
         Map datalog = new HashMap();

@@ -22,7 +22,6 @@ import java.util.Map;
  * @author kaeru
  */
 public class AgentBenchmark {
-
     public static enum paramID {
         TIME_RUN, TIME_PERIOD, DATA_VOLUME,
         AMOUNT_USER, AGENT_DEFAULT_VALUE, DATA_MODE,
@@ -30,21 +29,27 @@ public class AgentBenchmark {
     }
 
     private Map param = new HashMap();
-
+    
+    private static AgentBenchmark agBench = new AgentBenchmark();
+    private AgentBenchmark(){}
+    public static AgentBenchmark getInstance(){
+        return  agBench;
+    }
+    
     public void setParameter(Map param) {
         this.param = param;
         
         this.term = (Long) param.get(paramID.TIME_RUN);
         this.period = (Long) param.get(paramID.TIME_PERIOD);
         
-        preparedBenchMark((Integer)param.get(paramID.AMOUNT_USER), 
+        preparedBenchmark((Integer)param.get(paramID.AMOUNT_USER), 
                             (String)param.get(paramID.ID_RULE), 
                             (Integer)param.get(paramID.TYPE_SELECT));
     }
     
     private List userLists;
     private DataGenerator datagen;
-    private void preparedBenchMark(Integer n, String rule, Integer select){
+    private void preparedBenchmark(Integer n, String rule, Integer select){
         userLists = new ArrayList();
         for(int i=0; i < n; i++)
             userLists.add(rule+i);
@@ -145,7 +150,7 @@ public class AgentBenchmark {
     }
     
     public List getUserList(){
-        if(userLists == null)
+        if(userLists.isEmpty())
             System.out.println("Do not set parameters!");
         return userLists;
     }

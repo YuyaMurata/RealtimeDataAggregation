@@ -12,21 +12,20 @@ import apps.count.agent.aggregate.profile.UserProfile;
 import apps.count.agent.aggregate.reader.ReadAggregateAgent;
 import apps.count.agent.aggregate.updator.UpdateAggregateAgent;
 import apps.count.manager.AggregateAgentManager;
+import bench.main.AgentBenchmark;
 import bench.template.UserData;
 import com.ibm.agent.exa.client.AgentClient;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import rda.agent.client.AgentConnection;
-import rda.agent.mq.AgentMessageQueue;
 import rda.agent.profile.AgentProfileGenerator;
 import rda.agent.table.DestinationAgentTable;
-import rda.control.flow.WindowController;
 import rda.control.stream.WindowStream;
 import rda.extension.agent.exec.AgentSystemInitializer;
 import rda.extension.agent.exec.AgentSystemLaunch;
 import rda.extension.agent.exec.AgentSystemShutdown;
+import rda.property.RDAProperty;
+import rda.server.ServerConnectionManager;
 
 /**
  *
@@ -36,48 +35,38 @@ public class AgentSystemMain {
     public static void main(String[] args) {
         //Test
         AggregateAgentManager manager = AggregateAgentManager.getInstance();
-        manager.setDestinationAgent();
+        AgentBenchmark agBench = AgentBenchmark.getInstance();
         
         //Create User ID
-        List userLists = new ArrayList();
-        for(int i=0; i < 10; i++)
-            userLists.add("User#00"+i);
-        //UserProfile
+        List userLists = agBench.getUserList();
         AgentProfileGenerator userProf = new AgentProfileGenerator(new UserProfile(userLists));
         System.out.println(userProf.toString());
         
         //Create Agent ID
-        List agIDLists = new ArrayList();
-        for(int i=0; i < 10; i++)
-            agIDLists.add("Agent#00"+i);
-        //AgentProfile
+        List agIDLists = manager.getAgentList();
         AgentProfileGenerator agentProf = new AgentProfileGenerator(new AggregateAgentProfile(agIDLists));
-        
         
         //Destination Table
         DestinationAgentTable table = DestinationAgentTable.getInstance();
         table.createTable(agIDLists);
         System.out.println(table.toString());
         
-        //Client
-        AgentConnection ag = manager.getDestinationAgent();
+        //Server - AgentClient
+        ServerConnectionManager scManager = ServerConnectionManager.getInstance();
+        AgentConnection ag = scManager.getLocalServer();
         AgentClient client = ag.getClient();
         
-        //Extension Initialize
-        Map param = new HashMap();
-        AgentSystemInitializer agInit = new AgentSystemInitializer();
+        //Init Parameter
+        RDAProperty prop = RDAProperty.getInstance();
         CreateAggregateAgent creator = new CreateAggregateAgent();
         UpdateAggregateAgent updator = new UpdateAggregateAgent();
-        
-        //Init Parameter
-        param.put(AgentSystemInitializer.paramID.REGION_NAME, "");
+        Map param = prop.getAllParameter();
         param.put(AgentSystemInitializer.paramID.AGENT_CREATOR, creator);
         param.put(AgentSystemInitializer.paramID.AGENT_PROFILE, agentProf);
         param.put(AgentSystemInitializer.paramID.AGENT_UPDATOR, updator);
-        param.put(AgentMessageQueue.paramID.AGENT_WAIT, 100L);
-        param.put(AgentMessageQueue.paramID.QUEUE_WAIT, 100L);
-        param.put(AgentMessageQueue.paramID.QUEUE_LENGTH, 1000);
         
+        //Extension Initialize
+        AgentSystemInitializer agInit = new AgentSystemInitializer();
         Object msg = agInit.initalize(client, param);
         System.out.println(msg);
         
@@ -95,20 +84,17 @@ public class AgentSystemMain {
         
         //Update Test
         AggregateAgentMessageSender agUpdate = new AggregateAgentMessageSender();
-        WindowController win = new WindowController(10, 10L);
-        WindowStream dataStream = new WindowStream(
-                win,
+        WindowStream window = new WindowStream(
+                prop.getWindowParameter(),
                 ag,
                 agUpdate);
-        WindowStream.setRunnable(true);
-        win.start();
-        dataStream.start();
+        window.start();
         for(String userID : (List<String>)userLists){
             Object id = userProf.generate(userID).get(UserProfile.profileID.ID);
             UserData data = new UserData(userID, 1);
             
             Object agID = table.getDestAgentID(id);
-            win.pack(agID, data);
+            window.in(agID, data);
         }
         
         try {
