@@ -38,7 +38,7 @@ public class BenchProperty {
         return prop.getProperty(key);
     }
     
-    public Map getProperty(){
+    public Map getParameter(){
         return this.propMap;
     }
     
