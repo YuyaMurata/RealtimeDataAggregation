@@ -27,6 +27,7 @@ public class WindowStream extends Thread{
         this.sender = sender;
         
         setRunnable(true);
+        this.flow.start();
     }
     
     private static Boolean runnable;
@@ -40,11 +41,6 @@ public class WindowStream extends Thread{
     }
     
     @Override
-    public void start(){
-        flow.start();
-    }
-    
-    @Override
     public void run() {
         while(runnable){
             //Get Window
@@ -54,6 +50,7 @@ public class WindowStream extends Thread{
             //Update
             AgentClient client = agcon.getClient();
             String msg = sender.send(client, window.id, window.unpack());
+            System.out.println(msg);
             agcon.returnConnection(client);
         }
     }
