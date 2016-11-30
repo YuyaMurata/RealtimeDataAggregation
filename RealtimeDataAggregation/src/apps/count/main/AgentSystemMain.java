@@ -94,7 +94,7 @@ public class AgentSystemMain {
                 prop.getWindowParameter(),
                 ag,
                 agUpdate);
-        //window.start();
+        window.start();
         /*for(String userID : (List<String>)userLists){
             Object id = userProf.generate(userID).get(UserProfile.profileID.ID);
             UserData data = new UserData(userID, 1);
@@ -109,12 +109,12 @@ public class AgentSystemMain {
                 UserData user = agBench.bench();
                 if(user== null) continue;
                 
-                //Object id = userProf.generate(user.id).get(UserProfile.profileID.ID);
-                //Object agID = table.getDestAgentID(user.id);
+                Object id = userProf.generate(user.id).get(UserProfile.profileID.ID);
+                Object agID = table.getDestAgentID(id);
                 
                 //System.out.println(agID+" - "+user.toString());
                 
-                //window.in(agID, user);
+                window.in(agID, user);
                 totalData++;
             }
         } catch (TimeOverEvent ex) {
