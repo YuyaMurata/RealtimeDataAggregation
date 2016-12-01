@@ -79,6 +79,6 @@ public class AgentConnection {
     }
     
     public String toString(){
-        return aghost[0];
+        return "ActibeObj : "+getActiveObject()+" ,IdleObj : "+getIdleObject();
     }
 }

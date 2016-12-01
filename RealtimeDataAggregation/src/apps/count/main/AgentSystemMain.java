@@ -108,7 +108,10 @@ public class AgentSystemMain {
         try {
             while (true) {
                 UserData user = agBench.bench();
-                if(user== null) continue;
+                if(user== null){
+                    System.out.println(ag.toString());
+                    continue;
+                }
                 
                 Object id = userProf.generate(user.id).get(UserProfile.profileID.ID);
                 Object agID = table.getDestAgentID(id);
