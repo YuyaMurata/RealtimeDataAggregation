@@ -111,12 +111,12 @@ public class AgentBenchmark {
         UserData user = datagen.generate(time);
         if(user == null){
             Long sleepTime = System.currentTimeMillis() - watch;
-            //if(period > sleepTime){
-            //    try {
-            //        Thread.sleep(period - sleepTime);
-            //    } catch (InterruptedException ex) {
-            //    }
-            //}
+            if(period > sleepTime){
+                try {
+                    Thread.sleep(period - sleepTime);
+                } catch (InterruptedException ex) {
+                }
+            }
             
             //Test
             sleepTime = System.currentTimeMillis() - watch;
