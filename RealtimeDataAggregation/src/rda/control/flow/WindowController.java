@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class WindowController extends Thread{
@@ -12,11 +13,11 @@ public class WindowController extends Thread{
     }
     
     private Map<Object, Window> windowMap = new ConcurrentHashMap<>();
-    private BlockingQueue executableQueue;
+    private ConcurrentLinkedQueue executableQueue;
     private Long aliveTime;
     
     public WindowController(Map param) {
-        this.executableQueue = new LinkedBlockingQueue();
+        this.executableQueue = new ConcurrentLinkedQueue();
         this.aliveTime = (Long) param.get(paramID.WINDOW_TIME);
         
         Window.setParameter((Integer) param.get(paramID.WINDOW_SIZE), executableQueue);
@@ -42,22 +43,10 @@ public class WindowController extends Thread{
         //System.out.println("Window Controller Size = "+executableQueue.size());
     }
     
-    public void returnExecutable(Window window){
-        if(executableQueue.contains(window))
-            remove();
-        else
-            executableQueue.add(window);
-        //System.out.println("Window Controller Size = "+executableQueue.size());
-    }
-    
     public Window get(){
         return (Window)executableQueue.poll();
     }
-    
-    public void remove(){
-        executableQueue.poll();
-    }
-    
+
     public boolean check(String id){
         return windowMap.get(id) != null;
     }
