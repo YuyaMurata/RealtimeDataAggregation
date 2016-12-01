@@ -97,7 +97,7 @@ public class AgentSystemMain {
                 prop.getWindowParameter(),
                 ag,
                 agUpdate);
-        window.start();
+        //window.start();
         /*for(String userID : (List<String>)userLists){
             Object id = userProf.generate(userID).get(UserProfile.profileID.ID);
             UserData data = new UserData(userID, 1);
@@ -127,11 +127,6 @@ public class AgentSystemMain {
             //ex.printStackTrace();
         }
         Long stop = System.currentTimeMillis();
-        
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException ex) {
-        }
         
         //Stop AgentSystem
         WindowStream.setRunnable(false);
