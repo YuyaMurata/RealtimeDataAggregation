@@ -42,16 +42,16 @@ public class WindowStream extends Thread{
     
     @Override
     public void run() {
+        AgentClient client = agcon.getClient();
         while(runnable){
             //Get Window
             Window window = flow.get();
             if(window == null) continue;
             
             //Update
-            AgentClient client = agcon.getClient();
             String msg = sender.send(client, window.id, window.unpack());
-            agcon.returnConnection(client);
         }
+        agcon.returnConnection(client);
     }
     
 }
