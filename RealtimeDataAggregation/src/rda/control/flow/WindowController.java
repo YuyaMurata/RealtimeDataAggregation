@@ -1,6 +1,7 @@
 package rda.control.flow;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -10,7 +11,7 @@ public class WindowController extends Thread{
         WINDOW_SIZE, WINDOW_TIME
     }
     
-    private Map<Object, Window> windowMap = new ConcurrentHashMap<>();
+    private Map<Object, Window> windowMap = new HashMap<>();
     private ConcurrentLinkedQueue executableQueue;
     private Long aliveTime;
     
