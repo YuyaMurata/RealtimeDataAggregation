@@ -2,10 +2,8 @@ package rda.control.flow;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 public class WindowController extends Thread{
     public enum paramID{
@@ -61,8 +59,6 @@ public class WindowController extends Thread{
         while(runnable){
             for(Window window : windowMap.values())
                 addExecutable(window);
-            
-            System.out.println("WINDOW_QS = "+executableQueue.size());
             
             try {
                 Thread.sleep(aliveTime);
