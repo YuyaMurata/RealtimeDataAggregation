@@ -46,10 +46,10 @@ public class AgentMessageQueue implements Runnable{
     
     public Boolean put(Object obj){
         boolean success = false;
-        try {
-            success = queue.offer(obj, putwait, TimeUnit.MILLISECONDS);
-        } catch (InterruptedException ex) {
-        }
+        //try {
+            success = queue.offer(obj);
+        //} catch (InterruptedException ex) {
+        //}
         
         return success;
     }

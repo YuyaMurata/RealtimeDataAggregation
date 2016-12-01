@@ -146,8 +146,6 @@ public class AgentSystemExtension implements Extension {
         agentMap.values().stream()
                 .map(e -> new Thread(e))
                 .forEach(t -> ((Thread)t).start());
-        //Thread thread = new Thread(agmq);
-        //thread.start();
         
         return "[Success AgentSystem Start !]";
     }
