@@ -1,22 +1,23 @@
 package rda.control.flow;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class WindowController extends Thread{
     public enum paramID{
         WINDOW_SIZE, WINDOW_TIME
     }
     
-    private Map<Object, Window> windowMap = new HashMap<>();
-    private ConcurrentLinkedQueue executableQueue;
+    private Map<Object, Window> windowMap = new ConcurrentHashMap<>();
+    private BlockingQueue executableQueue;
     private Long aliveTime;
     
     public WindowController(Map param) {
-        this.executableQueue = new ConcurrentLinkedQueue();
+        this.executableQueue = new LinkedBlockingQueue();
         this.aliveTime = (Long) param.get(paramID.WINDOW_TIME);
         
         Window.setParameter((Integer) param.get(paramID.WINDOW_SIZE), executableQueue);
