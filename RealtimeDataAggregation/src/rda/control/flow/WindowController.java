@@ -73,6 +73,7 @@ public class WindowController extends Thread{
             for(Window window : windowMap.values())
                 addExecutable(window);
             
+            System.out.println("WINDOW_QS = "+executableQueue.size());
             try {
                 Thread.sleep(aliveTime);
             } catch (InterruptedException ex) {
