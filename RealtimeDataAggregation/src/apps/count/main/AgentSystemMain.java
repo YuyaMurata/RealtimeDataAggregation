@@ -106,7 +106,7 @@ public class AgentSystemMain {
             while (true) {
                 UserData user = agBench.bench();
                 if(user== null){
-                    System.out.println(ag.toString());
+                    //System.out.println(ag.toString());
                     continue;
                 }
                 
