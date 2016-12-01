@@ -128,6 +128,11 @@ public class AgentSystemMain {
         }
         Long stop = System.currentTimeMillis();
         
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException ex) {
+        }
+        
         //Stop AgentSystem
         WindowStream.setRunnable(false);
         AgentSystemShutdown agShutdown = new AgentSystemShutdown();
