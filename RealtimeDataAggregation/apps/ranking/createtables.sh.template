@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+#
+# Licensed Materials - Property of IBM
+#
+# "Restricted Materials of IBM"
+#
+# solidDB Cluster
+#
+# (C) Copyright IBM Corp. 2008, 2009 All Rights Reserved.
+#
+# US Government Users Restricted Rights - Use, duplication or
+# disclosure restricted by GSA ADP Schedule Contract with
+# IBM Corp.
+#
+
+echo =========================================
+echo serverName=$1
+echo serverTypeName=$2
+echo regionName=$3
+echo roleName=$4
+echo status=$5
+echo =========================================
+
+#CETA_SCRIPT_DIR=`dirname $0`; CETA_SCRIPT_DIR=`cd $CETA_SCRIPT_DIR; pwd`/..
+CETA_SCRIPT_DIR=$CETA_HOME/bin
+. $CETA_SCRIPT_DIR/cetasetenv.sh
+
+$SOLID_HOME/bin/solsql "tcp %LISTEN_PORT%" $CETA_SOLIDDB_USER $CETA_SOLIDDB_PASSWORD $CETA_CREATETABLES_BASENAME_NOEXT.table.sql

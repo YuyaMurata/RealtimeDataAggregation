@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploymentPolicy xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ibm.com/ws/objectgrid/deploymentPolicy ../deploymentPolicy.xsd" xmlns="http://ibm.com/ws/objectgrid/deploymentPolicy">
+	<!-- objectgrid name must be "Ionian" -->
+	<objectgridDeployment objectgridName="Ionian">
+		<mapSet name="IonianMapSet" numberOfPartitions="16" minSyncReplicas="0" maxSyncReplicas="0" maxAsyncReplicas="0" numInitialContainers="2">
+			<map ref="agentserver" />
+			<map ref="solid" />
+		</mapSet>
+	</objectgridDeployment>
+	<objectgridDeployment objectgridName="ServerInfo">
+		<mapSet name="ServerInfoMapSet" numberOfPartitions="1" minSyncReplicas="1" maxSyncReplicas="1" maxAsyncReplicas="0" numInitialContainers="2">
+			<map ref="serverinfo" />
+			<map ref="perfmonstats" />
+			<map ref="jdbcstats" />
+			<map ref="examonstats" />
+			<map ref="jvmmemorystats" />
+			<map ref="jvmmemorypoolstats" />
+			<map ref="jvmthreadstats" />
+		</mapSet>
+	</objectgridDeployment>
+</deploymentPolicy>

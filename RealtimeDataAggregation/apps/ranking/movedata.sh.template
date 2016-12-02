@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+#
+# Licensed Materials - Property of IBM
+#
+# "Restricted Materials of IBM"
+#
+# solidDB Cluster
+#
+# (C) Copyright IBM Corp. 2008, 2009 All Rights Reserved.
+#
+# US Government Users Restricted Rights - Use, duplication or
+# disclosure restricted by GSA ADP Schedule Contract with
+# IBM Corp.
+#
+
+# =========================================
+# current server name=@SERVERNAME@
+# current region name=@REGIONNAME@
+# =========================================
+
+if [ "$1" == "@SERVERNAME@" ]; then
+  echo the @REGIONNAME@ server is started at the same server
+else
+  if [ ! -d ./solid_prev ]; then
+    mkdir ./solid_prev
+  fi
+  if [ -f ../@SERVERNAME@/@REGIONNAME@.db ]; then
+    if [ -f ./@REGIONNAME@.db ]; then
+      if [ -f ./solid_prev/@REGIONNAME@.db ]; then
+          rm ./solid_prev/@REGIONNAME@.db
+      fi
+      mv ./@REGIONNAME@.db ./solid_prev
+    fi
+    if [ -f *.log ]; then
+      if [ -f ./solid_prev/*.log ]; then
+        rm solid_prev/*.log
+      fi
+      mv ./*.log ./solid_prev
+    fi
+    while [ -f ../@SERVERNAME@/@REGIONNAME@.db ]; do
+      mv ../@SERVERNAME@/@REGIONNAME@.db .
+      if [ -f ../@SERVERNAME@/@REGIONNAME@.db ]; then
+        sleep 1
+      fi
+    done
+    echo @REGIONNAME@.db was moved from ../@SERVERNAME@ directory
+    while [ -f ../@SERVERNAME@/*.log ]; do
+      mv ../@SERVERNAME@/*.log .
+      if [ -f ../@SERVERNAME@/*.log ]; then
+        sleep 1
+      fi
+    done
+    echo log files were moved from ../@SERVERNAME@ directory
+  fi
+fi
+

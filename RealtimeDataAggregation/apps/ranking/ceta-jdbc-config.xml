@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<ceta>
+    <jdbc>
+        <datasource>
+            <name>apps.ranking</name>
+            <driver>com.ibm.agent.soliddb.jdbc.driver.CETADriver</driver>
+            <url>jdbc:ceta://localhost:2809/primary</url>
+            <property name="user" value="cetaadmin"/>
+            <property name="password" value="cetaadmin"/>
+            <region type="hash">
+            </region>
+        </datasource>
+    </jdbc>
+</ceta>

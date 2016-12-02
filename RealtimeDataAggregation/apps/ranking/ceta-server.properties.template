@@ -1,0 +1,400 @@
+###############################################################################
+#
+#                WebSphere eXtreme Scale Server Property File
+#
+# This is a sample of the WebSphere eXtreme Scale Server Property File.
+#
+# This file contains properties that are used by the WebSphere eXtreme Scale product.
+#
+# This file is used to configure the WebSphere eXtreme Scale server.
+#
+# This file also contains security configuration properties.  
+#
+# WebSphere eXtreme Scale looks for the objectGridServer.properties file 
+# in the classpath and automatically loads it. Users can optionally create an
+# objectGridServer.properties file in the same directory and set appropriate 
+# properties. WebSphere eXtreme Scale's runtime will automatically load the 
+# property file.
+#
+###############################################################################
+
+###################################################################################
+# The following properties apply to both WebSphere eXtreme Scale container server 
+# and WebSphere eXtreme Scale catalog service.
+###################################################################################
+
+#------------------------------------------------------------------------------
+# The working directory for the WebSphere eXtreme Scale server
+#
+# This property applies to both WebSphere eXtreme Scale container server and 
+# WebSphere eXtreme Scale catalog service.
+#
+# Uncomment this property to set the working directory
+#------------------------------------------------------------------------------
+#workingDirectory=
+
+#------------------------------------------------------------------------------
+# The trace specification for the WebSphere eXtreme Scale server.
+#
+# This property applies to both WebSphere eXtreme Scale container server and 
+# WebSphere eXtreme Scale catalog service.
+#------------------------------------------------------------------------------
+traceSpec=*=all=disabled
+
+#------------------------------------------------------------------------------
+# The trace specification file used by the WebSphere eXtreme Scale server for trace 
+# output.
+# 
+# This property applies to both WebSphere eXtreme Scale container server and 
+# WebSphere eXtreme Scale catalog service.
+#
+# Uncomment this property to set the trace file
+#------------------------------------------------------------------------------
+#traceFile=
+
+#------------------------------------------------------------------------------
+# Whether System.out and System.err are directed to a file (true) 
+# or to the console (false)
+# 
+# This property applies to both WebSphere eXtreme Scale container server and 
+# WebSphere eXtreme Scale catalog service.
+#------------------------------------------------------------------------------
+systemStreamToFileEnabled=true
+
+#------------------------------------------------------------------------------
+# Whether to enable MBeans for the WebSphere eXtreme Scale server. Default is true. 
+# 
+# This property applies to both WebSphere eXtreme Scale container server and 
+# WebSphere eXtreme Scale catalog service.
+#------------------------------------------------------------------------------
+enableMBeans=true
+
+#------------------------------------------------------------------------------
+# Set the server name used to identify the server.
+#
+# This property applies to both WebSphere eXtreme Scale container server and 
+# WebSphere eXtreme Scale catalog service.
+# 
+# Uncomment this property to set the server name
+#------------------------------------------------------------------------------
+#serverName=
+
+#------------------------------------------------------------------------------
+# Set the name of the zone this server belongs to.
+#
+# This property applies to both WebSphere eXtreme Scale container server and 
+# WebSphere eXtreme Scale catalog service.
+# 
+# Uncomment this property to set the zone name
+#------------------------------------------------------------------------------
+#zoneName=
+
+#------------------------------------------------------------------------------
+# Set the port number the High Availability Manager will use. If this property 
+# is not set, the catalog server will generate an available port automatically.
+#
+# This property applies to both WebSphere eXtreme Scale container server and 
+# WebSphere eXtreme Scale catalog service.
+# 
+# Uncomment this property to set the High Availability Manager port number
+#------------------------------------------------------------------------------
+#HAManagerPort=
+
+#------------------------------------------------------------------------------
+# Set the host name that the ORB should bind to. 
+#
+# This property applies to both WebSphere eXtreme Scale container server and 
+# WebSphere eXtreme Scale catalog service.
+# 
+# Uncomment this property to set the ORB listener host.
+#------------------------------------------------------------------------------
+#listenerHost=
+
+#------------------------------------------------------------------------------
+# Set the port number that the ORB should bind to. 
+#
+# This property applies to both WebSphere eXtreme Scale container server and 
+# WebSphere eXtreme Scale catalog service.
+# 
+# Uncomment this property to set the ORB listener port.
+#------------------------------------------------------------------------------
+#listenerPort=
+
+#------------------------------------------------------------------------------
+# Set the port that the MBean Server should listen on. 
+#
+# This property applies to both WebSphere eXtreme Scale container server and 
+# WebSphere eXtreme Scale catalog service.
+# 
+# Uncomment this property to set the MBean Server port.
+#------------------------------------------------------------------------------
+#JMXServicePort=
+
+
+###################################################################################
+# The following properties only apply to a WebSphere eXtreme Scale container server
+###################################################################################
+
+#------------------------------------------------------------------------------
+# The stats specification for the container server 
+# 
+# This property only applies to a WebSphere eXtreme Scale container server.
+#------------------------------------------------------------------------------
+statsSpec=all=disabled
+#statsSpec=all=enabled
+
+#------------------------------------------------------------------------------
+# Set the memory threshold (percentage of max heap) for memory based eviction.
+# Default is -1 which does not set the threshold to any value.
+#
+# This property only applies to a WebSphere eXtreme Scale container server.
+#
+# Uncomment this property to set the memory threshold percentage value
+#------------------------------------------------------------------------------
+#memoryThresholdPercentage=-1
+
+#------------------------------------------------------------------------------
+# Set the end points to connect to the catalog service cluster. This should be 
+# of the form <code>host:port<,host:port></code> where the host value is the 
+# listenerHost and the port value is the listenerPort of the catalog server.
+#
+# This property only applies to a WebSphere eXtreme Scale container server.
+#
+# Uncomment this property to set the Catalog Service end points.
+#------------------------------------------------------------------------------
+#catalogServiceEndPoints=
+
+
+###################################################################################
+# The following properties only apply to a WebSphere eXtreme Scale catalog service
+###################################################################################
+
+#------------------------------------------------------------------------------
+# Set the domain name used to uniquely identify this catalog service grid to clients 
+# when routing to multiple domains. 
+#
+# This property only applies to a WebSphere eXtreme Scale catalog service.
+#
+# Uncomment this property to set the domain name.
+#------------------------------------------------------------------------------
+#domainName=
+
+#------------------------------------------------------------------------------
+# Enable or disable quorum for the catalog service. Quorum is used to ensure 
+# that a majority of the catalog service grid is available before allowing 
+# modification to the placement of partitions on available container servers. 
+#
+# Set enableQuorum to "true" or "enabled" will enable the catalog service quorum. 
+# By default, the quorum is disabled.
+#
+# This property only applies to a WebSphere eXtreme Scale catalog service.
+#
+# Uncomment this property to enable or disable quorum.
+#------------------------------------------------------------------------------
+#enableQuorum=
+
+#------------------------------------------------------------------------------
+# Set the catalog service grid end points for the catalog service. This 
+# property is used to specify the catalog service end points to start 
+# a catalog service grid.  
+# 
+# The format of the string should be 
+# "serverName:hostName:clientPort:peerPort<,serverName:hostName:clientPort:peerPort>".
+#
+# This property only applies to a WebSphere eXtreme Scale catalog service.
+#
+# Uncomment this property to set the catalog service grid end points
+#------------------------------------------------------------------------------
+#catalogClusterEndPoints=
+
+#------------------------------------------------------------------------------
+# Set the heartbeat frequency level. The heartbeat frequency level offers a tradeoff 
+# between resource utilization and failure discovery time.  
+# 
+# The possible values are:
+#  0 - Represent a heartbeat level at a typical rate.
+#        A typical heartbeat frequency allows reasonable failover detection and resource
+#        utilization.  This value is the default.
+#
+# -1 - Representa heartbeat level at an aggressive rate.
+#      An increased heartbeat frequency allows failures to be detected more quickly, 
+#      but can also uses additional CPU and network resources.  This level is more sensitive 
+#      to missing heartbeats when the server is stressed.
+#
+#  1 - Represent a heartbeat level at relaxed rate.
+#      A decreased heartbeat frequency increases the time to detect failures, but also
+#      decreases CPU and network utilization.
+#
+# This property only applies to a catalog service.
+#
+# Uncomment this property to set the heartbeat frequency level.
+#------------------------------------------------------------------------------
+#heartBeatFrequencyLevel=
+
+
+###################################################################################
+# The following properties are used to configure the WebSphere eXtreme Scale 
+# server security.
+#
+# All security properties apply to both WebSphere eXtreme Scale container server and 
+# WebSphere eXtreme Scale catalog service.
+# 
+#  ** Encoding Passwords in this File **
+#
+#  The FilePasswordEncoder utility may be used to encode passwords in a
+#  properties file. To edit an encoded password, replace the whole password
+#  string (including the encoding tag {...}) with the new password and then
+#  encode the password with the FilePasswordEncoder utility. Refer to
+#  product documentation for additional information.
+#
+###################################################################################
+
+#------------------------------------------------------------------------------
+# Whether the WebSphere eXtreme Scale container server security is enabled or not. 
+# The default is disabled (false).
+#
+# Uncomment this property to enable or disable sever security explicitly.
+#------------------------------------------------------------------------------
+securityEnabled=@CETA_SECURITY_ENABLED@
+
+#------------------------------------------------------------------------------
+# Whether this server supports credential authentication or not. The possible 
+# values are:  
+#   Never      : the server will not support credential authentication.  
+#   Supported* : the server will support the credential authentication 
+#                if and only if the client supports too. 
+#   Required   : the server requires the client credential authentication.
+# 
+# The default value is Supported.
+#
+# Uncomment this property to set the credential authentication support.
+#------------------------------------------------------------------------------
+# TODO enable Required
+credentialAuthentication=Required
+
+#------------------------------------------------------------------------------
+# Transport Layer Security Configuration 
+#
+# SSL-Supported is supported since 6.1.0.3, and SSL-Required is supported since 6.1.0.5
+#
+# This is also where you enable SSL client certificate authentication.  
+#
+#------------------------------------------------------------------------------
+
+#------------------------------------------------------------------------------
+# Set the transport this server supports. The possible values are:
+#   TCP/IP         : the server only supports TCP IP connection..
+#   SSL-Supported* : the server supports both TCP/IP and SSL connections.
+#   SSL-Required   : the server only supports SSL connections.
+#
+# The default value is SSL-Supported.
+#
+# Uncomment this property to set the transport type.
+#------------------------------------------------------------------------------
+# TODO enable SSL-Supported
+# TODO enable SSL-Required
+#transportType=SSL-Supported
+transportType=TCP/IP
+
+#------------------------------------------------------------------------------
+# SSL client certificate authentication. The possible values are:
+#   Never      : the server will not support client certificate authentication.
+#   Supported* : the server will support client certificate authenticationthe credential authentication if and only if the client supports too.
+#   Required   : the server requires the client certification authentication.
+#
+# The default value is Supported.
+#
+# Uncomment this property to set SSL client certificate authentication.
+#------------------------------------------------------------------------------
+# TODO enable Supported
+clientCertificateAuthentication=Never
+#clientCertificateAuthentication=Supported
+
+#------------------------------------------------------------------------------
+# SSL Configuration
+#
+# - alias                (alias name in the key store)
+# - contextProvider      (IBMJSSE2, IBMJSSE, IBMJSSEFIPS, etc.)
+# - protocol             (SSL, SSLv2, SSLv3, TLS, TLSv1, etc.)
+# - keyStoreType         (JKS, JCEK, PKCS12, etc.)
+# - trustStoreType       (JKS, JCEK, PKCS12, etc.)
+# - keyStore             (fully qualified path to key store file)
+# - trustStore           (fully qualified path to trust store file)
+# - alias                (string specifying ssl certificate alias to use from keyStore)
+# - keyStorePassword     (string specifying password to the key store - encoded or not)
+# - trustStorePassword   (string specifying password to the trust store - encoded or not)
+# - clientAuthentication (need client authentication)
+# 
+# Uncomment these properties to set the SSL configuration.
+#------------------------------------------------------------------------------
+#alias=serverprivate
+#contextProvider=IBMJSSE
+#protocol=SSL
+#keyStoreType=JKS
+#keyStore=etc/test/security/server.private
+#keyStorePassword=serverpw
+#trustStoreType=JKS
+#trustStore=etc/test/security/client.public
+#trustStorePassword=public
+#clientAuthentication=true
+
+#------------------------------------------------------------------------------
+# WebSphere eXtreme Scale SecureTokenManager setting.
+#
+# WebSphere eXtreme Scale SecureTokenManager is used for protecting the secret string for server 
+# mutual authentications and for protecting the single sign on token.
+#
+# - secureTokenManagerType. Indicate the SecureTokenManager type. The possible values are:
+#   none    : no secure token manager will be used. 
+#   default : the WebSphere eXtreme Scale out-of-box provided manager will be used. 
+#                 In this case, the SecureToken key store configuraion must be provided. 
+#   custom  : a user-provided secure token manager specified by the SecureTokenManager 
+#             implementation class will be used
+#
+# - customSecureTokenManagerClass. The user-provided implementation class for the SecureTokenManager.
+#                                  Only required if the SecureTokenManagerType is custom.
+#
+# - customSecureTokenManagerProps. The properties for the customSecureTokenManagerClass implementation 
+#                                  class. It will be set to the SecureTokenManager Object via 
+#                                  setProperties(String) method. customSecureTokenManagerProps only need   
+#                                  to be set if customSecureTokenManagerClass  is not null.
+# 
+# Uncomment these properties to set the SecureTokenManager configuration.
+#------------------------------------------------------------------------------
+# Note: secure token manager is required to enable single sign on
+# TODO enable default
+#secureTokenManagerType=default
+secureTokenManagerType=none
+#customSecureTokenManagerClass=
+#customSecureTokenManagerProps=
+
+#------------------------------------------------------------------------------
+# WebSphere eXtreme Scale Secure Token key store configuration
+#
+# - secureTokenKeyStore                (fully qualified path to the secure token key store file)
+# - secureTokenKeyStorePassword        (the password to protect the secure token key store)
+# - secureTokenKeyStoreType            (the key store type, for example JCKES)
+# - secureTokenKeyPairAlias            (the alias to the public private key pair)
+# - secureTokenKeyPairPassword         (the password to protect the public private key pair) 
+# - secureTokenSecretKeyAlias          (the alias to the secret key)
+# - secureTokenSecretKeyPassword       (the password to protect the secret key)
+#
+# Uncomment these properties to set the Secure Token key store configuration.
+#------------------------------------------------------------------------------
+#secureTokenKeyStore=${ceta.home}${/}ceta.securetokenkeystore
+#secureTokenKeyStorePassword=key111
+#secureTokenKeyStoreType=JCEKS
+#secureTokenKeyPairAlias=keypair1
+#secureTokenKeyPairPassword=keypair1
+#secureTokenSecretKeyAlias=secretkey1
+#secureTokenSecretKeyPassword=secretkey1
+#secureTokenCipherAlgorithm=DES
+#secureTokenSignAlgorithm=RSA
+
+#------------------------------------------------------------------------------
+# The secret string to challenge the server. When a server starts up, it needs 
+# to present this string to the president server. If the secret string matches 
+# what in the president server, this server is allowed to join in.
+#------------------------------------------------------------------------------
+authenticationSecret=ObjectGridDefaultSecret
+

@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<ceta>
+    <serverTypes>
+        <solidDBServer
+            primary="1"
+            secondary="0"
+            replica="0">
+            <!-- EncriptorExtension must be defined prior to other Extensions -->
+            <!-- <extension ref="EncriptorExtension"/> -->
+            <extension ref="ValueLoggingServerExtenstion"/>
+            <extension ref="DBRecoveryExtension"/>
+            <!-- <extension ref="PerfMonStatsExtension"/> --> 
+            <!-- <extension ref="JvmMonStatsExtension"/> -->
+        </solidDBServer>
+        <plainServer name="agent"
+                     primary="1"
+                     secondary="0"
+                     replica="0"
+                     serverGroupRef="agentGroup">
+            <!-- EncriptorExtension must be defined prior to other Extensions -->
+            <!-- <extension ref="EncriptorExtension"/> -->
+            <extension ref="DefineExtension"/>
+            <extension ref="CommExtension"/>
+            <!-- <extension ref="MessageQueueExtension"/> -->
+            <!-- <extension ref="RankManagerExtension"/> -->
+            <!-- <extension ref="ExaMonStatsExtension"/> -->
+            <!-- <extension ref="JvmMonStatsExtension"/> -->
+            <!-- RDA Extension Define -->
+            <extension ref="AgentSystemExtension"/>
+        </plainServer>
+    </serverTypes>
+    <serverGroups>
+        <serverGroup name="agentGroup">
+            <server name="a\d+"/>
+        </serverGroup>
+    </serverGroups>
+    <regions>
+        <region name="ag0"/>
+        <region name="ag1"/>
+        <!--
+        <region name="ag2">
+                <dbfile dir="..\dbfile"/>
+                <port serverType="solidDB" number="13020"/>
+        </region>
+        -->
+    </regions>
+    <dataSources>
+        <dataSource name="java:comp/env/jdbc/Embedded">
+            <jdbc class="solid.jdbc.SolidDriver"
+                  url="jdbc:solid://localserver:0/@CETA_SOLIDDB_USER@/@CETA_SOLIDDB_PASSWORD@"
+                  user="@CETA_SOLIDDB_USER@"
+                  password="@CETA_SOLIDDB_PASSWORD@"/>
+        </dataSource>
+    </dataSources>
+    <extensions>
+        <extension name="DBRecoveryExtension">
+            <param name="class" value="com.ibm.agent.exa.launcher.DBRecoveryExtension"/>
+            <param name="user" value="@CETA_SOLIDDB_USER@"/>
+            <param name="password" value="@CETA_SOLIDDB_PASSWORD@"/>
+            <!-- <param name="datasource" value="ranksys"/> -->
+        </extension>
+        <extension name="DefineExtension">
+            <param name="class" value="com.ibm.agent.exa.launcher.AgentExtension"/>
+            <param name="threads" value="128"/>
+            <param name="datasource" value="apps.ranking"/>
+            <param name="user" value="@CETA_SOLIDDB_USER@"/>
+            <param name="password" value="@CETA_SOLIDDB_PASSWORD@"/>
+            <param name="config" value="agentdef.xml"/>
+            <!-- <param name="standalone" value="true"/> -->
+            <!-- to use ValueLoggingAccelerator, ValueLoggingServerExtenstion must be executed at solidDB servers -->
+            <param name="accelerator" value="com.ibm.agent.exa.replicate.accelerator.ValueLoggingAccelerator"/>
+            <param name="accelerator_maxretry" value="5"/>
+            <param name="accelerator_retrywait" value="3000"/>
+            <!-- to use netbind.def, the same file must be configured for ValueLoggingServerExtenstion -->
+            <!-- <param name="accelerator_netbind" value="..\netbind.def"/> -->
+        </extension>
+        <extension name="ValueLoggingServerExtenstion">
+            <param name="class" value="com.ibm.agent.exa.replicate.accelerator.ValueLoggingServerExtension"/>
+            <param name="agentdef" value="agentdef.xml"/>
+            <!-- <param name="netbind" value="..\netbind.def"/> -->
+            <!-- <param name="mode" value="async"/> -->
+            <!-- <param name="asyncthreads" value="1"/> -->
+        </extension>
+        <extension name="PerfMonStatsExtension">
+            <param name="class" value="com.ibm.agent.stats.perfmon.extension.PerfMonStatsExtension"/>
+            <param name="dataSourceRef" value="java:comp/env/jdbc/Embedded"/>
+            <param name="interval" value="@CETA_STATS_TIME_INTERVAL@"/>
+        </extension>
+        <extension name="ExaMonStatsExtension">
+            <param name="class" value="com.ibm.agent.stats.examon.extension.ExaMonStatsExtension"/>
+            <param name="interval" value="@CETA_STATS_TIME_INTERVAL@"/>
+        </extension>
+        <extension name="JvmMonStatsExtension">
+            <param name="class" value="com.ibm.agent.stats.jvmmon.extension.JvmMonStatsExtension"/>
+            <param name="interval" value="@CETA_STATS_TIME_INTERVAL@"/>
+        </extension>
+        <extension name="CommExtension">
+            <param name="class" value="com.ibm.agent.exa.comm.CommExtension"/>
+        </extension>
+        <extension name="EncriptorExtension">
+            <param name="class" value="com.ibm.agent.exa.des.DESEncriptExtension"/>
+        </extension>
+        <extension name="AgentSystemExtension">
+            <param name="class" value="rda.extension.agent.manager.AgentSystemExtension"/>
+        </extension>
+    </extensions>
+</ceta>

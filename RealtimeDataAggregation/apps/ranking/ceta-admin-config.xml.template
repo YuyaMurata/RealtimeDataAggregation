@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<admin>
+	<endpoint host="@CETA_DMANAGER_HOST@" client="@CETA_DMANAGER_CLIENTPORT@" agent="@CETA_DMANAGER_AGENTPORT@"/>
+	<!-- <endpoint host="@CETA_DMANAGER_HOST_2@" client="@CETA_DMANAGER_CLIENTPORT_2@" agent="@CETA_DMANAGER_AGENTPORT_2@"/> -->
+	<access user="@CETA_ADMIN_USER@" password="@CETA_ADMIN_PASSWORD@"/>
+	<exec timeout="10000"/>
+	<log maxsize="1000" maxnum="2" file="@CETA_ADMIN_LOGFILE@"/>
+	<alias>
+		<define name="startMaster" single="true">
+			<command name="execa ..\..\bin\startMaster.bat"/>
+			<help message="{all | &lt;hostnames&gt;...}@startMaster. start a master solidDB on given hosts"/>
+		</define>
+		<define name="stopMaster" single="true">
+			<command name="execa ..\..\bin\stopMaster.bat"/>
+			<help message="{all | &lt;hostnames&gt;...}@stopMaster. stop a master solidDB on given hosts"/>
+		</define>
+		<define name="startServer" single="true">
+			<command name="execa ..\..\bin\startServer.bat"/>
+			<help message="&lt;hostname&gt;@startServer &lt;servername&gt;... start a solidDB Cluster server on a given host"/>
+		</define>
+		<define name="startAllServers">
+			<command name="execa ..\..\bin\startServer.bat"/>
+			<help message="{all | &lt;hostname&gt;}@startAllServers &lt;servername&gt;... start solidDB Cluster servers on given hosts"/>
+		</define>
+		<define name="stopCluster" single="true">
+			<command name="exec ..\..\bin\stopCluster.bat"/>
+			<help message="&lt;hostname&gt;@stopCluster. stop all servers of solidDB Cluster"/>
+		</define>
+		<define name="startCatalog" single="true">
+			<command name="@CETA_CATALOGSERVER_HOST@@exec ..\..\bin\startCatalog.bat"/>
+			<help message="&lt;hostname&gt;@startCatalog. start a catalog server"/>
+		</define>
+		<define name="stopCatalog" single="true">
+			<command name="exec ..\..\bin\stopCatalog.bat"/>
+			<help message="&lt;hostname&gt;@stopCatalog. stop a catalog server"/>
+		</define>
+		<define name="sqlquery">
+			<command name="!exec query.bat"/>
+			<help message="sqlquery sqlstatement {all | &lt;hostname&gt;...}. execute a query sql statement on given servers"/>
+		</define>
+		<define name="sqlexecute">
+			<command name="!exec ..\..\bin\showRegion.bat"/>
+			<help message="sqlexecute {-f:&lt;filename&gt; | sqlstatement} {all | &lt;servername&gt;...}. execute sql statements on given servers"/>
+		</define>
+		<define name="show" single="true">
+			<command name="!exec ..\..\bin\showRegion.bat"/>
+			<help message="&lt;hostname&gt;@show. display status of solidDB Cluster servers"/>
+		</define>
+		<define name="!echo">
+			<command name="!exec echo"/>
+			<help message="!echo &lt;string&gt;"/>
+		</define>
+		<define name="reg">
+			<command name="!exec echo see Java regular expression: http://java.sun.com/javase/6/docs/api/java/util/regex/Pattern.html"/>
+			<help message="see Java regular expression: http://java.sun.com/javase/6/docs/api/java/util/regex/Pattern.html"/>
+		</define>
+	</alias>
+</admin>

@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<agentdef package="apps.ranking" version="rda1.0">
+    <entities>
+        <!--UserAgent Entity define-->
+        <entity type="useragent">
+            <attribute name="UserID" type="string" primarykey="true" maxlength="32"/>
+            <attribute name="Profile" type="profile" singleentity="true"/>
+            <attribute name="Data" type="long" />
+            <attribute name="CommunicationID" type="string" maxlength="32"/>
+            <attribute name="ConnectionCount" type="long" />
+            <attribute name="MessageLatency" type="long" />
+        </entity>
+        <entity type="profile">
+            <attribute name="UserID" type="string" primarykey="true" relationto="UserID" maxlength="32"/>
+            <attribute name="Name" type="string" maxlength="32"/>
+            <attribute name="Sex" type="string" maxlength="2"/>
+            <attribute name="Age" type="string" maxlength="4"/>
+            <attribute name="Address" type="string" maxlength="64"/>
+            <attribute name="LastAccessTime" type="timestamp" />
+        </entity>
+        
+        <!--RankAgent Entity define-->
+        <entity type="rankagent">
+            <attribute name="RankID" type="string" primarykey="true" maxlength="32"/>
+            <attribute name="RankTable" type="ranktable" />
+            <attribute name="TotalUsers" type="long" />
+            <attribute name="ConnectionCount" type="long" />
+            <attribute name="MessageLatency" type="long" />
+        </entity>
+        <entity type="ranktable">
+            <attribute name="RankID" type="string" primarykey="true" relationto="RankID" maxlength="32"/>
+            <attribute name="UserID" type="string" primarykey="true" maxlength="32"/>
+            <attribute name="Rank" type="long" />
+            <attribute name="Data" type="long" />
+            <attribute name="CurrentTime" type="long"/>
+        </entity>
+    </entities>
+    <messages>
+        <!--system define-->
+        <!--UserAgent Messages -->
+        <message type="initUserAgent" class="rda.agent.message.InitMessage"/>
+        <message type="updateUserAgent" class="rda.agent.message.UpdateMessage"/>
+        <message type="readUserAgent" />
+        
+        <!--RankAgent Messages -->
+        <message type="initRankAgent" class="rda.agent.message.InitMessage"/>
+        <message type="updateRankAgent" class="rda.agent.message.UpdateMessage"/>
+        <message type="queryRanking" class="rda.agent.message.QueryMessage"/>
+        <message type="readRankAgent" />
+        
+        <!--agent system define-->
+        <message type="dispose" />
+    </messages>
+    <agents>
+        <!--system define-->
+        <agent type="useragent">
+            <handler message="initUserAgent" class="apps.ranking.agent.user.handler.InitAggregateAgentHandler"/>
+            <handler message="updateUserAgent" class="apps.ranking.agent.user.handler.UpdateAggregateAgentHandler"/>
+            <handler message="readUserAgent" class="apps.ranking.agent.user.handler.ReadAggregateAgentHandler"/>
+            
+            <handler message="dispose" class="rda.agent.deletor.handler.DisposeHandler"/>
+        </agent>
+        <agent type="rankagent">
+            <handler message="initRankAgent" class="apps.ranking.agent.rank.handler.InitRankHandler"/>
+            <handler message="updateRankAgent" class="apps.ranking.agent.rank.handler.UpdateRankHandler"/>
+            <handler message="queryRanking" class="apps.ranking.agent.rank.handler.QueryRankingHandler"/>
+            <handler message="readRankAgent" class="apps.ranking.agent.rank.handler.ReadRankHandler"/>
+            
+            <handler message="dispose" class="rda.agent.deletor.handler.DisposeHandler"/>
+        </agent>
+    </agents>
+</agentdef>

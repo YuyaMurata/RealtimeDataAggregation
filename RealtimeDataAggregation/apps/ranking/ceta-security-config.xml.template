@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<securityConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ibm.com/ws/objectgrid/config/security ../objectGridSecurity.xsd" xmlns="http://ibm.com/ws/objectgrid/config/security">
+	<!-- Note: secure token manager is required to enable single sign on -->
+	<!-- TODO enable singleSignOnEnabled="true" -->
+	<!-- Note: loginSessionExpirationTime="1" is required to make ObjectGrid call Authenticator#authenticate at every request -->
+	<!-- <security securityEnabled="@CETA_SECURITY_ENABLED@" singleSignOnEnabled="false"> -->
+	<security securityEnabled="@CETA_SECURITY_ENABLED@" singleSignOnEnabled="false" loginSessionExpirationTime="1">
+		<!-- Note: LoggingKeyStoreLoginAuthenticator delegates authentication request to KeyStoreLoginAuthenticator -->
+		<!--
+		<authenticator className="com.ibm.websphere.objectgrid.security.plugins.builtins.KeyStoreLoginAuthenticator">
+		</authenticator>
+		-->
+		<authenticator className="com.ibm.agent.security.LoggingKeyStoreLoginAuthenticator">
+			<property name="log" type="boolean" value="@CETA_AUTHENTICATION_LOG_ENABLED@" description="authentication log" />
+		</authenticator>
+		<systemCredentialGenerator className="com.ibm.websphere.objectgrid.security.plugins.builtins.UserPasswordCredentialGenerator">
+			<property name="properties" type="java.lang.String" value="@CETA_OBJECTGRID_USER@ @CETA_OBJECTGRID_PASSWORD@" description="username password" />
+		</systemCredentialGenerator>
+	</security>
+</securityConfig>

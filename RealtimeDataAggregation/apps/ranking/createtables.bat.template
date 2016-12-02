@@ -1,0 +1,32 @@
+@REM
+@REM Licensed Materials - Property of IBM
+@REM
+@REM "Restricted Materials of IBM"
+@REM
+@REM solidDB Cluster
+@REM
+@REM (C) Copyright IBM Corp. 2008, 2009 All Rights Reserved.
+@REM
+@REM US Government Users Restricted Rights - Use, duplication or
+@REM disclosure restricted by GSA ADP Schedule Contract with
+@REM IBM Corp.
+@REM
+@echo off
+
+@echo =========================================
+@echo command=%0
+@echo serverName=%1
+@echo serverTypeName=%2
+@echo regionName=%3
+@echo roleName=%4
+@echo status=%5
+@echo =========================================
+@echo off
+
+setlocal enabledelayedexpansion
+REM call "%~dp0..\cetasetenv.bat"
+call "%CETA_HOME%\bin\cetasetenv.bat"
+
+"%SOLID_HOME%\bin\solsql" -u "tcp %LISTEN_PORT%" %CETA_SOLIDDB_USER% %CETA_SOLIDDB_PASSWORD% %CETA_CREATETABLES_BASENAME_NOEXT%.table.sql
+
+endlocal
