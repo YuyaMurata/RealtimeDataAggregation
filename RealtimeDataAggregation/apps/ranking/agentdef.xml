@@ -61,10 +61,10 @@
             <handler message="dispose" class="rda.agent.deletor.handler.DisposeHandler"/>
         </agent>
         <agent type="rankagent">
-            <handler message="initRankAgent" class="apps.ranking.agent.rank.handler.InitRankHandler"/>
-            <handler message="updateRankAgent" class="apps.ranking.agent.rank.handler.UpdateRankHandler"/>
+            <handler message="initRankAgent" class="apps.ranking.agent.rank.handler.InitRankAgentHandler"/>
+            <handler message="updateRankAgent" class="apps.ranking.agent.rank.handler.UpdateRankAgentHandler"/>
             <handler message="queryRanking" class="apps.ranking.agent.rank.handler.QueryRankingHandler"/>
-            <handler message="readRankAgent" class="apps.ranking.agent.rank.handler.ReadRankHandler"/>
+            <handler message="readRankAgent" class="apps.ranking.agent.rank.handler.ReadRankAgentHandler"/>
             
             <handler message="dispose" class="rda.agent.deletor.handler.DisposeHandler"/>
         </agent>
