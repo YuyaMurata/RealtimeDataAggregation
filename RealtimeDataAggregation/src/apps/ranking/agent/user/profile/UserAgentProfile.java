@@ -23,7 +23,7 @@ public class UserAgentProfile extends AgentProfile{
     
     public UserAgentProfile(List agIDLists, AgentProfileGenerator profGen) {
         super(agIDLists);
-        this.profGen = profGen;
+        System.out.println("PROFILE="+profGen.toString());
     }
     
     @Override
@@ -38,7 +38,6 @@ public class UserAgentProfile extends AgentProfile{
             
             //MESSAG_DATA
             Map msgdata = new HashMap();
-            System.out.println("PROFILE="+profGen);
             msgdata.putAll(profGen.generate(agID));
             profParam.put(paramID.MESSAG_DATA, msgdata);
             
