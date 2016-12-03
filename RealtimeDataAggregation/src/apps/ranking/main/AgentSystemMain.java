@@ -20,6 +20,8 @@ import bench.time.TimeOverEvent;
 import com.ibm.agent.exa.client.AgentClient;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import rda.agent.client.AgentConnection;
 import rda.agent.deletor.Dispose;
 import rda.agent.profile.AgentProfileGenerator;
@@ -131,6 +133,11 @@ public class AgentSystemMain {
             //ex.printStackTrace();
         }
         Long stop = System.currentTimeMillis();
+        
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException ex) {
+        }
         
         //Stop AgentSystem
         WindowStream.setRunnable(false);
