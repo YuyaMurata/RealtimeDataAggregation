@@ -5,6 +5,7 @@
  */
 package apps.ranking.manager;
 
+import apps.ranking.property.AppRankingProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
