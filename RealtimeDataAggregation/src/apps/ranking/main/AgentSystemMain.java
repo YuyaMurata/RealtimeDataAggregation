@@ -58,10 +58,12 @@ public class AgentSystemMain {
         AgentProfileGenerator rankAgentProf = new AgentProfileGenerator(new RankAgentProfile(agIDLists));
         
         //Destination UserAgent Table
+        DestinationAgentTable.setParameter(userAgentProf.registerIDList().size());
         DestinationAgentTable userAgentTable = new DestinationAgentTable(userAgentProf.registerIDList());
         System.out.println(userAgentTable.toString());
         
         //Destination UserAgent Table
+        DestinationAgentTable.setParameter(10);
         DestinationAgentTable rankAgentTable = new DestinationAgentTable(rankAgentProf.registerIDList());
         System.out.println(rankAgentTable.toString());
         
