@@ -19,11 +19,10 @@ public class UserAgentProfile extends AgentProfile{
     public static enum paramID{
         ID, MESSAG_DATA
     }
-    private AgentProfileGenerator profGen;
     
     public UserAgentProfile(List agIDLists, AgentProfileGenerator profGen) {
         super(agIDLists);
-        System.out.println("PROFILE="+profGen.toString());
+        setUserProfile(agIDLists, profGen);
     }
     
     @Override
@@ -38,7 +37,7 @@ public class UserAgentProfile extends AgentProfile{
             
             //MESSAG_DATA
             Map msgdata = new HashMap();
-            msgdata.putAll(profGen.generate(agID));
+            //msgdata.putAll(profGen.generate(agID)); <- setUserProfileで設定
             profParam.put(paramID.MESSAG_DATA, msgdata);
             
             map.put(agID, profParam);
@@ -47,4 +46,10 @@ public class UserAgentProfile extends AgentProfile{
         return map;
     }
     
+    private void setUserProfile(List userIDLists, AgentProfileGenerator profGen){
+        for(Object agID : userIDLists){
+            Map idProfMap = (Map) profile.get(agID).get(paramID.MESSAG_DATA);
+            idProfMap.putAll(profGen.generate(agID));
+        }
+    }
 }

@@ -15,7 +15,7 @@ import java.util.Map;
  * @author kaeru
  */
 public abstract class AgentProfile implements Serializable{
-    private Map<Object, Map> profile = new HashMap();
+    public Map<Object, Map> profile = new HashMap();
     private List idList;
     public AgentProfile(List agIDLists){
         this.profile = initProfile(agIDLists);
