@@ -38,7 +38,7 @@ public class UserAgentProfile extends AgentProfile{
             
             //MESSAG_DATA
             Map msgdata = new HashMap();
-            System.out.println(profGen.generate(agID));
+            System.out.println(profGen);
             msgdata.putAll(profGen.generate(agID));
             profParam.put(paramID.MESSAG_DATA, msgdata);
             
