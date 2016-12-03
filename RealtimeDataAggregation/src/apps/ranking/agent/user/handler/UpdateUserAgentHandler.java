@@ -5,7 +5,7 @@
  */
 package apps.ranking.agent.user.handler;
 
-import apps.count.Aggregateagent;
+import apps.ranking.Useragent;
 import bench.template.UserData;
 import com.ibm.agent.exa.Message;
 import com.ibm.agent.exa.MessageHandler;
@@ -25,7 +25,7 @@ public class UpdateUserAgentHandler  extends MessageHandler{
         UpdateMessage updateMsg = (UpdateMessage) msg;
         
         // マスターエンティティを取得
-        Aggregateagent agent = (Aggregateagent)getEntity();
+        Useragent agent = (Useragent)getEntity();
         
         // トランザクションIDを取得
         TxID tx = getTx();

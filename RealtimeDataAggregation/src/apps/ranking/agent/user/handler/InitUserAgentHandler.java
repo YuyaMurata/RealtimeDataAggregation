@@ -31,7 +31,7 @@ public class InitUserAgentHandler extends MessageHandler {
             Long time = System.currentTimeMillis();
             Timestamp registerTime = new Timestamp(time);
 
-            //AggregateAgent初期化
+            //UserAgent初期化
             //データのクリア
             agent.setData(tx, 0);
             //更新回数のクリア
