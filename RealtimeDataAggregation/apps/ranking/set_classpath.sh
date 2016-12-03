@@ -1,6 +1,6 @@
 #Setting CLASS PATH
  #Program setting file
-export CLASSPATH=$CLASSPATH:property
+export CLASSPATH=$CLASSPATH:../../apps/system/property
 
  #Apach
 export CLASSPATH=$CLASSPATH:\

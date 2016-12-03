@@ -1,6 +1,9 @@
+#Copy Property
+cp -fR property ../../apps/system/
+
 #Setting CLASS PATH
  #Program setting file
-export CLASSPATH=$CLASSPATH:../../apps
+export CLASSPATH=$CLASSPATH:../../apps/system/property
 
  #Apach
 export CLASSPATH=$CLASSPATH:\

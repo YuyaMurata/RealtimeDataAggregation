@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Properties;
 
 public class AppCountProperty {
-    private static final String filename ="/count/property/agent.properties";
+    private static final String filename ="/agent.properties";
     private static AppCountProperty rdaProp = new AppCountProperty(filename);
     private Map propMap = new HashMap();
     private Properties prop = new Properties();
