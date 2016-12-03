@@ -6,7 +6,6 @@
 package rda.agent.message;
 
 import com.ibm.agent.exa.Message;
-import java.util.List;
 
 /**
  *
@@ -14,9 +13,9 @@ import java.util.List;
  */
 public class InitMessage extends Message{
     //
-    public List msgdata;
+    public Object msgdata;
     
-    public void setParams(List msgdata) {
+    public void setParams(Object msgdata) {
         this.msgdata = msgdata;
     }
 }

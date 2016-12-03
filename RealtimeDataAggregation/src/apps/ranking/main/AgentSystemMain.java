@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package apps.count.main;
+package apps.ranking.main;
 
 import apps.count.agent.aggregate.creator.CreateAggregateAgent;
 import apps.count.agent.aggregate.extension.AggregateAgentMessageSender;

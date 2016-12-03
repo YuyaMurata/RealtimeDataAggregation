@@ -1,4 +1,4 @@
-package apps.count.property;
+package apps.ranking.property;
 
 import apps.count.appuser.UserProfile;
 import apps.count.manager.AggregateAgentManager;
@@ -8,19 +8,19 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-public class AppCountProperty {
-    private static final String filename ="/count/property/agent.properties";
-    private static AppCountProperty rdaProp = new AppCountProperty(filename);
+public class AppRankingProperty {
+    private static final String filename ="/agent.properties";
+    private static AppRankingProperty rdaProp = new AppRankingProperty(filename);
     private Map propMap = new HashMap();
     private Properties prop = new Properties();
     
-    private AppCountProperty(String filename) {
+    private AppRankingProperty(String filename) {
         // TODO 自動生成されたコンストラクター・スタブ
         load(prop, filename);
         setPropertyToMap();
     }
     
-    public static AppCountProperty getInstance(){
+    public static AppRankingProperty getInstance(){
         return rdaProp;
     }
     
@@ -76,6 +76,6 @@ public class AppCountProperty {
     }
     
     public static void main(String args[]){
-        AppCountProperty prop = AppCountProperty.getInstance();
+        AppRankingProperty prop = AppRankingProperty.getInstance();
     }
 }

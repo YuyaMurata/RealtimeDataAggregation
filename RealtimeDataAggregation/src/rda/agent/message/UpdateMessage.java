@@ -13,15 +13,15 @@ import java.util.List;
  * @author kaeru
  */
 public class UpdateMessage extends Message {
-    private long t;
+    private long time;
     public List msgdata;
     
     public void setParams(List msgdata) {
         this.msgdata = msgdata;
-        this.t = System.currentTimeMillis();
+        this.time = System.currentTimeMillis();
     }
     
     public long latency(){
-        return System.currentTimeMillis() - t;
+        return System.currentTimeMillis() - time;
     }
 }
