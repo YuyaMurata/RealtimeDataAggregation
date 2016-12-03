@@ -23,7 +23,6 @@ import rda.extension.agent.manager.AgentSystemExtension;
  * @author kaeru
  */
 public abstract class AgentCreator implements AgentExecutor, Serializable{
-
     public AgentCreator() {
     }
     
