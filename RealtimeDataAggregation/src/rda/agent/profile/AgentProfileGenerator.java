@@ -6,6 +6,7 @@
 package rda.agent.profile;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,7 +20,11 @@ public class AgentProfileGenerator implements Serializable{
         this.prof = prof;
     }
     
-    public Map generate(String agID){
+    public List registerIDList(){
+        return prof.getIDList();
+    }
+    
+    public Map generate(Object agID){
         return prof.getProfile(agID);
     }
     

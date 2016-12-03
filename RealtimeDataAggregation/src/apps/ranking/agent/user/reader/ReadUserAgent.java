@@ -16,26 +16,26 @@ import rda.agent.reader.AgentReader;
  *
  * @author kaeru
  */
-public class ReadAggregateAgent extends AgentReader {
+public class ReadUserAgent extends AgentReader {
 
-    private static final String AGENT_TYPE = "aggregateagent";
-    private static final String MESSAGE_TYPE = "readAggregateAgent";
+    private static final String AGENT_TYPE = "useragent";
+    private static final String MESSAGE_TYPE = "readUserAgent";
 
-    public ReadAggregateAgent() {
+    public ReadUserAgent() {
     }
     
-    public ReadAggregateAgent(AgentKey agentKey) {
+    public ReadUserAgent(AgentKey agentKey) {
         super(agentKey, MESSAGE_TYPE);
     }
 
     @Override
-    public Object read(AgentClient client, String agID) {
+    public Object read(AgentClient client, Object agID) {
         try {
             Long start = System.currentTimeMillis();
             
             AgentKey agentKey = new AgentKey(AGENT_TYPE, new Object[]{agID});
 
-            ReadAggregateAgent executor = new ReadAggregateAgent(agentKey);
+            ReadUserAgent executor = new ReadUserAgent(agentKey);
             
             List reply = new ArrayList();
             reply.add(client.execute(agentKey, executor));

@@ -10,7 +10,6 @@ import bench.template.UserData;
 import com.ibm.agent.exa.Message;
 import com.ibm.agent.exa.MessageHandler;
 import com.ibm.agent.exa.TxID;
-import java.sql.Timestamp;
 import java.util.List;
 import rda.agent.message.UpdateMessage;
 
@@ -44,8 +43,8 @@ public class UpdateUserAgentHandler  extends MessageHandler{
         agent.setMessageLatency(tx, updateMsg.latency());
         
         // Update LastAccessTime
-        Long time = System.currentTimeMillis();
-        Timestamp updateTime = new Timestamp(time);
+        //Long time = System.currentTimeMillis();
+        //Timestamp updateTime = new Timestamp(time);
         
         return updateData;
     }

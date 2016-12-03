@@ -15,20 +15,26 @@ import java.util.Map;
  * @author kaeru
  */
 public abstract class AgentProfile implements Serializable{
-    private Map<String, Map> profile = new HashMap();
+    private Map<Object, Map> profile = new HashMap();
+    private List idList;
     public AgentProfile(List agIDLists){
         this.profile = initProfile(agIDLists);
+        this.idList = agIDLists;
     }
     
     public abstract Map initProfile(List agIDLists);
     
-    public Map getProfile(String agID){
+    public Map getProfile(Object agID){
         return profile.get(agID);
+    }
+    
+    public List getIDList(){
+        return idList;
     }
     
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        for(String agID : profile.keySet()){
+        for(Object agID : profile.keySet()){
             sb.append(agID);
             sb.append(" : ");
             sb.append(profile.get(agID));

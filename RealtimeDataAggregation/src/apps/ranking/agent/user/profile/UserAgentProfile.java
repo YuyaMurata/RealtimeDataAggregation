@@ -5,11 +5,11 @@
  */
 package apps.ranking.agent.user.profile;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import rda.agent.profile.AgentProfile;
+import rda.agent.profile.AgentProfileGenerator;
 
 /**
  *
@@ -19,11 +19,11 @@ public class UserAgentProfile extends AgentProfile{
     public static enum paramID{
         ID, MESSAG_DATA
     }
-    private Map profMap;
+    private AgentProfileGenerator profGen;
     
-    public UserAgentProfile(List agIDLists, Map profMap) {
+    public UserAgentProfile(List agIDLists, AgentProfileGenerator profGen) {
         super(agIDLists);
-        this.profMap = profMap;
+        this.profGen = profGen;
     }
     
     @Override
@@ -38,7 +38,7 @@ public class UserAgentProfile extends AgentProfile{
             
             //MESSAG_DATA
             Map msgdata = new HashMap();
-            msgdata.putAll(profMap);
+            msgdata.putAll(profGen.generate(agID));
             profParam.put(paramID.MESSAG_DATA, msgdata);
             
             map.put(agID, profParam);

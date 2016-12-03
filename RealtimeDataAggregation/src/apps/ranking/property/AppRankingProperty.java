@@ -1,7 +1,7 @@
 package apps.ranking.property;
 
-import apps.count.appuser.UserProfile;
-import apps.count.manager.AggregateAgentManager;
+import apps.ranking.appuser.UserProfile;
+import apps.ranking.manager.RankingAgentManager;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
@@ -58,8 +58,8 @@ public class AppRankingProperty {
         propMap.put(UserProfile.paramID.USER_SEED, Long.valueOf(getValue("random.seed")));
         
         //Agent Profile Parameter
-        propMap.put(AggregateAgentManager.paramID.AMOUNT_AGENTS, Integer.valueOf(getValue("number.agent")));
-        propMap.put(AggregateAgentManager.paramID.ID_RULE, getValue("agent.idrule"));
+        propMap.put(RankingAgentManager.paramID.AMOUNT_AGENTS, Integer.valueOf(getValue("number.agent")));
+        propMap.put(RankingAgentManager.paramID.ID_RULE, getValue("agent.idrule"));
         
         displayProperty();
     }

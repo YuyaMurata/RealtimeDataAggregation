@@ -19,8 +19,6 @@ import bench.time.TimeOverEvent;
 import com.ibm.agent.exa.client.AgentClient;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import rda.agent.client.AgentConnection;
 import rda.agent.deletor.Dispose;
 import rda.agent.profile.AgentProfileGenerator;
@@ -56,8 +54,7 @@ public class AgentSystemMain {
         AgentProfileGenerator agentProf = new AgentProfileGenerator(new AggregateAgentProfile(agIDLists));
         
         //Destination Table
-        DestinationAgentTable table = DestinationAgentTable.getInstance();
-        table.createTable(agIDLists);
+        DestinationAgentTable table = new DestinationAgentTable(agentProf.registerIDList());
         System.out.println(table.toString());
         
         //Server - AgentClient
@@ -80,7 +77,7 @@ public class AgentSystemMain {
         System.out.println(msg);
         
         //Create Agent
-        for(String agID : (List<String>)agIDLists){
+        for(Object agID : agentProf.registerIDList()){
             Map setter = agentProf.generate(agID);
             String msgc = creator.create(client, setter);
             System.out.println("Create "+agID+" = "+msgc);
@@ -132,7 +129,7 @@ public class AgentSystemMain {
         //Read Test
         ReadAggregateAgent reader = new ReadAggregateAgent();
         Long total = 0L;
-        for(String agID : (List<String>)agIDLists){
+        for(Object agID : agentProf.registerIDList()){
             Object d = reader.read(client, agID);
             System.out.println("Read "+agID+" = "+d);
             total = ((List<Long>)d).get(0) + total;

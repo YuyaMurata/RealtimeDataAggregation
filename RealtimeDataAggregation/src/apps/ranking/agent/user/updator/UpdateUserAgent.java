@@ -15,14 +15,14 @@ import rda.agent.updator.AgentUpdator;
  *
  * @author kaeru
  */
-public class UpdateAggregateAgent extends AgentUpdator{ 
-    private static final String AGENT_TYPE = "aggregateagent";
-    private static final String MESSAGE_TYPE = "updateAggregateAgent";
+public class UpdateUserAgent extends AgentUpdator{ 
+    private static final String AGENT_TYPE = "useragent";
+    private static final String MESSAGE_TYPE = "updateUserAgent";
 
-    public UpdateAggregateAgent() {
+    public UpdateUserAgent() {
     }
     
-    public UpdateAggregateAgent(AgentKey agentKey, List data) {
+    public UpdateUserAgent(AgentKey agentKey, List data) {
         super(agentKey, MESSAGE_TYPE, data);
     }
     
@@ -33,7 +33,7 @@ public class UpdateAggregateAgent extends AgentUpdator{
         try {    
             AgentKey agentKey = new AgentKey(AGENT_TYPE, new Object[]{agID});
                 
-            UpdateAggregateAgent executor = new UpdateAggregateAgent(agentKey, data);
+            UpdateUserAgent executor = new UpdateUserAgent(agentKey, data);
             
             Object reply = client.execute(agentKey, executor);
             
@@ -49,7 +49,7 @@ public class UpdateAggregateAgent extends AgentUpdator{
         AgentKey agentKey = new AgentKey(AGENT_TYPE, new Object[]{agID});
 
         //Update Agent
-        UpdateAggregateAgent executor = new UpdateAggregateAgent(agentKey, data);
+        UpdateUserAgent executor = new UpdateUserAgent(agentKey, data);
 
         Object reply = executor.execute();
         

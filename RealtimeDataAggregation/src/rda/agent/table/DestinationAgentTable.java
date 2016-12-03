@@ -15,9 +15,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author kaeru
  */
 public class DestinationAgentTable {
-    private static DestinationAgentTable table = new DestinationAgentTable();
-    public static DestinationAgentTable getInstance(){
-        return table;
+    public DestinationAgentTable(List<Object> agentList){
+        createTable(agentList);
     }
     
     private static Integer size = 10;
@@ -27,7 +26,7 @@ public class DestinationAgentTable {
     
     private Map<Object, List<Object>> destTable;
     private List<Object> idList;
-    public void createTable(List<Object> agentList){
+    private void createTable(List<Object> agentList){
         destTable = new ConcurrentHashMap<>();
         idList = new ArrayList<>();
         for(int i=0; i < agentList.size(); i++){

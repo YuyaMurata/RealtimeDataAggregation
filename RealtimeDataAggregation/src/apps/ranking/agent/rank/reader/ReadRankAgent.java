@@ -29,7 +29,7 @@ public class ReadRankAgent extends AgentReader {
     }
 
     @Override
-    public Object read(AgentClient client, String agID) {
+    public Object read(AgentClient client, Object agID) {
         try {
             Long start = System.currentTimeMillis();
             

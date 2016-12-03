@@ -5,13 +5,14 @@
  */
 package apps.ranking.main;
 
-import apps.count.agent.aggregate.creator.CreateAggregateAgent;
-import apps.count.agent.aggregate.extension.AggregateAgentMessageSender;
-import apps.count.agent.aggregate.profile.AggregateAgentProfile;
-import apps.count.appuser.UserProfile;
-import apps.count.agent.aggregate.reader.ReadAggregateAgent;
-import apps.count.agent.aggregate.updator.UpdateAggregateAgent;
-import apps.count.manager.AggregateAgentManager;
+import apps.ranking.agent.rank.profile.RankAgentProfile;
+import apps.ranking.agent.user.creator.CreateUserAgent;
+import apps.ranking.agent.user.extension.UserAgentMessageSender;
+import apps.ranking.agent.user.profile.UserAgentProfile;
+import apps.ranking.agent.user.reader.ReadUserAgent;
+import apps.ranking.agent.user.updator.UpdateUserAgent;
+import apps.ranking.appuser.UserProfile;
+import apps.ranking.manager.RankingAgentManager;
 import bench.main.AgentBenchmark;
 import bench.property.BenchmarkProperty;
 import bench.template.UserData;
@@ -19,8 +20,6 @@ import bench.time.TimeOverEvent;
 import com.ibm.agent.exa.client.AgentClient;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import rda.agent.client.AgentConnection;
 import rda.agent.deletor.Dispose;
 import rda.agent.profile.AgentProfileGenerator;
@@ -39,7 +38,7 @@ import rda.server.ServerConnectionManager;
 public class AgentSystemMain {
     public static void main(String[] args) {
         //Test
-        AggregateAgentManager manager = AggregateAgentManager.getInstance();
+        RankingAgentManager manager = RankingAgentManager.getInstance();
         AgentBenchmark agBench = AgentBenchmark.getInstance();
         
         //Benchmark Initializer
@@ -51,14 +50,20 @@ public class AgentSystemMain {
         AgentProfileGenerator userProf = new AgentProfileGenerator(new UserProfile(userLists));
         System.out.println(userProf.toString());
         
-        //Create Agent ID
-        List agIDLists = manager.getAgentList();
-        AgentProfileGenerator agentProf = new AgentProfileGenerator(new AggregateAgentProfile(agIDLists));
+        //Create UserAgent ID
+        AgentProfileGenerator userAgentProf = new AgentProfileGenerator(new UserAgentProfile(userLists, userProf));
         
-        //Destination Table
-        DestinationAgentTable table = DestinationAgentTable.getInstance();
-        table.createTable(agIDLists);
-        System.out.println(table.toString());
+        //Create RankAgent ID
+        List agIDLists = manager.getAgentList();
+        AgentProfileGenerator rankAgentProf = new AgentProfileGenerator(new RankAgentProfile(agIDLists));
+        
+        //Destination UserAgent Table
+        DestinationAgentTable userAgentTable = new DestinationAgentTable(userAgentProf.registerIDList());
+        System.out.println(userAgentTable.toString());
+        
+        //Destination UserAgent Table
+        DestinationAgentTable rankAgentTable = new DestinationAgentTable(rankAgentProf.registerIDList());
+        System.out.println(rankAgentTable.toString());
         
         //Server - AgentClient
         ServerConnectionManager scManager = ServerConnectionManager.getInstance();
@@ -67,11 +72,11 @@ public class AgentSystemMain {
         
         //Init Parameter
         RDAProperty prop = RDAProperty.getInstance();
-        CreateAggregateAgent creator = new CreateAggregateAgent();
-        UpdateAggregateAgent updator = new UpdateAggregateAgent();
+        CreateUserAgent creator = new CreateUserAgent();
+        UpdateUserAgent updator = new UpdateUserAgent();
         Map param = prop.getAllParameter();
         param.put(AgentSystemInitializer.paramID.AGENT_CREATOR, creator);
-        param.put(AgentSystemInitializer.paramID.AGENT_PROFILE, agentProf);
+        param.put(AgentSystemInitializer.paramID.AGENT_PROFILE, userAgentProf);
         param.put(AgentSystemInitializer.paramID.AGENT_UPDATOR, updator);
         
         //Extension Initialize
@@ -80,8 +85,8 @@ public class AgentSystemMain {
         System.out.println(msg);
         
         //Create Agent
-        for(String agID : (List<String>)agIDLists){
-            Map setter = agentProf.generate(agID);
+        for(Object agID : userAgentProf.registerIDList()){
+            Map setter = userAgentProf.generate(agID);
             String msgc = creator.create(client, setter);
             System.out.println("Create "+agID+" = "+msgc);
         }
@@ -92,7 +97,7 @@ public class AgentSystemMain {
         System.out.println(msg);
         
         //Update Test
-        AggregateAgentMessageSender agUpdate = new AggregateAgentMessageSender();
+        UserAgentMessageSender agUpdate = new UserAgentMessageSender();
         WindowStream window = new WindowStream(
                 prop.getWindowParameter(),
                 ag,
@@ -111,7 +116,7 @@ public class AgentSystemMain {
                 }
                 
                 Object id = userProf.generate(user.id).get(UserProfile.profileID.ID);
-                Object agID = table.getDestAgentID(id);
+                Object agID = userAgentTable.getDestAgentID(id);
                 
                 //System.out.println(agID+" - "+user.toString());
                 
@@ -130,9 +135,9 @@ public class AgentSystemMain {
         System.out.println(msg);
 
         //Read Test
-        ReadAggregateAgent reader = new ReadAggregateAgent();
+        ReadUserAgent reader = new ReadUserAgent();
         Long total = 0L;
-        for(String agID : (List<String>)agIDLists){
+        for(Object agID : userAgentProf.registerIDList()){
             Object d = reader.read(client, agID);
             System.out.println("Read "+agID+" = "+d);
             total = ((List<Long>)d).get(0) + total;
