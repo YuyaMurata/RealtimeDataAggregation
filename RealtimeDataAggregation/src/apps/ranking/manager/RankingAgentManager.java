@@ -5,7 +5,6 @@
  */
 package apps.ranking.manager;
 
-import apps.count.property.AppCountProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +24,7 @@ public class RankingAgentManager extends AgentManager{
     
     private List agentLists;
     private RankingAgentManager() {
-        AppCountProperty prop = AppCountProperty.getInstance();
+        AppRankingProperty prop = AppRankingProperty.getInstance();
         preparedAgentSystem(
                 (Integer)prop.getParameter(paramID.AMOUNT_AGENTS), 
                 (String) prop.getParameter(paramID.ID_RULE));
