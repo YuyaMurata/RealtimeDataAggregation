@@ -54,9 +54,9 @@
     <agents>
         <!--system define-->
         <agent type="useragent">
-            <handler message="initUserAgent" class="apps.ranking.agent.user.handler.InitAggregateAgentHandler"/>
-            <handler message="updateUserAgent" class="apps.ranking.agent.user.handler.UpdateAggregateAgentHandler"/>
-            <handler message="readUserAgent" class="apps.ranking.agent.user.handler.ReadAggregateAgentHandler"/>
+            <handler message="initUserAgent" class="apps.ranking.agent.user.handler.InitUserAgentHandler"/>
+            <handler message="updateUserAgent" class="apps.ranking.agent.user.handler.UpdateUserAgentHandler"/>
+            <handler message="readUserAgent" class="apps.ranking.agent.user.handler.ReadUserAgentHandler"/>
             
             <handler message="dispose" class="rda.agent.deletor.handler.DisposeHandler"/>
         </agent>
