@@ -54,6 +54,8 @@ public class AgentSystemMain {
         AgentProfileGenerator userAgentProf = new AgentProfileGenerator(new UserAgentProfile(userLists, userProf));
         System.out.println(userAgentProf.toString());
         
+        System.exit(0);
+        
         //Create RankAgent ID
         List agIDLists = manager.getAgentList();
         AgentProfileGenerator rankAgentProf = new AgentProfileGenerator(new RankAgentProfile(agIDLists));
