@@ -28,8 +28,8 @@ public abstract class AgentCreator implements AgentExecutor, Serializable{
     
     AgentKey agentKey;
     String msgtype;
-    List state;
-    public AgentCreator(AgentKey agentKey, String msgtype, List state){
+    Object state;
+    public AgentCreator(AgentKey agentKey, String msgtype, Object state){
         this.agentKey = agentKey;
         this.msgtype = msgtype;
         this.state = state;

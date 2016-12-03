@@ -26,7 +26,7 @@ public class CreateUserAgent extends AgentCreator {
         super();
     }
 
-    public CreateUserAgent(AgentKey agentKey, List state) {
+    public CreateUserAgent(AgentKey agentKey, Map state) {
         super(agentKey, MESSAGE_TYPE, state);
     }
 
@@ -37,7 +37,7 @@ public class CreateUserAgent extends AgentCreator {
             AgentKey agentKey = new AgentKey(AGENT_TYPE, new Object[]{agID});
 
             //Create Agent
-            List msgdata = (List) setter.get(UserAgentProfile.paramID.MESSAG_DATA);
+            Map msgdata = (Map) setter.get(UserAgentProfile.paramID.MESSAG_DATA);
             CreateUserAgent executor = new CreateUserAgent(agentKey, msgdata);
 
             Object reply = client.execute(agentKey, executor);
@@ -57,7 +57,7 @@ public class CreateUserAgent extends AgentCreator {
         AgentKey agentKey = new AgentKey(AGENT_TYPE, new Object[]{agID});
 
         //Create Agent
-        List msgdata = (List) setter.get(UserAgentProfile.paramID.MESSAG_DATA);
+        Map msgdata = (Map) setter.get(UserAgentProfile.paramID.MESSAG_DATA);
         CreateUserAgent executor = new CreateUserAgent(agentKey, msgdata);
 
         Object reply = executor.execute();
