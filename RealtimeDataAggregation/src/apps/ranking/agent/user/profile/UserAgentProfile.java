@@ -30,7 +30,7 @@ public class UserAgentProfile extends AgentProfile{
     public Map initProfile(List agIDLists) {
         Map map = new HashMap();
         
-        for(String agID : (List<String>)agIDLists){
+        for(Object agID : agIDLists){
             Map profParam = new HashMap();
             
             //ID

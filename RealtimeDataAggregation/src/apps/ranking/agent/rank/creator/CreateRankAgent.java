@@ -33,7 +33,7 @@ public class CreateRankAgent extends AgentCreator {
     @Override
     public String create(AgentClient client, Map setter) {
         try {
-            String agID = (String) setter.get(RankAgentProfile.paramID.ID);
+            Object agID = setter.get(RankAgentProfile.paramID.ID);
             AgentKey agentKey = new AgentKey(AGENT_TYPE, new Object[]{agID});
 
             //Create Agent
@@ -53,7 +53,7 @@ public class CreateRankAgent extends AgentCreator {
 
     @Override
     public String create(Map setter) {
-        String agID = (String) setter.get(RankAgentProfile.paramID.ID);
+        Object agID = setter.get(RankAgentProfile.paramID.ID);
         AgentKey agentKey = new AgentKey(AGENT_TYPE, new Object[]{agID});
 
         //Create Agent

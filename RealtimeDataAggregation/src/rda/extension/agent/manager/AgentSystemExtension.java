@@ -118,7 +118,7 @@ public class AgentSystemExtension implements Extension {
     }
 
     private Map<Object, AgentMessageQueue> agentMap;
-    public String createAgent(String agID) {
+    public String createAgent(Object agID) {
 
         Map setter = agentProf.generate(agID);
         String msg = creator.create(setter);
