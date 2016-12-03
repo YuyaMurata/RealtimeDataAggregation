@@ -22,7 +22,7 @@ source ./set_classpath.sh
 
 #     java -cp $CLASSPATH rda.agent.disposer.Dispose
 
-     java -cp $CLASSPATH -Xms4096m -Xmx4096m apps.count.main.AgentSystemMain
+     java -cp $CLASSPATH -Xms4096m -Xmx4096m apps.ranking.main.AgentSystemMain
 #    java -cp $CLASSPATH rda.test.ReadTest
 
 #    killall vmstat
