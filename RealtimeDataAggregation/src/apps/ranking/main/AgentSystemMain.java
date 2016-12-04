@@ -124,8 +124,6 @@ public class AgentSystemMain {
                 Object id = userProf.generate(user.id).get(UserProfile.profileID.ID);
                 Object agID = userAgentTable.getDestAgentID(id);
                 
-                System.out.println(agID+" - "+user.toString());
-                
                 window.in(agID, user);
                 totalData++;
             }
@@ -134,6 +132,7 @@ public class AgentSystemMain {
         }
         Long stop = System.currentTimeMillis();
         
+        //Test TimeStop
         try {
             Thread.sleep(2000);
         } catch (InterruptedException ex) {
