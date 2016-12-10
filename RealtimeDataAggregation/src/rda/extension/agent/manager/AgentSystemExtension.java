@@ -132,12 +132,8 @@ public class AgentSystemExtension implements Extension {
     
     public void registeAgent(Object agID) {
         if(agentMap.containsKey(agID)) return ;
-        Map param = new HashMap();
-        try{
-            param = (Map) initMap.get(((String)agID).split("#")[0]);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
+
+        Map param = (Map) initMap.get(((String)agID).split("#")[0]);
         
         AgentMessageQueue agmq = new AgentMessageQueue(agID, (AgentUpdator) param.get(AgentSystemInitializer.paramID.AGENT_UPDATOR));
         agentMap.put(agID, agmq);

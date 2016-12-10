@@ -43,9 +43,9 @@ public class InitUserAgentHandler extends MessageHandler {
             Map param = (Map) initMsg.msgdata;
             Profile profile = agent.createProfile(tx);
             profile.setName(tx, (String) param.get(UserProfile.profileID.NAME));
-            profile.setAge(tx, (String) param.get(UserProfile.profileID.AGE));
+            profile.setAge(tx, String.valueOf(param.get(UserProfile.profileID.AGE)));
             profile.setAddress(tx, (String) param.get(UserProfile.profileID.ADDRESS));
-            profile.setSex(tx, (String) param.get(UserProfile.profileID.SEX));
+            profile.setSex(tx, String.valueOf(param.get(UserProfile.profileID.SEX)));
             profile.setLastAccessTime(tx, registerTime);
 
             // 最終更新日
