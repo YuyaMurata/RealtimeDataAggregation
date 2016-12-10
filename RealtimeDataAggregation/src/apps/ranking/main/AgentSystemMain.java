@@ -7,6 +7,7 @@ package apps.ranking.main;
 
 import apps.ranking.agent.rank.creator.CreateRankAgent;
 import apps.ranking.agent.rank.profile.RankAgentProfile;
+import apps.ranking.agent.rank.reader.ReadRankAgent;
 import apps.ranking.agent.rank.updator.UpdateRankAgent;
 import apps.ranking.agent.user.creator.CreateUserAgent;
 import apps.ranking.agent.user.extension.UserAgentMessageSender;
@@ -21,6 +22,7 @@ import bench.property.BenchmarkProperty;
 import bench.template.UserData;
 import bench.time.TimeOverEvent;
 import com.ibm.agent.exa.client.AgentClient;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import rda.agent.client.AgentConnection;
@@ -148,6 +150,13 @@ public class AgentSystemMain {
                     continue;
                 }
                 
+                //Test RankAgent
+                for(Object agID : rankAgentProf.registerIDList()){
+                    List rankData = new ArrayList();
+                    rankData.add(user);
+                    rankUpdator.update(client, agID, rankData);
+                }
+                
                 Object id = userProf.generate(user.id).get(UserProfile.profileID.ID);
                 Object agID = userAgentTable.getDestAgentID(id);
                 
@@ -171,13 +180,20 @@ public class AgentSystemMain {
         msg = agShutdown.shutdown(client);
         System.out.println(msg);
 
-        //Read Test
-        ReadUserAgent reader = new ReadUserAgent();
+        //Read UserAgent Test
+        ReadUserAgent userReader = new ReadUserAgent();
         Long total = 0L;
         for(Object agID : userAgentProf.registerIDList()){
-            Object d = reader.read(client, agID);
+            Object d = userReader.read(client, agID);
             System.out.println("Read "+agID+" = "+d);
             total = ((List<Long>)d).get(0) + total;
+        }
+        
+        //Read RankAgent Test
+        ReadRankAgent rankReader = new ReadRankAgent();
+        for(Object agID : rankAgentProf.registerIDList()){
+            Object d = rankReader.read(client, agID);
+            System.out.println("Read "+agID+" = "+d);
         }
         
         //Total Time
