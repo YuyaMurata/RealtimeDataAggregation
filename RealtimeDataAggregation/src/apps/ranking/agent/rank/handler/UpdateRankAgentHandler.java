@@ -43,7 +43,7 @@ public class UpdateRankAgentHandler  extends MessageHandler{
             }
             
             if(table.getCurrentTime(tx) < user.time){
-                table.setData(tx, (long) user.data);
+                table.setData(tx, (Integer) user.data);
                 table.setCurrentTime(tx, user.time);
             }
         }
