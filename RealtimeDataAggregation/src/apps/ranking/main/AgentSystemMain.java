@@ -13,6 +13,7 @@ import apps.ranking.agent.user.reader.ReadUserAgent;
 import apps.ranking.agent.user.updator.UpdateUserAgent;
 import apps.ranking.appuser.UserProfile;
 import apps.ranking.manager.RankingAgentManager;
+import apps.ranking.property.AppRankingProperty;
 import bench.main.AgentBenchmark;
 import bench.property.BenchmarkProperty;
 import bench.template.UserData;
@@ -20,8 +21,6 @@ import bench.time.TimeOverEvent;
 import com.ibm.agent.exa.client.AgentClient;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import rda.agent.client.AgentConnection;
 import rda.agent.deletor.Dispose;
 import rda.agent.profile.AgentProfileGenerator;
@@ -47,6 +46,9 @@ public class AgentSystemMain {
         BenchmarkProperty bprop = BenchmarkProperty.getInstance();
         agBench.setParameter(bprop.getParameter());
         
+        //RankingSystem Property
+        AppRankingProperty approp = AppRankingProperty.getInstance();
+        
         //Create User ID
         List userLists = agBench.getUserList();
         AgentProfileGenerator userProf = new AgentProfileGenerator(new UserProfile(userLists));
@@ -66,7 +68,7 @@ public class AgentSystemMain {
         DestinationAgentTable userAgentTable = new DestinationAgentTable(userAgentProf.registerIDList());
         System.out.println(userAgentTable.toString());
         
-        //Destination UserAgent Table
+        //Destination RankAgent Table
         DestinationAgentTable.setParameter(10);
         DestinationAgentTable rankAgentTable = new DestinationAgentTable(rankAgentProf.registerIDList());
         System.out.println(rankAgentTable.toString());
@@ -76,14 +78,16 @@ public class AgentSystemMain {
         AgentConnection ag = scManager.getLocalServer();
         AgentClient client = ag.getClient();
         
-        //Init Parameter
+        //Init UserAgent Parameter
         RDAProperty prop = RDAProperty.getInstance();
-        CreateUserAgent creator = new CreateUserAgent();
-        UpdateUserAgent updator = new UpdateUserAgent();
+        String userIDRule = (String) approp.getParameter(RankingAgentManager.paramID.USERID_RULE);
+        CreateUserAgent userCreator = new CreateUserAgent();
+        UpdateUserAgent userUpdator = new UpdateUserAgent();
         Map param = prop.getAllParameter();
-        param.put(AgentSystemInitializer.paramID.AGENT_CREATOR, creator);
+        param.put(AgentSystemInitializer.paramID.AGENT_TYPE, userIDRule.split("#")[0]);
+        param.put(AgentSystemInitializer.paramID.AGENT_CREATOR, userCreator);
         param.put(AgentSystemInitializer.paramID.AGENT_PROFILE, userAgentProf);
-        param.put(AgentSystemInitializer.paramID.AGENT_UPDATOR, updator);
+        param.put(AgentSystemInitializer.paramID.AGENT_UPDATOR, userUpdator);
         
         //Extension Initialize
         AgentSystemInitializer agInit = new AgentSystemInitializer();
@@ -93,7 +97,7 @@ public class AgentSystemMain {
         //Create Agent
         for(Object agID : userAgentProf.registerIDList()){
             Map setter = userAgentProf.generate(agID);
-            String msgc = creator.create(client, setter);
+            String msgc = userCreator.create(client, setter);
             System.out.println("Create "+agID+" = "+msgc);
         }
         

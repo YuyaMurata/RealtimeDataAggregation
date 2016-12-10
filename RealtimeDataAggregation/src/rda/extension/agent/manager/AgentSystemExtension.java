@@ -99,14 +99,16 @@ public class AgentSystemExtension implements Extension {
         System.out.println("    ***      ************  **********       ***    ");
     }
 
-    private AgentProfileGenerator agentProf;
-    private AgentCreator creator;
-    private AgentUpdator updator;
+    //private AgentProfileGenerator agentProf;
+    //private AgentCreator creator;
+    //private AgentUpdator updator;
+    private Map initMap;
     public String initAgentSystem(Map param) {
         try {
-            agentProf = (AgentProfileGenerator) param.get(AgentSystemInitializer.paramID.AGENT_PROFILE);
-            creator = (AgentCreator) param.get(AgentSystemInitializer.paramID.AGENT_CREATOR);
-            updator = (AgentUpdator) param.get(AgentSystemInitializer.paramID.AGENT_UPDATOR);
+            initMap.put(param.get(AgentSystemInitializer.paramID.AGENT_TYPE), param);
+            //agentProf = (AgentProfileGenerator) param.get(AgentSystemInitializer.paramID.AGENT_PROFILE);
+            //creator = (AgentCreator) param.get(AgentSystemInitializer.paramID.AGENT_CREATOR);
+            //updator = (AgentUpdator) param.get(AgentSystemInitializer.paramID.AGENT_UPDATOR);
             
             AgentMessageQueue.setParameter(param);
             agentMap = new HashMap();
@@ -119,17 +121,19 @@ public class AgentSystemExtension implements Extension {
 
     private Map<Object, AgentMessageQueue> agentMap;
     public String createAgent(Object agID) {
-
-        Map setter = agentProf.generate(agID);
-        String msg = creator.create(setter);
+        Map param = (Map) initMap.get(((String)agID).split("#")[0]);
+        
+        Map setter = ((AgentProfileGenerator)param.get(AgentSystemInitializer.paramID.AGENT_PROFILE)).generate(agID);
+        String msg = ((AgentCreator) param.get(AgentSystemInitializer.paramID.AGENT_CREATOR)).create(setter);
         
         return msg;
     }
     
     public void registeAgent(Object agID) {
         if(agentMap.containsKey(agID)) return ;
+        Map param = (Map) initMap.get(((String)agID).split("#")[0]);
         
-        AgentMessageQueue agmq = new AgentMessageQueue(agID, updator);
+        AgentMessageQueue agmq = new AgentMessageQueue(agID, (AgentUpdator) param.get(AgentSystemInitializer.paramID.AGENT_UPDATOR));
         agentMap.put(agID, agmq);
     }
     

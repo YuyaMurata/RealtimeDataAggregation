@@ -18,7 +18,7 @@ import rda.agent.manager.AgentManager;
  */
 public class RankingAgentManager extends AgentManager{
     public enum paramID{
-        ID_RULE, AMOUNT_AGENTS
+        RANKID_RULE, USERID_RULE, AMOUNT_AGENTS
     }
     
     private static RankingAgentManager manager = new RankingAgentManager();
@@ -28,7 +28,7 @@ public class RankingAgentManager extends AgentManager{
         AppRankingProperty prop = AppRankingProperty.getInstance();
         preparedAgentSystem(
                 (Integer)prop.getParameter(paramID.AMOUNT_AGENTS), 
-                (String) prop.getParameter(paramID.ID_RULE));
+                (String) prop.getParameter(paramID.RANKID_RULE));
     }
     
     private void preparedAgentSystem(Integer n, String rule){

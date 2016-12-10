@@ -59,7 +59,8 @@ public class AppRankingProperty {
         
         //Agent Profile Parameter
         propMap.put(RankingAgentManager.paramID.AMOUNT_AGENTS, Integer.valueOf(getValue("number.agent")));
-        propMap.put(RankingAgentManager.paramID.ID_RULE, getValue("agent.idrule"));
+        propMap.put(RankingAgentManager.paramID.RANKID_RULE, getValue("agent.idrule"));
+        propMap.put(RankingAgentManager.paramID.USERID_RULE, getValue("user.idrule"));
         
         displayProperty();
     }
