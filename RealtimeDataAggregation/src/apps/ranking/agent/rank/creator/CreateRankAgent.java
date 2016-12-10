@@ -60,7 +60,7 @@ public class CreateRankAgent extends AgentCreator {
         List msgdata = (List) setter.get(RankAgentProfile.paramID.MESSAG_DATA);
         CreateRankAgent executor = new CreateRankAgent(agentKey, msgdata);
 
-        Object reply = executor.execute();
+        Object reply = executor.execute(); 
         
         String msg = "Create [" + agentKey + "] was created. Reply is [" + reply + "]";
         
