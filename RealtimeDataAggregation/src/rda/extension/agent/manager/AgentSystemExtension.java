@@ -105,6 +105,7 @@ public class AgentSystemExtension implements Extension {
     private Map initMap;
     public String initAgentSystem(Map param) {
         try {
+            initMap = new HashMap();
             initMap.put(param.get(AgentSystemInitializer.paramID.AGENT_TYPE), param);
             //agentProf = (AgentProfileGenerator) param.get(AgentSystemInitializer.paramID.AGENT_PROFILE);
             //creator = (AgentCreator) param.get(AgentSystemInitializer.paramID.AGENT_CREATOR);
