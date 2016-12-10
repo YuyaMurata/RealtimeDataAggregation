@@ -9,7 +9,6 @@ import apps.ranking.agent.user.profile.UserAgentProfile;
 import com.ibm.agent.exa.AgentException;
 import com.ibm.agent.exa.AgentKey;
 import com.ibm.agent.exa.client.AgentClient;
-import java.util.List;
 import java.util.Map;
 import rda.agent.creator.AgentCreator;
 

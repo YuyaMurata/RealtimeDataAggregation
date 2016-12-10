@@ -13,7 +13,6 @@ import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.exa.client.AgentExecutor;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 import rda.agent.message.InitMessage;
 import rda.extension.agent.manager.AgentSystemExtension;
@@ -23,7 +22,7 @@ import rda.extension.agent.manager.AgentSystemExtension;
  * @author kaeru
  */
 public abstract class AgentCreator implements AgentExecutor, Serializable{
-    public AgentCreator() {
+    public AgentCreator() { 
     }
     
     AgentKey agentKey;
