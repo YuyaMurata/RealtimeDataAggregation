@@ -5,7 +5,9 @@
  */
 package apps.ranking.main;
 
+import apps.ranking.agent.rank.creator.CreateRankAgent;
 import apps.ranking.agent.rank.profile.RankAgentProfile;
+import apps.ranking.agent.rank.updator.UpdateRankAgent;
 import apps.ranking.agent.user.creator.CreateUserAgent;
 import apps.ranking.agent.user.extension.UserAgentMessageSender;
 import apps.ranking.agent.user.profile.UserAgentProfile;
@@ -94,10 +96,31 @@ public class AgentSystemMain {
         Object msg = agInit.initalize(client, param);
         System.out.println(msg);
         
-        //Create Agent
+        //Init RankAgent Parameter
+        String rankIDRule = (String) approp.getParameter(RankingAgentManager.paramID.RANKID_RULE);
+        CreateRankAgent rankCreator = new CreateRankAgent();
+        UpdateRankAgent rankUpdator = new UpdateRankAgent();
+        param.put(AgentSystemInitializer.paramID.AGENT_TYPE, rankIDRule.split("#")[0]);
+        param.put(AgentSystemInitializer.paramID.AGENT_CREATOR, rankCreator);
+        param.put(AgentSystemInitializer.paramID.AGENT_PROFILE, rankAgentProf);
+        param.put(AgentSystemInitializer.paramID.AGENT_UPDATOR, rankUpdator);
+        
+        //Extension Initialize
+        msg = agInit.initalize(client, param);
+        System.out.println(msg);
+        
+        
+        //Create UserAgent
         for(Object agID : userAgentProf.registerIDList()){
             Map setter = userAgentProf.generate(agID);
             String msgc = userCreator.create(client, setter);
+            System.out.println("Create "+agID+" = "+msgc);
+        }
+        
+        //Create RankAgent
+        for(Object agID : rankAgentProf.registerIDList()){
+            Map setter = rankAgentProf.generate(agID);
+            String msgc = rankCreator.create(client, setter);
             System.out.println("Create "+agID+" = "+msgc);
         }
         
