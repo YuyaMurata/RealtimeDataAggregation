@@ -14,40 +14,43 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author kaeru
  */
-public class DestinationAgentTable {
-    public DestinationAgentTable(List<Object> agentList){
-        createTable(agentList);
+public abstract class DestinationAgentTable {
+    public Map<Object, List<Object>> destTable;
+    public List<Object> idList;
+    private Integer size = 10;
+    
+    public DestinationAgentTable(List agentList, Integer size){
+        this.size = size;
+        destTable = createTable(agentList);
+        idList = agentList;
     }
     
-    private static Integer size = 10;
-    public static void setParameter(Integer indexSize){
-        size = indexSize;
-    }
-    
-    private Map<Object, List<Object>> destTable;
-    private List<Object> idList;
-    private void createTable(List<Object> agentList){
-        destTable = new ConcurrentHashMap<>();
-        idList = new ArrayList<>();
+    private Map createTable(List<Object> agentList){
+        Map<Object, List> table = new ConcurrentHashMap<>();
+        
         for(int i=0; i < agentList.size(); i++){
             Object agListID = agentList.get(i % size);
-            if(destTable.get(agListID) == null){
+            if(table.get(agListID) == null){
                 idList.add(agListID);
-                destTable.put(agentList.get(i), new ArrayList<>());
+                table.put(agentList.get(i), new ArrayList<>());
             }
                 
-            List destAgList = destTable.get(agListID);
+            List destAgList = table.get(agListID);
             destAgList.add(agentList.get(i));
             
-            destTable.put(agListID, destAgList);
+            table.put(agListID, destAgList);
         }
+        
+        return table;
     }
     
-    public Object getDestAgentID(Object id){
+    public abstract Object getDestAgentID(Object id);
+    
+    /*public Object getDestAgentID(Object id){
         Integer hashID = Math.abs(id.hashCode());
         List destAgList = destTable.get(idList.get(hashID % destTable.size()));
         return destAgList.get(hashID % destAgList.size());
-    }
+    }*/
     
     public String toString(){
         StringBuilder sb = new StringBuilder();

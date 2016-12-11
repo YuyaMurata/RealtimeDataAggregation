@@ -10,6 +10,7 @@ import apps.count.agent.aggregate.extension.AggregateAgentMessageSender;
 import apps.count.agent.aggregate.profile.AggregateAgentProfile;
 import apps.count.appuser.UserProfile;
 import apps.count.agent.aggregate.reader.ReadAggregateAgent;
+import apps.count.agent.aggregate.table.AggregateAgentTable;
 import apps.count.agent.aggregate.updator.UpdateAggregateAgent;
 import apps.count.manager.AggregateAgentManager;
 import bench.main.AgentBenchmark;
@@ -54,7 +55,7 @@ public class AgentSystemMain {
         AgentProfileGenerator agentProf = new AgentProfileGenerator(new AggregateAgentProfile(agIDLists));
         
         //Destination Table
-        DestinationAgentTable table = new DestinationAgentTable(agentProf.registerIDList());
+        DestinationAgentTable table = new AggregateAgentTable(agentProf.registerIDList(), 10);
         System.out.println(table.toString());
         
         //Server - AgentClient
@@ -107,7 +108,7 @@ public class AgentSystemMain {
                     continue;
                 }
                 
-                Object id = userProf.generate(user.id).get(UserProfile.profileID.ID);
+                Object id = userProf.generate(user.id).get(UserProfile.profileID.AGE);
                 Object agID = table.getDestAgentID(id);
                 
                 //System.out.println(agID+" - "+user.toString());

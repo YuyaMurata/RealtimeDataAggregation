@@ -8,11 +8,13 @@ package apps.ranking.main;
 import apps.ranking.agent.rank.creator.CreateRankAgent;
 import apps.ranking.agent.rank.profile.RankAgentProfile;
 import apps.ranking.agent.rank.reader.ReadRankAgent;
+import apps.ranking.agent.rank.table.RankAgentTable;
 import apps.ranking.agent.rank.updator.UpdateRankAgent;
 import apps.ranking.agent.user.creator.CreateUserAgent;
 import apps.ranking.agent.user.extension.UserAgentMessageSender;
 import apps.ranking.agent.user.profile.UserAgentProfile;
 import apps.ranking.agent.user.reader.ReadUserAgent;
+import apps.ranking.agent.user.table.UserAgentTable;
 import apps.ranking.agent.user.updator.UpdateUserAgent;
 import apps.ranking.appuser.UserProfile;
 import apps.ranking.manager.RankingAgentManager;
@@ -68,13 +70,11 @@ public class AgentSystemMain {
         System.out.println(rankAgentProf.toString());
         
         //Destination UserAgent Table
-        DestinationAgentTable.setParameter(userAgentProf.registerIDList().size());
-        DestinationAgentTable userAgentTable = new DestinationAgentTable(userAgentProf.registerIDList());
+        DestinationAgentTable userAgentTable = new UserAgentTable(userAgentProf.registerIDList(), userAgentProf.registerIDList().size());
         System.out.println(userAgentTable.toString());
         
         //Destination RankAgent Table
-        DestinationAgentTable.setParameter(10);
-        DestinationAgentTable rankAgentTable = new DestinationAgentTable(rankAgentProf.registerIDList());
+        DestinationAgentTable rankAgentTable = new RankAgentTable(rankAgentProf.registerIDList(), 10);
         System.out.println(rankAgentTable.toString());
         
         //Server - AgentClient
