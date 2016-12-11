@@ -12,6 +12,7 @@ import com.ibm.agent.exa.MessageHandler;
 import com.ibm.agent.exa.TxID;
 import java.util.List;
 import rda.agent.message.UpdateMessage;
+import rda.extension.agent.manager.AgentSystemExtension;
 
 /**
  *
@@ -45,6 +46,10 @@ public class UpdateUserAgentHandler  extends MessageHandler{
         // Update LastAccessTime
         //Long time = System.currentTimeMillis();
         //Timestamp updateTime = new Timestamp(time);
+        
+        //Intaraction
+        AgentSystemExtension.getInstance().getAgentIntaraction().connect(
+                agent.getUserID(tx), new UserData(agent.getUserID(tx), updateData));
         
         return updateData;
     }
