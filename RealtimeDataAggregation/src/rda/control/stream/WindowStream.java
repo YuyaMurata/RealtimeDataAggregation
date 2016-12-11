@@ -7,6 +7,7 @@ package rda.control.stream;
 
 import rda.extension.agent.exec.ExtensionPutMessageQueue;
 import com.ibm.agent.exa.client.AgentClient;
+import java.io.Serializable;
 import java.util.Map;
 import rda.agent.client.AgentConnection;
 import rda.control.flow.Window;
@@ -16,7 +17,7 @@ import rda.control.flow.WindowController;
  *
  * @author kaeru
  */
-public class WindowStream extends Thread {
+public class WindowStream extends Thread implements Serializable{
     private WindowController flow;
     private AgentConnection agcon;
     private ExtensionPutMessageQueue sender;
