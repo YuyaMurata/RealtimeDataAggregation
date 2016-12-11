@@ -22,7 +22,7 @@ import rda.extension.agent.manager.AgentSystemExtension;
  */
 public class AgentIntaractionComm implements AgentExecutor, Serializable {
     public enum paramID{
-        WINDOW, AGENT_TABLE
+        AGENT_CONNECTION,WINDOW, AGENT_TABLE
     }
     
     private WindowStream window;

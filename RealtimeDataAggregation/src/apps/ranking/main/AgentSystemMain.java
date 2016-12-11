@@ -129,6 +129,7 @@ public class AgentSystemMain {
         
         //Communication Set
         Map commMap = new HashMap();
+        commMap.put(AgentIntaractionComm.paramID.AGENT_CONNECTION, ag);
         commMap.putAll(prop.getWindowParameter());
         commMap.put(AgentIntaractionComm.paramID.WINDOW, new RankAgentMessageSender());
         commMap.put(AgentIntaractionComm.paramID.AGENT_TABLE, rankAgentTable);

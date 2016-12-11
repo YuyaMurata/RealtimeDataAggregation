@@ -146,10 +146,9 @@ public class AgentSystemExtension implements Extension {
     
     private AgentIntaractionComm intaraction;
     public String setAgentIntaraction(Map intaractionMap){
-        AgentConnection ag = ServerConnectionManager.getInstance().getLocalServer();
         WindowStream window = new WindowStream(
                 intaractionMap,
-                ag,
+                (AgentConnection) intaractionMap.get(AgentIntaractionComm.paramID.AGENT_CONNECTION),
                 (ExtensionPutMessageQueue)intaractionMap.get(AgentIntaractionComm.paramID.WINDOW));
         intaraction = new AgentIntaractionComm(
                     window,
