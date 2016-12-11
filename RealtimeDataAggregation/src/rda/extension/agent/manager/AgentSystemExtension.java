@@ -148,7 +148,7 @@ public class AgentSystemExtension implements Extension {
                     (DestinationAgentTable)intaractionMap.get(AgentIntaractionComm.paramID.AGENT_TABLE)
                 );
         
-        return "Set Agent Intaraction";
+        return "Set Agent Intaraction ["+intaraction.toString()+"]";
     }
     
     public AgentIntaractionComm getAgentIntaraction(){
