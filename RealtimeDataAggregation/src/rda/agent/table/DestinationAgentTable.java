@@ -5,6 +5,7 @@
  */
 package rda.agent.table;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author kaeru
  */
-public class DestinationAgentTable {
+public class DestinationAgentTable implements Serializable{
     private Map<Object, List<Object>> destTable;
     private List<Object> idList;
     private Integer size = 10;

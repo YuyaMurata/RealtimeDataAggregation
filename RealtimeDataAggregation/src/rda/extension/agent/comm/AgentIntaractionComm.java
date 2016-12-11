@@ -42,7 +42,6 @@ public class AgentIntaractionComm implements AgentExecutor, Serializable {
         this.window.in(id, data);
         }catch(Exception e){
             e.printStackTrace();
-            toString();
         }
     }
     
