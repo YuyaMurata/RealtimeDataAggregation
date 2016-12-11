@@ -48,8 +48,12 @@ public class UpdateUserAgentHandler  extends MessageHandler{
         //Timestamp updateTime = new Timestamp(time);
         
         //Intaraction
-        AgentSystemExtension.getInstance().getAgentIntaraction().connect(
+        try{
+            AgentSystemExtension.getInstance().getAgentIntaraction().connect(
                 agent.getUserID(tx), new UserData(agent.getUserID(tx), updateData));
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         
         return updateData;
     }
