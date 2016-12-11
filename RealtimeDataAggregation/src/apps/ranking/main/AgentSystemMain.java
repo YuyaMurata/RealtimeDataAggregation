@@ -136,7 +136,8 @@ public class AgentSystemMain {
                 agRankAgentUpdate);
         commMap.put(AgentIntaractionComm.paramID.AGENT_TABLE, rankAgentTable);
         commMap.put(AgentIntaractionComm.paramID.WINDOW, commWindow);
-        AgentIntaractionComm.setExtensionAgentIntaraction(client, commMap);
+        msg = AgentIntaractionComm.setExtensionAgentIntaraction(client, commMap);
+        System.out.println(msg);
         
         //Start AgentSystem
         AgentSystemLaunch agLaunch = new AgentSystemLaunch();
