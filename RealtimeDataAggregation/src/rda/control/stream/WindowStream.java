@@ -17,7 +17,7 @@ import rda.control.flow.WindowController;
  *
  * @author kaeru
  */
-public class WindowStream extends Thread implements Serializable{
+public class WindowStream extends Thread {
     private WindowController flow;
     private AgentConnection agcon;
     private ExtensionPutMessageQueue sender;

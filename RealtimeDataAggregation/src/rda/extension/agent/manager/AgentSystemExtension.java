@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import rda.agent.client.AgentConnection;
 import rda.agent.creator.AgentCreator;
 import rda.agent.mq.AgentMessageQueue;
 import rda.agent.profile.AgentProfileGenerator;
@@ -20,6 +21,8 @@ import rda.agent.updator.AgentUpdator;
 import rda.control.stream.WindowStream;
 import rda.extension.agent.comm.AgentIntaractionComm;
 import rda.extension.agent.exec.AgentSystemInitializer;
+import rda.extension.agent.exec.ExtensionPutMessageQueue;
+import rda.server.ServerConnectionManager;
 
 /**
  *
@@ -143,8 +146,13 @@ public class AgentSystemExtension implements Extension {
     
     private AgentIntaractionComm intaraction;
     public String setAgentIntaraction(Map intaractionMap){
+        AgentConnection ag = ServerConnectionManager.getInstance().getLocalServer();
+        WindowStream window = new WindowStream(
+                intaractionMap,
+                ag,
+                (ExtensionPutMessageQueue)intaractionMap.get(AgentIntaractionComm.paramID.WINDOW));
         intaraction = new AgentIntaractionComm(
-                    (WindowStream)intaractionMap.get(AgentIntaractionComm.paramID.WINDOW),
+                    window,
                     (DestinationAgentTable)intaractionMap.get(AgentIntaractionComm.paramID.AGENT_TABLE)
                 );
         

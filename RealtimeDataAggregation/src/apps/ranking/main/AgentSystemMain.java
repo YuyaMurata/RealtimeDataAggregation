@@ -129,13 +129,9 @@ public class AgentSystemMain {
         
         //Communication Set
         Map commMap = new HashMap();
-        RankAgentMessageSender agRankAgentUpdate = new RankAgentMessageSender();
-        WindowStream commWindow = new WindowStream(
-                prop.getWindowParameter(),
-                ag,
-                agRankAgentUpdate);
+        commMap.putAll(prop.getWindowParameter());
+        commMap.put(AgentIntaractionComm.paramID.WINDOW, new RankAgentMessageSender());
         commMap.put(AgentIntaractionComm.paramID.AGENT_TABLE, rankAgentTable);
-        commMap.put(AgentIntaractionComm.paramID.WINDOW, commWindow);
         msg = AgentIntaractionComm.setExtensionAgentIntaraction(client, commMap);
         System.out.println(msg);
         

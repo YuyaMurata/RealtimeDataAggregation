@@ -6,7 +6,6 @@
 package rda.agent.client;
 
 import com.ibm.agent.exa.client.AgentClient;
-import java.io.Serializable;
 import org.apache.commons.pool2.ObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
@@ -15,7 +14,7 @@ import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
  *
  * @author kaeru
  */
-public class AgentConnection implements Serializable{
+public class AgentConnection {
     public enum paramID{
         POOL_SIZE
     }
