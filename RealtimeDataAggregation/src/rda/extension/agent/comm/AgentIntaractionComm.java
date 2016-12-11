@@ -29,9 +29,8 @@ public class AgentIntaractionComm implements AgentExecutor, Serializable {
     private DestinationAgentTable table;
     public AgentIntaractionComm(WindowStream window, DestinationAgentTable table) {
         this.window = window;
-        this.window.start();
-        
         this.table = table;
+        this.window.start();
     }
     
     public void connect(Object connectID, Object data){
