@@ -31,7 +31,6 @@ public class DestinationAgentTable {
         for(int i=0; i < agentList.size(); i++){
             Object agListID = agentList.get(i % size);
             if(table.get(agListID) == null){
-                idList.add(agListID);
                 table.put(agentList.get(i), new ArrayList<>());
             }
                 
