@@ -34,17 +34,26 @@ public class AgentIntaractionComm implements AgentExecutor, Serializable {
     }
     
     public void connect(Object connectID, Object data){
+        try{
         Object id = table.getDestAgentID(connectID);
         
         //Get List after that UserID Hash 
         
         this.window.in(id, data);
+        }catch(Exception e){
+            e.printStackTrace();
+            toString();
+        }
     }
     
     //Extension
     Map param;
     public AgentIntaractionComm(Map param) {
         this.param = param;
+    }
+    
+    public void quit(){
+        WindowStream.setRunnable(false);
     }
 
     @Override
@@ -75,5 +84,9 @@ public class AgentIntaractionComm implements AgentExecutor, Serializable {
         } catch (AgentException ex) {
             return ex.toString();
         }
+    }
+    
+    public String toString(){
+        return window.toString()+" : "+table.toString();
     }
 }
