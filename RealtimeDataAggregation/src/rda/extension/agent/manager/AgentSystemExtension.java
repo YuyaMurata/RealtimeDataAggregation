@@ -15,7 +15,10 @@ import java.util.Properties;
 import rda.agent.creator.AgentCreator;
 import rda.agent.mq.AgentMessageQueue;
 import rda.agent.profile.AgentProfileGenerator;
+import rda.agent.table.DestinationAgentTable;
 import rda.agent.updator.AgentUpdator;
+import rda.control.stream.WindowStream;
+import rda.extension.agent.comm.AgentIntaractionComm;
 import rda.extension.agent.exec.AgentSystemInitializer;
 
 /**
@@ -99,26 +102,19 @@ public class AgentSystemExtension implements Extension {
         System.out.println("    ***      ************  **********       ***    ");
     }
 
-    //private AgentProfileGenerator agentProf;
-    //private AgentCreator creator;
-    //private AgentUpdator updator;
     private Map initMap = new HashMap();;
     public String initAgentSystem(Map param) {
         try {
             initMap.put(param.get(AgentSystemInitializer.paramID.AGENT_TYPE), param);
-            //agentProf = (AgentProfileGenerator) param.get(AgentSystemInitializer.paramID.AGENT_PROFILE);
-            //creator = (AgentCreator) param.get(AgentSystemInitializer.paramID.AGENT_CREATOR);
-            //updator = (AgentUpdator) param.get(AgentSystemInitializer.paramID.AGENT_UPDATOR);
             
             AgentMessageQueue.setParameter(param);
-            //agentMap = new HashMap();
             
             return "[Success AgentSystem Initialize !] - "+AgentMessageQueue.getParameter();
         } catch (Exception e) {
             return e.toString();
         }
     }
-
+    
     private Map<Object, AgentMessageQueue> agentMap = new HashMap();;
     public String createAgent(Object agID) {
         Map param = (Map) initMap.get(((String)agID).split("#")[0]);
@@ -143,6 +139,20 @@ public class AgentSystemExtension implements Extension {
         Boolean result = agmq.put(data);
         
         return result;
+    }
+    
+    private AgentIntaractionComm intaraction;
+    public String setAgentIntaraction(Map intaractionMap){
+        intaraction = new AgentIntaractionComm(
+                    (WindowStream)intaractionMap.get(AgentIntaractionComm.paramID.WINDOW),
+                    (DestinationAgentTable)intaractionMap.get(AgentIntaractionComm.paramID.AGENT_TABLE)
+                );
+        
+        return "Set Agent Intaraction";
+    }
+    
+    public AgentIntaractionComm getAgentIntaraction(){
+        return intaraction;
     }
     
     public String startAgentSystem(){

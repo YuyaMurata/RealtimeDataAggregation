@@ -14,9 +14,9 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author kaeru
  */
-public abstract class DestinationAgentTable {
-    public Map<Object, List<Object>> destTable;
-    public List<Object> idList;
+public class DestinationAgentTable {
+    private Map<Object, List<Object>> destTable;
+    private List<Object> idList;
     private Integer size = 10;
     
     public DestinationAgentTable(List agentList, Integer size){
@@ -43,14 +43,14 @@ public abstract class DestinationAgentTable {
         
         return table;
     }
-    
-    public abstract Object getDestAgentID(Object id);
-    
-    /*public Object getDestAgentID(Object id){
+
+    public Object getDestAgentID(Object id){
         Integer hashID = Math.abs(id.hashCode());
+        
         List destAgList = destTable.get(idList.get(hashID % destTable.size()));
+        
         return destAgList.get(hashID % destAgList.size());
-    }*/
+    }
     
     public String toString(){
         StringBuilder sb = new StringBuilder();

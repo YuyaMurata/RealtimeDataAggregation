@@ -6,15 +6,14 @@
 package apps.ranking.main;
 
 import apps.ranking.agent.rank.creator.CreateRankAgent;
+import apps.ranking.agent.rank.extension.RankAgentMessageSender;
 import apps.ranking.agent.rank.profile.RankAgentProfile;
 import apps.ranking.agent.rank.reader.ReadRankAgent;
-import apps.ranking.agent.rank.table.RankAgentTable;
 import apps.ranking.agent.rank.updator.UpdateRankAgent;
 import apps.ranking.agent.user.creator.CreateUserAgent;
 import apps.ranking.agent.user.extension.UserAgentMessageSender;
 import apps.ranking.agent.user.profile.UserAgentProfile;
 import apps.ranking.agent.user.reader.ReadUserAgent;
-import apps.ranking.agent.user.table.UserAgentTable;
 import apps.ranking.agent.user.updator.UpdateUserAgent;
 import apps.ranking.appuser.UserProfile;
 import apps.ranking.manager.RankingAgentManager;
@@ -25,6 +24,7 @@ import bench.template.UserData;
 import bench.time.TimeOverEvent;
 import com.ibm.agent.exa.client.AgentClient;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import rda.agent.client.AgentConnection;
@@ -32,6 +32,7 @@ import rda.agent.deletor.Dispose;
 import rda.agent.profile.AgentProfileGenerator;
 import rda.agent.table.DestinationAgentTable;
 import rda.control.stream.WindowStream;
+import rda.extension.agent.comm.AgentIntaractionComm;
 import rda.extension.agent.exec.AgentSystemInitializer;
 import rda.extension.agent.exec.AgentSystemLaunch;
 import rda.extension.agent.exec.AgentSystemShutdown;
@@ -70,11 +71,11 @@ public class AgentSystemMain {
         System.out.println(rankAgentProf.toString());
         
         //Destination UserAgent Table
-        DestinationAgentTable userAgentTable = new UserAgentTable(userAgentProf.registerIDList(), userAgentProf.registerIDList().size());
+        DestinationAgentTable userAgentTable = new DestinationAgentTable(userAgentProf.registerIDList(), userAgentProf.registerIDList().size());
         System.out.println(userAgentTable.toString());
         
         //Destination RankAgent Table
-        DestinationAgentTable rankAgentTable = new RankAgentTable(rankAgentProf.registerIDList(), 10);
+        DestinationAgentTable rankAgentTable = new DestinationAgentTable(rankAgentProf.registerIDList(), 10);
         System.out.println(rankAgentTable.toString());
         
         //Server - AgentClient
@@ -126,17 +127,28 @@ public class AgentSystemMain {
             System.out.println("Create "+agID+" = "+msgc);
         }
         
+        //Communication Set
+        Map commMap = new HashMap();
+        RankAgentMessageSender agRankAgentUpdate = new RankAgentMessageSender();
+        WindowStream commWindow = new WindowStream(
+                prop.getWindowParameter(),
+                ag,
+                agRankAgentUpdate);
+        commMap.put(AgentIntaractionComm.paramID.AGENT_TABLE, rankAgentTable);
+        commMap.put(AgentIntaractionComm.paramID.WINDOW, commWindow);
+        AgentIntaractionComm.setExtensionAgentIntaraction(client, commMap);
+        
         //Start AgentSystem
         AgentSystemLaunch agLaunch = new AgentSystemLaunch();
         msg = agLaunch.launch(client);
         System.out.println(msg);
         
-        //Update Test
-        UserAgentMessageSender agUpdate = new UserAgentMessageSender();
+        //UpdateUserAgent Test
+        UserAgentMessageSender agUserAgentUpdate = new UserAgentMessageSender();
         WindowStream window = new WindowStream(
                 prop.getWindowParameter(),
                 ag,
-                agUpdate);
+                agUserAgentUpdate);
         window.start();
 
         //Start Benchmark
@@ -151,11 +163,11 @@ public class AgentSystemMain {
                 }
                 
                 //Test RankAgent
-                for(Object agID : rankAgentProf.registerIDList()){
+                /*for(Object agID : rankAgentProf.registerIDList()){
                     List rankData = new ArrayList();
                     rankData.add(user);
                     rankUpdator.update(client, agID, rankData);
-                }
+                }*/
                 
                 Object id = userProf.generate(user.id).get(UserProfile.profileID.ID);
                 Object agID = userAgentTable.getDestAgentID(id);
