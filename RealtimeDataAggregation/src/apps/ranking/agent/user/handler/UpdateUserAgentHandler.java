@@ -20,7 +20,6 @@ import rda.extension.agent.manager.AgentSystemExtension;
  * @author kaeru
  */
 public class UpdateUserAgentHandler  extends MessageHandler{
-    private AgentIntaractionComm agcomm = AgentSystemExtension.getInstance().getAgentIntaraction();
     
     @Override
     public Object onMessage(Message msg) throws Exception {
@@ -50,6 +49,7 @@ public class UpdateUserAgentHandler  extends MessageHandler{
         //Timestamp updateTime = new Timestamp(time);
         
         //Intaraction
+        AgentIntaractionComm agcomm = AgentSystemExtension.getInstance().getAgentIntaraction();
         agcomm.connect(agent.getUserID(tx), new UserData(agent.getUserID(tx), updateData));
         
         return updateData;
