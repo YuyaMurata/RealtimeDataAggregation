@@ -7,8 +7,8 @@ package rda.server;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import rda.agent.client.AgentConnection;
-import rda.property.RDAProperty;
 
 /**
  *
@@ -22,23 +22,21 @@ public class ServerConnectionManager {
     private static ServerConnectionManager manager = new ServerConnectionManager();
 
     private ServerConnectionManager() {
-        createServerConnection();
     }
     
     public static ServerConnectionManager getInstance(){
         return manager;
     }
     
-    private List server = new ArrayList();
-    private void createServerConnection(){
-        RDAProperty rdaprop = RDAProperty.getInstance();
-        
-        for(int i=0; i < (Integer)rdaprop.getParameter(paramID.AMOUNT_SERVERS); i++){
-            String host = (String)rdaprop.getParameter(paramID.HOSTNAME_RULE)+i;
+    private List server;
+    public void createServerConnection(Map propMap){
+        server = new ArrayList();
+        for(int i=0; i < (Integer)propMap.get(paramID.AMOUNT_SERVERS); i++){
+            String host = (String)propMap.get(paramID.HOSTNAME_RULE)+i;
             server.add(new AgentConnection(
-                        (Integer)rdaprop.getParameter(AgentConnection.paramID.POOL_SIZE), 
-                        new String[]{host+":"+rdaprop.getParameter(paramID.SERVER_PORT),
-                            (String)rdaprop.getParameter(paramID.APP_CLASS),
+                        (Integer)propMap.get(AgentConnection.paramID.POOL_SIZE), 
+                        new String[]{host+":"+propMap.get(paramID.SERVER_PORT),
+                            (String)propMap.get(paramID.APP_CLASS),
                             "agent"}
                             )
                         );    
@@ -46,9 +44,9 @@ public class ServerConnectionManager {
         
         //Localhost
         server.add(new AgentConnection(
-                        (Integer)rdaprop.getParameter(AgentConnection.paramID.POOL_SIZE), 
+                        (Integer)propMap.get(AgentConnection.paramID.POOL_SIZE), 
                         new String[]{"localhost:2809",
-                            (String)rdaprop.getParameter(paramID.APP_CLASS),
+                            (String)propMap.get(paramID.APP_CLASS),
                             "agent"}
                         )
                     );

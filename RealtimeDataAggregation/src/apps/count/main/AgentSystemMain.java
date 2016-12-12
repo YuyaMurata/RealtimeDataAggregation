@@ -58,12 +58,13 @@ public class AgentSystemMain {
         System.out.println(table.toString());
         
         //Server - AgentClient
+        RDAProperty prop = RDAProperty.getInstance();
         ServerConnectionManager scManager = ServerConnectionManager.getInstance();
+        scManager.createServerConnection(prop.getAllParameter());
         AgentConnection ag = scManager.getLocalServer();
         AgentClient client = ag.getClient();
         
         //Init Parameter
-        RDAProperty prop = RDAProperty.getInstance();
         CreateAggregateAgent creator = new CreateAggregateAgent();
         UpdateAggregateAgent updator = new UpdateAggregateAgent();
         Map param = prop.getAllParameter();
@@ -91,7 +92,7 @@ public class AgentSystemMain {
         //Update Test
         AggregateAgentMessageSender agUpdate = new AggregateAgentMessageSender();
         WindowStream window = new WindowStream(
-                prop.getWindowParameter(),
+                prop.getAllParameter(),
                 ag,
                 agUpdate);
         window.start();

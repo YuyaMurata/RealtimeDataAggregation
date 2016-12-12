@@ -79,12 +79,13 @@ public class AgentSystemMain {
         System.out.println(rankAgentTable.toString());
         
         //Server - AgentClient
+        RDAProperty prop = RDAProperty.getInstance();
         ServerConnectionManager scManager = ServerConnectionManager.getInstance();
+        scManager.createServerConnection(prop.getAllParameter());
         AgentConnection ag = scManager.getLocalServer();
         AgentClient client = ag.getClient();
         
         //Init UserAgent Parameter
-        RDAProperty prop = RDAProperty.getInstance();
         String userIDRule = (String) approp.getParameter(RankingAgentManager.paramID.USERID_RULE);
         CreateUserAgent userCreator = new CreateUserAgent();
         UpdateUserAgent userUpdator = new UpdateUserAgent();
@@ -112,7 +113,6 @@ public class AgentSystemMain {
         msg = agInit.initalize(client, param);
         System.out.println(msg);
         
-        
         //Create UserAgent
         for(Object agID : userAgentProf.registerIDList()){
             Map setter = userAgentProf.generate(agID);
@@ -129,8 +129,7 @@ public class AgentSystemMain {
         
         //Communication Set
         Map commMap = new HashMap();
-        commMap.put(AgentIntaractionComm.paramID.AGENT_CONNECTION, ag);
-        commMap.putAll(prop.getWindowParameter());
+        commMap.putAll(prop.getAllParameter());
         commMap.put(AgentIntaractionComm.paramID.WINDOW, new RankAgentMessageSender());
         commMap.put(AgentIntaractionComm.paramID.AGENT_TABLE, rankAgentTable);
         msg = AgentIntaractionComm.setExtensionAgentIntaraction(client, commMap);
@@ -144,7 +143,7 @@ public class AgentSystemMain {
         //UpdateUserAgent Test
         UserAgentMessageSender agUserAgentUpdate = new UserAgentMessageSender();
         WindowStream window = new WindowStream(
-                prop.getWindowParameter(),
+                prop.getAllParameter(),
                 ag,
                 agUserAgentUpdate);
         window.start();

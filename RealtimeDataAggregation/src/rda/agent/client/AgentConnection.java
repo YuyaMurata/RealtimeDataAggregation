@@ -15,7 +15,7 @@ import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
  *
  * @author kaeru
  */
-public class AgentConnection implements Serializable{
+public class AgentConnection {
     public enum paramID{
         POOL_SIZE
     }

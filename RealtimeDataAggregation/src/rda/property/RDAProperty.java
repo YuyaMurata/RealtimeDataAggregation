@@ -88,13 +88,6 @@ public class RDAProperty {
         return propMap.get(id);
     }
     
-    public Map getWindowParameter(){
-        Map map = new HashMap();
-        map.put(WindowController.paramID.WINDOW_SIZE, (Integer)getParameter(WindowController.paramID.WINDOW_SIZE));
-        map.put(WindowController.paramID.WINDOW_TIME, (Long)getParameter(WindowController.paramID.WINDOW_TIME));
-        return map;
-    }
-    
     private void displayProperty(){
         System.out.println("****** -Get "+filename+" Property Value- ******");
         for(Object key: propMap.keySet())
