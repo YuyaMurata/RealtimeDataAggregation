@@ -16,7 +16,7 @@ import org.apache.commons.math3.random.RandomDataGenerator;
 public class Data{
     private static int count = -1;
     private static final RandomDataGenerator rand = new RandomDataGenerator();
-    private int numOfUser, value, mode;
+    private int numOfUser, value, mode; 
 
     public Data() {}
 
