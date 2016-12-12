@@ -36,6 +36,7 @@ import rda.extension.agent.comm.AgentIntaractionComm;
 import rda.extension.agent.exec.AgentSystemInitializer;
 import rda.extension.agent.exec.AgentSystemLaunch;
 import rda.extension.agent.exec.AgentSystemShutdown;
+import rda.extension.agent.exec.ExtensionPutMessageQueue;
 import rda.property.RDAProperty;
 import rda.server.ServerConnectionManager;
 
@@ -132,8 +133,18 @@ public class AgentSystemMain {
         commMap.putAll(prop.getAllParameter());
         commMap.put(AgentIntaractionComm.paramID.WINDOW, new RankAgentMessageSender());
         commMap.put(AgentIntaractionComm.paramID.AGENT_TABLE, rankAgentTable);
-        msg = AgentIntaractionComm.setExtensionAgentIntaraction(client, commMap);
-        System.out.println(msg);
+        //msg = AgentIntaractionComm.setExtensionAgentIntaraction(client, commMap);
+        //System.out.println(msg);
+        //TestLocal Communication
+        WindowStream commwindow = new WindowStream(
+                commMap,
+                ag,
+                (ExtensionPutMessageQueue)commMap.get(AgentIntaractionComm.paramID.WINDOW));
+        AgentIntaractionComm intaraction = new AgentIntaractionComm(
+                    commwindow,
+                    (DestinationAgentTable)commMap.get(AgentIntaractionComm.paramID.AGENT_TABLE)
+                );
+        
         
         //Start AgentSystem
         AgentSystemLaunch agLaunch = new AgentSystemLaunch();
@@ -159,17 +170,15 @@ public class AgentSystemMain {
                     continue;
                 }
                 
-                //Test RankAgent
-                /*for(Object agID : rankAgentProf.registerIDList()){
-                    List rankData = new ArrayList();
-                    rankData.add(user);
-                    rankUpdator.update(client, agID, rankData);
-                }*/
-                
                 Object id = userProf.generate(user.id).get(UserProfile.profileID.ID);
                 Object agID = userAgentTable.getDestAgentID(id);
                 
                 window.in(agID, user);
+                
+                //Test RankAgent
+                intaraction.connect(user.id, user);
+                
+                //Count Data
                 totalData++;
             }
         } catch (TimeOverEvent ex) {

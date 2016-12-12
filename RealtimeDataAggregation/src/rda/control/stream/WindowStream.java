@@ -50,7 +50,6 @@ public class WindowStream extends Thread {
             
             //Update
             String msg = sender.send(client, window.id, window.unpack());
-            System.out.println(msg);
         }
         agcon.returnConnection(client);
     }
