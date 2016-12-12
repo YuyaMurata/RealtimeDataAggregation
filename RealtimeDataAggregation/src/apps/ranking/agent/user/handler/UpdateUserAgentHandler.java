@@ -33,7 +33,7 @@ public class UpdateUserAgentHandler  extends MessageHandler{
         TxID tx = getTx();
         long updateData = 0;
         for(UserData user : (List<UserData>)updateMsg.msgdata){
-            updateData =  updateData + (Integer)user.data;
+            updateData =  updateData + user.data;
         }
         
         agent.setData(tx, agent.getData(tx)+updateData);

@@ -13,13 +13,13 @@ import java.io.Serializable;
  */
 public class UserData implements Serializable{
     public String id;
-    public Object data;
+    public long data;
     public long time;
 
     public UserData() {
     }
     
-    public UserData(String id, Object data) {
+    public UserData(String id, long data) {
         // TODO 自動生成されたコンストラクター・スタブ
         this.id = id;
         this.data = data;
