@@ -7,7 +7,6 @@ package rda.control.stream;
 
 import rda.extension.agent.exec.ExtensionPutMessageQueue;
 import com.ibm.agent.exa.client.AgentClient;
-import java.io.Serializable;
 import java.util.Map;
 import rda.agent.client.AgentConnection;
 import rda.control.flow.Window;
@@ -51,6 +50,7 @@ public class WindowStream extends Thread {
             
             //Update
             String msg = sender.send(client, window.id, window.unpack());
+            System.out.println(msg);
         }
         agcon.returnConnection(client);
     }
