@@ -196,6 +196,7 @@ public class AgentSystemMain {
         WindowStream.setRunnable(false);
         AgentSystemShutdown agShutdown = new AgentSystemShutdown();
         msg = agShutdown.shutdown(client);
+        intaraction.quit();
         System.out.println(msg);
 
         //Read UserAgent Test
