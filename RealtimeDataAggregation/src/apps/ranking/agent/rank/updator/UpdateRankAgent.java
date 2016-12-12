@@ -54,8 +54,6 @@ public class UpdateRankAgent extends AgentUpdator{
         Object reply = executor.execute();
         
         String msg = "Update [" + agentKey + "] was updated. Reply is [" + reply + "]";
-        
-        System.out.println(msg);
     }
     
 }
