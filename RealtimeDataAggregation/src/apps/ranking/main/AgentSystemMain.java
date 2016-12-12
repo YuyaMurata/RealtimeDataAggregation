@@ -133,8 +133,8 @@ public class AgentSystemMain {
         commMap.putAll(prop.getAllParameter());
         commMap.put(AgentIntaractionComm.paramID.WINDOW, new RankAgentMessageSender());
         commMap.put(AgentIntaractionComm.paramID.AGENT_TABLE, rankAgentTable);
-        //msg = AgentIntaractionComm.setExtensionAgentIntaraction(client, commMap);
-        //System.out.println(msg);
+        msg = AgentIntaractionComm.setExtensionAgentIntaraction(client, commMap);
+        System.out.println(msg);
         //TestLocal Communication
         WindowStream commwindow = new WindowStream(
                 commMap,
@@ -176,7 +176,7 @@ public class AgentSystemMain {
                 window.in(agID, user);
                 
                 //Test RankAgent
-                intaraction.connect(user.id, user);
+                //intaraction.connect(user.id, user);
                 
                 //Count Data
                 totalData++;

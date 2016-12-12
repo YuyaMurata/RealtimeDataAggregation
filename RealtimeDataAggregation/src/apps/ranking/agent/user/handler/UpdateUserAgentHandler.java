@@ -12,6 +12,7 @@ import com.ibm.agent.exa.MessageHandler;
 import com.ibm.agent.exa.TxID;
 import java.util.List;
 import rda.agent.message.UpdateMessage;
+import rda.extension.agent.comm.AgentIntaractionComm;
 import rda.extension.agent.manager.AgentSystemExtension;
 
 /**
@@ -19,7 +20,8 @@ import rda.extension.agent.manager.AgentSystemExtension;
  * @author kaeru
  */
 public class UpdateUserAgentHandler  extends MessageHandler{
-
+    private AgentIntaractionComm agcomm = AgentSystemExtension.getInstance().getAgentIntaraction();
+    
     @Override
     public Object onMessage(Message msg) throws Exception {
         // TODO 自動生成されたメソッド・スタブ
@@ -48,8 +50,7 @@ public class UpdateUserAgentHandler  extends MessageHandler{
         //Timestamp updateTime = new Timestamp(time);
         
         //Intaraction
-        //AgentSystemExtension.getInstance().getAgentIntaraction().connect(
-        //    agent.getUserID(tx), new UserData(agent.getUserID(tx), updateData));
+        agcomm.connect(agent.getUserID(tx), new UserData(agent.getUserID(tx), updateData));
         
         return updateData;
     }

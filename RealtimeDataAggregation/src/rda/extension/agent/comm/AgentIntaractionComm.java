@@ -5,6 +5,7 @@
  */
 package rda.extension.agent.comm;
 
+import bench.template.UserData;
 import com.ibm.agent.exa.AgentException;
 import com.ibm.agent.exa.AgentManager;
 import com.ibm.agent.exa.client.AgentClient;
@@ -35,11 +36,12 @@ public class AgentIntaractionComm implements AgentExecutor, Serializable {
     
     public void connect(Object connectID, Object data){
         try{
-        Object id = table.getDestAgentID(connectID);
+            Object id = table.getDestAgentID(connectID);
         
-        //Get List after that UserID Hash 
-        
-        this.window.in(id, data);
+            //Get List after that UserID Hash 
+            System.out.println(id+" : "+((UserData)data).toString());
+            
+            this.window.in(id, data);
         }catch(Exception e){
             e.printStackTrace();
         }
