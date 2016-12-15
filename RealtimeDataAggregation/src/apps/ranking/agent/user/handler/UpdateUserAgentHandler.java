@@ -5,6 +5,7 @@
  */
 package apps.ranking.agent.user.handler;
 
+import apps.ranking.Profile;
 import apps.ranking.Useragent;
 import bench.template.UserData;
 import com.ibm.agent.exa.Message;
@@ -49,8 +50,10 @@ public class UpdateUserAgentHandler  extends MessageHandler{
         //Timestamp updateTime = new Timestamp(time);
         
         //Intaraction
+        Profile user = agent.getProfile(tx);
         AgentIntaractionComm agcomm = AgentSystemExtension.getInstance().getAgentIntaraction();
-        agcomm.connect(agent.getUserID(tx), new UserData(agent.getUserID(tx), updateData));
+        Object age = Integer.valueOf(user.getAge(tx)) / 10;
+        agcomm.connect(age, user.getUserID(tx), new UserData(agent.getUserID(tx), updateData));
         
         return updateData;
     }

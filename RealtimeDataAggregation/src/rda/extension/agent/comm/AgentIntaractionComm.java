@@ -34,9 +34,9 @@ public class AgentIntaractionComm implements AgentExecutor, Serializable {
         this.window.start();
     }
     
-    public void connect(Object connectID, Object data){
+    public void connect(Object connectID, Object sourceID, Object data){
         try{
-            Object id = table.getDestAgentID(connectID);
+            Object id = table.getDestAgentID(connectID, sourceID);
         
             //Get List after that UserID Hash 
             //System.out.println(id+" : "+((UserData)data).toString());

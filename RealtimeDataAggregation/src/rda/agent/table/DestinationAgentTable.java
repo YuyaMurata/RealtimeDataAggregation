@@ -52,6 +52,15 @@ public class DestinationAgentTable implements Serializable{
         return destAgList.get(hashID % destAgList.size());
     }
     
+    public Object getDestAgentID(Object id, Object uid){
+        Integer hashID = Math.abs(id.hashCode());
+        Integer uhashID = Math.abs(uid.hashCode());
+        
+        List destAgList = destTable.get(idList.get(hashID % destTable.size()));
+        
+        return destAgList.get(uhashID % destAgList.size());
+    }
+    
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append("Destination Agent Table {\n");
