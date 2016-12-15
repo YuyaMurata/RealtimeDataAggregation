@@ -28,6 +28,7 @@ public class CreateAggregateAgent extends AgentCreator {
 
             //Create Agent
             List msgdata = (List) setter.get(AggregateAgentProfile.paramID.MESSAGE_DATA);
+            System.out.println(msgdata);
             CreateAggregateAgent executor = new CreateAggregateAgent(agentKey, msgdata);
 
             Object reply = client.execute(agentKey, executor);
