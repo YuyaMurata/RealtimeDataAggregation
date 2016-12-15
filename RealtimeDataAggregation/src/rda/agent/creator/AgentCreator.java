@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package rda.agent.creator;
 
 import com.ibm.agent.exa.AgentKey;
@@ -17,10 +12,6 @@ import java.util.Map;
 import rda.agent.message.InitMessage;
 import rda.extension.agent.manager.AgentSystemExtension;
 
-/**
- *
- * @author kaeru
- */
 public abstract class AgentCreator implements AgentExecutor, Serializable{
     public AgentCreator() { 
     }

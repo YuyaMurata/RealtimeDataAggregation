@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package apps.count.agent.aggregate.creator;
 
 import apps.count.agent.aggregate.profile.AggregateAgentProfile;
@@ -13,12 +8,7 @@ import java.util.List;
 import java.util.Map;
 import rda.agent.creator.AgentCreator;
 
-/**
- *
- * @author kaeru
- */
 public class CreateAggregateAgent extends AgentCreator {
-    
     private static final String AGENT_TYPE = "aggregateagent";
     private static final String MESSAGE_TYPE = "initAggregateAgent";
 
