@@ -1,6 +1,5 @@
 package rda.control.flow;
 
-import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
@@ -32,10 +31,6 @@ public class WindowController extends Thread{
         }  
     }
     
-    public Collection getWindows(){
-        return windowMap.values();
-    }
-    
     public void addExecutable(Window window){
         executableQueue.offer(window);
         windowMap.remove(window.id);
@@ -44,10 +39,6 @@ public class WindowController extends Thread{
     
     public Window get(){
         return (Window)executableQueue.poll();
-    }
-
-    public boolean check(String id){
-        return windowMap.get(id) != null;
     }
     
     private static Boolean runnable;
