@@ -226,6 +226,7 @@ public class AgentSystemMain {
         //Log
         for(Object id : dataLog.keySet())
             System.out.println(id +":"+dataLog.get(id));
+        System.out.println("Log = "+dataLog.size());
         
         //Total Time
         System.out.println(total+"/"+totalData+","+(stop-start));
