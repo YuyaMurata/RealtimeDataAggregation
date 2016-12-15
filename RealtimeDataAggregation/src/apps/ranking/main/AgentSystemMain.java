@@ -160,7 +160,6 @@ public class AgentSystemMain {
         window.start();
 
         //Start Benchmark
-        Map<Object, Integer> dataLog = new HashMap<>();
         Long totalData = 0L;
         Long start = System.currentTimeMillis();
         try {
@@ -173,10 +172,6 @@ public class AgentSystemMain {
                 
                 Object id = userProf.generate(user.id).get(UserProfile.profileID.ID);
                 //Object agID = userAgentTable.getDestAgentID(id);
-                
-                //Log
-                if(dataLog.get(id) == null) dataLog.put(id, 0);
-                dataLog.put(id, dataLog.get(id)+1);
                 
                 window.in(id, user);
                 
@@ -222,11 +217,6 @@ public class AgentSystemMain {
             rankTotal = rankTotal + Integer.valueOf(((List<String>)d).get(0).split("\n")[0].split(":")[1].replace(" ", ""));
         }
         System.out.println("RankTable Total = "+rankTotal);
-        
-        //Log
-        /*for(Object id : dataLog.keySet())
-            System.out.println(id +":"+dataLog.get(id));
-        System.out.println("Log = "+dataLog.size());*/
         
         //Total Time
         System.out.println(total+"/"+totalData+","+(stop-start));

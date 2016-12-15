@@ -42,7 +42,7 @@ public class CreateUserAgent extends AgentCreator {
             Object reply = client.execute(agentKey, executor);
             
             String msg = "Create [" + agentKey + "] was created. Reply is [" + reply + "]";
-            System.out.println(msg);
+            //System.out.println(msg);
 
             return msg;
         } catch (AgentException e) {
