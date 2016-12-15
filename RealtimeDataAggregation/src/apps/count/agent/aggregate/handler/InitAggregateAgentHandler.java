@@ -17,7 +17,9 @@ public class InitAggregateAgentHandler extends MessageHandler {
     public Object onMessage(Message msg) throws Exception {
         try {
             InitMessage initMsg = (InitMessage)msg;
-
+            
+            System.out.println(initMsg);
+            
             // マスターエンティティを取得
             Aggregateagent agent = (Aggregateagent)getEntity();
 
