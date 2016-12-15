@@ -172,13 +172,13 @@ public class AgentSystemMain {
                 }
                 
                 Object id = userProf.generate(user.id).get(UserProfile.profileID.ID);
-                Object agID = userAgentTable.getDestAgentID(id);
+                //Object agID = userAgentTable.getDestAgentID(id);
                 
                 //Log
                 if(dataLog.get(id) == null) dataLog.put(id, 0);
                 dataLog.put(id, dataLog.get(id)+1);
                 
-                window.in(agID, user);
+                window.in(id, user);
                 
                 //Test RankAgent
                 //intaraction.connect(user.id, user);
@@ -224,9 +224,9 @@ public class AgentSystemMain {
         System.out.println("RankTable Total = "+rankTotal);
         
         //Log
-        for(Object id : dataLog.keySet())
+        /*for(Object id : dataLog.keySet())
             System.out.println(id +":"+dataLog.get(id));
-        System.out.println("Log = "+dataLog.size());
+        System.out.println("Log = "+dataLog.size());*/
         
         //Total Time
         System.out.println(total+"/"+totalData+","+(stop-start));
