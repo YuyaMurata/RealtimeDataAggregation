@@ -214,7 +214,7 @@ public class AgentSystemMain {
         for(Object agID : rankAgentProf.registerIDList()){
             Object d = rankReader.read(client, agID);
             System.out.println("Read "+agID+" = "+d);
-            rankTotal = rankTotal + Integer.valueOf(((List<String>)d).get(0).split("\n")[0].split(":")[1]);
+            rankTotal = rankTotal + Integer.valueOf(((List<String>)d).get(0).split("\n")[0].split(":")[1].replace(" ", ""));
         }
         System.out.println("RankTable Total = "+rankTotal);
         
