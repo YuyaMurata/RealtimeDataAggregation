@@ -23,15 +23,12 @@ public class InitAggregateAgentHandler extends MessageHandler {
 
             // トランザクションIDを取得
             TxID tx = getTx();
-            //Aggregatecondition cond = agent.createCondition(tx);
 
             // 集約条件をセット
-            //cond.setConditions(tx, initMsg.msgdata.get(0));
                         
             // 登録日
             Long time = System.currentTimeMillis();
             Timestamp registerTime = new Timestamp(time);
-            //cond.setLastAccessTime(tx, registerTime);
 
             //AggregateAgent初期化
             //データのクリア
@@ -41,18 +38,10 @@ public class InitAggregateAgentHandler extends MessageHandler {
             
             agent.setMessageLatency(tx, 0);
 
-            // set Agent Log
-            //Log log = agent.createLog(tx, "init");
-
-            // 最終更新日
-            //log.setLastAccessTime(tx, registerTime);
-            //log.setCurrentTime(tx, time);
-
-            //System.out.println("InitHandler of Agent:" + getAgentKey() + " was initialized");
-
             // 処理結果としてエージェントキーを含む文字列を戻す
             return "hello from agent:" + getAgentKey();
         } catch(Exception e) {
+            e.printStackTrace();
             throw e;
         }
     }
