@@ -175,7 +175,8 @@ public class AgentSystemExtension implements Extension {
     
     public String stopAgentSystem(){
         AgentMessageQueue.runnable = false;
-        intaraction.quit();
+        if(intaraction != null)
+            intaraction.quit();
         
         for(AgentMessageQueue agmq : agentMap.values()){
             List dummy = new ArrayList();
