@@ -18,6 +18,7 @@ import bench.property.BenchmarkProperty;
 import bench.template.UserData;
 import bench.time.TimeOverEvent;
 import com.ibm.agent.exa.client.AgentClient;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import rda.agent.client.AgentConnection;
@@ -105,6 +106,7 @@ public class AgentSystemMain {
         window.start();
 
         //Start Benchmark
+        Map<Object, Integer> dataLog = new HashMap();
         Long totalData = 0L;
         Long start = System.currentTimeMillis();
         try {
@@ -116,6 +118,9 @@ public class AgentSystemMain {
                 
                 Integer age = (Integer) userProf.generate(user.id).get(UserProfile.profileID.AGE) / 10;
                 Object agID = table.getDestAgentID(age);
+                
+                if(dataLog.get(age) == null) dataLog.put(age, 0);
+                dataLog.put(age, dataLog.get(age)+1);
                 
                 //System.out.println(agID+" - "+user.toString());
                 
@@ -141,6 +146,10 @@ public class AgentSystemMain {
             System.out.println("Read "+agID+" = "+d);
             total = ((List<Long>)d).get(0) + total;
         }
+        
+        //Log
+        for(Object age : dataLog.keySet())
+            System.out.println(age+":"+dataLog.get(age));
         
         //Total Time
         System.out.println(total+"/"+totalData+","+(stop-start));
