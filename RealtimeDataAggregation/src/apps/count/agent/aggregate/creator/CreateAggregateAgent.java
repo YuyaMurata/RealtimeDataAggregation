@@ -27,13 +27,13 @@ public class CreateAggregateAgent extends AgentCreator {
             AgentKey agentKey = new AgentKey(AGENT_TYPE, new Object[]{agID});
 
             //Create Agent
-            List msgdata = (List) setter.get(AggregateAgentProfile.paramID.MESSAG_DATA);
+            List msgdata = (List) setter.get(AggregateAgentProfile.paramID.MESSAGE_DATA);
             CreateAggregateAgent executor = new CreateAggregateAgent(agentKey, msgdata);
 
             Object reply = client.execute(agentKey, executor);
             
             String msg = "Create [" + agentKey + "] was created. Reply is [" + reply + "]";
-            System.out.println(msg);
+            //System.out.println(msg);
 
             return msg;
         } catch (AgentException e) {
@@ -47,7 +47,7 @@ public class CreateAggregateAgent extends AgentCreator {
         AgentKey agentKey = new AgentKey(AGENT_TYPE, new Object[]{agID});
 
         //Create Agent
-        List msgdata = (List) setter.get(AggregateAgentProfile.paramID.MESSAG_DATA);
+        List msgdata = (List) setter.get(AggregateAgentProfile.paramID.MESSAGE_DATA);
         CreateAggregateAgent executor = new CreateAggregateAgent(agentKey, msgdata);
 
         Object reply = executor.execute();

@@ -17,7 +17,7 @@ import rda.agent.profile.AgentProfile;
  */
 public class AggregateAgentProfile extends AgentProfile{
     public static enum paramID{
-        ID, MESSAG_DATA
+        ID, MESSAGE_DATA
     }
     
     public AggregateAgentProfile(List agIDLists) {
@@ -37,7 +37,7 @@ public class AggregateAgentProfile extends AgentProfile{
             //MESSAG_DATA
             List msgdata = new ArrayList();
             msgdata.add("Aggregate Conditios :" + agID);
-            profParam.put(paramID.MESSAG_DATA, msgdata);
+            profParam.put(paramID.MESSAGE_DATA, msgdata);
             
             map.put(agID, profParam);
         }

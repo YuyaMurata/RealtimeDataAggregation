@@ -81,7 +81,7 @@ public class AgentSystemMain {
         for(Object agID : agentProf.registerIDList()){
             Map setter = agentProf.generate(agID);
             String msgc = creator.create(client, setter);
-            System.out.println("Create "+agID+" = "+msgc);
+            System.out.println("Create "+agID+" = "+msgc+"\n"+setter);
         }
         
         //Start AgentSystem
