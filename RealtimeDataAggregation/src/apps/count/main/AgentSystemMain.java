@@ -12,6 +12,7 @@ import apps.count.appuser.UserProfile;
 import apps.count.agent.aggregate.reader.ReadAggregateAgent;
 import apps.count.agent.aggregate.updator.UpdateAggregateAgent;
 import apps.count.manager.AggregateAgentManager;
+import apps.count.property.AppCountProperty;
 import bench.main.AgentBenchmark;
 import bench.property.BenchmarkProperty;
 import bench.template.UserData;
@@ -44,6 +45,9 @@ public class AgentSystemMain {
         BenchmarkProperty bprop = BenchmarkProperty.getInstance();
         agBench.setParameter(bprop.getParameter());
         
+        //RankingSystem Property
+        AppCountProperty approp = AppCountProperty.getInstance();
+        
         //Create User ID
         List userLists = agBench.getUserList();
         AgentProfileGenerator userProf = new AgentProfileGenerator(new UserProfile(userLists));
@@ -52,6 +56,7 @@ public class AgentSystemMain {
         //Create Agent ID
         List agIDLists = manager.getAgentList();
         AgentProfileGenerator agentProf = new AgentProfileGenerator(new AggregateAgentProfile(agIDLists));
+        System.out.println(agentProf.toString());
         
         //Destination Table
         DestinationAgentTable table = new DestinationAgentTable(agentProf.registerIDList(), 10);
@@ -65,9 +70,11 @@ public class AgentSystemMain {
         AgentClient client = ag.getClient();
         
         //Init Parameter
+        String agentIDRule = (String) approp.getParameter(AggregateAgentManager.paramID.ID_RULE);
         CreateAggregateAgent creator = new CreateAggregateAgent();
         UpdateAggregateAgent updator = new UpdateAggregateAgent();
         Map param = prop.getAllParameter();
+        param.put(AgentSystemInitializer.paramID.AGENT_TYPE, agentIDRule.split("#")[0]);
         param.put(AgentSystemInitializer.paramID.AGENT_CREATOR, creator);
         param.put(AgentSystemInitializer.paramID.AGENT_PROFILE, agentProf);
         param.put(AgentSystemInitializer.paramID.AGENT_UPDATOR, updator);

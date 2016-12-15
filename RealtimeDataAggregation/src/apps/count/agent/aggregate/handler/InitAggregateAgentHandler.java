@@ -18,8 +18,6 @@ public class InitAggregateAgentHandler extends MessageHandler {
         try {
             InitMessage initMsg = (InitMessage)msg;
             
-            System.out.println(initMsg);
-            
             // マスターエンティティを取得
             Aggregateagent agent = (Aggregateagent)getEntity();
 
