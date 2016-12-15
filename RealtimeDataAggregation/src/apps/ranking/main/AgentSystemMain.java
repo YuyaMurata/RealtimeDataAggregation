@@ -223,7 +223,7 @@ public class AgentSystemMain {
         
         //Delete Test
         Dispose deletor = new Dispose();
-        deletor.delete(client);
+        //deletor.delete(client);
         
         //Client
         ag.returnConnection(client);

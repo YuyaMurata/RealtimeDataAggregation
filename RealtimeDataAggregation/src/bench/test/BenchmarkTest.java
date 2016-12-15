@@ -41,9 +41,12 @@ public class BenchmarkTest {
         }
         Long stop = System.currentTimeMillis();
         
+        Integer idTotal = 0;
         System.out.println("Results {");
-        for(Object id : datalog.keySet())
+        for(Object id : datalog.keySet()){
             System.out.println("\t "+id+", "+datalog.get(id));
-        System.out.println("} Total="+totalData+"-"+ag.getTotalGenerate()+" Time[s]:"+(stop-start));
+            idTotal++;
+        }
+        System.out.println("} Total="+totalData+"-"+ag.getTotalGenerate()+" ID="+idTotal+" Time[s]:"+(stop-start));
     }
 }
