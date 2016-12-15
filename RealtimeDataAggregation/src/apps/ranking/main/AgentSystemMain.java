@@ -209,11 +209,14 @@ public class AgentSystemMain {
         }
         
         //Read RankAgent Test
+        Integer rankTotal = 0;
         ReadRankAgent rankReader = new ReadRankAgent();
         for(Object agID : rankAgentProf.registerIDList()){
             Object d = rankReader.read(client, agID);
             System.out.println("Read "+agID+" = "+d);
+            rankTotal = rankTotal + Integer.valueOf(((List<String>)d).get(0).split("\n")[0].split(":")[1]);
         }
+        System.out.println("RankTable Total = "+rankTotal);
         
         //Total Time
         System.out.println(total+"/"+totalData+","+(stop-start));
