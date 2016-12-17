@@ -18,7 +18,7 @@ public class WindowController extends Thread{
         this.executableQueue = new LinkedBlockingQueue();
         this.aliveTime = (Long) param.get(paramID.WINDOW_TIME);
         
-        Window.setParameter((Integer) param.get(paramID.WINDOW_SIZE), executableQueue);
+        Window.setParameter((Integer) param.get(paramID.WINDOW_SIZE), this);
     }
         
     public void pack(Object id, Object data){

@@ -15,23 +15,24 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class Window {
     public Object id;
-    private List win = new CopyOnWriteArrayList();
+    private List win;
 
     public Window(Object id) {
         this.id = id;
+        this.win = new CopyOnWriteArrayList();
     }
     
     private static Integer size;
-    private static Queue queue;
-    public static void setParameter(Integer wsize, Queue wqueue){
+    private static WindowController winctrl;
+    public static void setParameter(Integer wsize, WindowController ctrl){
         size = wsize;
-        queue = wqueue;
+        winctrl = ctrl;
     }
   
     public void pack(Object obj){
         win.add(obj);
         
-        if(win.size() >= size) queue.add(this);
+        if(win.size() >= size) winctrl.addExecutable(this);
     }
     
     public List unpack(){
