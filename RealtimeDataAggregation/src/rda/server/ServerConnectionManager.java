@@ -6,6 +6,7 @@
 package rda.server;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import rda.agent.client.AgentConnection;
@@ -16,7 +17,8 @@ import rda.agent.client.AgentConnection;
  */
 public class ServerConnectionManager {
     public enum paramID{
-        AMOUNT_SERVERS, AMOUNT_REGIONS, HOSTNAME_RULE, SERVER_PORT, APP_CLASS
+        AMOUNT_SERVERS, AMOUNT_REGIONS, HOSTNAME_RULE, SERVER_PORT, APP_CLASS,
+        DEPLOY_PATTERN, AGENTTYPE_LIST, DEPLOY_BALANCE
     }
     
     private static ServerConnectionManager manager = new ServerConnectionManager();
@@ -50,6 +52,28 @@ public class ServerConnectionManager {
                             "agent"}
                         )
                     );
+    }
+    
+    private Map deployMap;
+    public void agentDeployServer(Map deployRule){
+        deployMap = new HashMap();
+        if((int)deployRule.get(paramID.DEPLOY_PATTERN) == 0){
+            for(Object idrule : (List)deployRule.get(paramID.AGENTTYPE_LIST))
+                deployMap.put(idrule, server);
+        } else {
+            String[] numAgServer = ((String)deployRule.get(paramID.DEPLOY_BALANCE)).split(":");
+            Integer i = 0;
+            for(Object idrule : (List)deployRule.get(paramID.AGENTTYPE_LIST)){
+                List agServerList = new ArrayList();
+                int n = Integer.valueOf(numAgServer[i]);
+                for(int j=0 ; j < n; j++){
+                    agServerList.add(server.get(0));
+                    server.remove(0);
+                }
+                deployMap.put(idrule, agServerList);
+                i++;
+            }
+        }   
     }
     
     public AgentConnection getLocalServer(){

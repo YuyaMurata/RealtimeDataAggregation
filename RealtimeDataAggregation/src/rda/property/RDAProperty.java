@@ -76,6 +76,10 @@ public class RDAProperty {
         propMap.put(WindowController.paramID.WINDOW_SIZE, Integer.valueOf(getValue("window.size")));
         propMap.put(WindowController.paramID.WINDOW_TIME, Long.valueOf(getValue("window.time")));
         
+        //DeployPattern
+        propMap.put(ServerConnectionManager.paramID.DEPLOY_PATTERN, Integer.valueOf(getValue("deploy.pattern")));
+        propMap.put(ServerConnectionManager.paramID.DEPLOY_BALANCE, getValue("deploy.share"));
+        
         //Console Out
         displayProperty();
     }
