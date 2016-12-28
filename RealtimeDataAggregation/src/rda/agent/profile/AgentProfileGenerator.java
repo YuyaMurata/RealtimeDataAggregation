@@ -28,6 +28,10 @@ public class AgentProfileGenerator implements Serializable{
         return prof.getProfile(agID);
     }
     
+    public String getAgentIDRule(){
+        return prof.getIDList().get(0).toString().split("#")[0];
+    }
+    
     public String toString(){
         return prof.toString();
     }

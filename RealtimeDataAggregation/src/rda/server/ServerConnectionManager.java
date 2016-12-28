@@ -57,9 +57,10 @@ public class ServerConnectionManager {
     private Map deployMap;
     public void agentDeployServer(Map deployRule){
         deployMap = new HashMap();
+        List cluster = server.subList(0, server.size()-1);
         if((int)deployRule.get(paramID.DEPLOY_PATTERN) == 0){
             for(Object idrule : (List)deployRule.get(paramID.AGENTTYPE_LIST))
-                deployMap.put(idrule, server);
+                deployMap.put(idrule, cluster);
         } else {
             String[] numAgServer = ((String)deployRule.get(paramID.DEPLOY_BALANCE)).split(":");
             Integer i = 0;
@@ -67,8 +68,8 @@ public class ServerConnectionManager {
                 List agServerList = new ArrayList();
                 int n = Integer.valueOf(numAgServer[i]);
                 for(int j=0 ; j < n; j++){
-                    agServerList.add(server.get(0));
-                    server.remove(0);
+                    agServerList.add(cluster.get(0));
+                    cluster.remove(0);
                 }
                 deployMap.put(idrule, agServerList);
                 i++;
@@ -83,5 +84,9 @@ public class ServerConnectionManager {
     public AgentConnection getDistributedServer(){
         //size-1 = localserver
         return null;
+    }
+    
+    public Map getDeployAllServer(){
+        return deployMap;
     }
 }

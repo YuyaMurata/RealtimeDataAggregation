@@ -6,7 +6,6 @@
 package rda.agent.client;
 
 import com.ibm.agent.exa.client.AgentClient;
-import java.io.Serializable;
 import org.apache.commons.pool2.ObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
@@ -40,6 +39,8 @@ public class AgentConnection {
                             +" , minIdle:"+((GenericObjectPool) _pool).getMinIdle()
                             + " , maxIdle:"+((GenericObjectPool) _pool).getMaxIdle());
         System.out.println("***********************************************************");
+        
+        this.aghost = aghost;
     }
     
     public void setPoolSize(Integer poolsize, String[] aghost){
@@ -80,6 +81,8 @@ public class AgentConnection {
     }
     
     public String toString(){
-        return "ActibeObj : "+getActiveObject()+" ,IdleObj : "+getIdleObject();
+        String str = "\n"+aghost[0]+" - ";
+        str += "ActibeObj : "+getActiveObject()+" ,IdleObj : "+getIdleObject();
+        return str;
     }
 }
