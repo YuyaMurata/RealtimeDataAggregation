@@ -30,6 +30,8 @@ public class UpdateAggregateAgent extends AgentUpdator{
     public void update(AgentClient client, Object agID, List data) {
         if(data == null) return;
         
+	System.out.println(agID+":"+client);
+		
         try {    
             AgentKey agentKey = new AgentKey(AGENT_TYPE, new Object[]{agID});
                 

@@ -16,61 +16,66 @@ import rda.agent.manager.AgentManager;
  *
  * @author kaeru
  */
-public class AggregateAgentManager extends AgentManager{
-    public enum paramID{
-        ID_RULE, AMOUNT_AGENTS
-    }
-    
-    private static AggregateAgentManager manager = new AggregateAgentManager();
-    
-    private List agentLists;
-    private AggregateAgentManager() {
-        AppCountProperty prop = AppCountProperty.getInstance();
-        preparedAgentSystem(
-                (Integer)prop.getParameter(paramID.AMOUNT_AGENTS), 
-                (String) prop.getParameter(paramID.ID_RULE));
-    }
-    
-    private void preparedAgentSystem(Integer n, String rule){
-        agentLists = new ArrayList();
-        for(int i=0; i < n; i++)
-            agentLists.add(rule+i);
-    }
-    
-    public static AggregateAgentManager getInstance(){
-        return manager;
-    }
-    
-    public List getAgentList(){
-         if(agentLists.isEmpty())
-            System.out.println("Do not set parameters!");
-        return agentLists;
-    }
-    
-    @Override
-    public void setDestinationServer() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    private AgentConnection ag;
-    @Override
-    public void setDestinationAgent() {
-        //Test
-        this.ag = new AgentConnection(8, new String[]{"localhost:2809", "apps.count", "agent"});
-    }
-    
-    @Override
-    public AgentConnection getDestinationAgent() {
-        return this.ag;
-    }
+public class AggregateAgentManager extends AgentManager {
 
-    @Override
-    public void setAgentParameter(Map param) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+	public enum paramID {
+		ID_RULE, AMOUNT_AGENTS
+	}
 
-    @Override
-    public void shutdown() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+	private static AggregateAgentManager manager = new AggregateAgentManager();
+
+	private List agentLists;
+
+	private AggregateAgentManager() {
+		AppCountProperty prop = AppCountProperty.getInstance();
+		preparedAgentSystem(
+				(Integer) prop.getParameter(paramID.AMOUNT_AGENTS),
+				(String) prop.getParameter(paramID.ID_RULE));
+	}
+
+	private void preparedAgentSystem(Integer n, String rule) {
+		agentLists = new ArrayList();
+		for (int i = 0; i < n; i++) {
+			agentLists.add(rule + i);
+		}
+	}
+
+	public static AggregateAgentManager getInstance() {
+		return manager;
+	}
+
+	public List getAgentList() {
+		if (agentLists.isEmpty()) {
+			System.out.println("Do not set parameters!");
+		}
+		return agentLists;
+	}
+
+	@Override
+	public void setDestinationServer() {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
+
+	private AgentConnection ag;
+
+	@Override
+	public void setDestinationAgent() {
+		//Test
+		this.ag = new AgentConnection(8, new String[]{"localhost:2809", "apps.count", "agent"});
+	}
+
+	@Override
+	public AgentConnection getDestinationAgent() {
+		return this.ag;
+	}
+
+	@Override
+	public void setAgentParameter(Map param) {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
+
+	@Override
+	public void shutdown() {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
 }
