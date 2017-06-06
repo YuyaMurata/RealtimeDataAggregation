@@ -50,8 +50,6 @@ public class UpdateAggregateAgent extends AgentUpdator {
 	public void update(Object agID, List data) {
 		AgentKey agentKey = new AgentKey(AGENT_TYPE, new Object[]{agID});
 		
-		System.out.println(agID+" Update!");
-
 		//Update Agent
 		UpdateAggregateAgent executor = new UpdateAggregateAgent(agentKey, data);
 
