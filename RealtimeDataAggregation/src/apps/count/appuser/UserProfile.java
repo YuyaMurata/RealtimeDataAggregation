@@ -43,8 +43,6 @@ public class UserProfile extends AgentProfile {
     public Map initProfile(List userList) {
         Map profMap = new HashMap();
         for (String userID : (List<String>) userList) {
-            System.out.println("CreateUser:"+userID);
-            
             Map map = new HashMap();
 
             map.put(profileID.ID, userID);
@@ -65,7 +63,7 @@ public class UserProfile extends AgentProfile {
         } else {
             int age = (int) rand.nextGaussian(50, 10D);
             if ((age > 100) || (age < 0)) {
-                age = 10;//rand.nextInt(0, 100);
+                age = rand.nextInt(0, 100);
             }
             return age;
         }
