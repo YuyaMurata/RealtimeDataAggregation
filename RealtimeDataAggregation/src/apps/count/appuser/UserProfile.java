@@ -58,7 +58,6 @@ public class UserProfile extends AgentProfile {
 	}
 
 	private Integer getAge(Integer mode) {
-		System.out.println("mode_" + mode);
 		if (mode == 0) {
 			return rand.nextInt(0, 100);
 		} else {
