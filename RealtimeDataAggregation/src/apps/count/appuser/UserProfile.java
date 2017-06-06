@@ -59,7 +59,7 @@ public class UserProfile extends AgentProfile {
 
     private Integer getAge(Integer mode) {
         if (mode == 0) {
-            return rand.nextInt(0, 100);
+            return 0;//rand.nextInt(0, 100);
         } else {
             int age = 50;//(int) rand.nextGaussian(50, 10D);
             if ((age > 100) || (age < 0)) {
