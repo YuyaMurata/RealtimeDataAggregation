@@ -43,6 +43,8 @@ public class UserProfile extends AgentProfile {
     public Map initProfile(List userList) {
         Map profMap = new HashMap();
         for (String userID : (List<String>) userList) {
+            System.out.println("CreateUser:"+userID);
+            
             Map map = new HashMap();
 
             map.put(profileID.ID, userID);
