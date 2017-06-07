@@ -87,9 +87,16 @@ public class ServerConnectionManager {
 		return (AgentConnection) server.get(server.size() - 1);
 	}
 
-	public AgentConnection getDistributedServer() {
+	public AgentConnection getDistributedServer(Object agID) {
+		String agRule = agID.toString().split("#")[0];
+		Integer agNo = Integer.parseInt(agID.toString().split("#")[1]);
+		//System.out.println("agRule="+agRule);
+		//System.out.println("agNo.="+agNo);
+		List serverLists = (List) deployMap.get(agRule);
+		int hash = agNo % serverLists.size();
+		//System.out.println("agID="+agID+" server="+serverLists.get(hash));
 		//size-1 = localserver
-		return null;
+		return (AgentConnection) serverLists.get(hash);
 	}
 
 	public Map getDeployAllServer() {

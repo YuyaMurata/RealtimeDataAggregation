@@ -81,7 +81,7 @@ public class AgentConnection {
     }
     
     public String toString(){
-        String str = "\n"+aghost[0]+" - ";
+        String str = aghost[0]+" - ";
         str += "ActibeObj : "+getActiveObject()+" ,IdleObj : "+getIdleObject();
         return str;
     }
