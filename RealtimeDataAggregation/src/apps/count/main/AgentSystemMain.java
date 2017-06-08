@@ -97,7 +97,7 @@ public class AgentSystemMain {
 
 		//Extension Initialize
 		AgentSystemInitializer agInit = new AgentSystemInitializer();
-		for(Object con : scManager.getDeployAllServer().values()){
+		for(Object con : (List)scManager.getDeployAllServer().get("A")){
 			AgentClient client = ((AgentConnection)con).getClient();
 			Object msg = agInit.initalize(client, param);
 			System.out.println(msg);
@@ -118,7 +118,7 @@ public class AgentSystemMain {
 
 		//Start AgentSystem
 		AgentSystemLaunch agLaunch = new AgentSystemLaunch();
-		for(Object con : scManager.getDeployAllServer().values()){
+		for(Object con : (List)scManager.getDeployAllServer().get("A")){
 			AgentClient client = ((AgentConnection)con).getClient();
 			
 			String msg = agLaunch.launch(client);
@@ -129,7 +129,7 @@ public class AgentSystemMain {
 
 		//Update Test
 		Map serverMap = new HashMap();
-		for(Object server : scManager.getDeployAllServer().values()){
+		for(Object server : (List)scManager.getDeployAllServer().get("A")){
 			WindowStream window = new WindowStream(
 				prop.getAllParameter(),
 				(AgentConnection)server,
@@ -175,7 +175,7 @@ public class AgentSystemMain {
 		//Stop AgentSystem
 		WindowStream.setRunnable(false);
 		AgentSystemShutdown agShutdown = new AgentSystemShutdown();
-		for(Object con : scManager.getDeployAllServer().values()){
+		for(Object con : (List)scManager.getDeployAllServer().get("A")){
 			AgentClient client = ((AgentConnection)con).getClient();
 			String msg = agShutdown.shutdown(client);
 			System.out.println(msg);
@@ -184,7 +184,7 @@ public class AgentSystemMain {
 		//Read Test
 		ReadAggregateAgent reader = new ReadAggregateAgent();
 		Long total = 0L;
-		for(Object con : scManager.getDeployAllServer().values()){
+		for(Object con : (List)scManager.getDeployAllServer().get("A")){
 			System.out.println(con+":");
 			AgentClient client = ((AgentConnection)con).getClient();
 			
