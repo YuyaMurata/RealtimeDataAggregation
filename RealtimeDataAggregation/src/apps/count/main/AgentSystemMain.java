@@ -19,6 +19,7 @@ import bench.property.BenchmarkProperty;
 import bench.template.UserData;
 import bench.time.TimeOverEvent;
 import com.ibm.agent.exa.client.AgentClient;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,6 +77,12 @@ public class AgentSystemMain {
 		DeployStrategy strategy = new AppCountDeployStrategy((int) prop.getParameter(ServerConnectionManager.paramID.DEPLOY_PATTERN), 
 												(String) approp.getParameter(AggregateAgentManager.paramID.ID_RULE), 
 												agIDLists);
+		List ruleList = new ArrayList();
+		ruleList.add(agentProf.getAgentIDRule());
+		Map deployRule = new HashMap();
+		deployRule.putAll(prop.getAllParameter());
+		deployRule.put(ServerConnectionManager.paramID.AGENTTYPE_LIST, ruleList);
+		scManager.agentDeployServer(deployRule);
 		scManager.setDeployStrategy(strategy);
 
 		//Init Parameter
