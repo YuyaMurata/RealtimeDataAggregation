@@ -72,6 +72,7 @@ public class AgentSystemMain {
 		RDAProperty prop = RDAProperty.getInstance();
 		ServerConnectionManager scManager = ServerConnectionManager.getInstance();
 		scManager.createServerConnection(prop.getAllParameter());
+		System.out.println(approp.getParameter(AggregateAgentManager.paramID.ID_RULE));
 		DeployStrategy strategy = new AppCountDeployStrategy((int) prop.getParameter(ServerConnectionManager.paramID.DEPLOY_PATTERN), 
 												(String) approp.getParameter(AggregateAgentManager.paramID.ID_RULE), 
 												agIDLists);

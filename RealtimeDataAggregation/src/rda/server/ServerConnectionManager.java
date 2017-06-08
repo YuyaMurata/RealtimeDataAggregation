@@ -60,7 +60,6 @@ public class ServerConnectionManager {
 	}
 
 	private Map deployMap;
-
 	public void agentDeployServer(Map deployRule) {
 		deployMap = new HashMap();
 		List cluster = server.subList(0, server.size() - 1);
