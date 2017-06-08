@@ -6,6 +6,7 @@
 package apps.count.main;
 
 import apps.count.agent.aggregate.creator.CreateAggregateAgent;
+import apps.count.agent.aggregate.deploy.AppCountDeployStrategy;
 import apps.count.agent.aggregate.extension.AggregateAgentMessageSender;
 import apps.count.agent.aggregate.profile.AggregateAgentProfile;
 import apps.count.appuser.UserProfile;
@@ -23,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import rda.agent.client.AgentConnection;
 import rda.agent.deletor.Dispose;
+import rda.agent.deploy.DeployStrategy;
 import rda.agent.profile.AgentProfileGenerator;
 import rda.agent.table.DestinationAgentTable;
 import rda.control.stream.WindowStream;
@@ -70,8 +72,10 @@ public class AgentSystemMain {
 		RDAProperty prop = RDAProperty.getInstance();
 		ServerConnectionManager scManager = ServerConnectionManager.getInstance();
 		scManager.createServerConnection(prop.getAllParameter());
-		AgentConnection ag = scManager.getLocalServer();
-		AgentClient client = ag.getClient();
+		DeployStrategy strategy = new AppCountDeployStrategy((int) prop.getParameter(ServerConnectionManager.paramID.DEPLOY_PATTERN), 
+												(String) approp.getParameter(AggregateAgentManager.paramID.ID_RULE), 
+												agIDLists);
+		scManager.setDeployStrategy(strategy);
 
 		//Init Parameter
 		String agentIDRule = (String) approp.getParameter(AggregateAgentManager.paramID.ID_RULE);
@@ -85,28 +89,46 @@ public class AgentSystemMain {
 
 		//Extension Initialize
 		AgentSystemInitializer agInit = new AgentSystemInitializer();
-		Object msg = agInit.initalize(client, param);
-		System.out.println(msg);
+		for(Object con : scManager.getDeployAllServer().values()){
+			AgentClient client = ((AgentConnection)con).getClient();
+			Object msg = agInit.initalize(client, param);
+			System.out.println(msg);
+			((AgentConnection)con).returnConnection(client);
+		}
 
 		//Create Agent
 		for (Object agID : agentProf.registerIDList()) {
+			AgentConnection con = scManager.getDistributedServer(agID);
+			AgentClient client = con.getClient();
+			
 			Map setter = agentProf.generate(agID);
 			String msgc = creator.create(client, setter);
 			System.out.println("Create " + agID + " = " + msgc);
+			
+			con.returnConnection(client);
 		}
 
 		//Start AgentSystem
 		AgentSystemLaunch agLaunch = new AgentSystemLaunch();
-		msg = agLaunch.launch(client);
-		System.out.println(msg);
+		for(Object con : scManager.getDeployAllServer().values()){
+			AgentClient client = ((AgentConnection)con).getClient();
+			
+			String msg = agLaunch.launch(client);
+			System.out.println(msg);
+			
+			((AgentConnection)con).returnConnection(client);
+		}
 
 		//Update Test
-		AggregateAgentMessageSender agUpdate = new AggregateAgentMessageSender();
-		WindowStream window = new WindowStream(
+		Map serverMap = new HashMap();
+		for(Object server : scManager.getDeployAllServer().values()){
+			WindowStream window = new WindowStream(
 				prop.getAllParameter(),
-				ag,
-				agUpdate);
-		window.start();
+				(AgentConnection)server,
+				new AggregateAgentMessageSender());
+			window.start();
+			serverMap.put(server, window);
+		}
 
 		//Start Benchmark
 		Map<Object, Integer> dataLog = new HashMap();
@@ -128,7 +150,7 @@ public class AgentSystemMain {
 				dataLog.put(agID, dataLog.get(agID) + 1);
 
 				//System.out.println(agID+" - "+user.toString());
-				window.in(agID, user);
+				((WindowStream)serverMap.get(scManager.getDistributedServer(agID))).in(agID, user);
 				totalData++;
 			}
 		} catch (TimeOverEvent ex) {
@@ -145,16 +167,26 @@ public class AgentSystemMain {
 		//Stop AgentSystem
 		WindowStream.setRunnable(false);
 		AgentSystemShutdown agShutdown = new AgentSystemShutdown();
-		msg = agShutdown.shutdown(client);
-		System.out.println(msg);
+		for(Object con : scManager.getDeployAllServer().values()){
+			AgentClient client = ((AgentConnection)con).getClient();
+			String msg = agShutdown.shutdown(client);
+			System.out.println(msg);
+		}
 
 		//Read Test
 		ReadAggregateAgent reader = new ReadAggregateAgent();
 		Long total = 0L;
-		for (Object agID : agentProf.registerIDList()) {
-			Object d = reader.read(client, agID);
-			System.out.println("Read " + agID + " = " + d);
-			total = ((List<Long>) d).get(0) + total;
+		for(Object con : scManager.getDeployAllServer().values()){
+			System.out.println(con+":");
+			AgentClient client = ((AgentConnection)con).getClient();
+			
+			for (Object agID : agentProf.registerIDList()) {
+				Object d = reader.read(client, agID);
+				System.out.println("Read " + agID + " = " + d);
+				total = ((List<Long>) d).get(0) + total;
+			}
+			
+			((AgentConnection)con).returnConnection(client);
 		}
 
 		//Log
@@ -166,11 +198,11 @@ public class AgentSystemMain {
 		System.out.println(total + "/" + totalData + "," + (stop - start));
 
 		//Delete Test
-		Dispose deletor = new Dispose();
-		deletor.delete(client);
+		//Dispose deletor = new Dispose();
+		//deletor.delete(client);
 
 		//Client
-		ag.returnConnection(client);
+		//ag.returnConnection(client);
 
 	}
 }
