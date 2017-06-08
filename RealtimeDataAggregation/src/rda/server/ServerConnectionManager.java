@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import rda.agent.client.AgentConnection;
+import rda.agent.deploy.DeployStrategy;
 
 /**
  *
@@ -49,12 +50,12 @@ public class ServerConnectionManager {
 
 		//Localhost
 		server.add(new AgentConnection(
-				(Integer) propMap.get(AgentConnection.paramID.POOL_SIZE),
-				new String[]{
-					"localhost:2809",
-					(String) propMap.get(paramID.APP_CLASS),
-					"agent"
-				}
+			(Integer) propMap.get(AgentConnection.paramID.POOL_SIZE),
+			new String[]{
+				"localhost:2809",
+				(String) propMap.get(paramID.APP_CLASS),
+				"agent"
+			}
 		));
 	}
 
@@ -64,12 +65,21 @@ public class ServerConnectionManager {
 		deployMap = new HashMap();
 		List cluster = server.subList(0, server.size() - 1);
 		if ((int) deployRule.get(paramID.DEPLOY_PATTERN) == 0) {
+			//Agent Cloning - Server Pattern
 			for (Object idrule : (List) deployRule.get(paramID.AGENTTYPE_LIST)) {
 				deployMap.put(idrule, cluster);
 			}
 		} else {
+			//Agent Typing - Server Pattern
 			String[] numAgServer = ((String) deployRule.get(paramID.DEPLOY_BALANCE)).split(":");
 			Integer i = 0;
+
+			//AgentType = 1
+			if (((List) deployRule.get(paramID.AGENTTYPE_LIST)).size() == 1) {
+				deployMap.put(((List) deployRule.get(paramID.AGENTTYPE_LIST)).get(0), cluster);
+			}
+
+			//AgentType > 2
 			for (Object idrule : (List) deployRule.get(paramID.AGENTTYPE_LIST)) {
 				List agServerList = new ArrayList();
 				int n = Integer.valueOf(numAgServer[i]);
@@ -82,21 +92,19 @@ public class ServerConnectionManager {
 			}
 		}
 	}
+	
+	private DeployStrategy strategy;
+	public void setDeployStrategy(DeployStrategy strategy){
+		strategy.createDeployPattern(deployMap);
+		this.strategy = strategy;
+	}
 
 	public AgentConnection getLocalServer() {
 		return (AgentConnection) server.get(server.size() - 1);
 	}
 
 	public AgentConnection getDistributedServer(Object agID) {
-		String agRule = agID.toString().split("#")[0];
-		Integer agNo = Integer.parseInt(agID.toString().split("#")[1]);
-		//System.out.println("agRule="+agRule);
-		//System.out.println("agNo.="+agNo);
-		List serverLists = (List) deployMap.get(agRule);
-		int hash = agNo % serverLists.size();
-		//System.out.println("agID="+agID+" server="+serverLists.get(hash));
-		//size-1 = localserver
-		return (AgentConnection) serverLists.get(hash);
+		return (AgentConnection) strategy.getDeployServer(agID);
 	}
 
 	public Map getDeployAllServer() {
