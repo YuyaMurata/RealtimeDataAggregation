@@ -37,7 +37,7 @@ public class ServerConnectionManager {
 	public void createServerConnection(Map propMap) {
 		server = new ArrayList();
 		for (int i = 0; i < (Integer) propMap.get(paramID.AMOUNT_SERVERS); i++) {
-			String host = (String) propMap.get(paramID.HOSTNAME_RULE) + i;
+			String host = (String) propMap.get(paramID.HOSTNAME_RULE) + (i +1);
 			server.add(new AgentConnection(
 					(Integer) propMap.get(AgentConnection.paramID.POOL_SIZE),
 					new String[]{
