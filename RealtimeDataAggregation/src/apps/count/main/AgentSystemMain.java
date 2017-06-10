@@ -184,17 +184,15 @@ public class AgentSystemMain {
 		//Read Test
 		ReadAggregateAgent reader = new ReadAggregateAgent();
 		Long total = 0L;
-		for(Object con : (List)scManager.getDeployAllServer().get("A")){
-			System.out.println(con+":");
-			AgentClient client = ((AgentConnection)con).getClient();
+		for (Object agID : agentProf.registerIDList()) {
+			AgentConnection con = scManager.getDistributedServer(agID);
+			AgentClient client = con.getClient();
 			
-			for (Object agID : agentProf.registerIDList()) {
-				Object d = reader.read(client, agID);
-				System.out.println("Read " + agID + " = " + d);
-				total = ((List<Long>) d).get(0) + total;
-			}
+			Object d = reader.read(client, agID);
+			System.out.println("Read " + agID + " = " + d);
+			total = ((List<Long>) d).get(0) + total;
 			
-			((AgentConnection)con).returnConnection(client);
+			con.returnConnection(client);
 		}
 
 		//Log
