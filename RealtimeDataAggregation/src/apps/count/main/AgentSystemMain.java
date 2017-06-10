@@ -181,7 +181,14 @@ public class AgentSystemMain {
 			System.out.println(msg);
 		}
 
+		//Log
+		System.out.println("Benchmark Create Data:!");
+		for (Object agID : dataLog.keySet()) {
+			System.out.println(agID + ":" + dataLog.get(agID));
+		}
+		
 		//Read Test
+		System.out.println("AggregateAgent Read Data:");
 		ReadAggregateAgent reader = new ReadAggregateAgent();
 		Long total = 0L;
 		for (Object agID : agentProf.registerIDList()) {
@@ -193,11 +200,6 @@ public class AgentSystemMain {
 			total = ((List<Long>) d).get(0) + total;
 			
 			con.returnConnection(client);
-		}
-
-		//Log
-		for (Object age : dataLog.keySet()) {
-			System.out.println(age + ":" + dataLog.get(age));
 		}
 
 		//Total Time
