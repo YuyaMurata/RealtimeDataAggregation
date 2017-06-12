@@ -53,7 +53,7 @@ public abstract class AgentReader implements AgentExecutor, Serializable {
 			Message msg = factory.getMessage(msgtype);
 
 			//System.out.println(agentKey+"-"+agentManager.exists(agentKey));
-			Object ret = "<"+extension.getName()+">"+agentManager.sendMessage(agentKey, msg);
+			Object ret = "<"+extension.getName()+">,"+agentManager.sendMessage(agentKey, msg);
 
 			//System.out.println(agentManager.getRegionName()+" - "+ret);
 			return ret;

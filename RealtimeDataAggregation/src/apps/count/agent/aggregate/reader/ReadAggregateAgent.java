@@ -18,35 +18,36 @@ import rda.agent.reader.AgentReader;
  */
 public class ReadAggregateAgent extends AgentReader {
 
-    private static final String AGENT_TYPE = "aggregateagent";
-    private static final String MESSAGE_TYPE = "readAggregateAgent";
+	private static final String AGENT_TYPE = "aggregateagent";
+	private static final String MESSAGE_TYPE = "readAggregateAgent";
 
-    public ReadAggregateAgent() {
-    }
-    
-    public ReadAggregateAgent(AgentKey agentKey) {
-        super(agentKey, MESSAGE_TYPE);
-    }
+	public ReadAggregateAgent() {
+	}
 
-    @Override
-    public Object read(AgentClient client, Object agID) {
-        try {
-            Long start = System.currentTimeMillis();
-            
-            AgentKey agentKey = new AgentKey(AGENT_TYPE, new Object[]{agID});
+	public ReadAggregateAgent(AgentKey agentKey) {
+		super(agentKey, MESSAGE_TYPE);
+	}
 
-            ReadAggregateAgent executor = new ReadAggregateAgent(agentKey);
-            
-            List reply = new ArrayList();
-            reply.add(client.execute(agentKey, executor));
-            
-            Long stop = System.currentTimeMillis();
-            
-            reply.add((stop-start)+" ms");
-            
-            return reply;
-        } catch (AgentException e) {
-            return e.toString();
-        }
-    }
+	@Override
+	public Object read(AgentClient client, Object agID) {
+		try {
+			Long start = System.currentTimeMillis();
+
+			AgentKey agentKey = new AgentKey(AGENT_TYPE, new Object[]{agID});
+
+			ReadAggregateAgent executor = new ReadAggregateAgent(agentKey);
+
+			List reply = new ArrayList();
+			reply.add(((String) client.execute(agentKey, executor)).split(",")[0]);
+			reply.add(Long.parseLong(((String) client.execute(agentKey, executor)).split(",")[1]));
+
+			Long stop = System.currentTimeMillis();
+
+			reply.add((stop - start) + " ms");
+
+			return reply;
+		} catch (AgentException e) {
+			return e.toString();
+		}
+	}
 }
