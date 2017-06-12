@@ -49,7 +49,7 @@ public class AgentSystemShutdown implements AgentExecutor, Serializable {
 
             Object reply = client.execute(executor);
 
-            String msg = "Stopped AgentSystemExtension : Reply is " + reply;
+            String msg = "<"+client + ">Stopped AgentSystemExtension : Reply is " + reply;
             
             return msg;
         } catch (AgentException ex) {

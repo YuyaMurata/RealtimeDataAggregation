@@ -54,7 +54,7 @@ public class AgentSystemInitializer implements AgentExecutor, Serializable {
 
             Object reply = client.execute(executor);
 
-            String msg = "Initialize AgentSystemExtension : Reply is " + reply;
+            String msg = "<"+client + ">Initialize AgentSystemExtension : Reply is " + reply;
             
             return msg;
         } catch (AgentException ex) {

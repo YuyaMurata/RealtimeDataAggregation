@@ -113,7 +113,7 @@ public class AgentSystemExtension implements Extension {
 
 			AgentMessageQueue.setParameter(param);
 
-			return "<"+this.regionName+">[Success AgentSystem Initialize !] - " + AgentMessageQueue.getParameter();
+			return "[Success AgentSystem Initialize !] - " + AgentMessageQueue.getParameter();
 		} catch (Exception e) {
 			return e.toString();
 		}
@@ -127,7 +127,6 @@ public class AgentSystemExtension implements Extension {
 
 		Map setter = ((AgentProfileGenerator) param.get(AgentSystemInitializer.paramID.AGENT_PROFILE)).generate(agID);
 		String msg = ((AgentCreator) param.get(AgentSystemInitializer.paramID.AGENT_CREATOR)).create(setter);
-		msg = "<"+this.regionName+">:"+msg;
 		
 		return msg;
 	}
@@ -178,7 +177,7 @@ public class AgentSystemExtension implements Extension {
 				.map(e -> new Thread(e))
 				.forEach(t -> ((Thread) t).start());
 
-		return "<"+this.regionName+">[Success AgentSystem Start !]";
+		return "[Success AgentSystem Start !]";
 	}
 
 	public String stopAgentSystem() {
@@ -193,6 +192,6 @@ public class AgentSystemExtension implements Extension {
 			agmq.put(dummy);
 		}
 
-		return "<"+this.regionName+">[Success AgentSystem Shutdown !]";
+		return "[Success AgentSystem Shutdown !]";
 	}
 }

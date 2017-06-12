@@ -111,7 +111,7 @@ public class AgentSystemMain {
 			
 			Map setter = agentProf.generate(agID);
 			String msgc = creator.create(client, setter);
-			System.out.println("Create " + agID + " = " + msgc);
+			System.out.println("<"+client + ">Create " + agID + " = " + msgc);
 			
 			con.returnConnection(client);
 		}
