@@ -198,7 +198,7 @@ public class AgentSystemMain {
 			
 			Object d = reader.read(client, agID);
 			System.out.println("Read " + agID + " = " + d);
-			total = ((List<Long>) d).get(0) + total;
+			//total = ((List<Long>) d).get(0) + total;
 			
 			con.returnConnection(client);
 		}
