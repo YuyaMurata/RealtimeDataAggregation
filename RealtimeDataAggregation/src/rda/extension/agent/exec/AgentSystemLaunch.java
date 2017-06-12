@@ -18,37 +18,37 @@ import rda.extension.agent.manager.AgentSystemExtension;
  * @author kaeru
  */
 public class AgentSystemLaunch implements AgentExecutor, Serializable {
-    public AgentSystemLaunch() {
-    }
-    
 
-    @Override
-    public Object complete(Collection<Object> results) {
-        return results;
-    }
+	public AgentSystemLaunch() {
+	}
 
-    @Override
-    public Object execute() {
-        AgentSystemExtension extension = AgentSystemExtension.getInstance();
-        String msg = extension.startAgentSystem();
-        
-        AgentManager am = AgentManager.getAgentManager();
-        String regionName = am.getRegionName();
-        
-        return regionName + " : " + msg;
-    }
-    
-    public String launch(AgentClient client){
-        try {
-            AgentSystemLaunch executor = new AgentSystemLaunch();
+	@Override
+	public Object complete(Collection<Object> results) {
+		return results;
+	}
 
-            Object reply = client.execute(executor);
+	@Override
+	public Object execute() {
+		AgentSystemExtension extension = AgentSystemExtension.getInstance();
+		String msg = extension.startAgentSystem();
 
-            String msg = "<"+client + ">Start AgentSystemExtension : Reply is " + reply;
-            
-            return msg;
-        } catch (AgentException ex) {
-            return ex.toString();
-        }
-    }
+		AgentManager am = AgentManager.getAgentManager();
+		String regionName = am.getRegionName();
+
+		return regionName + " : " + msg;
+	}
+
+	public String launch(AgentClient client) {
+		try {
+			AgentSystemLaunch executor = new AgentSystemLaunch();
+
+			Object reply = client.execute(executor);
+
+			String msg = "Start AgentSystemExtension : Reply is " + reply;
+
+			return msg;
+		} catch (AgentException ex) {
+			return ex.toString();
+		}
+	}
 }
