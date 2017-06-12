@@ -20,45 +20,46 @@ import rda.extension.agent.manager.AgentSystemExtension;
  */
 public class AgentSystemInitializer implements AgentExecutor, Serializable {
 
-    public static enum paramID{
-        REGION_NAME, AGENT_TYPE, AGENT_PROFILE, AGENT_CREATOR, AGENT_UPDATOR
-    }
+	public static enum paramID {
+		HOST_NAME, AGENT_TYPE, AGENT_PROFILE, AGENT_CREATOR, AGENT_UPDATOR
+	}
 
-    public AgentSystemInitializer() {
-    }
-    
-    Map param;
-    public AgentSystemInitializer(Map param) {
-        this.param = param;
-    }
+	public AgentSystemInitializer() {
+	}
 
-    @Override
-    public Object complete(Collection<Object> results) {
-        return results;
-    }
+	Map param;
 
-    @Override
-    public Object execute() {
-        AgentSystemExtension extension = AgentSystemExtension.getInstance();
-        String msg = extension.initAgentSystem(param);
-        
-        AgentManager am = AgentManager.getAgentManager();
-        String regionName = am.getRegionName();
-        
-        return regionName + " : " + msg;
-    }
-    
-    public String initalize(AgentClient client, Map param){
-        try {
-            AgentSystemInitializer executor = new AgentSystemInitializer(param);
+	public AgentSystemInitializer(Map param) {
+		this.param = param;
+	}
 
-            Object reply = client.execute(executor);
+	@Override
+	public Object complete(Collection<Object> results) {
+		return results;
+	}
 
-            String msg = "<"+client + ">Initialize AgentSystemExtension : Reply is " + reply;
-            
-            return msg;
-        } catch (AgentException ex) {
-            return ex.toString();
-        }
-    }
+	@Override
+	public Object execute() {
+		AgentSystemExtension extension = AgentSystemExtension.getInstance();
+		String msg = extension.initAgentSystem(param);
+
+		AgentManager am = AgentManager.getAgentManager();
+		String regionName = am.getRegionName();
+
+		return regionName + " : " + msg;
+	}
+
+	public String initalize(AgentClient client, Map param) {
+		try {
+			AgentSystemInitializer executor = new AgentSystemInitializer(param);
+
+			Object reply = client.execute(executor);
+
+			String msg = client + "Initialize AgentSystemExtension : Reply is " + reply;
+
+			return msg;
+		} catch (AgentException ex) {
+			return ex.toString();
+		}
+	}
 }

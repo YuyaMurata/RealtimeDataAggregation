@@ -103,17 +103,18 @@ public class AgentSystemExtension implements Extension {
 		System.out.println("    ***      ************ ************      ***    ");
 		System.out.println("    ***      ************  **********       ***    ");
 	}
-
+	
+	private String name;
 	private Map initMap = new HashMap();
-
-	;
-    public String initAgentSystem(Map param) {
+	public String initAgentSystem(Map param) {
 		try {
+			name = (String) param.get(AgentSystemInitializer.paramID.HOST_NAME);
+			
 			initMap.put(param.get(AgentSystemInitializer.paramID.AGENT_TYPE), param);
 
 			AgentMessageQueue.setParameter(param);
 
-			return "[Success AgentSystem Initialize !] - " + AgentMessageQueue.getParameter();
+			return "<"+name+">[Success AgentSystem Initialize !] - " + AgentMessageQueue.getParameter();
 		} catch (Exception e) {
 			return e.toString();
 		}
@@ -121,13 +122,12 @@ public class AgentSystemExtension implements Extension {
 
 	private Map<Object, AgentMessageQueue> agentMap = new HashMap();
 
-	;
-    public String createAgent(Object agID) {
+	public String createAgent(Object agID) {
 		Map param = (Map) initMap.get(((String) agID).split("#")[0]);
 
 		Map setter = ((AgentProfileGenerator) param.get(AgentSystemInitializer.paramID.AGENT_PROFILE)).generate(agID);
 		String msg = ((AgentCreator) param.get(AgentSystemInitializer.paramID.AGENT_CREATOR)).create(setter);
-		
+
 		return msg;
 	}
 
@@ -163,7 +163,7 @@ public class AgentSystemExtension implements Extension {
 				(DestinationAgentTable) intaractionMap.get(AgentIntaractionComm.paramID.AGENT_TABLE)
 		);
 
-		return "Set Agent Intaraction [" + intaraction.toString() + "]";
+		return "<"+name+">Set Agent Intaraction [" + intaraction.toString() + "]";
 	}
 
 	public AgentIntaractionComm getAgentIntaraction() {
@@ -177,7 +177,7 @@ public class AgentSystemExtension implements Extension {
 				.map(e -> new Thread(e))
 				.forEach(t -> ((Thread) t).start());
 
-		return "[Success AgentSystem Start !]";
+		return "<"+name+">[Success AgentSystem Start !]";
 	}
 
 	public String stopAgentSystem() {
@@ -192,6 +192,10 @@ public class AgentSystemExtension implements Extension {
 			agmq.put(dummy);
 		}
 
-		return "[Success AgentSystem Shutdown !]";
+		return "<"+name+">[Success AgentSystem Shutdown !]";
+	}
+	
+	public String getName(){
+		return name;
 	}
 }

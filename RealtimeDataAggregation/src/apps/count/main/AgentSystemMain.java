@@ -98,6 +98,7 @@ public class AgentSystemMain {
 		//Extension Initialize
 		AgentSystemInitializer agInit = new AgentSystemInitializer();
 		for(Object con : (List)scManager.getDeployAllServer().get("A")){
+			param.put(AgentSystemInitializer.paramID.HOST_NAME, ((AgentConnection)con).toString());
 			AgentClient client = ((AgentConnection)con).getClient();
 			Object msg = agInit.initalize(client, param);
 			System.out.println(msg);
@@ -111,7 +112,7 @@ public class AgentSystemMain {
 			
 			Map setter = agentProf.generate(agID);
 			String msgc = creator.create(client, setter);
-			System.out.println("<"+client + ">Create " + agID + " = " + msgc);
+			System.out.println("Create " + agID + " = " + msgc);
 			
 			con.returnConnection(client);
 		}
