@@ -98,7 +98,7 @@ public class AgentSystemMain {
 		//Extension Initialize
 		AgentSystemInitializer agInit = new AgentSystemInitializer();
 		for(Object con : (List)scManager.getDeployAllServer().get("A")){
-			param.put(AgentSystemInitializer.paramID.HOST_NAME, ((AgentConnection)con).toString());
+			param.put(AgentSystemInitializer.paramID.HOST_NAME, ((AgentConnection)con).getHost());
 			AgentClient client = ((AgentConnection)con).getClient();
 			Object msg = agInit.initalize(client, param);
 			System.out.println(msg);

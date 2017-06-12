@@ -82,6 +82,10 @@ public class AgentConnection {
 	public Integer getIdleObject() {
 		return _pool.getNumIdle();
 	}
+	
+	public String getHost(){
+		return aghost[0];
+	}
 
 	public String toString() {
 		String str = aghost[0] + " - ";

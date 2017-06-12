@@ -13,52 +13,54 @@ import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.exa.client.AgentExecutor;
 import java.io.Serializable;
 import java.util.Collection;
+import rda.extension.agent.manager.AgentSystemExtension;
 
 /**
  *
  * @author kaeru
  */
-public abstract class AgentReader implements AgentExecutor, Serializable{
+public abstract class AgentReader implements AgentExecutor, Serializable {
 
-    public AgentReader() {
-        // TODO 自動生成されたコンストラクター・スタブ
-    }
+	public AgentReader() {
+		// TODO 自動生成されたコンストラクター・スタブ
+	}
 
-    AgentKey agentKey;
-    String msgtype;
-    public AgentReader(AgentKey agentKey, String msgtype) {
-        // TODO 自動生成されたコンストラクター・スタブ
-        this.agentKey = agentKey;
-        this.msgtype = msgtype;
-    }
+	AgentKey agentKey;
+	String msgtype;
 
-    @Override
-    public Object complete(Collection<Object> results) {
-        // TODO 自動生成されたメソッド・スタブ 
-        Object[] ret = results.toArray();
-        return ret[0];
-    }
+	public AgentReader(AgentKey agentKey, String msgtype) {
+		// TODO 自動生成されたコンストラクター・スタブ
+		this.agentKey = agentKey;
+		this.msgtype = msgtype;
+	}
 
-    @Override
-    public Object execute() {
-        // TODO 自動生成されたメソッド・スタブ
-        try{
-            AgentManager agentManager = AgentManager.getAgentManager();
+	@Override
+	public Object complete(Collection<Object> results) {
+		// TODO 自動生成されたメソッド・スタブ 
+		Object[] ret = results.toArray();
+		return ret[0];
+	}
 
-            MessageFactory factory = MessageFactory.getFactory();
-            Message msg = factory.getMessage(msgtype);
-            
-            //System.out.println(agentKey+"-"+agentManager.exists(agentKey));
+	@Override
+	public Object execute() {
+		// TODO 自動生成されたメソッド・スタブ
+		try {
+			AgentSystemExtension extension = AgentSystemExtension.getInstance();
+			
+			AgentManager agentManager = AgentManager.getAgentManager();
 
-            Object ret = agentManager.sendMessage(agentKey, msg);
+			MessageFactory factory = MessageFactory.getFactory();
+			Message msg = factory.getMessage(msgtype);
 
-            //System.out.println(agentManager.getRegionName()+" - "+ret);
-            
-            return ret;
-        }catch(IllegalAccessException | InstantiationException e){
-            return e;
-        }
-    }
+			//System.out.println(agentKey+"-"+agentManager.exists(agentKey));
+			Object ret = "<"+extension.getName()+">"+agentManager.sendMessage(agentKey, msg);
 
-    public abstract Object read(AgentClient client, Object agID);
+			//System.out.println(agentManager.getRegionName()+" - "+ret);
+			return ret;
+		} catch (IllegalAccessException | InstantiationException e) {
+			return e;
+		}
+	}
+
+	public abstract Object read(AgentClient client, Object agID);
 }
