@@ -15,34 +15,35 @@ import rda.agent.profile.AgentProfile;
  *
  * @author kaeru
  */
-public class AggregateAgentProfile extends AgentProfile{
-    public static enum paramID{
-        ID, MESSAGE_DATA
-    }
-    
-    public AggregateAgentProfile(List agIDLists) {
-        super(agIDLists);
-    }
-    
-    @Override
-    public Map initProfile(List agIDLists) {
-        Map map = new HashMap();
-        
-        for(Object agID : agIDLists){
-            Map profParam = new HashMap();
-            
-            //ID
-            profParam.put(paramID.ID, agID);
-            
-            //MESSAG_DATA
-            List msgdata = new ArrayList();
-            msgdata.add("Aggregate Conditios :" + agID);
-            profParam.put(paramID.MESSAGE_DATA, msgdata);
-            
-            map.put(agID, profParam);
-        }
-        
-        return map;
-    }
-    
+public class AggregateAgentProfile extends AgentProfile {
+
+	public static enum paramID {
+		ID, MESSAGE_DATA
+	}
+
+	public AggregateAgentProfile(List agIDLists) {
+		super(agIDLists);
+	}
+
+	@Override
+	public Map initProfile(List agIDLists) {
+		Map map = new HashMap();
+
+		for (Object agID : agIDLists) {
+			Map profParam = new HashMap();
+
+			//ID
+			profParam.put(paramID.ID, agID);
+
+			//MESSAG_DATA
+			List msgdata = new ArrayList();
+			msgdata.add("Aggregate Conditios :" + agID);
+			profParam.put(paramID.MESSAGE_DATA, msgdata);
+
+			map.put(agID, profParam);
+		}
+
+		return map;
+	}
+
 }
