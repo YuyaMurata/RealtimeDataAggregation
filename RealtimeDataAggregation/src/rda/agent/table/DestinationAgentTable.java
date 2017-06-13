@@ -45,6 +45,7 @@ public class DestinationAgentTable implements Serializable {
 		return table;
 	}
 
+	//ID Hash
 	public Object getDestAgentID(Object id) {
 		Integer hashID = Math.abs(id.hashCode());
 
@@ -52,7 +53,8 @@ public class DestinationAgentTable implements Serializable {
 
 		return destAgList.get(hashID % destAgList.size());
 	}
-
+	
+	//Agent To Agent Comm - ID Hash
 	public Object getDestAgentID(Object id, Object uid) {
 		Integer hashID = Math.abs(id.hashCode());
 		Integer uhashID = Math.abs(uid.hashCode());
@@ -60,6 +62,10 @@ public class DestinationAgentTable implements Serializable {
 		List destAgList = destTable.get(idList.get(hashID % destTable.size()));
 
 		return destAgList.get(uhashID % destAgList.size());
+	}
+	
+	public Map getDestTable(){
+		return destTable;
 	}
 
 	public String toString() {

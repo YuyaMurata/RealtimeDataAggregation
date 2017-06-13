@@ -17,36 +17,38 @@ import java.util.Map;
  */
 public class BenchmarkTest {
 
-    public static void main(String[] args) {
-        AgentBenchmark ag = AgentBenchmark.getInstance();
-        ag.setDummyParameter();
+	public static void main(String[] args) {
+		AgentBenchmark ag = AgentBenchmark.getInstance();
+		ag.setDummyParameter();
 
-        Map datalog = new HashMap();
-        Long totalData = 0L;
-        Long start = System.currentTimeMillis();
-        try {
-            while (true) {
-                UserData user = ag.bench();
-                if(user== null) continue;
-                
-                if (datalog.get(user.id) == null) {
-                    datalog.put(user.id, 0);
-                }
-                datalog.put(user.id, (int) datalog.get(user.id) + (int) user.data);
-                
-                totalData++;
-            }
-        } catch (TimeOverEvent ex) {
-            //ex.printStackTrace();
-        }
-        Long stop = System.currentTimeMillis();
-        
-        Integer idTotal = 0;
-        System.out.println("Results {");
-        for(Object id : datalog.keySet()){
-            System.out.println("\t "+id+", "+datalog.get(id));
-            idTotal++;
-        }
-        System.out.println("} Total="+totalData+"-"+ag.getTotalGenerate()+" ID="+idTotal+" Time[s]:"+(stop-start));
-    }
+		Map datalog = new HashMap();
+		Long totalData = 0L;
+		Long start = System.currentTimeMillis();
+		try {
+			while (true) {
+				UserData user = ag.bench();
+				if (user == null) {
+					continue;
+				}
+
+				if (datalog.get(user.id) == null) {
+					datalog.put(user.id, 0);
+				}
+				datalog.put(user.id, (int) datalog.get(user.id) + (int) user.data);
+
+				totalData++;
+			}
+		} catch (TimeOverEvent ex) {
+			//ex.printStackTrace();
+		}
+		Long stop = System.currentTimeMillis();
+
+		Integer idTotal = 0;
+		System.out.println("Results {");
+		for (Object id : datalog.keySet()) {
+			System.out.println("\t " + id + ", " + datalog.get(id));
+			idTotal++;
+		}
+		System.out.println("} Total=" + totalData + "-" + ag.getTotalGenerate() + " ID=" + idTotal + " Time[s]:" + (stop - start));
+	}
 }
