@@ -153,7 +153,7 @@ public class AgentSystemMain {
 				Integer age = (Integer) userProf.generate(user.id).get(UserProfile.profileID.AGE) / 10;
 				Object agID = table.getDestAgentID(age);
 				System.out.println("userID:"+user.id+" -> "+agID);
-				System.out.println("userID:"+user.id+" -> "+table.getDestAgentID(agID, user.id));
+				System.out.println("userID:"+user.id+" -> "+table.getDestAgentID(user.id));
 
 				if (dataLog.get(agID) == null) {
 					dataLog.put(agID, 0);
