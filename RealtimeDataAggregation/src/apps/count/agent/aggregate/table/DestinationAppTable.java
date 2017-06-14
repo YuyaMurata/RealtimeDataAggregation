@@ -34,7 +34,7 @@ public class DestinationAppTable extends DestinationAgentTable{
 	
 	public Object getDestAgentID(Object uid, Integer age){
 		Integer hashID = Math.abs(uid.hashCode());
-		System.out.println(age +" = "+ageMap.floorEntry(age).getValue());
+		//System.out.println(age +" = "+ageMap.floorEntry(age).getValue());
 		List destAgList = (List) getDestTable().get(ageMap.floorEntry(age).getValue());
 		
 		return destAgList.get(hashID % destAgList.size());

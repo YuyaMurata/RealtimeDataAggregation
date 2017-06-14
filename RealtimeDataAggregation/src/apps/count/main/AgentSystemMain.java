@@ -24,7 +24,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import rda.agent.client.AgentConnection;
-import rda.agent.deletor.Dispose;
 import rda.agent.deploy.DeployStrategy;
 import rda.agent.profile.AgentProfileGenerator;
 import rda.agent.table.DestinationAgentTable;
@@ -184,7 +183,7 @@ public class AgentSystemMain {
 		}
 
 		//Log
-		System.out.println("Benchmark Create Data:!");
+		System.out.println("Benchmark Create Data:");
 		for (Object agID : dataLog.keySet()) {
 			System.out.println(agID + ":" + dataLog.get(agID));
 		}
