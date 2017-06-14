@@ -162,7 +162,6 @@ public class AgentSystemMain {
 
 				//System.out.println(agID+" - "+user.toString());
 				((WindowStream)serverMap.get(scManager.getDistributedServer(agID))).in(agID, user);
-				System.out.println("agID="+agID+" server="+scManager.getDistributedServer(agID)+" ws="+((WindowStream)serverMap.get(scManager.getDistributedServer(agID))));
 				totalData++;
 			}
 		} catch (TimeOverEvent ex) {
