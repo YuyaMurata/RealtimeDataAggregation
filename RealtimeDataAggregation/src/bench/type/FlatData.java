@@ -9,36 +9,38 @@ package bench.type;
  *
  * @author kaeru
  */
-public class FlatData extends DataType{
-    public FlatData(Long time, Long period, Long volume, int numberOfUser, int valueOfUser, int datamode, long seed) {
-        super(  "FlatType",
-                time, 
-                period, 
-                volume, 
-                numberOfUser, 
-                valueOfUser, 
-                datamode, 
-                seed);
-    }
-    
-    @Override
-    public String toString(){
-        return name + " DataN_" + total;
-    }
+public class FlatData extends DataType {
 
-    @Override
-    public String toString(Long time) {
-        if(time == -1L) return toString();
-        return String.valueOf(volume);
-    }
+	public FlatData(Long time, Long period, Long volume, int numberOfUser, int valueOfUser, int datamode, long seed) {
+		super("FlatType",
+				time,
+				period,
+				volume,
+				numberOfUser,
+				valueOfUser,
+				datamode,
+				seed);
+	}
 
-    @Override
-    public Long dataVolume(Long time, Long volume) {
-        return time * volume / 2;
-    }
+	@Override
+	public String toString() {
+		return name + " DataN_" + total;
+	}
 
-    @Override
-    public Long timeToVolume(Long time, Long volume) {
-        return volume;
-    }
+	@Override
+	public String toString(Long time) {
+		if (time == -1L) {
+			return toString();
+		}
+		return String.valueOf(volume);
+	}
+
+	@Override
+	public Long timeToVolume(Long time, Long volume) {
+		if(super.term.equals(time)) return timeVolume;
+		
+		Long pvolume = volume / super.term;
+		timeVolume = timeVolume - pvolume;
+		return pvolume;
+	}
 }
