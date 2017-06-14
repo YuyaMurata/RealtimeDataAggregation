@@ -16,18 +16,16 @@ public class Window {
 
 	public Object id;
 	private List win;
-
-	public Window(Object id) {
+	private WindowController winctrl;
+	public Window(WindowController ctrl, Object id) {
+		this.winctrl = ctrl;
 		this.id = id;
 		this.win = new CopyOnWriteArrayList();
 	}
 
 	private static Integer size;
-	private static WindowController winctrl;
-
-	public static void setParameter(Integer wsize, WindowController ctrl) {
+	public static void setParameter(Integer wsize) {
 		size = wsize;
-		winctrl = ctrl;
 	}
 
 	public void pack(Object obj) {

@@ -18,15 +18,14 @@ public class WindowController extends Thread {
 	public WindowController(Map param) {
 		this.executableQueue = new LinkedBlockingQueue();
 		this.aliveTime = (Long) param.get(paramID.WINDOW_TIME);
-
-		Window.setParameter((Integer) param.get(paramID.WINDOW_SIZE), this);
+		Window.setParameter((Integer) param.get(paramID.WINDOW_SIZE));
 	}
 
 	public void pack(Object id, Object data) {
 		try {
 			windowMap.get(id).pack(data);
 		} catch (NullPointerException e) {
-			Window window = new Window(id);
+			Window window = new Window(this, id);
 			window.pack(data);
 			windowMap.put(id, window);
 		}
