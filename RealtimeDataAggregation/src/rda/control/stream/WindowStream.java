@@ -22,9 +22,11 @@ public class WindowStream extends Thread {
 	private WindowController flow;
 	private AgentConnection agcon;
 	private ExtensionPutMessageQueue sender;
+	private String name;
 
 	public WindowStream(Map param, AgentConnection agcon, ExtensionPutMessageQueue sender) {
 		this.flow = new WindowController(param);
+		this.name = "WS-<"+agcon+">";
 		this.agcon = agcon;
 		this.sender = sender;
 
@@ -61,6 +63,10 @@ public class WindowStream extends Thread {
 		}
 		System.out.println(agcon.getHost()+"-\n\t"+verifMap);
 		agcon.returnConnection(client);
+	}
+	
+	public String toString(){
+		return this.name;
 	}
 
 }
