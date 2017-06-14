@@ -138,6 +138,7 @@ public class AgentSystemMain {
 			window.start();
 			serverMap.put(server, window);
 		}
+		System.out.println(serverMap);
 
 		//Start Benchmark
 		Map<Object, Integer> dataLog = new HashMap();
