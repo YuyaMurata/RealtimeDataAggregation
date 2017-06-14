@@ -162,6 +162,9 @@ public class AgentSystemMain {
 
 				//System.out.println(agID+" - "+user.toString());
 				((WindowStream)serverMap.get(scManager.getDistributedServer(agID))).in(agID, user);
+				if(!((WindowStream)serverMap.get(scManager.getDistributedServer(agID))).toString().contains(scManager.getDistributedServer(agID).getHost())){
+					System.out.println("agID="+agID+" -> "+scManager.getDistributedServer(agID));
+				}
 				totalData++;
 			}
 		} catch (TimeOverEvent ex) {

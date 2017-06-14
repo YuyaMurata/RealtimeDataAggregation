@@ -60,7 +60,6 @@ public class WindowStream extends Thread {
 			String msg = sender.send(client, window.id, window.unpack());
 			if(verifMap.get(window.id) == null) verifMap.put(window.id, 0);
 			verifMap.put(window.id, (Integer)verifMap.get(window.id) + window.unpack().size());
-			System.out.println(agcon.getHost()+"<-"+window.id);
 		}
 		System.out.println(agcon.getHost()+"-\n\t"+verifMap);
 		agcon.returnConnection(client);
