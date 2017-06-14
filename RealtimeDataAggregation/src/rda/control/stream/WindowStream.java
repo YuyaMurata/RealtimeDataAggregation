@@ -7,6 +7,7 @@ package rda.control.stream;
 
 import rda.extension.agent.exec.ExtensionPutMessageQueue;
 import com.ibm.agent.exa.client.AgentClient;
+import java.util.HashMap;
 import java.util.Map;
 import rda.agent.client.AgentConnection;
 import rda.control.flow.Window;
@@ -45,6 +46,7 @@ public class WindowStream extends Thread {
 	@Override
 	public void run() {
 		AgentClient client = agcon.getClient();
+		Map verifMap = new HashMap();
 		while (runnable) {
 			//Get Window
 			Window window = flow.get();
@@ -54,7 +56,10 @@ public class WindowStream extends Thread {
 
 			//Update
 			String msg = sender.send(client, window.id, window.unpack());
+			if(verifMap.get(window.id) == null) verifMap.put(window.id, 0);
+			verifMap.put(window.id, (Integer)verifMap.get(window.id) + window.unpack().size());
 		}
+		System.out.println(agcon.getHost()+"-\n\t"+verifMap);
 		agcon.returnConnection(client);
 	}
 
