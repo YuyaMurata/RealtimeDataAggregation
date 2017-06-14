@@ -57,7 +57,7 @@ public class AgentSystemMain {
 		//Create User ID
 		List userLists = agBench.getUserList();
 		AgentProfileGenerator userProf = new AgentProfileGenerator(new UserProfile(userLists));
-		System.out.println(userProf.toString());
+		System.out.println("NumberOfUsers = "+userProf.registerIDList().size());
 
 		//Create Agent ID
 		List agIDLists = manager.getAgentList();
