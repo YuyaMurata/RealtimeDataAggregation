@@ -11,6 +11,7 @@ import apps.count.agent.aggregate.extension.AggregateAgentMessageSender;
 import apps.count.agent.aggregate.profile.AggregateAgentProfile;
 import apps.count.appuser.UserProfile;
 import apps.count.agent.aggregate.reader.ReadAggregateAgent;
+import apps.count.agent.aggregate.table.DestinationAppTable;
 import apps.count.agent.aggregate.updator.UpdateAggregateAgent;
 import apps.count.manager.AggregateAgentManager;
 import apps.count.property.AppCountProperty;
@@ -65,7 +66,8 @@ public class AgentSystemMain {
 		System.out.println(agentProf.toString());
 
 		//Destination Table
-		DestinationAgentTable table = new DestinationAgentTable(agentProf.registerIDList(), 10);
+		DestinationAppTable table = new DestinationAppTable(agentProf.registerIDList(), 10);
+		table.createAgeTable(100);	//Max Age 100
 		System.out.println(table.toString());
 
 		//Server - AgentClient
@@ -149,8 +151,8 @@ public class AgentSystemMain {
 					continue;
 				}
 
-				Integer age = (Integer) userProf.generate(user.id).get(UserProfile.profileID.AGE) / 10;
-				Object agID = table.getDestAgentID(age);
+				Integer age = (Integer) userProf.generate(user.id).get(UserProfile.profileID.AGE);
+				Object agID = table.getDestAgentID(user.id, age); //table.getDestAgentID(age);
 				//System.out.println("userID:"+user.id+" -> "+agID);
 
 				if (dataLog.get(agID) == null) {
