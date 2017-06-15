@@ -1,61 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objectGridConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ibm.com/ws/objectgrid/config ../objectGrid.xsd" xmlns="http://ibm.com/ws/objectgrid/config">
-	<objectGrids>
-		<objectGrid name="ServerInfo" securityEnabled="@CETA_SECURITY_ENABLED@" authorizationMechanism="@CETA_AUTHORIZATION_MECHANISM@" permissionCheckPeriod="@CETA_PERMISSIONCHECK_PERIOD@">
-			<!-- SubjectSource will be used only if securityEnabled is true. -->
-			<!-- KeyStoreLoginAuthenticator will use JAAS "KeyStoreLogin" module.
-			ObjectGrid server must be started with "-Djava.security.auth.login.config=@CETA_JAAS_CONFIG_FILE@" in order to use LoggingKeyStoreSubjectSource.
-			Otherwise, when securityEnabled is true, "unable to locate login configuration" error will occur. -->
-			<bean id="SubjectSource" className="com.ibm.agent.security.LoggingKeyStoreSubjectSource">
-				<property name="user" type="java.lang.String" value="@CETA_OBJECTGRID_USER@" description="user for catalog server" />
-				<property name="password" type="java.lang.String" value="@CETA_OBJECTGRID_PASSWORD@" description="password for catalog server" />
-				<property name="log" type="boolean" value="@CETA_AUTHENTICATION_LOG_ENABLED@" description="authentication log" />
-			</bean>
-			<!-- ObjectGridAuthorization is used only if authorizationMechanism="AUTHORIZATION_MECHANISM_CUSTOM" -->
-			<bean id="ObjectGridAuthorization" className="com.ibm.agent.security.PermissiveObjectGridAuthorization">
-			</bean>
-			<!-- serverinfo must be PESSIMISTIC -->
-			<backingMap name="serverinfo" readOnly="false" preloadMode="false" lockStrategy="PESSIMISTIC"/>
-			<backingMap name="perfmonstats" readOnly="false" preloadMode="false" lockStrategy="PESSIMISTIC"/>
-			<backingMap name="jdbcstats" readOnly="false" preloadMode="false" lockStrategy="PESSIMISTIC"/>
-			<backingMap name="examonstats" readOnly="false" preloadMode="false" lockStrategy="PESSIMISTIC"/>
-			<backingMap name="jvmmemorystats" readOnly="false" preloadMode="false" lockStrategy="PESSIMISTIC"/>
-			<backingMap name="jvmmemorypoolstats" readOnly="false" preloadMode="false" lockStrategy="PESSIMISTIC"/>
-			<backingMap name="jvmthreadstats" readOnly="false" preloadMode="false" lockStrategy="PESSIMISTIC"/>
-		</objectGrid>
-		<objectGrid name="Ionian" securityEnabled="@CETA_SECURITY_ENABLED@" authorizationMechanism="@CETA_AUTHORIZATION_MECHANISM@" permissionCheckPeriod="@CETA_PERMISSIONCHECK_PERIOD@">
-			<bean id="TransactionCallback" className="com.ibm.agent.soliddb.SolidDBTransactionCallback">
-				<property name="thread" type="int" value="5" description="ionian thread number" />
-				<!-- <property name="subnetName" type="java.lang.String" value="dhcp.yamato.ibm.com" description="subnet name" /> -->
-				<property name="catalogServer" type="java.lang.String" value="@CETA_CATALOGSERVER_ADDRESSES@" description="endpoint of catalog server" />
-				<property name="dataSourceName" type="java.lang.String" value="java:comp/env/jdbc/Embedded" description="soliddb embedded server data source name" />
-				<property name="initDBCommand" type="java.lang.String" value="@CETA_SOLIDDB_INITCOMMAND@" description="soliddb embedded server initialize command" />
-				<property name="removeDBFile" type="java.lang.String" value="@CETA_SOLIDDB_FILE@" description="remove solid db file for clearing all data" />
-				<property name="configFile" type="java.lang.String" value="@CETA_CONFIGFILE@" description="cluster config file" />
-			</bean>
-			<!-- SubjectSource will be used only if securityEnabled is true. -->
-			<!-- KeyStoreLoginAuthenticator will use JAAS "KeyStoreLogin" module.
-			ObjectGrid server must be started with "-Djava.security.auth.login.config=@CETA_JAAS_CONFIG_FILE@" in order to use LoggingKeyStoreSubjectSource.
-			Otherwise, when securityEnabled is true, "unable to locate login configuration" error will occur. -->
-			<bean id="SubjectSource" className="com.ibm.agent.security.LoggingKeyStoreSubjectSource">
-				<property name="user" type="java.lang.String" value="@CETA_OBJECTGRID_USER@" description="user for catalog server" />
-				<property name="password" type="java.lang.String" value="@CETA_OBJECTGRID_PASSWORD@" description="password for catalog server" />
-				<property name="log" type="boolean" value="@CETA_AUTHENTICATION_LOG_ENABLED@" description="authentication log" />
-			</bean>
-			<!-- ObjectGridAuthorization is used only if authorizationMechanism="AUTHORIZATION_MECHANISM_CUSTOM" -->
-			<bean id="ObjectGridAuthorization" className="com.ibm.agent.security.PermissiveObjectGridAuthorization">
-			</bean>
-			<backingMap name="agentserver" readOnly="false" pluginCollectionRef="ionianboot" preloadMode="true" lockStrategy="PESSIMISTIC" copyMode="NO_COPY" />
-			<backingMap name="solid" readOnly="false" pluginCollectionRef="ionian" preloadMode="true" lockStrategy="OPTIMISTIC" copyMode="COPY_ON_READ"/>
-		</objectGrid>
-	</objectGrids>
+    <objectGrids>
+        <objectGrid name="ServerInfo" securityEnabled="@CETA_SECURITY_ENABLED@" authorizationMechanism="@CETA_AUTHORIZATION_MECHANISM@" permissionCheckPeriod="@CETA_PERMISSIONCHECK_PERIOD@">
+            <!-- SubjectSource will be used only if securityEnabled is true. -->
+            <!-- KeyStoreLoginAuthenticator will use JAAS "KeyStoreLogin" module.
+            ObjectGrid server must be started with "-Djava.security.auth.login.config=@CETA_JAAS_CONFIG_FILE@" in order to use LoggingKeyStoreSubjectSource.
+            Otherwise, when securityEnabled is true, "unable to locate login configuration" error will occur. -->
+            <bean id="SubjectSource" className="com.ibm.agent.security.LoggingKeyStoreSubjectSource">
+                <property name="user" type="java.lang.String" value="@CETA_OBJECTGRID_USER@" description="user for catalog server" />
+                <property name="password" type="java.lang.String" value="@CETA_OBJECTGRID_PASSWORD@" description="password for catalog server" />
+                <property name="log" type="boolean" value="@CETA_AUTHENTICATION_LOG_ENABLED@" description="authentication log" />
+            </bean>
+            <!-- ObjectGridAuthorization is used only if authorizationMechanism="AUTHORIZATION_MECHANISM_CUSTOM" -->
+            <bean id="ObjectGridAuthorization" className="com.ibm.agent.security.PermissiveObjectGridAuthorization">
+            </bean>
+            <!-- serverinfo must be PESSIMISTIC -->
+            <backingMap name="serverinfo" readOnly="false" preloadMode="false" lockStrategy="PESSIMISTIC"/>
+            <backingMap name="perfmonstats" readOnly="false" preloadMode="false" lockStrategy="PESSIMISTIC"/>
+            <backingMap name="jdbcstats" readOnly="false" preloadMode="false" lockStrategy="PESSIMISTIC"/>
+            <backingMap name="examonstats" readOnly="false" preloadMode="false" lockStrategy="PESSIMISTIC"/>
+            <backingMap name="jvmmemorystats" readOnly="false" preloadMode="false" lockStrategy="PESSIMISTIC"/>
+            <backingMap name="jvmmemorypoolstats" readOnly="false" preloadMode="false" lockStrategy="PESSIMISTIC"/>
+            <backingMap name="jvmthreadstats" readOnly="false" preloadMode="false" lockStrategy="PESSIMISTIC"/>
+        </objectGrid>
+        <objectGrid name="Ionian" securityEnabled="@CETA_SECURITY_ENABLED@" authorizationMechanism="@CETA_AUTHORIZATION_MECHANISM@" permissionCheckPeriod="@CETA_PERMISSIONCHECK_PERIOD@">
+            <bean id="TransactionCallback" className="com.ibm.agent.soliddb.SolidDBTransactionCallback">
+                <property name="thread" type="int" value="5" description="ionian thread number" />
+                <!-- <property name="subnetName" type="java.lang.String" value="dhcp.yamato.ibm.com" description="subnet name" /> -->
+                <property name="catalogServer" type="java.lang.String" value="@CETA_CATALOGSERVER_ADDRESSES@" description="endpoint of catalog server" />
+                <property name="dataSourceName" type="java.lang.String" value="java:comp/env/jdbc/Embedded" description="soliddb embedded server data source name" />
+                <property name="initDBCommand" type="java.lang.String" value="@CETA_SOLIDDB_INITCOMMAND@" description="soliddb embedded server initialize command" />
+                <property name="removeDBFile" type="java.lang.String" value="@CETA_SOLIDDB_FILE@" description="remove solid db file for clearing all data" />
+                <property name="configFile" type="java.lang.String" value="@CETA_CONFIGFILE@" description="cluster config file" />
+            </bean>
+            <!-- SubjectSource will be used only if securityEnabled is true. -->
+            <!-- KeyStoreLoginAuthenticator will use JAAS "KeyStoreLogin" module.
+            ObjectGrid server must be started with "-Djava.security.auth.login.config=@CETA_JAAS_CONFIG_FILE@" in order to use LoggingKeyStoreSubjectSource.
+            Otherwise, when securityEnabled is true, "unable to locate login configuration" error will occur. -->
+            <bean id="SubjectSource" className="com.ibm.agent.security.LoggingKeyStoreSubjectSource">
+                <property name="user" type="java.lang.String" value="@CETA_OBJECTGRID_USER@" description="user for catalog server" />
+                <property name="password" type="java.lang.String" value="@CETA_OBJECTGRID_PASSWORD@" description="password for catalog server" />
+                <property name="log" type="boolean" value="@CETA_AUTHENTICATION_LOG_ENABLED@" description="authentication log" />
+            </bean>
+            <!-- ObjectGridAuthorization is used only if authorizationMechanism="AUTHORIZATION_MECHANISM_CUSTOM" -->
+            <bean id="ObjectGridAuthorization" className="com.ibm.agent.security.PermissiveObjectGridAuthorization">
+            </bean>
+            <backingMap name="agentserver" readOnly="false" pluginCollectionRef="ionianboot" preloadMode="true" lockStrategy="PESSIMISTIC" copyMode="NO_COPY" />
+            <backingMap name="solid" readOnly="false" pluginCollectionRef="ionian" preloadMode="true" lockStrategy="OPTIMISTIC" copyMode="COPY_ON_READ"/>
+        </objectGrid>
+    </objectGrids>
 	
-	<backingMapPluginCollections>
-		<backingMapPluginCollection id="ionianboot">
-			<bean id="Loader" className="com.ibm.agent.objectcache.og.BootLoader"/>
-		</backingMapPluginCollection>
-		<backingMapPluginCollection id="ionian">
-			<bean id="Loader" className="com.ibm.agent.objectcache.og.IonianLoader"/>
-		</backingMapPluginCollection>
-	</backingMapPluginCollections>
+    <backingMapPluginCollections>
+        <backingMapPluginCollection id="ionianboot">
+            <bean id="Loader" className="com.ibm.agent.objectcache.og.BootLoader"/>
+        </backingMapPluginCollection>
+        <backingMapPluginCollection id="ionian">
+            <bean id="Loader" className="com.ibm.agent.objectcache.og.IonianLoader"/>
+        </backingMapPluginCollection>
+    </backingMapPluginCollections>
 </objectGridConfig>
