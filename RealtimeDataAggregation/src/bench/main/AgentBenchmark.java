@@ -133,9 +133,8 @@ public class AgentBenchmark {
 			timerFlg = true;
 			time++;
 
-			if (term < time) {
+			if (term < time) 
 				throw new TimeOverEvent("AgentBenchmark", time);
-			}
 		}
 
 		return user;
