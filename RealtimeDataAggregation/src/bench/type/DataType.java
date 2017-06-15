@@ -44,14 +44,14 @@ public abstract class DataType {
 	public abstract Long timeToVolume(Long time, Long volume);
 
 	public UserData nextData(Long time) {
-		if(count < 0)
+		if (count < 0) 
 			count = timeToVolume(time, volume);
+		
 		count--;
 		
-		if (count == 0) {
-			count = -1L;
+		if(count < 0){
 			return null;
-		} else {
+		}else{
 			total++;
 			return (UserData) data.getData();
 		}

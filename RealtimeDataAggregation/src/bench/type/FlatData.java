@@ -41,6 +41,7 @@ public class FlatData extends DataType {
 		
 		Long pvolume = volume / super.term;
 		timeVolume = timeVolume - pvolume;
+		System.out.println("p="+pvolume+" /t="+timeVolume);
 		return pvolume;
 	}
 }
