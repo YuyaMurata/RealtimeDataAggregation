@@ -6,6 +6,7 @@ do
     cd $CETA_HOME/App/AgentSystem/RealtimeDataAggregation/RealtimeDataAggregation/apps/count;\
     chmod 777 *.sh;\
     killall -9 java;\
+    su h$i;\
     ./start.sh"
 done
 
@@ -16,5 +17,6 @@ do
     sshpass -p 11m35584 ssh root@h$i \
     "source /etc/profile;\
     cd $CETA_HOME/App/AgentSystem/RealtimeDataAggregation/RealtimeDataAggregation/apps/count;\
+    su h$i;\
     showRegion"
 done
