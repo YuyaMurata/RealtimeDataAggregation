@@ -1,7 +1,7 @@
 for i in 1 2 3 4 5 6
 do
     #確認
-    sshpass -p 11m35584 ssh root@$i 'echo `hostname`'
+    sshpass -p 11m35584 ssh root@h$i 'echo `hostname`'
     echo "確認後 Enter"
     read
 
