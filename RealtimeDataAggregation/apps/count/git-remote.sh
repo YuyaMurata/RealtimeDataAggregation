@@ -18,7 +18,6 @@ fi
 ant -f ../../build.xml > agentsystem_ant-buid.log
 tail -n 2 agentsystem_ant-buid.log
 
-echo "test "$CETA_HOME
-echo "11m35584" | sudo -S \cp -fr ../../build/classes/* $CETA_HOME/classes
+\cp -fr ../../build/classes/* $CETA_HOME/classes
 
 chmod 777 *.sh
