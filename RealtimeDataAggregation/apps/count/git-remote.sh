@@ -20,4 +20,4 @@ tail -n 2 agentsystem_ant-buid.log
 
 \cp -fr ../../build/classes/* $CETA_HOME/classes
 
-chmod 777 *.sh
+chmod 777 -R *
