@@ -85,7 +85,7 @@ public class AgentSystemMain {
 		scManager.agentDeployServer(deployRule);
 		scManager.setDeployStrategy(strategy);
 		
-		System.out.println("0:"+scManager.getDeployAllServer());
+		System.out.println("0:"+scManager.getDeployAllServerToString());
 
 		//Init Parameter
 		String agentIDRule = (String) approp.getParameter(AggregateAgentManager.paramID.ID_RULE);
@@ -97,7 +97,7 @@ public class AgentSystemMain {
 		param.put(AgentSystemInitializer.paramID.AGENT_PROFILE, agentProf);
 		param.put(AgentSystemInitializer.paramID.AGENT_UPDATOR, updator);
 
-		System.out.println("1:"+scManager.getDeployAllServer());
+		System.out.println("1:"+scManager.getDeployAllServerToString());
 		
 		//Extension Initialize
 		AgentSystemInitializer agInit = new AgentSystemInitializer();
@@ -109,7 +109,7 @@ public class AgentSystemMain {
 			((AgentConnection)con).returnConnection(client);
 		}
 
-		System.out.println("2:"+scManager.getDeployAllServer());
+		System.out.println("2:"+scManager.getDeployAllServerToString());
 		
 		//Create Agent
 		for (Object agID : agentProf.registerIDList()) {
@@ -123,7 +123,7 @@ public class AgentSystemMain {
 			con.returnConnection(client);
 		}
 		
-		System.out.println("3:"+scManager.getDeployAllServer());
+		System.out.println("3:"+scManager.getDeployAllServerToString());
 
 		//Start AgentSystem
 		AgentSystemLaunch agLaunch = new AgentSystemLaunch();
@@ -135,6 +135,8 @@ public class AgentSystemMain {
 			
 			((AgentConnection)con).returnConnection(client);
 		}
+		
+		System.out.println("4:"+scManager.getDeployAllServerToString());
 
 		//Update Test
 		Map serverMap = new HashMap();

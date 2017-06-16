@@ -109,4 +109,8 @@ public class ServerConnectionManager {
 	public Map getDeployAllServer() {
 		return deployMap;
 	}
+	
+	public String getDeployAllServerToString() {
+		return strategy.toString();
+	}
 }
