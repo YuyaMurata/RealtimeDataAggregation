@@ -31,8 +31,8 @@
     </serverTypes>
     <serverGroups>
         <serverGroup name="agentGroup">
-            <!--<server name="a\d+"/>-->
-            <server name="h\d+\.a\d+"/>
+           <server name="a\d+"/>
+           <!-- <server name="h\d+\.a\d+"/>-->
         </serverGroup>
     </serverGroups>
     <regions>
