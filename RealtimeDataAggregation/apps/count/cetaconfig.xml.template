@@ -13,7 +13,7 @@
             <!-- <extension ref="JvmMonStatsExtension"/> -->
         </solidDBServer>
         <plainServer name="agent"
-                     primary="2"
+                     primary="1"
                      secondary="0"
                      replica="0"
                      serverGroupRef="agentGroup">
