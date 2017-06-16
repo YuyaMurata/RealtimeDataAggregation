@@ -123,8 +123,6 @@ public class AgentSystemMain {
 			con.returnConnection(client);
 		}
 		
-		System.out.println("3:"+scManager.getDeployAllServerToString());
-
 		//Start AgentSystem
 		AgentSystemLaunch agLaunch = new AgentSystemLaunch();
 		for(Object con : (List)scManager.getDeployAllServer().get("A")){
@@ -135,8 +133,6 @@ public class AgentSystemMain {
 			
 			((AgentConnection)con).returnConnection(client);
 		}
-		
-		System.out.println("4:"+scManager.getDeployAllServerToString());
 
 		//Update Test
 		Map serverMap = new HashMap();
