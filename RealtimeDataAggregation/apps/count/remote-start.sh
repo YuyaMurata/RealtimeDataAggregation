@@ -6,7 +6,7 @@ do
     cd $CETA_HOME/App/AgentSystem/RealtimeDataAggregation/RealtimeDataAggregation/apps/count;\
     chmod 777 *.sh;\
     killall -9 java;\
-   ./start.sh  `hostname`" &
+   ./start.sh 'hostname'" 
 done
 
 #確認
