@@ -1,4 +1,4 @@
-for i in 1
+for i in {1..$1}
 do
     #遠隔で実験用スクリプトを起動
     sshpass -p 11m35584 ssh root@h$i \
