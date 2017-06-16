@@ -9,6 +9,8 @@ do
    ./start.sh h$i" 
 done
 
+sleep 5
+
 #確認
 #for i in `seq 1 $1`
 #do
