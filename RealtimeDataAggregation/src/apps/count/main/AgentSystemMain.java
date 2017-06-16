@@ -108,6 +108,7 @@ public class AgentSystemMain {
 		//Create Agent
 		for (Object agID : agentProf.registerIDList()) {
 			AgentConnection con = scManager.getDistributedServer(agID);
+			System.out.println("server="+scManager.getDistributedServer(agID));
 			AgentClient client = con.getClient();
 			
 			Map setter = agentProf.generate(agID);
