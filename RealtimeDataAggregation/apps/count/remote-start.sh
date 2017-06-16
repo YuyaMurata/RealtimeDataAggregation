@@ -6,7 +6,7 @@ do
     cd $CETA_HOME/App/AgentSystem/RealtimeDataAggregation/RealtimeDataAggregation/apps/count;\
     chmod 777 *.sh;\
     killall -9 java;\
-    su -l h$i -c 'pwd'" 
+    su -l h$i -c 'cd $CETA_HOME/App/AgentSystem/RealtimeDataAggregation/RealtimeDataAggregation/apps/count;pwd'" 
 done
 
 sleep 5
