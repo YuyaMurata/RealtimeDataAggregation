@@ -105,11 +105,12 @@ public class AgentSystemExtension implements Extension {
 	}
 	
 	private String name;
+	private Integer mode;
 	private Map initMap = new HashMap();
 	public String initAgentSystem(Map param) {
 		try {
 			name = (String) param.get(AgentSystemInitializer.paramID.HOST_NAME);
-			
+			mode = (Integer)param.get(AgentSystemInitializer.paramID.AGENT_MODE);
 			initMap.put(param.get(AgentSystemInitializer.paramID.AGENT_TYPE), param);
 
 			AgentMessageQueue.setParameter(param);
@@ -197,5 +198,9 @@ public class AgentSystemExtension implements Extension {
 	
 	public String getName(){
 		return name;
+	}
+	
+	public Integer getMode(){
+		return mode;
 	}
 }

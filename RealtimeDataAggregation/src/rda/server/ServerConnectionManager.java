@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import rda.agent.client.AgentConnection;
 import rda.agent.deploy.DeployStrategy;
 
@@ -92,10 +93,32 @@ public class ServerConnectionManager {
 		}
 	}
 	
+	public AgentConnection getDealServer(Object id, int age){
+		//return idDeal(id);
+		return ageDeal(age);
+	}
+	
+	private AgentConnection idDeal(Object id){
+		int index = Math.abs(id.hashCode()) % getAllServer().size();
+		return (AgentConnection) getAllServer().get(index);
+	}
+	
+	private TreeMap ageMap = new TreeMap();
+	private void createAgeMap(int maxAge){
+		for(int i =0; i < getAllServer().size(); i++){
+			int n = maxAge / getAllServer().size();
+			ageMap.put(i*n, getAllServer().get(i));
+		}
+	}
+	
+	private AgentConnection ageDeal(int age){
+		return (AgentConnection) ageMap.floorEntry(age).getValue();
+	}
+	
 	private DeployStrategy strategy;
 	public void setDeployStrategy(DeployStrategy strategy){
-		strategy.createDeployPattern(deployMap);
-		this.strategy = strategy;
+		//strategy.createDeployPattern(deployMap);
+		//this.strategy = strategy;
 	}
 
 	public AgentConnection getLocalServer() {
@@ -103,11 +126,15 @@ public class ServerConnectionManager {
 	}
 
 	public AgentConnection getDistributedServer(Object agID) {
-		return (AgentConnection) strategy.getDeployServer(agID);
+		return null;//(AgentConnection) strategy.getDeployServer(agID);
 	}
 
 	public Map getDeployAllServer() {
 		return deployMap;
+	}
+	
+	public List getAllServer() {
+		return server.subList(0, server.size()-1);
 	}
 	
 	public String getDeployAllServerToString() {

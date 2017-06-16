@@ -62,9 +62,9 @@ public class TestServerConnection {
 		deployRule.putAll(prop.getAllParameter());
 		
 		//Deploy
-		DeployStrategy deploy = new AppCountDeployStrategy((int) deployRule.get(ServerConnectionManager.paramID.DEPLOY_PATTERN), 
+		/*DeployStrategy deploy = new AppCountDeployStrategy((int) deployRule.get(ServerConnectionManager.paramID.DEPLOY_PATTERN), 
 												(String) approp.getParameter(AggregateAgentManager.paramID.ID_RULE), 
-												agIDLists);
+												agIDLists, 10);
 		deployRule.put(ServerConnectionManager.paramID.AGENTTYPE_LIST, ruleList);
 		scManager.agentDeployServer(deployRule);
 		scManager.setDeployStrategy(deploy);
@@ -75,6 +75,15 @@ public class TestServerConnection {
 		System.out.println("Agent ins Servers : ");
 		for(Object agID : agIDLists){
 			System.out.println("agID="+agID+" server="+deploy.getDeployServer(agID));
-		}
+		}*/
+		
+		System.out.println("Agent in Servers : ");
+		DeployStrategy deploy = new AppCountDeployStrategy();
+		Map map = deploy.createDeployPattern((int) deployRule.get(ServerConnectionManager.paramID.DEPLOY_PATTERN), scManager.getAllServer(), agIDLists, 8);
+		System.out.println(map);
+		
+		System.out.println("\nDeal Servers : ");
+		for(Object id : agIDLists)
+			System.out.println("ID:"+id+" srv="+scManager.getDealServer(id));
 	}
 }

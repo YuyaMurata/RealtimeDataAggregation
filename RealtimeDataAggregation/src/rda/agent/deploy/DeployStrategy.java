@@ -15,10 +15,11 @@ import rda.agent.client.AgentConnection;
  * @author kaeru
  */
 public abstract class DeployStrategy {
-	public Map agentMap = new HashMap();
-	public void setAgentList(String idRule, List agents){
-		agentMap.put(idRule, agents.size());
-	};
-	public abstract void createDeployPattern(Map deployMap);
-	public abstract AgentConnection getDeployServer(Object agID);
+	//public Map agentMap = new HashMap();
+	//public void setAgentList(String idRule, List agents){
+	//	agentMap.put(idRule, agents.size());
+	//};
+	//public abstract void createDeployPattern(Map deployMap);
+	public abstract Map createDeployPattern(int strategy, List server, List agents, int size);
+	//public abstract AgentConnection getDeployServer(Object agID);
 }

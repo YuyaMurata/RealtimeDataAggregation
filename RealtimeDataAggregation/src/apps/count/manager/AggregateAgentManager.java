@@ -19,7 +19,7 @@ import rda.agent.manager.AgentManager;
 public class AggregateAgentManager extends AgentManager {
 
 	public enum paramID {
-		ID_RULE, AMOUNT_AGENTS
+		ID_RULE, AMOUNT_AGENTS, AGENT_MODE
 	}
 
 	private static AggregateAgentManager manager = new AggregateAgentManager();

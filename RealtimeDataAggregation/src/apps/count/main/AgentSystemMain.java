@@ -65,28 +65,33 @@ public class AgentSystemMain {
 		System.out.println(agentProf.toString());
 
 		//Destination Table
-		DestinationAppTable table = new DestinationAppTable(agentProf.registerIDList(), 10);
-		table.createAgeTable(100);	//Max Age 100
-		System.out.println(table.toString());
+		//DestinationAppTable table = new DestinationAppTable(agentProf.registerIDList(), 10);
+		//table.createAgeTable(100);	//Max Age 100
+		//System.out.println(table.toString());
 
 		//Server - AgentClient
 		RDAProperty prop = RDAProperty.getInstance();
 		ServerConnectionManager scManager = ServerConnectionManager.getInstance();
 		scManager.createServerConnection(prop.getAllParameter());
 		System.out.println(approp.getParameter(AggregateAgentManager.paramID.ID_RULE));
+		
+		//変更
 		DeployStrategy strategy = new AppCountDeployStrategy((int) prop.getParameter(ServerConnectionManager.paramID.DEPLOY_PATTERN), 
 												(String) approp.getParameter(AggregateAgentManager.paramID.ID_RULE), 
 												agIDLists);
+		
 		List ruleList = new ArrayList();
 		ruleList.add(agentProf.getAgentIDRule());
 		Map deployRule = new HashMap();
 		deployRule.putAll(prop.getAllParameter());
 		deployRule.put(ServerConnectionManager.paramID.AGENTTYPE_LIST, ruleList);
+		
 		scManager.agentDeployServer(deployRule);
 		scManager.setDeployStrategy(strategy);
 
 		//Init Parameter
 		String agentIDRule = (String) approp.getParameter(AggregateAgentManager.paramID.ID_RULE);
+		Integer agentMode = (Integer) approp.getParameter(AggregateAgentManager.paramID.AGENT_MODE);
 		CreateAggregateAgent creator = new CreateAggregateAgent();
 		UpdateAggregateAgent updator = new UpdateAggregateAgent();
 		Map param = prop.getAllParameter();
@@ -94,6 +99,7 @@ public class AgentSystemMain {
 		param.put(AgentSystemInitializer.paramID.AGENT_CREATOR, creator);
 		param.put(AgentSystemInitializer.paramID.AGENT_PROFILE, agentProf);
 		param.put(AgentSystemInitializer.paramID.AGENT_UPDATOR, updator);
+		param.put(AgentSystemInitializer.paramID.AGENT_MODE, agentMode);
 
 		//Extension Initialize
 		AgentSystemInitializer agInit = new AgentSystemInitializer();
@@ -105,7 +111,7 @@ public class AgentSystemMain {
 			((AgentConnection)con).returnConnection(client);
 		}
 		
-		//Create Agent
+		//Create Agent 変更
 		for (Object agID : agentProf.registerIDList()) {
 			AgentConnection con = scManager.getDistributedServer(agID);
 			AgentClient client = con.getClient();

@@ -60,7 +60,10 @@ public class AppCountProperty {
 
 		//Agent Profile Parameter
 		propMap.put(AggregateAgentManager.paramID.AMOUNT_AGENTS, Integer.valueOf(getValue("number.agent")));
-		propMap.put(AggregateAgentManager.paramID.ID_RULE, getValue("agent.idrule"));
+		propMap.put(AggregateAgentManager.paramID.ID_RULE, getValue("agent.idrule_1"));
+		
+		//Load Balance
+		propMap.put(AggregateAgentManager.paramID.AGENT_MODE, Integer.valueOf(getValue("agent.auto.mode")));
 
 		displayProperty();
 	}
