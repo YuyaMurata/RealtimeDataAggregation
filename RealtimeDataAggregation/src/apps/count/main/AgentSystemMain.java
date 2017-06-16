@@ -110,7 +110,7 @@ public class AgentSystemMain {
 			AgentConnection con = scManager.getDistributedServer(agID);
 			AgentClient client = con.getClient();
 			
-			System.out.println("hostname="+con.getHost());
+			System.out.println("hostname="+con.getHost()+"--"+client);
 			
 			Map setter = agentProf.generate(agID);
 			String msgc = creator.create(client, setter);
