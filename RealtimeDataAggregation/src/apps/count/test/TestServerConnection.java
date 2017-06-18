@@ -79,11 +79,15 @@ public class TestServerConnection {
 		
 		System.out.println("Agent in Servers : ");
 		DeployStrategy deploy = new AppCountDeployStrategy();
-		Map map = deploy.createDeployPattern((int) deployRule.get(ServerConnectionManager.paramID.DEPLOY_PATTERN), scManager.getAllServer(), agIDLists, 8);
+		Map map = deploy.createDeployPattern((int) deployRule.get(ServerConnectionManager.paramID.DEPLOY_PATTERN), scManager.getAllServer(), agIDLists, 10);
 		System.out.println(map);
 		
 		System.out.println("\nDeal Servers : ");
-		for(Object id : agIDLists)
-			System.out.println("ID:"+id+" srv="+scManager.getDealServer(id));
+                scManager.createAgeMap(100);
+		int age = 0;
+                for(Object id : agIDLists){
+                    System.out.println("ID:"+id+" srv="+scManager.getDealServer(id, age));
+                    age+=10;
+                }
 	}
 }

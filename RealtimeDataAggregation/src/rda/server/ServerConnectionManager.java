@@ -104,7 +104,7 @@ public class ServerConnectionManager {
 	}
 	
 	private TreeMap ageMap = new TreeMap();
-	private void createAgeMap(int maxAge){
+	public void createAgeMap(int maxAge){
 		for(int i =0; i < getAllServer().size(); i++){
 			int n = maxAge / getAllServer().size();
 			ageMap.put(i*n, getAllServer().get(i));
