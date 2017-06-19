@@ -56,7 +56,6 @@ public class WindowStream extends Thread {
 			
 			//Update
 			String msg = sender.send(client, window.unpack());
-			System.out.println(server.getHost()+"::"+msg);
 			
 			server.returnConnection(client);
 		}
