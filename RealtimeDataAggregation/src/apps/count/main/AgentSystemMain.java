@@ -73,6 +73,7 @@ public class AgentSystemMain {
 		ServerConnectionManager scManager = ServerConnectionManager.getInstance();
 		scManager.createServerConnection(prop.getAllParameter());
 		scManager.setDeployStrategy(new AppCountDeployStrategy(approp.getAllParameter(), agIDLists));
+		scManager.createAgeMap(100);
 		System.out.println(scManager.getDeployAllServerToString());
 
 		//Init Parameter
