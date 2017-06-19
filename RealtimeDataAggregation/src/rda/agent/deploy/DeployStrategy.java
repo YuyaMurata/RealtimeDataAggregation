@@ -19,7 +19,7 @@ public abstract class DeployStrategy {
 		agentTypeMap.put(idRule, agents);
 	};
 	
-	public abstract Map createDeployPattern(int strategy, List server, int size);
+	public abstract Map createDeployPattern(int strategy, List servers, int size);
 	
 	public abstract Map getServerMap();
 	public abstract Map getAgentMap();

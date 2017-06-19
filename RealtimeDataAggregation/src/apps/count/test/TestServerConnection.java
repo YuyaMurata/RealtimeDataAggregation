@@ -62,7 +62,7 @@ public class TestServerConnection {
 
 		//Deploy Strategy Initialize
 		System.out.println("Agent in Servers : ");
-		DeployStrategy deploy = new AppCountDeployStrategy(aggregateAgentProf.getAgentIDRule(), agIDLists);
+		DeployStrategy deploy = new AppCountDeployStrategy(approp.getAllParameter(), agIDLists);
 		scManager.setDeployStrategy(deploy);
 		System.out.println(deploy);
 
