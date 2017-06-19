@@ -57,13 +57,10 @@ public class AggregateAgentMessageSender extends ExtensionPutMessageQueue {
 		return sb.toString();
 	}
 	
-	private Map repack(List data){
+	private Map repack(List<UserData> data){
 		Object map = data.stream()
-				.collect(Collectors.groupingBy(user -> table.getDestAgentID(((UserData)user).id, 
-						(Integer) prof.generate(user).get(UserProfile.profileID.AGE))));
-		
-		System.out.println(map);
-		
+				.collect(Collectors.groupingBy(user -> table.getDestAgentID(user.id, (Integer) prof.generate(user.id).get(UserProfile.profileID.AGE))));
+
 		return (Map) map;
 	}
 }
