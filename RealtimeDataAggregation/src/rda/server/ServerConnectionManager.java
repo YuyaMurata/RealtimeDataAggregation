@@ -140,9 +140,15 @@ public class ServerConnectionManager {
 		return (AgentConnection) server.get(server.size() - 1);
 	}
 
-	//エージェント間通信時の通信サーバーの取得
+	//エージェント間通信時のサーバーの取得
 	public AgentConnection getDistributedServer(Object agID) {
-		return null;//(AgentConnection) strategy.getDeployServer(agID);
+		for(Object topAgents : strategy.getAgentMap().keySet()){
+			if(((List)topAgents).contains(agID))
+				return (AgentConnection) strategy.getAgentMap().get(topAgents);
+		}
+		
+		System.err.println(agID+" do not exists!");
+		return null;
 	}
 
 	//エージェントタイプによる全サーバの取得(ローカルを含む)
@@ -151,8 +157,13 @@ public class ServerConnectionManager {
 	}
 	
 	//全サーバの取得(ローカルを含まない)
-	public List getAllServer() {
+	public List<AgentConnection> getAllServer() {
 		return server.subList(0, server.size()-1);
+	}
+	
+	//最初のAgent生成時に1回だけ呼ばれる．
+	public Map<AgentConnection, Map<String, List>> getServerToCreateAgent(){
+		return this.strategy.getServerMap();
 	}
 	
 	//戦略の出力

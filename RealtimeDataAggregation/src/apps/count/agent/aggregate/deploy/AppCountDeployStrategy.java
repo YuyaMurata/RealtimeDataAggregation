@@ -19,6 +19,7 @@ import rda.agent.deploy.DeployStrategy;
 public class AppCountDeployStrategy extends DeployStrategy{
 	private String idRule;
 	private Map serverToAgentMap;
+	private Map agentToServerMap;
 	
 	public AppCountDeployStrategy(String idRule, List agents) {
 		super();
@@ -30,7 +31,7 @@ public class AppCountDeployStrategy extends DeployStrategy{
 	@Override
 	public Map createDeployPattern(int strategy, List servers, int size){
 		this.pattern = strategy;
-		List agents = (List) super.agentMap.get(this.idRule);
+		List agents = (List) super.agentTypeMap.get(this.idRule);
 		
 		List top, bottom;
 		if(agents.size() > size){
@@ -49,15 +50,19 @@ public class AppCountDeployStrategy extends DeployStrategy{
 		}
 		
 		Map serverCreateMap = new HashMap();
+		Map agentCreateMap = new HashMap();
 		for(int i = 0; i < servers.size(); i++){
 			Map map = new HashMap();
 			map.put("top", divTop.get(i));
 			if(bottom != null)
 				map.put("bottom", divBottom.get(i));
+			
 			serverCreateMap.put(servers.get(i), map);
+			agentCreateMap.put(divTop.get(i), servers.get(i));
 		}
 		
 		this.serverToAgentMap = serverCreateMap;
+		this.agentToServerMap = agentCreateMap;
 		
 		return serverCreateMap;
 	}
@@ -84,7 +89,12 @@ public class AppCountDeployStrategy extends DeployStrategy{
 	}
 
 	@Override
-	public String getServerMap() {
-		return toString();
+	public Map getServerMap() {
+		return this.serverToAgentMap;
+	}
+
+	@Override
+	public Map getAgentMap() {
+		return this.agentToServerMap;
 	}
 }

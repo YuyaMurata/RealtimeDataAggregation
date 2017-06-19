@@ -91,35 +91,48 @@ public class AgentSystemMain {
 
 		//Extension Initialize
 		AgentSystemInitializer agInit = new AgentSystemInitializer();
-		for(Object con : (List)scManager.getDeployAllServer().get("A")){
-			param.put(AgentSystemInitializer.paramID.HOST_NAME, ((AgentConnection)con).getHost());
-			AgentClient client = ((AgentConnection)con).getClient();
+		for(AgentConnection server : scManager.getAllServer()){
+			param.put(AgentSystemInitializer.paramID.HOST_NAME, server.getHost());
+			
+			AgentClient client = server.getClient();
+			
 			Object msg = agInit.initalize(client, param);
 			System.out.println(msg);
-			((AgentConnection)con).returnConnection(client);
+			
+			server.returnConnection(client);
 		}
 		
 		//Create Agent 変更
-		for (Object agID : agentProf.registerIDList()) {
-			AgentConnection con = scManager.getDistributedServer(agID);
-			AgentClient client = con.getClient();
+		for (AgentConnection server : scManager.getServerToCreateAgent().keySet()) {
+			AgentClient client = server.getClient();
 			
-			Map setter = agentProf.generate(agID);
-			String msgc = creator.create(client, setter);
-			System.out.println("Create " + agID + " = " + msgc);
+			//Top (Root) Agent
+			for(Object agID : scManager.getServerToCreateAgent().get(server).get("top")){
+				Map setter = agentProf.generate(agID);
+				String msgc = creator.create(client, setter);
+				System.out.println("Create " + agID + " = " + msgc);
+			}
 			
-			con.returnConnection(client);
+			//Bottom
+			if(scManager.getServerToCreateAgent().get(server).get("bottom") != null)
+				for(Object agID : scManager.getServerToCreateAgent().get(server).get("bottom")){
+					Map setter = agentProf.generate(agID);
+					String msgc = creator.create(client, setter);
+					System.out.println("Create " + agID + " = " + msgc);
+				}
+			
+			server.returnConnection(client);
 		}
 		
 		//Start AgentSystem
 		AgentSystemLaunch agLaunch = new AgentSystemLaunch();
-		for(Object con : (List)scManager.getDeployAllServer().get("A")){
-			AgentClient client = ((AgentConnection)con).getClient();
+		for(AgentConnection server : scManager.getAllServer()){
+			AgentClient client = server.getClient();
 			
 			String msg = agLaunch.launch(client);
 			System.out.println(msg);
 			
-			((AgentConnection)con).returnConnection(client);
+			server.returnConnection(client);
 		}
 
 		//Update Test
@@ -166,10 +179,13 @@ public class AgentSystemMain {
 		//Stop AgentSystem
 		WindowStream.setRunnable(false);
 		AgentSystemShutdown agShutdown = new AgentSystemShutdown();
-		for(Object con : (List)scManager.getDeployAllServer().get("A")){
-			AgentClient client = ((AgentConnection)con).getClient();
+		for(AgentConnection server : scManager.getAllServer()){
+			AgentClient client = server.getClient();
+			
 			String msg = agShutdown.shutdown(client);
 			System.out.println(msg);
+			
+			server.returnConnection(client);
 		}
 
 		//Log
