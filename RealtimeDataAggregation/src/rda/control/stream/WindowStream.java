@@ -7,10 +7,8 @@ package rda.control.stream;
 
 import rda.extension.agent.exec.ExtensionPutMessageQueue;
 import com.ibm.agent.exa.client.AgentClient;
-import java.util.HashMap;
 import java.util.Map;
 import rda.agent.client.AgentConnection;
-import rda.agent.table.DestinationTable;
 import rda.control.flow.Window;
 import rda.control.flow.WindowController;
 
@@ -53,13 +51,14 @@ public class WindowStream extends Thread {
 				continue;
 			}
 			
-			AgentConnection agcon = (AgentConnection) window.id;
-			AgentClient client = agcon.getClient();
+			AgentConnection server = (AgentConnection) window.id;
+			AgentClient client = server.getClient();
 			
 			//Update
 			String msg = sender.send(client, window.unpack());
+			System.out.println(server.getHost()+"::"+msg);
 			
-			agcon.returnConnection(client);
+			server.returnConnection(client);
 		}
 	}
 	

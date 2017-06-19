@@ -157,7 +157,7 @@ public class AgentSystemMain {
 				dataLog.put(server.getHost(), dataLog.get(server.getHost()) + 1);
 
 				window.in(server, user);
-				System.out.println("userID="+user.id+" -> "+server.getHost());
+				//System.out.println("userID="+user.id+" -> "+server.getHost());
 				
 				totalData++;
 			}
