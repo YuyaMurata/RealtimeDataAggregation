@@ -37,13 +37,13 @@ public class AggregateAgentMessageSender extends ExtensionPutMessageQueue {
 
 	@Override
 	public String send(AgentClient client, List data) {
-		Map agpack = repack(data);
+		Map<Object, List> agpack = repack(data);
 		StringBuilder sb = new StringBuilder();
 		for(Object agID : agpack.keySet())
 			try {
 				AgentKey agentKey = new AgentKey(AGENT_TYPE, new Object[]{agID});
 
-				AggregateAgentMessageSender executor = new AggregateAgentMessageSender(agentKey, data);
+				AggregateAgentMessageSender executor = new AggregateAgentMessageSender(agentKey, agpack.get(agID));
 
 				Object reply = client.execute(agentKey, executor);
 
