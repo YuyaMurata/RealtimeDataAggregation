@@ -199,14 +199,14 @@ public class AgentSystemMain {
 		ReadAggregateAgent reader = new ReadAggregateAgent();
 		Long total = 0L;
 		for (Object agID : agentProf.registerIDList()) {
-			AgentConnection con = scManager.getDistributedServer(agID);
-			AgentClient client = con.getClient();
+			AgentConnection server = scManager.getDistributedServer(agID);
+			AgentClient client = server.getClient();
 			
 			Object d = reader.read(client, agID);
 			System.out.println("Read " + agID + " = " + d);
 			total = (Long)((List<Object>) d).get(1) + total;
 			
-			con.returnConnection(client);
+			server.returnConnection(client);
 		}
 
 		//Total Time
