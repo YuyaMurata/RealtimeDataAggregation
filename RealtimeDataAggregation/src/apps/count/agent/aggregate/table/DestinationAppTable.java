@@ -9,13 +9,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
-import rda.agent.table.DestinationAgentTable;
+import rda.agent.table.DestinationTable;
 
 /**
  *
  * @author kaeru
  */
-public class DestinationAppTable extends DestinationAgentTable{
+public class DestinationAppTable extends DestinationTable{
 	
 	public DestinationAppTable(List agentList, Integer size) {
 		super(agentList, size);

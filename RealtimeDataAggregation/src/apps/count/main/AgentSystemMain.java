@@ -51,8 +51,7 @@ public class AgentSystemMain {
 
 		//CountSystem Property
 		AppCountProperty approp = AppCountProperty.getInstance();
-		UserProfile.setParameter((Integer) approp.getParameter(UserProfile.paramID.USER_MODE),
-				(Long) approp.getParameter(UserProfile.paramID.USER_SEED));
+		UserProfile.setParameter(approp.getAllParameter());
 
 		//Create User ID
 		List userLists = agBench.getUserList();
@@ -65,44 +64,40 @@ public class AgentSystemMain {
 		System.out.println(agentProf.toString());
 
 		//Destination Table
-		DestinationAppTable table = new DestinationAppTable(agentProf.registerIDList(), 10);
+		DestinationAppTable table = new DestinationAppTable(agIDLists, 10);
 		table.createAgeTable(100);	//Max Age 100
 		System.out.println(table.toString());
 
 		//Server - AgentClient
 		RDAProperty prop = RDAProperty.getInstance();
 		ServerConnectionManager scManager = ServerConnectionManager.getInstance();
-		scManager.createServerConnection();
-		DeployStrategy strategy = new AppCountDeployStrategy((String) approp.getParameter(AggregateAgentManager.paramID.ID_RULE), agIDLists);
-		scManager.setDeployStrategy(strategy);
-		System.out.println(strategy);
+		scManager.createServerConnection(prop.getAllParameter());
+		scManager.setDeployStrategy(new AppCountDeployStrategy(approp.getAllParameter(), agIDLists));
+		System.out.println(scManager.getDeployAllServerToString());
 
 		//Init Parameter
-		String agentIDRule = (String) approp.getParameter(AggregateAgentManager.paramID.ID_RULE);
-		Integer agentMode = (Integer) approp.getParameter(AggregateAgentManager.paramID.AGENT_MODE);
-		CreateAggregateAgent creator = new CreateAggregateAgent();
-		UpdateAggregateAgent updator = new UpdateAggregateAgent();
-		Map param = prop.getAllParameter();
-		param.put(AgentSystemInitializer.paramID.AGENT_TYPE, agentIDRule.split("#")[0]);
-		param.put(AgentSystemInitializer.paramID.AGENT_CREATOR, creator);
-		param.put(AgentSystemInitializer.paramID.AGENT_PROFILE, agentProf);
-		param.put(AgentSystemInitializer.paramID.AGENT_UPDATOR, updator);
-		param.put(AgentSystemInitializer.paramID.AGENT_MODE, agentMode);
-
+		Map initParam = new HashMap();
+		initParam.put(AgentSystemInitializer.paramID.AGENT_CREATOR, new CreateAggregateAgent());
+		initParam.put(AgentSystemInitializer.paramID.AGENT_UPDATOR, new UpdateAggregateAgent());
+		initParam.put(AgentSystemInitializer.paramID.AGENT_PROFILE, agentProf);
+		initParam.putAll(prop.getAllParameter());
+		initParam.putAll(approp.getAllParameter());
+		
 		//Extension Initialize
 		AgentSystemInitializer agInit = new AgentSystemInitializer();
 		for(AgentConnection server : scManager.getAllServer()){
-			param.put(AgentSystemInitializer.paramID.HOST_NAME, server.getHost());
+			initParam.put(AgentSystemInitializer.paramID.HOST_NAME, server.getHost());
 			
 			AgentClient client = server.getClient();
 			
-			Object msg = agInit.initalize(client, param);
+			Object msg = agInit.initalize(client, initParam);
 			System.out.println(msg);
 			
 			server.returnConnection(client);
 		}
 		
 		//Create Agent 変更
+		CreateAggregateAgent creator = new CreateAggregateAgent();
 		for (AgentConnection server : scManager.getServerToCreateAgent().keySet()) {
 			AgentClient client = server.getClient();
 			

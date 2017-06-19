@@ -13,7 +13,7 @@ import com.ibm.agent.exa.client.AgentExecutor;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
-import rda.agent.table.DestinationAgentTable;
+import rda.agent.table.DestinationTable;
 import rda.control.stream.WindowStream;
 import rda.extension.agent.manager.AgentSystemExtension;
 
@@ -27,8 +27,8 @@ public class AgentIntaractionComm implements AgentExecutor, Serializable {
     }
     
     private WindowStream window;
-    private DestinationAgentTable table;
-    public AgentIntaractionComm(WindowStream window, DestinationAgentTable table) {
+    private DestinationTable table;
+    public AgentIntaractionComm(WindowStream window, DestinationTable table) {
         this.window = window;
         this.table = table;
         this.window.start();

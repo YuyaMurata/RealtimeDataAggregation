@@ -12,8 +12,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import rda.agent.client.AgentConnection;
 import rda.agent.deploy.DeployStrategy;
-import rda.agent.table.DestinationAgentTable;
-import rda.property.RDAProperty;
+import rda.agent.table.DestinationTable;
 
 /**
  *
@@ -35,20 +34,19 @@ public class ServerConnectionManager {
 	}
 
 	private List server;
-	private RDAProperty prop;
-	public void createServerConnection() {
-		//Load Property
-		prop = RDAProperty.getInstance();
-
+	private Map rdaProp;
+	public void createServerConnection(Map rdaProp) {
+		this.rdaProp = rdaProp;
+		
 		//Set Server
 		server = new ArrayList();
-		for (int i = 0; i < (Integer) prop.getParameter(paramID.AMOUNT_SERVERS); i++) {
-			String host = (String) prop.getParameter(paramID.HOSTNAME_RULE) + (i +1);
+		for (int i = 0; i < (Integer) rdaProp.get(paramID.AMOUNT_SERVERS); i++) {
+			String host = (String) rdaProp.get(paramID.HOSTNAME_RULE) + (i +1);
 			server.add(new AgentConnection(
-					(Integer) prop.getParameter(AgentConnection.paramID.POOL_SIZE),
+					(Integer) rdaProp.get(AgentConnection.paramID.POOL_SIZE),
 					new String[]{
-						host + ":" + prop.getParameter(paramID.SERVER_PORT),
-						(String) prop.getParameter(paramID.APP_CLASS),
+						host + ":" + rdaProp.get(paramID.SERVER_PORT),
+						(String) rdaProp.get(paramID.APP_CLASS),
 						"agent"
 					}
 			));
@@ -56,10 +54,10 @@ public class ServerConnectionManager {
 
 		//Set Localhost
 		server.add(new AgentConnection(
-			(Integer) prop.getParameter(AgentConnection.paramID.POOL_SIZE),
+			(Integer) rdaProp.get(AgentConnection.paramID.POOL_SIZE),
 			new String[]{
 				"localhost:2809",
-				(String) prop.getParameter(paramID.APP_CLASS),
+				(String) rdaProp.get(paramID.APP_CLASS),
 				"agent"
 			}
 		));
@@ -128,10 +126,9 @@ public class ServerConnectionManager {
 	//配置戦略の適用
 	private DeployStrategy strategy;
 	public void setDeployStrategy(DeployStrategy strategy){
-		strategy.createDeployPattern(
-				(int) prop.getParameter(ServerConnectionManager.paramID.DEPLOY_PATTERN), 
+		strategy.createDeployPattern((int) rdaProp.get(ServerConnectionManager.paramID.DEPLOY_PATTERN), 
 				getAllServer(), 
-				(int) prop.getParameter(DestinationAgentTable.paramID.DEST_TABLE_SIZE));
+				(int) rdaProp.get(DestinationTable.paramID.DEST_TABLE_SIZE));
 		this.strategy = strategy;
 	}
 

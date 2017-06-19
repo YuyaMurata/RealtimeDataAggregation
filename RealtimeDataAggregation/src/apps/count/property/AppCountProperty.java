@@ -71,6 +71,10 @@ public class AppCountProperty {
 	public Object getParameter(Object id) {
 		return propMap.get(id);
 	}
+	
+	public Map getAllParameter() {
+		return propMap;
+	}
 
 	private void displayProperty() {
 		System.out.println("****** -Get " + filename + " Property Value- ******");

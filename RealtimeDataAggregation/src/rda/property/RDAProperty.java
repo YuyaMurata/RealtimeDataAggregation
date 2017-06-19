@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Properties;
 import rda.agent.client.AgentConnection;
 import rda.agent.mq.AgentMessageQueue;
-import rda.agent.table.DestinationAgentTable;
+import rda.agent.table.DestinationTable;
 import rda.control.flow.WindowController;
 import rda.server.ServerConnectionManager;
 
@@ -83,7 +83,7 @@ public class RDAProperty {
 		propMap.put(ServerConnectionManager.paramID.DEPLOY_BALANCE, getValue("deploy.share"));
 		
 		//Destination Table
-		propMap.put(DestinationAgentTable.paramID.DEST_TABLE_SIZE, Integer.valueOf(getValue("dest.table.size")));
+		propMap.put(DestinationTable.paramID.DEST_TABLE_SIZE, Integer.valueOf(getValue("dest.table.size")));
 		
 		//Console Out
 		displayProperty();

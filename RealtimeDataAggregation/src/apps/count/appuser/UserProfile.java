@@ -32,11 +32,13 @@ public class UserProfile extends AgentProfile {
 	private static final RandomDataGenerator rand = new RandomDataGenerator();
 	private static Integer userMode = 0;
 
-	public static void setParameter(Integer mode, Long seed) {
+	public static void setParameter(Map appProp) {
+		long seed = (Long) appProp.get(paramID.USER_SEED);
+		userMode = (Integer) appProp.get(paramID.USER_MODE);
+				
 		if (seed != -1L) {
 			rand.reSeed(seed);
 		}
-		userMode = mode;
 	}
 
 	@Override

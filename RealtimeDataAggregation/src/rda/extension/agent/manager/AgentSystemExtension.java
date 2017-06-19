@@ -18,7 +18,6 @@ import rda.agent.profile.AgentProfileGenerator;
 import rda.agent.updator.AgentUpdator;
 import rda.extension.agent.comm.AgentIntaractionComm;
 import rda.extension.agent.exec.AgentSystemInitializer;
-import rda.property.RDAProperty;
 
 /**
  *
@@ -103,15 +102,13 @@ public class AgentSystemExtension implements Extension {
 	
 	private String name;
 	private Integer mode;
-	private Map initMap = new HashMap();
+	private Map initMap;
 	public String initAgentSystem(Map param) {
 		try {
+			initMap = param;
 			name = (String) param.get(AgentSystemInitializer.paramID.HOST_NAME);
 			mode = (Integer)param.get(AgentSystemInitializer.paramID.AGENT_MODE);
-			initMap.put(param.get(AgentSystemInitializer.paramID.AGENT_TYPE), param);
 			
-			RDAProperty prop = RDAProperty.getInstance();
-
 			AgentMessageQueue.setParameter(param);
 
 			return "<"+name+">[Success AgentSystem Initialize !] - " + AgentMessageQueue.getParameter();
@@ -123,10 +120,8 @@ public class AgentSystemExtension implements Extension {
 	private Map<Object, AgentMessageQueue> agentMap = new HashMap();
 
 	public String createAgent(Object agID) {
-		Map param = (Map) initMap.get(((String) agID).split("#")[0]);
-
-		Map setter = ((AgentProfileGenerator) param.get(AgentSystemInitializer.paramID.AGENT_PROFILE)).generate(agID);
-		String msg = ((AgentCreator) param.get(AgentSystemInitializer.paramID.AGENT_CREATOR)).create(setter);
+		Map setter = ((AgentProfileGenerator) initMap.get(AgentSystemInitializer.paramID.AGENT_PROFILE)).generate(agID);
+		String msg = ((AgentCreator) initMap.get(AgentSystemInitializer.paramID.AGENT_CREATOR)).create(setter);
 
 		return msg;
 	}
@@ -136,9 +131,7 @@ public class AgentSystemExtension implements Extension {
 			return;
 		}
 
-		Map param = (Map) initMap.get(((String) agID).split("#")[0]);
-
-		AgentMessageQueue agmq = new AgentMessageQueue(agID, (AgentUpdator) param.get(AgentSystemInitializer.paramID.AGENT_UPDATOR));
+		AgentMessageQueue agmq = new AgentMessageQueue(agID, (AgentUpdator) initMap.get(AgentSystemInitializer.paramID.AGENT_UPDATOR));
 		agentMap.put(agID, agmq);
 	}
 

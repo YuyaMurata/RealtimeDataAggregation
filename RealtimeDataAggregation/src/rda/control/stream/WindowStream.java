@@ -10,7 +10,7 @@ import com.ibm.agent.exa.client.AgentClient;
 import java.util.HashMap;
 import java.util.Map;
 import rda.agent.client.AgentConnection;
-import rda.agent.table.DestinationAgentTable;
+import rda.agent.table.DestinationTable;
 import rda.control.flow.Window;
 import rda.control.flow.WindowController;
 

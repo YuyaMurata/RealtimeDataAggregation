@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author kaeru
  */
-public class DestinationAgentTable implements Serializable {
+public class DestinationTable implements Serializable {
 	public enum paramID{
 		DEST_TABLE, DEST_TABLE_SIZE
 	}
@@ -24,7 +24,7 @@ public class DestinationAgentTable implements Serializable {
 	private List<Object> idList;
 	private Integer size = 10;
 
-	public DestinationAgentTable(List agentList, Integer size) {
+	public DestinationTable(List agentList, Integer size) {
 		this.size = size;
 		destTable = createTable(agentList);
 		idList = agentList;

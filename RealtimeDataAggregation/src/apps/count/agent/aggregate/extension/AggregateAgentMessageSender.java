@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import rda.agent.profile.AgentProfileGenerator;
-import rda.agent.table.DestinationAgentTable;
+import rda.agent.table.DestinationTable;
 
 /**
  *
@@ -23,10 +23,10 @@ import rda.agent.table.DestinationAgentTable;
  */
 public class AggregateAgentMessageSender extends ExtensionPutMessageQueue {
 	private static final String AGENT_TYPE = "aggregateagent";
-	private transient DestinationAgentTable table;
+	private transient DestinationTable table;
 	private transient AgentProfileGenerator prof;
 	
-	public AggregateAgentMessageSender(DestinationAgentTable table, AgentProfileGenerator prof) {
+	public AggregateAgentMessageSender(DestinationTable table, AgentProfileGenerator prof) {
 		this.table = table;
 		this.prof = prof;
 	}

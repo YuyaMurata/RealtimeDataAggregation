@@ -5,6 +5,7 @@
  */
 package apps.count.agent.aggregate.deploy;
 
+import apps.count.manager.AggregateAgentManager;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,10 +22,10 @@ public class AppCountDeployStrategy extends DeployStrategy{
 	private Map serverToAgentMap;
 	private Map agentToServerMap;
 	
-	public AppCountDeployStrategy(String idRule, List agents) {
+	public AppCountDeployStrategy(Map appProp, List agents) {
 		super();
+		this.idRule = (String) appProp.get(AggregateAgentManager.paramID.ID_RULE);
 		super.setAgentList(idRule, agents);
-		this.idRule = idRule;
 	}
 	
 	private int pattern;

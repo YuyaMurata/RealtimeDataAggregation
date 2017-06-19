@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 import rda.agent.deploy.DeployStrategy;
 import rda.agent.profile.AgentProfileGenerator;
-import rda.agent.table.DestinationAgentTable;
+import rda.agent.table.DestinationTable;
 import rda.property.RDAProperty;
 import rda.server.ServerConnectionManager;
 
@@ -58,7 +58,7 @@ public class TestServerConnection {
 		//RDA
 		RDAProperty prop = RDAProperty.getInstance();
 		ServerConnectionManager scManager = ServerConnectionManager.getInstance();
-		scManager.createServerConnection();
+		scManager.createServerConnection(prop.getAllParameter());
 
 		//Deploy Strategy Initialize
 		System.out.println("Agent in Servers : ");
