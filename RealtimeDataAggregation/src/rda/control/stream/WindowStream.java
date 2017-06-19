@@ -44,6 +44,7 @@ public class WindowStream extends Thread {
 
 	@Override
 	public void run() {
+		int total = 0;
 		while (runnable) {
 			//Get Window
 			Window window = flow.get();
@@ -56,9 +57,12 @@ public class WindowStream extends Thread {
 			
 			//Update
 			String msg = sender.send(client, window.unpack());
+			total+=window.unpack().size();
 			
 			server.returnConnection(client);
 		}
+		
+		System.out.println("WindowStream total send data = "+total);
 	}
 	
 	public String toString(){
