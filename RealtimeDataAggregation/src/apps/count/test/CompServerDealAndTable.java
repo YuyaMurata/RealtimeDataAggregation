@@ -5,18 +5,22 @@
  */
 package apps.count.test;
 
+import apps.count.agent.aggregate.deploy.AppCountDeployStrategy;
 import apps.count.agent.aggregate.profile.AggregateAgentProfile;
 import apps.count.agent.aggregate.table.DestinationAppTable;
+import apps.count.agent.aggregate.table.DestinationSubTable;
 import apps.count.appuser.UserProfile;
 import apps.count.manager.AggregateAgentManager;
 import apps.count.property.AppCountProperty;
 import bench.main.AgentBenchmark;
 import bench.property.BenchmarkProperty;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import rda.agent.client.AgentConnection;
+import rda.agent.deploy.DeployStrategy;
 import rda.agent.profile.AgentProfileGenerator;
 import rda.property.RDAProperty;
 import rda.server.ServerConnectionManager;
@@ -59,14 +63,27 @@ public class CompServerDealAndTable {
 		scManager.createServerConnection(prop.getAllParameter());
 		scManager.createAgeMap(100);
 		
+		//Deploy Strategy Initialize
+		System.out.println("Agent in Servers : ");
+		DeployStrategy deploy = new AppCountDeployStrategy(approp.getAllParameter(), agIDLists);
+		scManager.setDeployStrategy(deploy);
+		System.out.println(deploy);
+		
 		//Destination Table
-		DestinationAppTable table = new DestinationAppTable(aggregateAgentProf.registerIDList(), 10);
-		table.createAgeTable(100);	//Max Age 100
-		System.out.println(table.toString());
+		Map<AgentConnection, DestinationSubTable> serverMap = new HashMap();
+		for(AgentConnection server : scManager.getAllServer()){
+			DestinationSubTable table = new DestinationSubTable();
+			table.createAgeTable(scManager.getServerInfo(server));
+			serverMap.put(server, table);
+		}
+		//DestinationAppTable table = new DestinationAppTable(aggregateAgentProf.registerIDList(), 10);
+		//table.createAgeTable(100);	//Max Age 100
+		//System.out.println(table.toString());
 		
+		// userID -> server -> desttable -> age -> agID
 		Object map1 = userLists.stream()
-				.collect(Collectors.groupingBy(user -> table.getDestAgentID(user, (Integer) userProf.generate(user).get(UserProfile.profileID.AGE))));
-		
+				.collect(Collectors.groupingBy(user -> 
+						serverMap.get(scManager.getDealServer(user, (Integer) userProf.generate(user).get(UserProfile.profileID.AGE))).getDestAgentID(user, (Integer) userProf.generate(user).get(UserProfile.profileID.AGE))));
 		
 		for(Object key : ((Map)map1).keySet()){
 			List user = (List) ((Map)map1).get(key);

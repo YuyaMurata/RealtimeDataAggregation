@@ -111,10 +111,17 @@ public class ServerConnectionManager {
 	
 	//年齢で分散するための処理
 	private TreeMap ageMap = new TreeMap();
+	private Map serverDestMap = new HashMap();
 	public void createAgeMap(int maxAge){
 		for(int i =0; i < getAllServer().size(); i++){
+			List range = new ArrayList();
+			
 			int n = maxAge / getAllServer().size();
 			ageMap.put(i*n, getAllServer().get(i));
+			
+			range.add(i*n);
+			range.add(i*n+n);
+			serverDestMap.put(getAllServer().get(i), range);
 		}
 	}
 	
@@ -166,5 +173,9 @@ public class ServerConnectionManager {
 	//戦略の出力
 	public String getDeployAllServerToString() {
 		return strategy.toString();
+	}
+	
+	public Object[] getServerInfo(AgentConnection server){
+		return new Object[]{getServerToCreateAgent().get(server), serverDestMap.get(server)};
 	}
 }
