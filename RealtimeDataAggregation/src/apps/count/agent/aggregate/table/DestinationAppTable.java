@@ -5,9 +5,7 @@
  */
 package apps.count.agent.aggregate.table;
 
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 import java.util.TreeMap;
 import rda.agent.table.DestinationTable;
 
@@ -24,10 +22,9 @@ public class DestinationAppTable extends DestinationTable{
 	private TreeMap ageMap = new TreeMap();
 	public void createAgeTable(int maxAge){
 		Integer th = 0;
-		Iterator it = super.getDestTable().keySet().iterator();
-		for(int i = 0; i < super.getDestTable().size(); i++){
+		for(int i = 0; i < super.getAgentList().size(); i++){
 			th = i * (maxAge / super.getDestTable().size());
-			Object agID = it.next();
+			Object agID = super.getAgentList().get(i);
 			ageMap.put(th, agID);
 		}
 	}

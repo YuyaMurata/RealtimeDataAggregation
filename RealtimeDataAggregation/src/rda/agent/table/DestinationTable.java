@@ -30,6 +30,7 @@ public class DestinationTable implements Serializable {
 		idList = agentList;
 	}
 
+	//使うかわからない
 	private Map createTable(List<Object> agentList) {
 		Map<Object, List> table = new ConcurrentHashMap<>();
 
@@ -69,6 +70,10 @@ public class DestinationTable implements Serializable {
 	
 	public Map getDestTable(){
 		return destTable;
+	}
+	
+	public List getAgentList(){
+		return idList;
 	}
 
 	public String toString() {
