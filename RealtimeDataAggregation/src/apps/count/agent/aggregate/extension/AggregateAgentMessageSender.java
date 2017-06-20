@@ -38,6 +38,7 @@ public class AggregateAgentMessageSender extends ExtensionPutMessageQueue {
 	@Override
 	public String send(AgentClient client, List data) {
 		Map<Object, List> agpack = repack(data);
+		
 		StringBuilder sb = new StringBuilder();
 		for(Object agID : agpack.keySet())
 			try {
@@ -63,9 +64,11 @@ public class AggregateAgentMessageSender extends ExtensionPutMessageQueue {
 				.collect(Collectors.groupingBy(user -> table.getDestAgentID(user.id,
 						(Integer) prof.generate(user.id).get(UserProfile.profileID.AGE))));
 		
-		System.out.println(data.stream()
-				.map(user -> table.getDestAgentID(user.id,(Integer) prof.generate(user.id).get(UserProfile.profileID.AGE)))
-				.collect(Collectors.groupingBy(id -> id)));
+		for(UserData user : data){
+			System.out.println("Repack::\n\t");
+			System.out.println(user+"("+prof.generate(user.id).get(UserProfile.profileID.AGE)+") -> "+table.getDestAgentID(user.id,(Integer) prof.generate(user.id).get(UserProfile.profileID.AGE)));
+			System.out.println("");
+		}
 		
 		return (Map) map;
 	}
