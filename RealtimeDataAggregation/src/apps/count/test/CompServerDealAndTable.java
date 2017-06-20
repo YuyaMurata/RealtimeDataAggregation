@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import rda.agent.client.AgentConnection;
 import rda.agent.profile.AgentProfileGenerator;
 import rda.property.RDAProperty;
 import rda.server.ServerConnectionManager;
@@ -56,31 +57,38 @@ public class CompServerDealAndTable {
 		RDAProperty prop = RDAProperty.getInstance();
 		ServerConnectionManager scManager = ServerConnectionManager.getInstance();
 		scManager.createServerConnection(prop.getAllParameter());
+		scManager.createAgeMap(100);
 		
 		//Destination Table
 		DestinationAppTable table = new DestinationAppTable(aggregateAgentProf.registerIDList(), 10);
 		table.createAgeTable(100);	//Max Age 100
 		System.out.println(table.toString());
 		
-		Object map = userLists.stream()
+		Object map1 = userLists.stream()
 				.collect(Collectors.groupingBy(user -> table.getDestAgentID(user, (Integer) userProf.generate(user).get(UserProfile.profileID.AGE))));
 		
-		for(Object key : ((Map)map).keySet()){
-			List user = (List) ((Map)map).get(key);
+		
+		for(Object key : ((Map)map1).keySet()){
+			List user = (List) ((Map)map1).get(key);
 			System.out.print(key + ":");
 			for(Object u : user){
 				Map prof = userProf.generate(u);
 				System.out.print(prof.get(UserProfile.profileID.ID)+"("+prof.get(UserProfile.profileID.AGE)+"), ");
 			}
 			System.out.println();
+			System.out.print(key + ":");
+			for(Object u : user){
+				Map prof = userProf.generate(u);
+				System.out.print(((AgentConnection)scManager.getDealServer(prof.get(UserProfile.profileID.ID), (int) prof.get(UserProfile.profileID.AGE))).getHost()+",");
+			}
+			System.out.println();
 		}
 		
 		//Deal DistributedServer
-		System.out.println("\nDeal Servers : ");
-		scManager.createAgeMap(100);
+		/*System.out.println("\nDeal Servers : ");
 		for (Object id : userLists) {
 			int age = (int) userProf.generate(id).get(UserProfile.profileID.AGE);
 			System.out.println("ID:" + id + " age="+age+" ,srv=" + scManager.getDealServer(id, age));
-		}
+		}*/
 	}
 }

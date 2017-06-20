@@ -65,7 +65,7 @@ public class AggregateAgentMessageSender extends ExtensionPutMessageQueue {
 		
 		System.out.println(data.stream()
 				.map(user -> table.getDestAgentID(user.id,(Integer) prof.generate(user.id).get(UserProfile.profileID.AGE)))
-				.collect(Collectors.groupingBy(id -> id)).keySet());
+				.collect(Collectors.groupingBy(id -> id)));
 		
 		return (Map) map;
 	}
