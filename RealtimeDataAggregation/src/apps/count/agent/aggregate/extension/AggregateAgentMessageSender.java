@@ -64,12 +64,12 @@ public class AggregateAgentMessageSender extends ExtensionPutMessageQueue {
 				.collect(Collectors.groupingBy(user -> table.getDestAgentID(user.id,
 						(Integer) prof.generate(user.id).get(UserProfile.profileID.AGE))));
 		
-		System.out.println("Repack::");
+		/*System.out.println("Repack::");
 		for(UserData user : data){
 			System.out.println("\t"+user+"("+prof.generate(user.id).get(UserProfile.profileID.AGE)+") -> "+table.getDestAgentID(user.id,(Integer) prof.generate(user.id).get(UserProfile.profileID.AGE)));
 		}
 		System.out.println("");
-		
+		*/
 		return (Map) map;
 	}
 }
