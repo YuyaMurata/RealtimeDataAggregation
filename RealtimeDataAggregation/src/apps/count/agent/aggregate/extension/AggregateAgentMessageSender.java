@@ -5,7 +5,6 @@
  */
 package apps.count.agent.aggregate.extension;
 
-import apps.count.agent.aggregate.table.DestinationAppTable;
 import apps.count.appuser.UserProfile;
 import bench.template.UserData;
 import rda.extension.agent.exec.ExtensionPutMessageQueue;
@@ -16,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import rda.agent.profile.AgentProfileGenerator;
+import rda.agent.table.DestinationTable;
 
 /**
  *
@@ -23,10 +23,10 @@ import rda.agent.profile.AgentProfileGenerator;
  */
 public class AggregateAgentMessageSender extends ExtensionPutMessageQueue {
 	private static final String AGENT_TYPE = "aggregateagent";
-	private transient DestinationAppTable table;
+	private transient DestinationTable table;
 	private transient AgentProfileGenerator prof;
 	
-	public AggregateAgentMessageSender(DestinationAppTable table, AgentProfileGenerator prof) {
+	public AggregateAgentMessageSender(DestinationTable table, AgentProfileGenerator prof) {
 		this.table = table;
 		this.prof = prof;
 	}

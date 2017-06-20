@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author kaeru
  */
-public class DestinationTable implements Serializable {
+public abstract class DestinationTable implements Serializable {
 	public enum paramID{
 		DEST_TABLE, DEST_TABLE_SIZE
 	}
@@ -57,6 +57,8 @@ public class DestinationTable implements Serializable {
 
 		return destAgList.get(hashID % destAgList.size());
 	}
+	
+	public abstract Object getDestAgentID(Object id, Integer age) ;
 	
 	//Agent To Agent Comm - ID Hash
 	public Object getDestAgentID(Object id, Object uid) {
