@@ -56,7 +56,9 @@ public class WindowStream extends Thread {
 			AgentClient client = server.getClient();
 			
 			//Update
+			System.out.println("Host::"+server.getHost());
 			String msg = sender.send(client, window.unpack());
+			System.out.println("");
 			total+=window.unpack().size();
 			
 			server.returnConnection(client);
