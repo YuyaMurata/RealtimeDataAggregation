@@ -64,7 +64,7 @@ public class WindowStream extends Thread {
 			server.returnConnection(client);
 		}
 		
-		//System.out.println("WindowStream total send data = "+total);
+		System.out.println("WindowStream total send data = "+total);
 	}
 	
 	public String toString(){
