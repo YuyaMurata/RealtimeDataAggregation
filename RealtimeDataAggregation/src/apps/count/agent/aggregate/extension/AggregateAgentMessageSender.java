@@ -5,6 +5,7 @@
  */
 package apps.count.agent.aggregate.extension;
 
+import apps.count.agent.aggregate.table.DestinationSubTable;
 import apps.count.appuser.UserProfile;
 import bench.template.UserData;
 import rda.extension.agent.exec.ExtensionPutMessageQueue;
@@ -14,8 +15,8 @@ import com.ibm.agent.exa.client.AgentClient;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import rda.agent.client.AgentConnection;
 import rda.agent.profile.AgentProfileGenerator;
-import rda.agent.table.DestinationTable;
 
 /**
  *
@@ -23,10 +24,10 @@ import rda.agent.table.DestinationTable;
  */
 public class AggregateAgentMessageSender extends ExtensionPutMessageQueue {
 	private static final String AGENT_TYPE = "aggregateagent";
-	private transient DestinationTable table;
+	private transient Map<AgentConnection, DestinationSubTable> table;
 	private transient AgentProfileGenerator prof;
 	
-	public AggregateAgentMessageSender(DestinationTable table, AgentProfileGenerator prof) {
+	public AggregateAgentMessageSender(Map table, AgentProfileGenerator prof) {
 		this.table = table;
 		this.prof = prof;
 	}
@@ -36,12 +37,14 @@ public class AggregateAgentMessageSender extends ExtensionPutMessageQueue {
 	}
 
 	@Override
-	public String send(AgentClient client, List data) {
-		Map<Object, List> agpack = repack(data);
+	public String send(AgentConnection server, List data) {
+		Map<Object, List> agpack = repack(server, data);
 		
 		StringBuilder sb = new StringBuilder();
 		for(Object agID : agpack.keySet())
 			try {
+				AgentClient client = server.getClient();
+				
 				AgentKey agentKey = new AgentKey(AGENT_TYPE, new Object[]{agID});
 
 				AggregateAgentMessageSender executor = new AggregateAgentMessageSender(agentKey, agpack.get(agID));
@@ -49,7 +52,9 @@ public class AggregateAgentMessageSender extends ExtensionPutMessageQueue {
 				Object reply = client.execute(agentKey, executor);
 
 				String msg = "Update Agent : Reply is " + reply;
-
+				
+				server.returnConnection(client);
+				
 				sb.append(msg);
 				sb.append(",\n");
 			} catch (AgentException ex) {
@@ -59,9 +64,9 @@ public class AggregateAgentMessageSender extends ExtensionPutMessageQueue {
 		return sb.toString();
 	}
 	
-	private Map repack(List<UserData> data){
+	private Map repack(AgentConnection server, List<UserData> data){
 		Object map = data.stream()
-				.collect(Collectors.groupingBy(user -> table.getDestAgentID(user.id,
+				.collect(Collectors.groupingBy(user -> table.get(server).getDestAgentID(user.id,
 						(Integer) prof.generate(user.id).get(UserProfile.profileID.AGE))));
 		
 		/*System.out.println("Repack::");

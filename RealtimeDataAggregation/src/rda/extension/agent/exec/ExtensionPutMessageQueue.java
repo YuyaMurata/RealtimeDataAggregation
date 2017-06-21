@@ -6,11 +6,11 @@
 package rda.extension.agent.exec;
 
 import com.ibm.agent.exa.AgentKey;
-import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.exa.client.AgentExecutor;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+import rda.agent.client.AgentConnection;
 import rda.extension.agent.manager.AgentSystemExtension;
 
 /**
@@ -50,5 +50,5 @@ public abstract class ExtensionPutMessageQueue implements AgentExecutor, Seriali
 		return msg;
 	}
 
-	public abstract String send(AgentClient client, List data);
+	public abstract String send(AgentConnection server, List data);
 }

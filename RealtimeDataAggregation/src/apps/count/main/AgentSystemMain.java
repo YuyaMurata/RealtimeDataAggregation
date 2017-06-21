@@ -11,7 +11,7 @@ import apps.count.agent.aggregate.extension.AggregateAgentMessageSender;
 import apps.count.agent.aggregate.profile.AggregateAgentProfile;
 import apps.count.appuser.UserProfile;
 import apps.count.agent.aggregate.reader.ReadAggregateAgent;
-import apps.count.agent.aggregate.table.DestinationAppTable;
+import apps.count.agent.aggregate.table.DestinationSubTable;
 import apps.count.agent.aggregate.updator.UpdateAggregateAgent;
 import apps.count.manager.AggregateAgentManager;
 import apps.count.property.AppCountProperty;
@@ -61,11 +61,6 @@ public class AgentSystemMain {
 		AgentProfileGenerator agentProf = new AgentProfileGenerator(new AggregateAgentProfile(agIDLists));
 		System.out.println(agentProf.toString());
 
-		//Destination Table
-		DestinationAppTable table = new DestinationAppTable(agIDLists, 10);
-		table.createAgeTable(100);	//Max Age 100
-		System.out.println(table.toString());
-
 		//Server - AgentClient
 		RDAProperty prop = RDAProperty.getInstance();
 		ServerConnectionManager scManager = ServerConnectionManager.getInstance();
@@ -73,6 +68,16 @@ public class AgentSystemMain {
 		scManager.setDeployStrategy(new AppCountDeployStrategy(approp.getAllParameter(), agIDLists));
 		scManager.createAgeMap(100);
 		System.out.println(scManager.getDeployAllServerToString());
+		
+		//Destination Table
+		Map<AgentConnection, DestinationSubTable> tableMap = new HashMap();
+		for(AgentConnection server : scManager.getAllServer()){
+			DestinationSubTable table = new DestinationSubTable(scManager.getServerInfo(server));
+			tableMap.put(server, table);
+		}
+		/*DestinationAppTable table = new DestinationAppTable(agIDLists, 10);
+		table.createAgeTable(100);	//Max Age 100
+		System.out.println(table.toString());*/
 
 		//Init Parameter
 		Map initParam = new HashMap();
@@ -132,7 +137,7 @@ public class AgentSystemMain {
 		//Update Test
 		WindowStream window = new WindowStream(
 			prop.getAllParameter(),
-			new AggregateAgentMessageSender(table, userProf));
+			new AggregateAgentMessageSender(tableMap, userProf));
 		window.start();
 		
 		//Start Benchmark

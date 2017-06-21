@@ -72,8 +72,7 @@ public class CompServerDealAndTable {
 		//Destination Table
 		Map<AgentConnection, DestinationSubTable> serverMap = new HashMap();
 		for(AgentConnection server : scManager.getAllServer()){
-			DestinationSubTable table = new DestinationSubTable();
-			table.createAgeTable(scManager.getServerInfo(server));
+			DestinationSubTable table = new DestinationSubTable(scManager.getServerInfo(server));
 			serverMap.put(server, table);
 		}
 		//DestinationAppTable table = new DestinationAppTable(aggregateAgentProf.registerIDList(), 10);

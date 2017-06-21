@@ -15,6 +15,11 @@ import java.util.TreeMap;
  */
 public class DestinationSubTable {
 	private TreeMap ageMap = new TreeMap();
+
+	public DestinationSubTable(Object[] serverInfo) {
+		createAgeTable(serverInfo);
+	}
+	
 	public void createAgeTable(Object[] serverInfo){
 		Map agents = (Map) serverInfo[0];
 		List<Integer> range = (List<Integer>) serverInfo[1];
