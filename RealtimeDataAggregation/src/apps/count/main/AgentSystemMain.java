@@ -34,7 +34,7 @@ import rda.server.ServerConnectionManager;
 
 /**
  *
- * @author kaeru
+ * @author murata
  */
 public class AgentSystemMain {
 
@@ -77,7 +77,7 @@ public class AgentSystemMain {
 		}
 		/*DestinationAppTable table = new DestinationAppTable(agIDLists, 10);
 		table.createAgeTable(100);	//Max Age 100
-		System.out.println(table.toString());*/
+		System.out.println(table.toString());*/ 
 
 		//Init Parameter
 		Map initParam = new HashMap();
