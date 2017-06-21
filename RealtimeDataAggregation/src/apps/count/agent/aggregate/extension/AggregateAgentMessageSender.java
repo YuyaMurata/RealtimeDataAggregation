@@ -20,7 +20,7 @@ import rda.agent.profile.AgentProfileGenerator;
 
 /**
  *
- * @author kaeru
+ * @author murata
  */
 public class AggregateAgentMessageSender extends ExtensionPutMessageQueue {
 	private static final String AGENT_TYPE = "aggregateagent";
