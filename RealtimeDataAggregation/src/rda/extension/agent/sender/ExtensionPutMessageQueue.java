@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rda.extension.agent.exec;
+package rda.extension.agent.sender;
 
 import com.ibm.agent.exa.AgentKey;
 import com.ibm.agent.exa.client.AgentExecutor;

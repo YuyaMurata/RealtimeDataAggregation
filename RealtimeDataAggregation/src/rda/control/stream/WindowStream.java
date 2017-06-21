@@ -5,7 +5,7 @@
  */
 package rda.control.stream;
 
-import rda.extension.agent.exec.ExtensionPutMessageQueue;
+import rda.extension.agent.sender.ExtensionPutMessageQueue;
 import com.ibm.agent.exa.client.AgentClient;
 import java.util.Map;
 import rda.agent.client.AgentConnection;

@@ -8,7 +8,7 @@ package apps.count.agent.aggregate.extension;
 import apps.count.agent.aggregate.table.DestinationSubTable;
 import apps.count.appuser.UserProfile;
 import bench.template.UserData;
-import rda.extension.agent.exec.ExtensionPutMessageQueue;
+import rda.extension.agent.sender.ExtensionPutMessageQueue;
 import com.ibm.agent.exa.AgentException;
 import com.ibm.agent.exa.AgentKey;
 import com.ibm.agent.exa.client.AgentClient;

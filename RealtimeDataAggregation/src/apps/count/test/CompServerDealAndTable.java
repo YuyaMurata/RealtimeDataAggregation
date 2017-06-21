@@ -7,7 +7,6 @@ package apps.count.test;
 
 import apps.count.agent.aggregate.deploy.AppCountDeployStrategy;
 import apps.count.agent.aggregate.profile.AggregateAgentProfile;
-import apps.count.agent.aggregate.table.DestinationAppTable;
 import apps.count.agent.aggregate.table.DestinationSubTable;
 import apps.count.appuser.UserProfile;
 import apps.count.manager.AggregateAgentManager;
@@ -74,6 +73,7 @@ public class CompServerDealAndTable {
 		for(AgentConnection server : scManager.getAllServer()){
 			DestinationSubTable table = new DestinationSubTable(scManager.getServerInfo(server));
 			serverMap.put(server, table);
+			System.out.println(table);
 		}
 		//DestinationAppTable table = new DestinationAppTable(aggregateAgentProf.registerIDList(), 10);
 		//table.createAgeTable(100);	//Max Age 100
@@ -100,11 +100,14 @@ public class CompServerDealAndTable {
 			System.out.println();
 		}
 		
+		System.out.println("");
+		
 		//Deal DistributedServer
-		/*System.out.println("\nDeal Servers : ");
+		System.out.println("\nDeal Servers : ");
 		for (Object id : userLists) {
 			int age = (int) userProf.generate(id).get(UserProfile.profileID.AGE);
-			System.out.println("ID:" + id + " age="+age+" ,srv=" + scManager.getDealServer(id, age));
-		}*/
+			AgentConnection host = scManager.getDealServer(id, age);
+			System.out.println("ID:" + id + " age="+age+" ,srv=" +host.getHost()+" -> "+serverMap.get(host).getDestRootAgentID(age)+" -> "+serverMap.get(host).getDestAgentID(id, age));
+		}
 	}
 }
