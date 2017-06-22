@@ -6,6 +6,7 @@
 package rda.extension.agent.sender;
 
 import com.ibm.agent.exa.AgentKey;
+import com.ibm.agent.exa.AgentManager;
 import com.ibm.agent.exa.client.AgentExecutor;
 import java.io.Serializable;
 import java.util.Collection;
@@ -39,8 +40,11 @@ public abstract class ExtensionPutMessageQueue implements AgentExecutor, Seriali
 
 		//Boolean result = extension.updateAgent(agentKey.getValue(0), data);
 		Boolean result = extension.updateAgent(data);
+		
+		AgentManager am = AgentManager.getAgentManager();
+		String regionName = am.getRegionName();
 
-		String msg = " : Update Agent = " + result;
+		String msg = regionName+" : Update Agent = " + result;
 
 		if (!result) {
 			System.out.println(msg);
