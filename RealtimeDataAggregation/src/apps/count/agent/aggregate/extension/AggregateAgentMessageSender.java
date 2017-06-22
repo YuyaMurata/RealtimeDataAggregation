@@ -44,7 +44,9 @@ public class AggregateAgentMessageSender extends ExtensionPutMessageQueue {
 			AgentClient client = server.getClient();
 				
 			AgentKey agentKey = new AgentKey(AGENT_TYPE, new Object[]{server.getHost()});
-
+			
+			System.out.println(agentKey);
+			
 			AggregateAgentMessageSender executor = new AggregateAgentMessageSender(agentKey, data);
 
 			Object reply = client.execute(agentKey, executor);
