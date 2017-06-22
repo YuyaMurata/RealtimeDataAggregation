@@ -22,11 +22,9 @@ public abstract class ExtensionPutMessageQueue implements AgentExecutor, Seriali
 	public ExtensionPutMessageQueue() {
 	}
 
-	AgentKey agentKey;
 	List data;
 
-	public ExtensionPutMessageQueue(AgentKey agentKey, List data) {
-		this.agentKey = agentKey;
+	public ExtensionPutMessageQueue(List data) {
 		this.data = data;
 	}
 
@@ -42,7 +40,7 @@ public abstract class ExtensionPutMessageQueue implements AgentExecutor, Seriali
 		//Boolean result = extension.updateAgent(agentKey.getValue(0), data);
 		Boolean result = extension.updateAgent(data);
 
-		String msg = agentKey.getValue(0) + " : Update Agent = " + result;
+		String msg = " : Update Agent = " + result;
 
 		if (!result) {
 			System.out.println(msg);

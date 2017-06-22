@@ -34,22 +34,18 @@ public class AggregateAgentMessageSender extends ExtensionPutMessageQueue {
 		this.prof = prof;
 	}
 
-	public AggregateAgentMessageSender(AgentKey agentKey, List data) {
-		super(agentKey, data);
+	public AggregateAgentMessageSender(List data) {
+		super(data);
 	}
 
 	@Override
 	public String send(AgentConnection server, List data) {
 		try {
 			AgentClient client = server.getClient();
-				
-			AgentKey agentKey = new AgentKey(AGENT_TYPE, new Object[]{server.getHost()});
 			
-			System.out.println(agentKey);
-			
-			AggregateAgentMessageSender executor = new AggregateAgentMessageSender(agentKey, data);
+			AggregateAgentMessageSender executor = new AggregateAgentMessageSender(data);
 
-			Object reply = client.execute(agentKey, executor);
+			Object reply = client.execute(executor);
 
 			String msg = "Update Agent : Reply is " + reply;
 
