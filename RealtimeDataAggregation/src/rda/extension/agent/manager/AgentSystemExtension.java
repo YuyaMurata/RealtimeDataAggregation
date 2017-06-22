@@ -112,11 +112,9 @@ public class AgentSystemExtension implements Extension {
 			mode = (Integer)param.get(AgentSystemInitializer.paramID.AGENT_MODE);
 			table = (DestinationTable) param.get(AgentSystemInitializer.paramID.DEST_TABLE);
 			
-			System.out.println(table);
-			
 			AgentMessageQueue.setParameter(param);
 
-			return "<"+name+">[Success AgentSystem Initialize !] - " + AgentMessageQueue.getParameter();
+			return "<"+name+">[Success AgentSystem Initialize !] - " + AgentMessageQueue.getParameter()+"::Table\n"+table;
 		} catch (Exception e) {
 			return e.toString();
 		}
