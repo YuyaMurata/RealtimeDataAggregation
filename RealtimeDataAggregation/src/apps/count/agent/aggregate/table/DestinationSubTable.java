@@ -33,6 +33,9 @@ public class DestinationSubTable extends DestinationTable{
 		Map agents = (Map) serverInfo[0];
 		List<Integer> range = (List<Integer>) serverInfo[1];
 		
+		System.out.println(agents);
+		System.out.println(range);
+		
 		List topAgents = (List) agents.get("top");
 		List bottomAgents = (List) agents.get("bottom");
 		
