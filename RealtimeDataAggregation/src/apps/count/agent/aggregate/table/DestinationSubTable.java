@@ -74,17 +74,18 @@ public class DestinationSubTable extends DestinationTable{
 		this.prof = prof;
 	}
 	
+	@Override
 	public Map repack(List data){
 		List<UserData> udata = data;
 		Object map = udata.stream()
 				.collect(Collectors.groupingBy(user -> getDestAgentID(user.id, (Integer) prof.generate(user.id).get(UserProfile.profileID.AGE))));
 		
-		/*System.out.println("Repack::");
-		for(UserData user : data){
-			System.out.println("\t"+user+"("+prof.generate(user.id).get(UserProfile.profileID.AGE)+") -> "+table.getDestAgentID(user.id,(Integer) prof.generate(user.id).get(UserProfile.profileID.AGE)));
+		System.out.println("Repack::");
+		for(Object id : ((Map)map).keySet()){
+			System.out.println(id+":"+((Map)map).get(id));
 		}
 		System.out.println("");
-		*/
+		
 		return (Map) map;
 	}
 	
