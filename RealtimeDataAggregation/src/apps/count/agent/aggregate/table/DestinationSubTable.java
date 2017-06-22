@@ -80,12 +80,12 @@ public class DestinationSubTable extends DestinationTable{
 		Object map = udata.stream()
 				.collect(Collectors.groupingBy(user -> getDestAgentID(user.id, (Integer) prof.generate(user.id).get(UserProfile.profileID.AGE))));
 		
-		System.out.println("Repack::");
+		/*System.out.println("Repack::");
 		for(Object id : ((Map)map).keySet()){
 			System.out.println(id+":"+((Map)map).get(id));
 		}
 		System.out.println("");
-		
+		*/
 		return (Map) map;
 	}
 	
