@@ -154,6 +154,7 @@ public class AgentSystemExtension implements Extension {
 		}
 		}catch(Exception e){
 			System.out.println("Repack周りのError!");
+			e.printStackTrace();
 		}
 		
 		//後で修正
