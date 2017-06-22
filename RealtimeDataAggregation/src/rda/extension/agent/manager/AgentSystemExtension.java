@@ -6,6 +6,7 @@
 package rda.extension.agent.manager;
 
 import com.ibm.agent.exa.AgentKey;
+import com.ibm.agent.exa.AgentManager;
 import com.ibm.agent.soliddb.extension.Extension;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -150,9 +151,11 @@ public class AgentSystemExtension implements Extension {
 		try{
 		Map map = table.repack(data);
 		for(Object agID : map.keySet()){
-			AgentMessageQueue agmq = (AgentMessageQueue) agentMap.get(agID);
-			System.out.println(agID+":"+agmq);
-			Boolean result = agmq.put(map.get(agID));
+			if(agentMap.get(agID) != null){
+				AgentMessageQueue agmq = (AgentMessageQueue) agentMap.get(agID);
+				System.out.println(agID+":"+agmq);
+				Boolean result = agmq.put(map.get(agID));
+			}
 		}
 		}catch(Exception e){
 			System.out.println("Repack周りのError!");

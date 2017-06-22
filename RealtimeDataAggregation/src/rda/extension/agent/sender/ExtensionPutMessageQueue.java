@@ -5,7 +5,6 @@
  */
 package rda.extension.agent.sender;
 
-import com.ibm.agent.exa.AgentKey;
 import com.ibm.agent.exa.AgentManager;
 import com.ibm.agent.exa.client.AgentExecutor;
 import java.io.Serializable;
