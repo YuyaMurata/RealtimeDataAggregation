@@ -21,8 +21,6 @@ import rda.agent.table.DestinationTable;
  * @author kaeru
  */
 public class DestinationSubTable extends DestinationTable{
-	private TreeMap ageMap = new TreeMap();
-	private Map agentMap = new ConcurrentHashMap();
 
 	public DestinationSubTable(Object[] serverInfo) {
 		super(serverInfo);

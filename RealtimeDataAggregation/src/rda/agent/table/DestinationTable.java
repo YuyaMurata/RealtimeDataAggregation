@@ -8,6 +8,8 @@ package rda.agent.table;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
+import java.util.concurrent.ConcurrentHashMap;
 import rda.agent.profile.AgentProfileGenerator;
 
 /**
@@ -18,6 +20,9 @@ public abstract class DestinationTable implements Serializable {
 	public enum paramID{
 		DEST_TABLE_SIZE
 	}
+	
+	private TreeMap ageMap = new TreeMap();
+	private Map agentMap = new ConcurrentHashMap();
 	
 	public DestinationTable(Object[] serverInfo) {
 		createTable(serverInfo);
