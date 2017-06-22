@@ -146,10 +146,14 @@ public class AgentSystemExtension implements Extension {
 	}
 	
 	public Boolean updateAgent(List data) {
+		try{
 		Map map = table.repack(data);
 		for(Object agID : map.keySet()){
 			AgentMessageQueue agmq = (AgentMessageQueue) agentMap.get(agID);
 			Boolean result = agmq.put(map.get(agID));
+		}
+		}catch(Exception e){
+			System.out.println("Repack周りのError!");
 		}
 		
 		//後で修正
