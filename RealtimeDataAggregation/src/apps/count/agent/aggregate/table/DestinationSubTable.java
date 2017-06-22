@@ -36,11 +36,10 @@ public class DestinationSubTable extends DestinationTable{
 		List topAgents = (List) agents.get("top");
 		List bottomAgents = (List) agents.get("bottom");
 		
-		System.out.println(topAgents);
-		System.out.println(bottomAgents);
-		
 		int th = (range.get(1) - range.get(0)) / topAgents.size();
 		for(int i=0; i < topAgents.size(); i++){
+			System.out.println(range.get(0)+i*th+","+topAgents.get(i));
+			System.out.println(ageMap);
 			ageMap.put(range.get(0)+i*th, topAgents.get(i));
 			
 			List agentList = new ArrayList();
