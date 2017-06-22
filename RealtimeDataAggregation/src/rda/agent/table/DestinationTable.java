@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.concurrent.ConcurrentHashMap;
 import rda.agent.profile.AgentProfileGenerator;
 
 /**
@@ -21,8 +20,8 @@ public abstract class DestinationTable implements Serializable {
 		DEST_TABLE_SIZE
 	}
 	
-	private TreeMap ageMap = new TreeMap();
-	private Map agentMap = new ConcurrentHashMap();
+	public TreeMap ageMap;
+	public Map agentMap;
 	
 	public DestinationTable(Object[] serverInfo) {
 		createTable(serverInfo);

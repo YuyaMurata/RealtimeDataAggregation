@@ -28,6 +28,9 @@ public class DestinationSubTable extends DestinationTable{
 	
 	@Override
 	public void createTable(Object[] serverInfo){
+		super.ageMap = new TreeMap();
+		super.agentMap = new ConcurrentHashMap();
+		
 		Map agents = (Map) serverInfo[0];
 		List<Integer> range = (List<Integer>) serverInfo[1];
 		
