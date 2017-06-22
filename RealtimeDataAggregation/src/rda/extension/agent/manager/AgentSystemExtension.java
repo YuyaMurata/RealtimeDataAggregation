@@ -151,7 +151,7 @@ public class AgentSystemExtension implements Extension {
 		Map map = table.repack(data);
 		for(Object agID : map.keySet()){
 			AgentMessageQueue agmq = (AgentMessageQueue) agentMap.get(agID);
-			System.out.println(agID+":"+((List)map.get(agID)).size());
+			System.out.println(agID+":"+agmq);
 			Boolean result = agmq.put(map.get(agID));
 		}
 		}catch(Exception e){
