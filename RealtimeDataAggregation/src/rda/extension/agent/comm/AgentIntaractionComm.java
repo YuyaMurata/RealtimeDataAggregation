@@ -35,7 +35,7 @@ public class AgentIntaractionComm implements AgentExecutor, Serializable {
     }
     
     public void connect(Object connectID, Object sourceID, Object data){
-        try{
+        /*try{
             Object id = table.getDestAgentID(connectID, sourceID);
         
             //Get List after that UserID Hash 
@@ -44,7 +44,7 @@ public class AgentIntaractionComm implements AgentExecutor, Serializable {
             this.window.in(id, data);
         }catch(Exception e){
             e.printStackTrace();
-        }
+        }*/
     }
     
     //Extension

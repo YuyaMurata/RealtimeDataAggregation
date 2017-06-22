@@ -14,7 +14,6 @@ import com.ibm.agent.exa.AgentKey;
 import com.ibm.agent.exa.client.AgentClient;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import rda.agent.client.AgentConnection;
 import rda.agent.profile.AgentProfileGenerator;
 
@@ -26,6 +25,9 @@ public class AggregateAgentMessageSender extends ExtensionPutMessageQueue {
 	private static final String AGENT_TYPE = "aggregateagent";
 	private transient Map<AgentConnection, DestinationSubTable> table;
 	private transient AgentProfileGenerator prof;
+
+	public AggregateAgentMessageSender() {
+	}
 	
 	public AggregateAgentMessageSender(Map table, AgentProfileGenerator prof) {
 		this.table = table;
@@ -38,43 +40,22 @@ public class AggregateAgentMessageSender extends ExtensionPutMessageQueue {
 
 	@Override
 	public String send(AgentConnection server, List data) {
-		Map<Object, List> agpack = repack(server, data);
-		
-		StringBuilder sb = new StringBuilder();
-		for(Object agID : agpack.keySet())
-			try {
-				AgentClient client = server.getClient();
+		try {
+			AgentClient client = server.getClient();
 				
-				AgentKey agentKey = new AgentKey(AGENT_TYPE, new Object[]{agID});
+			AgentKey agentKey = new AgentKey(AGENT_TYPE, new Object[]{server.getHost()});
 
-				AggregateAgentMessageSender executor = new AggregateAgentMessageSender(agentKey, agpack.get(agID));
+			AggregateAgentMessageSender executor = new AggregateAgentMessageSender(agentKey, data);
 
-				Object reply = client.execute(agentKey, executor);
+			Object reply = client.execute(agentKey, executor);
 
-				String msg = "Update Agent : Reply is " + reply;
+			String msg = "Update Agent : Reply is " + reply;
+
+			server.returnConnection(client);
 				
-				server.returnConnection(client);
-				
-				sb.append(msg);
-				sb.append(",\n");
-			} catch (AgentException ex) {
-				return ex.toString();
-			}
-		
-		return sb.toString();
-	}
-	
-	private Map repack(AgentConnection server, List<UserData> data){
-		Object map = data.stream()
-				.collect(Collectors.groupingBy(user -> table.get(server).getDestAgentID(user.id,
-						(Integer) prof.generate(user.id).get(UserProfile.profileID.AGE))));
-		
-		/*System.out.println("Repack::");
-		for(UserData user : data){
-			System.out.println("\t"+user+"("+prof.generate(user.id).get(UserProfile.profileID.AGE)+") -> "+table.getDestAgentID(user.id,(Integer) prof.generate(user.id).get(UserProfile.profileID.AGE)));
+			return msg;
+		} catch (AgentException ex) {
+			return ex.toString();
 		}
-		System.out.println("");
-		*/
-		return (Map) map;
 	}
 }

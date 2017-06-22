@@ -8,15 +8,12 @@ package apps.count.manager;
 import apps.count.property.AppCountProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import rda.agent.client.AgentConnection;
-import rda.agent.manager.AgentManager;
 
 /**
  *
  * @author kaeru
  */
-public class AggregateAgentManager extends AgentManager {
+public class AggregateAgentManager {
 
 	public enum paramID {
 		ID_RULE, AMOUNT_AGENTS, AGENT_MODE
@@ -49,33 +46,5 @@ public class AggregateAgentManager extends AgentManager {
 			System.out.println("Do not set parameters!");
 		}
 		return agentLists;
-	}
-
-	@Override
-	public void setDestinationServer() {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-	}
-
-	private AgentConnection ag;
-
-	@Override
-	public void setDestinationAgent() {
-		//Test
-		this.ag = new AgentConnection(8, new String[]{"localhost:2809", "apps.count", "agent"});
-	}
-
-	@Override
-	public AgentConnection getDestinationAgent() {
-		return this.ag;
-	}
-
-	@Override
-	public void setAgentParameter(Map param) {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-	}
-
-	@Override
-	public void shutdown() {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}
 }

@@ -21,7 +21,8 @@ import rda.extension.agent.manager.AgentSystemExtension;
 public class AgentSystemInitializer implements AgentExecutor, Serializable {
 
 	public static enum paramID {
-		HOST_NAME, AGENT_TYPE, AGENT_PROFILE, AGENT_CREATOR, AGENT_UPDATOR, AGENT_MODE
+		HOST_NAME, AGENT_TYPE, AGENT_PROFILE, AGENT_CREATOR, AGENT_UPDATOR, AGENT_MODE,
+		USER_PROFILE, DEST_TABLE
 	}
 
 	public AgentSystemInitializer() {

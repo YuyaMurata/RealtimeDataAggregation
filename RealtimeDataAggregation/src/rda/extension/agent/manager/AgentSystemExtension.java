@@ -15,6 +15,7 @@ import java.util.Properties;
 import rda.agent.creator.AgentCreator;
 import rda.agent.mq.AgentMessageQueue;
 import rda.agent.profile.AgentProfileGenerator;
+import rda.agent.table.DestinationTable;
 import rda.agent.updator.AgentUpdator;
 import rda.extension.agent.comm.AgentIntaractionComm;
 import rda.extension.agent.exec.AgentSystemInitializer;
@@ -103,11 +104,13 @@ public class AgentSystemExtension implements Extension {
 	private String name;
 	private Integer mode;
 	private Map initMap;
+	private DestinationTable table;
 	public String initAgentSystem(Map param) {
 		try {
 			initMap = param;
 			name = (String) param.get(AgentSystemInitializer.paramID.HOST_NAME);
 			mode = (Integer)param.get(AgentSystemInitializer.paramID.AGENT_MODE);
+			table = (DestinationTable) param.get(AgentSystemInitializer.paramID.DEST_TABLE);
 			
 			AgentMessageQueue.setParameter(param);
 
@@ -139,6 +142,18 @@ public class AgentSystemExtension implements Extension {
 		AgentMessageQueue agmq = (AgentMessageQueue) agentMap.get(agID);
 		Boolean result = agmq.put(data);
 
+		return result;
+	}
+	
+	public Boolean updateAgent(List data) {
+		Map map = table.repack(data);
+		for(Object agID : map.keySet()){
+			AgentMessageQueue agmq = (AgentMessageQueue) agentMap.get(agID);
+			Boolean result = agmq.put(map.get(agID));
+		}
+		
+		//後で修正
+		Boolean result = true;
 		return result;
 	}
 

@@ -70,11 +70,11 @@ public class AgentSystemMain {
 		System.out.println(scManager.getDeployAllServerToString());
 		
 		//Destination Table
-		Map<AgentConnection, DestinationSubTable> tableMap = new HashMap();
+		/*Map<AgentConnection, DestinationSubTable> tableMap = new HashMap();
 		for(AgentConnection server : scManager.getAllServer()){
 			DestinationSubTable table = new DestinationSubTable(scManager.getServerInfo(server));
 			tableMap.put(server, table);
-		}
+		}*/
 		/*DestinationAppTable table = new DestinationAppTable(agIDLists, 10);
 		table.createAgeTable(100);	//Max Age 100
 		System.out.println(table.toString());*/ 
@@ -84,6 +84,7 @@ public class AgentSystemMain {
 		initParam.put(AgentSystemInitializer.paramID.AGENT_CREATOR, new CreateAggregateAgent());
 		initParam.put(AgentSystemInitializer.paramID.AGENT_UPDATOR, new UpdateAggregateAgent());
 		initParam.put(AgentSystemInitializer.paramID.AGENT_PROFILE, agentProf);
+		initParam.put(AgentSystemInitializer.paramID.USER_PROFILE, userProf);
 		initParam.putAll(prop.getAllParameter());
 		initParam.putAll(approp.getAllParameter());
 		
@@ -91,6 +92,7 @@ public class AgentSystemMain {
 		AgentSystemInitializer agInit = new AgentSystemInitializer();
 		for(AgentConnection server : scManager.getAllServer()){
 			initParam.put(AgentSystemInitializer.paramID.HOST_NAME, server.getHost());
+			initParam.put(AgentSystemInitializer.paramID.DEST_TABLE, new DestinationSubTable(scManager.getServerInfo(server)));
 			
 			AgentClient client = server.getClient();
 			
@@ -137,7 +139,8 @@ public class AgentSystemMain {
 		//Update Test
 		WindowStream window = new WindowStream(
 			prop.getAllParameter(),
-			new AggregateAgentMessageSender(tableMap, userProf));
+			//new AggregateAgentMessageSender(tableMap, userProf));
+			new AggregateAgentMessageSender());
 		window.start();
 		
 		//Start Benchmark

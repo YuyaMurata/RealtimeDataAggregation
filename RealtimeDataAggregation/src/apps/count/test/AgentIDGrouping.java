@@ -6,7 +6,6 @@
 package apps.count.test;
 
 import apps.count.agent.aggregate.profile.AggregateAgentProfile;
-import apps.count.agent.aggregate.table.DestinationAppTable;
 import apps.count.appuser.UserProfile;
 import apps.count.manager.AggregateAgentManager;
 import apps.count.property.AppCountProperty;
@@ -44,13 +43,8 @@ public class AgentIDGrouping {
 		AgentProfileGenerator aggregateAgentProf = new AgentProfileGenerator(new AggregateAgentProfile(agIDLists));
 		System.out.println(aggregateAgentProf.toString());
 		
-		//Destination Table
-		DestinationAppTable table = new DestinationAppTable(aggregateAgentProf.registerIDList(), 10);
-		table.createAgeTable(100);	//Max Age 100
-		System.out.println(table.toString());
-		
 		Object map = userLists.stream()
-				.collect(Collectors.groupingBy(user -> table.getDestAgentID(user, (Integer) userProf.generate(user).get(UserProfile.profileID.AGE))));
+				.collect(Collectors.groupingBy(user -> userProf.generate(user).get(UserProfile.profileID.AGE)));
 		
 		for(Object key : ((Map)map).keySet()){
 			List user = (List) ((Map)map).get(key);

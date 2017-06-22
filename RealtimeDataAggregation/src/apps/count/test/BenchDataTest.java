@@ -6,7 +6,6 @@
 package apps.count.test;
 
 import apps.count.agent.aggregate.profile.AggregateAgentProfile;
-import apps.count.agent.aggregate.table.DestinationAppTable;
 import apps.count.appuser.UserProfile;
 import apps.count.manager.AggregateAgentManager;
 import bench.main.AgentBenchmark;
@@ -41,11 +40,6 @@ public class BenchDataTest {
 		AgentProfileGenerator agentProf = new AgentProfileGenerator(new AggregateAgentProfile(agIDLists));
 		System.out.println(agentProf.toString());
 		
-		//Destination Table
-		DestinationAppTable table = new DestinationAppTable(agentProf.registerIDList(), 10);
-		table.createAgeTable(100);
-		System.out.println(table.toString());
-		
 		//Bench Start
 		Integer totalData = 0;
 		Map<Object, Integer> userAgeMap = new TreeMap();
@@ -59,7 +53,8 @@ public class BenchDataTest {
 				}
 
 				Integer age = (Integer) userProf.generate(user.id).get(UserProfile.profileID.AGE);
-				Object agID = table.getDestAgentID(user.id, age);
+				//後で修正
+				Object agID = "";
 				
 				if(userAgeMap.get(age) == null) userAgeMap.put(age, 0);
 				userAgeMap.put(age, userAgeMap.get(age)+1);
