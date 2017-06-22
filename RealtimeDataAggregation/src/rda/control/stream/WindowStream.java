@@ -57,7 +57,7 @@ public class WindowStream extends Thread {
 			//Update
 			System.out.println("Host::"+server.getHost());
 			String msg = sender.send(server, window.unpack());
-			System.out.println("");
+			System.out.println(msg);
 			
 			total+=window.unpack().size();
 		}
