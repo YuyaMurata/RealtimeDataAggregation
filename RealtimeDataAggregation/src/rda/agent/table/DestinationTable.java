@@ -22,12 +22,17 @@ public abstract class DestinationTable implements Serializable {
 	
 	public TreeMap ageMap;
 	public Map agentMap;
+	public List agentList;
 	
 	public DestinationTable(Object[] serverInfo) {
 		createTable(serverInfo);
 	}
 	
 	public abstract void createTable(Object[] serverInfo);
+	
+	public List getAgents(){
+		return this.agentList;
+	}
 	
 	public abstract Object getDestAgentID(Object uid, Integer age);
 	

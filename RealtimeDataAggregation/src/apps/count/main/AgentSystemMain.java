@@ -103,7 +103,7 @@ public class AgentSystemMain {
 		}
 		
 		//Create Agent 変更
-		CreateAggregateAgent creator = new CreateAggregateAgent();
+		/*CreateAggregateAgent creator = new CreateAggregateAgent();
 		for (AgentConnection server : scManager.getServerToCreateAgent().keySet()) {
 			AgentClient client = server.getClient();
 			
@@ -123,7 +123,7 @@ public class AgentSystemMain {
 				}
 			
 			server.returnConnection(client);
-		}
+		}*/
 		
 		//Start AgentSystem
 		AgentSystemLaunch agLaunch = new AgentSystemLaunch();

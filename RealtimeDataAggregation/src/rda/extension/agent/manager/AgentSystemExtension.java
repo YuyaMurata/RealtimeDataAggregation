@@ -114,9 +114,16 @@ public class AgentSystemExtension implements Extension {
 			table = (DestinationTable) param.get(AgentSystemInitializer.paramID.DEST_TABLE);
 			table.setTableInfo((AgentProfileGenerator) param.get(AgentSystemInitializer.paramID.USER_PROFILE));
 			
+			//AgentCreate
+			StringBuilder sb = new StringBuilder();
+			for(Object id : table.getAgents()){
+				sb.append(createAgent(id));
+				sb.append("\n");
+			}
+			
 			AgentMessageQueue.setParameter(param);
 
-			return "<"+name+">[Success AgentSystem Initialize !] - " + AgentMessageQueue.getParameter()+"::Table\n"+table;
+			return "<"+name+">[Success AgentSystem Initialize !] - " + AgentMessageQueue.getParameter()+"::Table\n"+table+"\n::Create\n"+sb.toString();
 		} catch (Exception e) {
 			return e.toString();
 		}
@@ -140,12 +147,12 @@ public class AgentSystemExtension implements Extension {
 		agentMap.put(agID, agmq);
 	}
 
-	public Boolean updateAgent(Object agID, List data) {
+	/*public Boolean updateAgent(Object agID, List data) {
 		AgentMessageQueue agmq = (AgentMessageQueue) agentMap.get(agID);
 		Boolean result = agmq.put(data);
 
 		return result;
-	}
+	}*/
 	
 	public Boolean updateAgent(List data) {
 		try{

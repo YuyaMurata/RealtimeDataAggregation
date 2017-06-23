@@ -36,6 +36,8 @@ public class DestinationSubTable extends DestinationTable{
 		
 		List topAgents = (List) agents.get("top");
 		List bottomAgents = (List) agents.get("bottom");
+		super.agentList.addAll(topAgents);
+		super.agentList.addAll(bottomAgents);
 		
 		int th = (range.get(1) - range.get(0)) / topAgents.size();
 		for(int i=0; i < topAgents.size(); i++){
