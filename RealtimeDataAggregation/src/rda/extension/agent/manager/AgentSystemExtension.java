@@ -125,6 +125,7 @@ public class AgentSystemExtension implements Extension {
 
 			return "<"+name+">[Success AgentSystem Initialize !] - " + AgentMessageQueue.getParameter()+"::Table\n"+table+"\n::Create\n"+sb.toString();
 		} catch (Exception e) {
+			e.printStackTrace();
 			return e.toString();
 		}
 	}
