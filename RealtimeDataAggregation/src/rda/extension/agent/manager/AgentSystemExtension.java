@@ -114,6 +114,8 @@ public class AgentSystemExtension implements Extension {
 			table = (DestinationTable) param.get(AgentSystemInitializer.paramID.DEST_TABLE);
 			table.setTableInfo((AgentProfileGenerator) param.get(AgentSystemInitializer.paramID.USER_PROFILE));
 			
+			AgentMessageQueue.setParameter(param);
+			
 			//AgentCreate
 			StringBuilder sb = new StringBuilder();
 			for(Object id : table.getAgents()){
@@ -123,8 +125,6 @@ public class AgentSystemExtension implements Extension {
 				System.out.println(msg);
 			}
 			
-			AgentMessageQueue.setParameter(param);
-
 			return "<"+name+">[Success AgentSystem Initialize !] - " + AgentMessageQueue.getParameter()+"::Table\n"+table+"\n::Create\n"+sb.toString();
 		} catch (Exception e) {
 			e.printStackTrace();
