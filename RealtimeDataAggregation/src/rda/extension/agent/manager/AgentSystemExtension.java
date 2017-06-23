@@ -117,8 +117,10 @@ public class AgentSystemExtension implements Extension {
 			//AgentCreate
 			StringBuilder sb = new StringBuilder();
 			for(Object id : table.getAgents()){
-				sb.append(createAgent(id));
+				String msg = createAgent(id);
+				sb.append(msg);
 				sb.append("\n");
+				System.out.println(msg);
 			}
 			
 			AgentMessageQueue.setParameter(param);
