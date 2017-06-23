@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import rda.agent.clone.AgentCloning;
 import rda.agent.creator.AgentCreator;
 import rda.agent.mq.AgentMessageQueue;
 import rda.agent.profile.AgentProfileGenerator;
@@ -91,14 +92,14 @@ public class AgentSystemExtension implements Extension {
 	private void startService() {
 		System.out.println("Start AgentSystem Extension Region-" + regionName);
 
-		System.out.println("************ ************  **********  ************");
-		System.out.println("************ ************ ************ ************");
-		System.out.println("    ***      ***          ***       **      ***    ");
-		System.out.println("    ***      ************  ********         ***    ");
-		System.out.println("    ***      ************    ********       ***    ");
-		System.out.println("    ***      ***          **       ***      ***    ");
-		System.out.println("    ***      ************ ************      ***    ");
-		System.out.println("    ***      ************  **********       ***    ");
+		System.out.println("************  ************   **********     ************");
+		System.out.println("************  ************  ************  ************");
+		System.out.println("         ***           ***                    ***              **            ***        ");
+		System.out.println("         ***           ************    ********                  ***        ");
+		System.out.println("         ***           ************        ********              ***        ");
+		System.out.println("         ***           ***                    **                ***          ***        ");
+		System.out.println("         ***           ************   ************           ***        ");
+		System.out.println("         ***           ************      **********            ***       ");
 	}
 	
 	private String name;
@@ -138,6 +139,22 @@ public class AgentSystemExtension implements Extension {
 	public String createAgent(Object agID) {
 		Map setter = ((AgentProfileGenerator) initMap.get(AgentSystemInitializer.paramID.AGENT_PROFILE)).generate(agID);
 		String msg = ((AgentCreator) initMap.get(AgentSystemInitializer.paramID.AGENT_CREATOR)).create(setter);
+
+		return msg;
+	}
+	
+	//MQからのみ実行されるはず
+	public String createCloneAgent(Object agID) {
+		//Create CloneID
+		agID = AgentCloning.cloning(agID);
+		
+		//Cloning Agent
+		Map setter = ((AgentProfileGenerator) initMap.get(AgentSystemInitializer.paramID.AGENT_PROFILE)).generate(agID);
+		String msg = ((AgentCreator) initMap.get(AgentSystemInitializer.paramID.AGENT_CREATOR)).create(setter);
+		
+		//transfer original task
+		//upadte table
+		
 
 		return msg;
 	}
@@ -230,6 +247,10 @@ public class AgentSystemExtension implements Extension {
 	
 	public Integer getMode(){
 		return mode;
+	}
+	
+	public DestinationTable getTable(){
+		return table;
 	}
 	
 	public String getRegion(Object agID){

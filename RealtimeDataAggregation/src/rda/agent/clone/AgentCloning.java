@@ -1,28 +1,29 @@
 package rda.agent.clone;
 
+import java.util.List;
+import java.util.Map;
 import rda.extension.agent.manager.AgentSystemExtension;
 
 public class AgentCloning {
-
-	public static String cloning(String sourceID, Object originalState) {
-		/*AgentSystemExtension extension = AgentSystemExtension.getInstance();
+	
+	public static Object cloning(Object sourceID) {
+		AgentSystemExtension extension = AgentSystemExtension.getInstance();
 		
 		if (extension.getMode() == 0) {
 			return "";
 		}
 
+		//Get RootAgent lID
 		System.out.println(">> Start Agent Cloning");
-
-		IDManager id = manager.getIDManager();
-		String originalID = id.getOrigID(sourceID);
-
+		Map<Object, List> agents = extension.getTable().agentMap;
+		Object rootID = rootSearch(agents, sourceID);
+		
 		//Clone
-		String cloneID = manager.createCloneAgent(originalID, originalState);
-		id.regID(originalID, cloneID);
-
-		System.out.println(">> Agent Cloning New Copy From " + originalID);
-		*/
-		return "";//cloneID;
+		Object cloneID = rootID+"-"+agents.get(rootID).size();
+		
+		System.out.println(">> Agent Cloning New Copy From " + rootID + " -> "+cloneID);
+		
+		return cloneID;
 	}
 
 	public static String delete(String deleteID) {
@@ -43,5 +44,13 @@ public class AgentCloning {
 		System.out.println(">> Agent Cloning Delete " + deleteID);
 		*/
 		return "";//deleteID;
+	}
+	
+	private static Object rootSearch(Map<Object, List> agents, Object agID){
+		if(agents.keySet().contains(agID))
+			return agID;
+		else{
+			return agents.keySet().stream().filter(id -> agents.get(id).contains(agID)).findFirst().get();
+		}
 	}
 }
