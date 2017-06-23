@@ -6,7 +6,6 @@
 package rda.extension.agent.manager;
 
 import com.ibm.agent.exa.AgentKey;
-import com.ibm.agent.exa.AgentManager;
 import com.ibm.agent.soliddb.extension.Extension;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -103,7 +102,7 @@ public class AgentSystemExtension implements Extension {
 	}
 	
 	private String name;
-	private Integer mode;
+	private Integer mode, region;
 	private Map initMap;
 	private DestinationTable table;
 	public String initAgentSystem(Map param) {
@@ -113,6 +112,7 @@ public class AgentSystemExtension implements Extension {
 			mode = (Integer)param.get(AgentSystemInitializer.paramID.AGENT_MODE);
 			table = (DestinationTable) param.get(AgentSystemInitializer.paramID.DEST_TABLE);
 			table.setTableInfo((AgentProfileGenerator) param.get(AgentSystemInitializer.paramID.USER_PROFILE));
+			region = 2;
 			
 			AgentMessageQueue.setParameter(param);
 			
@@ -120,6 +120,7 @@ public class AgentSystemExtension implements Extension {
 			StringBuilder sb = new StringBuilder();
 			for(Object id : table.getAgents()){
 				String msg = createAgent(id);
+				if(msg.equals("")) continue;
 				sb.append(msg);
 				sb.append("\n");
 				System.out.println(msg);
@@ -159,14 +160,14 @@ public class AgentSystemExtension implements Extension {
 	
 	public Boolean updateAgent(List data) {
 		try{
-		Map map = table.repack(data);
-		for(Object agID : map.keySet()){
-			if(agentMap.get(agID) != null){
-				AgentMessageQueue agmq = (AgentMessageQueue) agentMap.get(agID);
-				//System.out.println(agID+":"+agmq);
-				Boolean result = agmq.put(map.get(agID));
+			Map map = table.repack(data);
+			for(Object agID : map.keySet()){
+				if(agentMap.get(agID) != null){
+					AgentMessageQueue agmq = (AgentMessageQueue) agentMap.get(agID);
+					//System.out.println(agID+":"+agmq);
+					Boolean result = agmq.put(map.get(agID));
+				}
 			}
-		}
 		}catch(Exception e){
 			System.out.println("Repack周りのError!");
 			e.printStackTrace();
@@ -229,5 +230,10 @@ public class AgentSystemExtension implements Extension {
 	
 	public Integer getMode(){
 		return mode;
+	}
+	
+	public String getRegion(Object agID){
+		int hash = Math.abs(agID.hashCode()) % region;
+		return "ag"+hash;
 	}
 }

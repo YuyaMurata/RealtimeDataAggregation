@@ -39,9 +39,14 @@ public abstract class AgentCreator implements AgentExecutor, Serializable {
 		// TODO 自動生成されたメソッド・スタブ
 		try {
 			AgentManager agentManager = AgentManager.getAgentManager();
-
+			
 			//Register Extension
 			AgentSystemExtension extension = AgentSystemExtension.getInstance();
+			
+			//Region Check
+			if(!agentManager.getRegionName().equals(extension.getRegion(agentKey.getValue(0))))
+				return "";
+				
 			extension.registeAgent(agentKey.getValue(0));
 
 			if (agentManager.exists(agentKey)) {
