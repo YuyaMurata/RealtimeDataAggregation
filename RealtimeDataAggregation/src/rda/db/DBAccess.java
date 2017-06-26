@@ -108,11 +108,13 @@ public class DBAccess implements AgentExecutor, Serializable {
 			
 			Object ret = client.execute(executor);
 			Collection<Object> col = (Collection<Object>)ret;
+			
+			Map map = new HashMap();
 			for(Object o : col) {
-				System.out.println(o);
+				map.putAll((Map)o);
 			}
 			
-			return col;
+			return map;
 		} catch(Exception e) {
 			e.printStackTrace();
 			return e;
