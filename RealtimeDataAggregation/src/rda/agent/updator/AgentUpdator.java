@@ -1,5 +1,6 @@
 package rda.agent.updator;
 
+import com.ibm.agent.exa.AgentException;
 import java.util.Collection;
 
 import com.ibm.agent.exa.AgentKey;
@@ -12,68 +13,75 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import rda.agent.message.UpdateMessage;
 
-public abstract class AgentUpdator implements AgentExecutor, Externalizable{
+public abstract class AgentUpdator implements AgentExecutor, Externalizable {
 
-    public AgentUpdator() {
-    }
+	public AgentUpdator() {
+	}
 
-    AgentKey agentKey;
-    String msgtype;
-    List data;
-    public AgentUpdator(AgentKey agentKey, String msgtype, List data) {
-        // TODO 自動生成されたコンストラクター・スタブ
-        this.agentKey = agentKey;
-        this.msgtype = msgtype;
-        this.data = data;
-    }
-    
-    @Override
-    public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeObject(agentKey);
-        out.writeObject(msgtype);
-        out.writeObject(data);
-    }
+	AgentKey agentKey;
+	String msgtype;
+	List data;
 
-    @Override
-    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-        this.agentKey = (AgentKey) in.readObject();
-        this.msgtype = (String) in.readObject();
-        this.data = (List) in.readObject();
-    }
+	public AgentUpdator(AgentKey agentKey, String msgtype, List data) {
+		// TODO 自動生成されたコンストラクター・スタブ
+		this.agentKey = agentKey;
+		this.msgtype = msgtype;
+		this.data = data;
+	}
 
-    @Override
-    public Object complete(Collection<Object> results) {
-        // TODO 自動生成されたメソッド・スタブ
-        Object[] ret = results.toArray();
-        return ret[0];
-    }
+	@Override
+	public void writeExternal(ObjectOutput out) throws IOException {
+		out.writeObject(agentKey);
+		out.writeObject(msgtype);
+		out.writeObject(data);
+	}
 
-    @Override
-    public Object execute() {
-        // TODO 自動生成されたメソッド・スタブ
-        try {
-            if(data.get(0) == "quit")
-                return "Shutdown AgentSystem !";
-            
-            AgentManager agentManager = AgentManager.getAgentManager();
-                
-            MessageFactory factory = MessageFactory.getFactory();
-            UpdateMessage msg = (UpdateMessage)factory.getMessage(msgtype);
-            msg.setParams(data);
+	@Override
+	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+		this.agentKey = (AgentKey) in.readObject();
+		this.msgtype = (String) in.readObject();
+		this.data = (List) in.readObject();
+	}
 
-            //Sync Message
-            Object ret = agentManager.sendMessage(agentKey, msg);
-            //agentManager.putMessage(agentKey, msg);
-            
-            return ret;
-        } catch (IllegalAccessException | InstantiationException e) {
-            // TODO 自動生成された catch ブロック
-            return e;
-        }
-    }
-    
-    public abstract void update(AgentClient client, Object agID, List data);
-    public abstract void update(Object agID, List data);
+	@Override
+	public Object complete(Collection<Object> results) {
+		// TODO 自動生成されたメソッド・スタブ
+		Object[] ret = results.toArray();
+		return ret[0];
+	}
+
+	@Override
+	public Object execute() {
+		// TODO 自動生成されたメソッド・スタブ
+		try {
+			if (data.get(0) == "quit") {
+				return "Shutdown AgentSystem !";
+			}
+
+			AgentManager agentManager = AgentManager.getAgentManager();
+
+			MessageFactory factory = MessageFactory.getFactory();
+			UpdateMessage msg = (UpdateMessage) factory.getMessage(msgtype);
+			msg.setParams(data);
+
+			//Sync Message
+			Object ret = "";//agentManager.sendMessage(agentKey, msg);
+			agentManager.putMessage(agentKey, msg);
+
+			return ret;
+		} catch (IllegalAccessException | InstantiationException e) {
+			// TODO 自動生成された catch ブロック
+			return e;
+		} catch (AgentException ex) {
+			return ex;
+		}
+	}
+
+	public abstract void update(AgentClient client, Object agID, List data);
+
+	public abstract void update(Object agID, List data);
 }
