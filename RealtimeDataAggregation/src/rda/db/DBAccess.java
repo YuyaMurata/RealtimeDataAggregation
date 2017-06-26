@@ -74,19 +74,12 @@ public class DBAccess implements AgentExecutor, Serializable {
 			stmt = con.prepareStatement("select * from "+agenttype);
 			ResultSet rs = stmt.executeQuery();
 			
-			//フィールド名取得
-			ResultSetMetaData rsmd= rs.getMetaData();
-			for(int i=0; i < rsmd.getColumnCount(); i++)
-				System.out.println(rsmd.getColumnName(i));
-			
 			List all = new ArrayList();
 			while(rs.next()){
-				System.out.println(rs);
 				List list = new ArrayList();
-				for(int i =0; i < rsmd.getColumnCount(); i++){
-					System.out.println(" other="+rs.getObject(rsmd.getColumnName(i)));
-					list.add(rs.getString(i));
-				}
+				System.out.println(rs.getString(1)+"="+rs.getLong(2));
+				list.add(rs.getString(1)+"="+rs.getLong(2));
+				
 				all.add(list);
 			}
 			
