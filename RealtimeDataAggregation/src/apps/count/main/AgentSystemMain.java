@@ -25,8 +25,8 @@ import java.util.List;
 import java.util.Map;
 import rda.agent.client.AgentConnection;
 import rda.agent.profile.AgentProfileGenerator;
-import rda.agent.reader.AgentDump;
 import rda.control.stream.WindowStream;
+import rda.db.DBAccess;
 import rda.extension.agent.exec.AgentSystemInitializer;
 import rda.extension.agent.exec.AgentSystemLaunch;
 import rda.extension.agent.exec.AgentSystemShutdown;
@@ -212,12 +212,12 @@ public class AgentSystemMain {
 			server.returnConnection(client);
 		}
 		
-		System.out.println("AgentDump!!");
-		AgentDump.MESSAGE_TYPE =  "readAggregateAgent";
+		//DB Dump
+		System.out.println("AgentDump:");
 		for(AgentConnection server : scManager.getAllServer()){
 			AgentClient client = server.getClient();
 			
-			String msg = new AgentDump().dump(client);
+			Object msg = new DBAccess().dump(client, (String) prop.getParameter(ServerConnectionManager.paramID.APP_CLASS),  "aggregateagent");
 			System.out.println(msg);
 			
 			server.returnConnection(client);
