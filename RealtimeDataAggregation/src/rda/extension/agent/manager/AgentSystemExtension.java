@@ -180,7 +180,7 @@ public class AgentSystemExtension implements Extension {
 		List nokori = data;
 		while(!nokori.isEmpty())
 		try{
-			Map map = table.repack(nokori);
+			Map<Object, List> map = table.repack(nokori);
 			nokori = new ArrayList();
 			for(Object agID : map.keySet()){
 				if(agentMap.get(agID) != null){
@@ -189,7 +189,7 @@ public class AgentSystemExtension implements Extension {
 					
 					if(!result){
 						System.out.println(createCloneAgent(agID));
-						nokori.add(map.get(agID));
+						nokori.addAll(map.get(agID));
 					}
 				}
 			}

@@ -43,5 +43,5 @@ public abstract class DestinationTable implements Serializable {
 	
 	public abstract void setTableInfo(AgentProfileGenerator prof);
 	
-	public abstract Map repack(List data);
+	public abstract Map<Object, List> repack(List data);
 }

@@ -79,7 +79,7 @@ public class DestinationSubTable extends DestinationTable{
 	}
 	
 	@Override
-	public Map repack(List data){
+	public Map<Object, List> repack(List data){
 		List<UserData> udata = data;
 		Object map = udata.stream()
 				.collect(Collectors.groupingBy(user -> getDestAgentID(user.id, (Integer) prof.generate(user.id).get(UserProfile.profileID.AGE))));
@@ -90,7 +90,7 @@ public class DestinationSubTable extends DestinationTable{
 		}
 		System.out.println("");
 		*/
-		return (Map) map;
+		return (Map<Object, List>) map;
 	}
 	
 	public String toString(){
