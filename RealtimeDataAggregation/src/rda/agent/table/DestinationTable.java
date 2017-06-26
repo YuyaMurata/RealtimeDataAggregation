@@ -21,7 +21,7 @@ public abstract class DestinationTable implements Serializable {
 	}
 	
 	public TreeMap ageMap;
-	public Map agentMap;
+	public Map<Object, List> agentMap;
 	public List agentList;
 	
 	public DestinationTable(Object[] serverInfo) {
@@ -37,7 +37,11 @@ public abstract class DestinationTable implements Serializable {
 	public abstract Object getDestAgentID(Object uid, Integer age);
 	
 	public void updateTable(Object originalID, Object cloneID){
-		agentMap.put(originalID, cloneID);
+		//Update AgentMap
+		List agents = agentMap.get(originalID);
+		agents.add(cloneID);
+		
+		//Update AllAgentsList
 		agentList.add(cloneID);
 	}
 	
