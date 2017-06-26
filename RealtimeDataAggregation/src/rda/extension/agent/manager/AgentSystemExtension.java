@@ -148,6 +148,7 @@ public class AgentSystemExtension implements Extension {
 	public String createCloneAgent(Object agID) {
 		//Create CloneID
 		Object cloneID = AgentCloning.cloning(agID);
+		if(cloneID.equals("")) return "";
 		
 		//Cloning Agent
 		Map setter = ((AgentProfileGenerator) initMap.get(AgentSystemInitializer.paramID.AGENT_PROFILE)).generate(agID);
@@ -176,23 +177,32 @@ public class AgentSystemExtension implements Extension {
 		return result;
 	}*/
 	
-	public Boolean updateAgent(List data) {
-		List nokori = data;
-		while(!nokori.isEmpty())
-		try{
-			Map<Object, List> map = table.repack(nokori);
-			nokori = new ArrayList();
-			for(Object agID : map.keySet()){
-				if(agentMap.get(agID) != null){
-					AgentMessageQueue agmq = (AgentMessageQueue) agentMap.get(agID);
-					Boolean result = agmq.put(map.get(agID));
+	public List putDataToMQ(List data){
+		List nokori = new ArrayList();
+		
+		Map<Object, List> map = table.repack(data);
+		for(Object agID : map.keySet()){
+			if(agentMap.get(agID) != null){
+				AgentMessageQueue agmq = (AgentMessageQueue) agentMap.get(agID);
+				Boolean result = agmq.put(map.get(agID));
 					
-					if(!result){
-						System.out.println(createCloneAgent(agID));
-						nokori.addAll(map.get(agID));
-					}
+				if(!result){
+					nokori.addAll(map.get(agID));
 				}
 			}
+		}
+		
+		return nokori;
+	}
+	
+	public Boolean updateAgent(List data) {
+		try{
+			List nokori = putDataToMQ(data);
+			
+			if(getMode() == 1)
+				while(!nokori.isEmpty()){
+					nokori = putDataToMQ(nokori);
+				}
 		}catch(Exception e){
 			System.out.println("Repack周りのError!");
 			e.printStackTrace();
