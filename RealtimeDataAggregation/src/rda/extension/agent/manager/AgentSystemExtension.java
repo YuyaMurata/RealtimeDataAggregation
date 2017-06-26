@@ -188,7 +188,7 @@ public class AgentSystemExtension implements Extension {
 					Boolean result = agmq.put(map.get(agID));
 					
 					if(!result){
-						createCloneAgent(agID);
+						System.out.println(createCloneAgent(agID));
 						nokori.add(map.get(agID));
 					}
 				}
