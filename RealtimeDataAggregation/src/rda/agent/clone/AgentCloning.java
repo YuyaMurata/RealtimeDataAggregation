@@ -31,6 +31,7 @@ public class AgentCloning {
 		map.put("clone", cloneID);
 		
 		System.out.println(">> Agent Cloning New Copy From " + rootID + " -> "+cloneID);
+		System.out.println(extension.getTable());
 		
 		return map;
 	}

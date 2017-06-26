@@ -273,6 +273,8 @@ public class AgentSystemExtension implements Extension {
 	}
 	
 	public String getRegion(Object agID){
+		if(((String)agID).contains("-"))
+			agID = ((String)agID).split("-")[0];
 		int hash = (Math.abs(agID.hashCode()) + 1) % region;
 		return "ag"+hash;
 	}
