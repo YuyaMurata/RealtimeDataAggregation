@@ -14,7 +14,9 @@ import com.ibm.agent.exa.client.AgentExecutor;
 import com.ibm.agent.soliddb.catalog.RegionCatalog;
 import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * JDBCで対応するリージョンのレプリカ用solidDBにアクセスする．
@@ -73,16 +75,11 @@ public class DBAccess implements AgentExecutor, Serializable {
 			stmt = con.prepareStatement("select * from "+agenttype);
 			ResultSet rs = stmt.executeQuery();
 			
-			List all = new ArrayList();
-			while(rs.next()){
-				List list = new ArrayList();
-				System.out.println(rs.getString(1)+"="+rs.getLong(2));
-				list.add(rs.getString(1)+"="+rs.getLong(2));
-				
-				all.add(list);
-			}
+			Map map = new HashMap();
+			while(rs.next())
+				map.put(rs.getString(1),rs.getLong(2));
 			
-			return all;
+			return map;
 		} catch(Exception e) {
 			e.printStackTrace();
 			return e;
