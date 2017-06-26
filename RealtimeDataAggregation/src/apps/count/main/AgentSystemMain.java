@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import rda.agent.client.AgentConnection;
+import rda.agent.deletor.Dispose;
 import rda.agent.profile.AgentProfileGenerator;
 import rda.control.stream.WindowStream;
 import rda.db.DBAccess;
@@ -233,12 +234,14 @@ public class AgentSystemMain {
 		//Total Time
 		System.out.println(total + "/" + totalData + "," + (stop - start));
 
-		//Delete Test
-		//Dispose deletor = new Dispose();
-		//deletor.delete(client);
-
-		//Client
-		//ag.returnConnection(client);
-
+		//Delete
+		for(AgentConnection server : scManager.getAllServer()){
+			AgentClient client = server.getClient();
+			
+			Dispose deletor = new Dispose();
+			deletor.delete(client);
+		
+			server.returnConnection(client);
+		}
 	}
 }
