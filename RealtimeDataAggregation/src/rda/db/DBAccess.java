@@ -34,6 +34,7 @@ public class DBAccess implements AgentExecutor, Serializable {
 	
 	String app, agenttype;
 	public DBAccess(String app, String agenttype) {
+		this.app = app;
 		this.agenttype = agenttype;
 	}
 	
