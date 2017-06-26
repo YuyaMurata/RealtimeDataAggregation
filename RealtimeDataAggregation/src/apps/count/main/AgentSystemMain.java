@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 import rda.agent.client.AgentConnection;
 import rda.agent.profile.AgentProfileGenerator;
+import rda.agent.reader.AgentDump;
 import rda.control.stream.WindowStream;
 import rda.extension.agent.exec.AgentSystemInitializer;
 import rda.extension.agent.exec.AgentSystemLaunch;
@@ -207,6 +208,17 @@ public class AgentSystemMain {
 			Object d = reader.read(client, agID);
 			System.out.println("Read " + agID + " = " + d);
 			total = (Long)((List<Object>) d).get(1) + total;
+			
+			server.returnConnection(client);
+		}
+		
+		System.out.println("AgentDump!!");
+		AgentDump.MESSAGE_TYPE =  "readAggregateAgent";
+		for(AgentConnection server : scManager.getAllServer()){
+			AgentClient client = server.getClient();
+			
+			String msg = new AgentDump().dump(client);
+			System.out.println(msg);
 			
 			server.returnConnection(client);
 		}
