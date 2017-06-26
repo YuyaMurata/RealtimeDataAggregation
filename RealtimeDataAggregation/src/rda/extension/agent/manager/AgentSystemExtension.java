@@ -202,6 +202,7 @@ public class AgentSystemExtension implements Extension {
 			
 			if(getMode() == 1)
 				while(!nokori.isEmpty()){
+					System.out.println(nokori);
 					nokori = putDataToMQ(nokori);
 				}
 		}catch(Exception e){

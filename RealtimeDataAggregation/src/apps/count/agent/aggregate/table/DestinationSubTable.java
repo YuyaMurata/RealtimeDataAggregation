@@ -63,8 +63,8 @@ public class DestinationSubTable extends DestinationTable{
 		Integer hashID = Math.abs(uid.hashCode());
 		//System.out.println(age +" = "+ageMap.floorEntry(age).getValue());
 		Object destAg = ageMap.floorEntry(age).getValue();
-		List agentList = (List) agentMap.get(destAg);
-		return agentList.get(hashID % agentList.size());
+		List list = (List) agentMap.get(destAg);
+		return list.get(hashID % list.size());
 	}
 	
 	public Object getDestRootAgentID(Integer age){
@@ -74,6 +74,7 @@ public class DestinationSubTable extends DestinationTable{
 	}
 	
 	private AgentProfileGenerator prof;
+	@Override
 	public void setTableInfo(AgentProfileGenerator prof){
 		this.prof = prof;
 	}
