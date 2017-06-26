@@ -20,7 +20,7 @@ public class AgentCloning {
 		Map map = new HashMap();
 
 		//Get RootAgent lID
-		System.out.println(">> Start Agent Cloning");
+		//System.out.println(">> Start Agent Cloning");
 		Map<Object, List> agents = extension.getTable().agentMap;
 		Object rootID = rootSearch(agents, sourceID);
 		
@@ -30,7 +30,7 @@ public class AgentCloning {
 		Object cloneID = rootID+"-"+agents.get(rootID).size();
 		map.put("clone", cloneID);
 		
-		System.out.println(">> Agent Cloning New Copy From " + rootID + " -> "+cloneID);
+		//System.out.println(">> Agent Cloning New Copy From " + rootID + " -> "+cloneID);
 		
 		return map;
 	}
