@@ -153,6 +153,7 @@ public class AgentSystemExtension implements Extension {
 		//Cloning Agent
 		Map setter = ((AgentProfileGenerator) initMap.get(AgentSystemInitializer.paramID.AGENT_PROFILE)).generate(idPair.get("root"));
 		String msg = ((AgentCreator) initMap.get(AgentSystemInitializer.paramID.AGENT_CREATOR)).create(idPair.get("clone"), setter);
+		new Thread(agentMap.get(idPair.get("clone"))).start();
 		
 		//transfer original task
 		//upadte table
