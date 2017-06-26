@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import rda.agent.client.AgentConnection;
-import rda.agent.deletor.Dispose;
 import rda.agent.profile.AgentProfileGenerator;
 import rda.control.stream.WindowStream;
 import rda.db.DBAccess;
@@ -71,16 +70,6 @@ public class AgentSystemMain {
 		scManager.setDeployStrategy(new AppCountDeployStrategy(approp.getAllParameter(), agIDLists));
 		scManager.createAgeMap(100);
 		System.out.println(scManager.getDeployAllServerToString());
-		
-		//Destination Table
-		/*Map<AgentConnection, DestinationSubTable> tableMap = new HashMap();
-		for(AgentConnection server : scManager.getAllServer()){
-			DestinationSubTable table = new DestinationSubTable(scManager.getServerInfo(server));
-			tableMap.put(server, table);
-		}*/
-		/*DestinationAppTable table = new DestinationAppTable(agIDLists, 10);
-		table.createAgeTable(100);	//Max Age 100
-		System.out.println(table.toString());*/ 
 
 		//Init Parameter
 		Map initParam = new HashMap();
@@ -104,29 +93,6 @@ public class AgentSystemMain {
 			
 			server.returnConnection(client);
 		}
-		
-		//Create Agent 変更
-		/*CreateAggregateAgent creator = new CreateAggregateAgent();
-		for (AgentConnection server : scManager.getServerToCreateAgent().keySet()) {
-			AgentClient client = server.getClient();
-			
-			//Top (Root) Agent
-			for(Object agID : scManager.getServerToCreateAgent().get(server).get("top")){
-				Map setter = agentProf.generate(agID);
-				String msgc = creator.create(client, setter);
-				System.out.println("Create " + agID + " = " + msgc);
-			}
-			
-			//Bottom
-			if(scManager.getServerToCreateAgent().get(server).get("bottom") != null)
-				for(Object agID : scManager.getServerToCreateAgent().get(server).get("bottom")){
-					Map setter = agentProf.generate(agID);
-					String msgc = creator.create(client, setter);
-					System.out.println("Create " + agID + " = " + msgc);
-				}
-			
-			server.returnConnection(client);
-		}*/
 		
 		//Start AgentSystem
 		AgentSystemLaunch agLaunch = new AgentSystemLaunch();
@@ -235,13 +201,13 @@ public class AgentSystemMain {
 		System.out.println(total + "/" + totalData + "," + (stop - start));
 
 		//Delete
-		for(AgentConnection server : scManager.getAllServer()){
+		/*for(AgentConnection server : scManager.getAllServer()){
 			AgentClient client = server.getClient();
 			
 			Dispose deletor = new Dispose();
 			deletor.delete(client);
 		
 			server.returnConnection(client);
-		}
+		}*/
 	}
 }
