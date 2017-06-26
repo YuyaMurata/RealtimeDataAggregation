@@ -5,6 +5,9 @@ import java.util.Map;
 import rda.extension.agent.manager.AgentSystemExtension;
 
 public class AgentCloning {
+	public enum paramID{
+		AGENT_MODE
+	}
 	
 	public static Object cloning(Object sourceID) {
 		AgentSystemExtension extension = AgentSystemExtension.getInstance();

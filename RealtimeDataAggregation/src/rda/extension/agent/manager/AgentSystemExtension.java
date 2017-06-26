@@ -111,7 +111,7 @@ public class AgentSystemExtension implements Extension {
 		try {
 			initMap = param;
 			name = (String) param.get(AgentSystemInitializer.paramID.HOST_NAME);
-			mode = (Integer)param.get(AgentSystemInitializer.paramID.AGENT_MODE);
+			mode = (Integer)param.get(AgentCloning.paramID.AGENT_MODE);
 			table = (DestinationTable) param.get(AgentSystemInitializer.paramID.DEST_TABLE);
 			table.setTableInfo((AgentProfileGenerator) param.get(AgentSystemInitializer.paramID.USER_PROFILE));
 			region = 2;

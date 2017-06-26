@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import rda.agent.client.AgentConnection;
+import rda.agent.clone.AgentCloning;
 import rda.agent.mq.AgentMessageQueue;
 import rda.agent.table.DestinationTable;
 import rda.control.flow.WindowController;
@@ -77,6 +78,9 @@ public class RDAProperty {
 		//Window Contoroller Parameter
 		propMap.put(WindowController.paramID.WINDOW_SIZE, Integer.valueOf(getValue("window.size")));
 		propMap.put(WindowController.paramID.WINDOW_TIME, Long.valueOf(getValue("window.time")));
+		
+		//Load Balance
+		propMap.put(AgentCloning.paramID.AGENT_MODE, Integer.valueOf(getValue("agent.auto.mode")));
 
 		//Deploy Pattern
 		propMap.put(ServerConnectionManager.paramID.DEPLOY_PATTERN, Integer.valueOf(getValue("deploy.pattern")));
