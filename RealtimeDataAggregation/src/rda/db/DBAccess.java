@@ -81,7 +81,7 @@ public class DBAccess implements AgentExecutor, Serializable {
 				System.out.println(rs);
 				List list = new ArrayList();
 				for(int i =0; i < rsmd.getColumnCount(); i++){
-					System.out.println("rs="+rs.getString(i)+" other="+rs.getString(rsmd.getColumnName(i)));
+					System.out.println(" other="+rs.getString(rsmd.getColumnName(i)));
 					list.add(rs.getString(i));
 				}
 				all.add(list);
