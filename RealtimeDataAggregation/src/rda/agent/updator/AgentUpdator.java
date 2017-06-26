@@ -1,6 +1,5 @@
 package rda.agent.updator;
 
-import com.ibm.agent.exa.AgentException;
 import java.util.Collection;
 
 import com.ibm.agent.exa.AgentKey;
@@ -13,8 +12,6 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import rda.agent.message.UpdateMessage;
 
 public abstract class AgentUpdator implements AgentExecutor, Externalizable {
@@ -69,15 +66,13 @@ public abstract class AgentUpdator implements AgentExecutor, Externalizable {
 			msg.setParams(data);
 
 			//Sync Message
-			Object ret = "";//agentManager.sendMessage(agentKey, msg);
-			agentManager.putMessage(agentKey, msg);
+			Object ret = agentManager.sendMessage(agentKey, msg);
+			//agentManager.putMessage(agentKey, msg);
 
 			return ret;
 		} catch (IllegalAccessException | InstantiationException e) {
 			// TODO 自動生成された catch ブロック
 			return e;
-		} catch (AgentException ex) {
-			return ex;
 		}
 	}
 
