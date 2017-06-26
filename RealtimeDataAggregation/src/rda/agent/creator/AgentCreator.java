@@ -71,5 +71,5 @@ public abstract class AgentCreator implements AgentExecutor, Serializable {
 
 	public abstract String create(AgentClient client, Map setter);
 
-	public abstract String create(Map setter);
+	public abstract String create(Object id, Map setter);
 }

@@ -43,8 +43,8 @@ public class CreateAggregateAgent extends AgentCreator {
 	}
 
 	@Override
-	public String create(Map setter) {
-		Object agID = setter.get(AggregateAgentProfile.paramID.ID);
+	public String create(Object agID, Map setter) {
+		//Object agID = setter.get(AggregateAgentProfile.paramID.ID);
 		AgentKey agentKey = new AgentKey(AGENT_TYPE, new Object[]{agID});
 
 		//Create Agent

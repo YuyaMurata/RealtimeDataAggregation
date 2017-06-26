@@ -36,6 +36,11 @@ public abstract class DestinationTable implements Serializable {
 	
 	public abstract Object getDestAgentID(Object uid, Integer age);
 	
+	public void updateTable(Object originalID, Object cloneID){
+		agentMap.put(originalID, cloneID);
+		agentList.add(cloneID);
+	}
+	
 	public abstract void setTableInfo(AgentProfileGenerator prof);
 	
 	public abstract Map repack(List data);

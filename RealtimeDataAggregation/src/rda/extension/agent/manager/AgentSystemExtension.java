@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 import rda.agent.clone.AgentCloning;
 import rda.agent.creator.AgentCreator;
 import rda.agent.mq.AgentMessageQueue;
@@ -138,7 +139,7 @@ public class AgentSystemExtension implements Extension {
 
 	public String createAgent(Object agID) {
 		Map setter = ((AgentProfileGenerator) initMap.get(AgentSystemInitializer.paramID.AGENT_PROFILE)).generate(agID);
-		String msg = ((AgentCreator) initMap.get(AgentSystemInitializer.paramID.AGENT_CREATOR)).create(setter);
+		String msg = ((AgentCreator) initMap.get(AgentSystemInitializer.paramID.AGENT_CREATOR)).create(agID, setter);
 
 		return msg;
 	}
@@ -146,15 +147,15 @@ public class AgentSystemExtension implements Extension {
 	//MQからのみ実行されるはず
 	public String createCloneAgent(Object agID) {
 		//Create CloneID
-		agID = AgentCloning.cloning(agID);
+		Object cloneID = AgentCloning.cloning(agID);
 		
 		//Cloning Agent
 		Map setter = ((AgentProfileGenerator) initMap.get(AgentSystemInitializer.paramID.AGENT_PROFILE)).generate(agID);
-		String msg = ((AgentCreator) initMap.get(AgentSystemInitializer.paramID.AGENT_CREATOR)).create(setter);
+		String msg = ((AgentCreator) initMap.get(AgentSystemInitializer.paramID.AGENT_CREATOR)).create(cloneID, setter);
 		
 		//transfer original task
 		//upadte table
-		
+		table.updateTable(agID, cloneID);
 
 		return msg;
 	}
@@ -176,13 +177,20 @@ public class AgentSystemExtension implements Extension {
 	}*/
 	
 	public Boolean updateAgent(List data) {
+		List nokori = data;
+		while(!nokori.isEmpty())
 		try{
-			Map map = table.repack(data);
+			Map map = table.repack(nokori);
+			nokori = new ArrayList();
 			for(Object agID : map.keySet()){
 				if(agentMap.get(agID) != null){
 					AgentMessageQueue agmq = (AgentMessageQueue) agentMap.get(agID);
-					//System.out.println(agID+":"+agmq);
 					Boolean result = agmq.put(map.get(agID));
+					
+					if(!result){
+						createCloneAgent(agID);
+						nokori.add(map.get(agID));
+					}
 				}
 			}
 		}catch(Exception e){
