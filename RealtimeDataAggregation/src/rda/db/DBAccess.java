@@ -76,6 +76,9 @@ public class DBAccess implements AgentExecutor, Serializable {
 			
 			//フィールド名取得
 			ResultSetMetaData rsmd= rs.getMetaData();
+			for(int i=0; i < rsmd.getColumnCount(); i++)
+				System.out.println(rsmd.getColumnName(0));
+			
 			List all = new ArrayList();
 			while(rs.next()){
 				System.out.println(rs);
