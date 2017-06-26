@@ -63,7 +63,13 @@ public class DestinationSubTable extends DestinationTable{
 		Integer hashID = Math.abs(uid.hashCode());
 		//System.out.println(age +" = "+ageMap.floorEntry(age).getValue());
 		Object destAg = ageMap.floorEntry(age).getValue();
-		List list = (List) agentMap.get(destAg);
+		List list = null;
+		try{
+			list = (List) agentMap.get(destAg);
+		}catch(Exception e){
+			e.printStackTrace();
+			System.out.println("destAg="+agentMap.get(destAg));
+		}
 		return list.get(hashID % list.size());
 	}
 	
