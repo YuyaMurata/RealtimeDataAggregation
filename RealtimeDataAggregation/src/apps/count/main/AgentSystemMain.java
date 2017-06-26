@@ -23,6 +23,7 @@ import com.ibm.agent.exa.client.AgentClient;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import rda.agent.client.AgentConnection;
 import rda.agent.profile.AgentProfileGenerator;
 import rda.control.stream.WindowStream;
@@ -200,27 +201,33 @@ public class AgentSystemMain {
 		//Read Test
 		System.out.println("AggregateAgent Read Data:");
 		ReadAggregateAgent reader = new ReadAggregateAgent();
-		Long total = 0L;
 		for (Object agID : agentProf.registerIDList()) {
 			AgentConnection server = scManager.getDistributedServer(agID);
 			AgentClient client = server.getClient();
 			
 			Object d = reader.read(client, agID);
 			System.out.println("Read " + agID + " = " + d);
-			total = (Long)((List<Object>) d).get(1) + total;
 			
 			server.returnConnection(client);
 		}
 		
 		//DB Dump
 		System.out.println("AgentDump:");
+		TreeMap map = new TreeMap();
 		for(AgentConnection server : scManager.getAllServer()){
 			AgentClient client = server.getClient();
 			
 			Object msg = new DBAccess().dump(client, (String) prop.getParameter(ServerConnectionManager.paramID.APP_CLASS),  "aggregateagent");
-			System.out.println(msg);
+			map.putAll((Map) msg);
+			//System.out.println(msg);
 			
 			server.returnConnection(client);
+		}
+		//Print
+		Long total = 0L;
+		for(Object id : map.keySet()){
+			System.out.println(id+":"+map.get(id));
+			total = total + (Long)map.get(id);
 		}
 
 		//Total Time
