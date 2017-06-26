@@ -188,7 +188,7 @@ public class AgentSystemExtension implements Extension {
 					
 				if(!result){
 					nokori.addAll(map.get(agID));
-					System.out.println("Load MQ:"+agID+"!!");
+					System.out.println("Load MQ:"+agID+"!! - "+createCloneAgent(agID));
 				}
 			}
 		}
