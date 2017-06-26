@@ -54,7 +54,6 @@ public class DBAccess implements AgentExecutor, Serializable {
 	public Object execute() {
 		Connection con = null;
 		PreparedStatement stmt = null;
-		PreparedStatement stmtCnt = null;
 		try {
 			// このサーバのリージョン名を取得する
 			AgentManager agentManager = AgentManager.getAgentManager();
@@ -91,13 +90,6 @@ public class DBAccess implements AgentExecutor, Serializable {
 			if (stmt != null) {
 				try {
 					stmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (stmtCnt != null) {
-				try {
-					stmtCnt.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
