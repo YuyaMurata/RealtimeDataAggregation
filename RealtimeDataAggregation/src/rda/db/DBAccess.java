@@ -66,7 +66,10 @@ public class DBAccess implements AgentExecutor, Serializable {
 			
 			// JDBC接続を得る
 			con = DriverManager.getConnection("jdbc:ceta:"+app, props);
-
+			
+			System.out.println("app="+app);
+			System.out.println("type="+agenttype);
+			
 			// レコード数を得るSQLを生成し，検索を行う．
 			stmt = con.prepareStatement("select * from "+agenttype);
 			ResultSet rs = stmt.executeQuery();
@@ -77,6 +80,7 @@ public class DBAccess implements AgentExecutor, Serializable {
 			while(rs.next()){
 				List list = new ArrayList();
 				for(int i =0; i < rsmd.getColumnCount(); i++){
+					System.out.println("rs="+rs.getString(i)+" other="+rs.getString(rsmd.getColumnName(i)));
 					list.add(rs.getString(i));
 				}
 				all.add(list);
