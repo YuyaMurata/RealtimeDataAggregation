@@ -147,16 +147,16 @@ public class AgentSystemExtension implements Extension {
 	//MQからのみ実行されるはず
 	public String createCloneAgent(Object agID) {
 		//Create CloneID
-		Object cloneID = AgentCloning.cloning(agID);
-		if(cloneID.equals("")) return "";
+		Map idPair = AgentCloning.cloning(agID);
+		if(idPair == null) return "";
 		
 		//Cloning Agent
-		Map setter = ((AgentProfileGenerator) initMap.get(AgentSystemInitializer.paramID.AGENT_PROFILE)).generate(agID);
-		String msg = ((AgentCreator) initMap.get(AgentSystemInitializer.paramID.AGENT_CREATOR)).create(cloneID, setter);
+		Map setter = ((AgentProfileGenerator) initMap.get(AgentSystemInitializer.paramID.AGENT_PROFILE)).generate(idPair.get("root"));
+		String msg = ((AgentCreator) initMap.get(AgentSystemInitializer.paramID.AGENT_CREATOR)).create(idPair.get("clone"), setter);
 		
 		//transfer original task
 		//upadte table
-		table.updateTable(agID, cloneID);
+		table.updateTable(idPair.get("root"), idPair.get("clone"));
 
 		return msg;
 	}
