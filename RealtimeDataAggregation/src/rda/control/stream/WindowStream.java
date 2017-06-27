@@ -5,8 +5,9 @@
  */
 package rda.control.stream;
 
+import java.util.ArrayList;
+import java.util.List;
 import rda.extension.agent.sender.ExtensionPutMessageQueue;
-import com.ibm.agent.exa.client.AgentClient;
 import java.util.Map;
 import rda.agent.client.AgentConnection;
 import rda.control.flow.Window;
@@ -45,6 +46,7 @@ public class WindowStream extends Thread {
 	@Override
 	public void run() {
 		int total = 0;
+		List<Long> contime = new ArrayList();
 		while (runnable) {
 			//Get Window
 			Window window = flow.get();
@@ -56,13 +58,19 @@ public class WindowStream extends Thread {
 			
 			//Update
 			System.out.println("Host::"+server.getHost());
+			
+			Long start = System.currentTimeMillis();
 			String msg = sender.send(server, window.unpack());
+			Long stop = System.currentTimeMillis();
+			contime.add(stop-start);
+			
 			System.out.println(msg);
 			
 			total+=window.unpack().size();
 		}
-		
 		System.out.println("WindowStream total send data = "+total);
+		int avg = contime.stream().mapToInt(t -> t.intValue()).sum() / contime.size();
+		System.out.println("Connect Time Avg.="+avg+"[ms]");
 	}
 	
 	public String toString(){
