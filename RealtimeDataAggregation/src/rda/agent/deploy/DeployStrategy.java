@@ -23,4 +23,6 @@ public abstract class DeployStrategy {
 	
 	public abstract Map getServerMap();
 	public abstract Map getAgentMap();
+	
+	public abstract Map getAgents();
 }

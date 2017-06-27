@@ -51,9 +51,9 @@ public class Data {
 
 	private Integer idSequentialNo() {
 		count++;
-		if (count == numOfUser) {
+		if (count == numOfUser)
 			count = 0;
-		}
+			
 		return count;
 	}
 

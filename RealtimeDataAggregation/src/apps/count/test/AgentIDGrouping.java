@@ -11,7 +11,6 @@ import apps.count.manager.AggregateAgentManager;
 import apps.count.property.AppCountProperty;
 import bench.main.AgentBenchmark;
 import bench.property.BenchmarkProperty;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;

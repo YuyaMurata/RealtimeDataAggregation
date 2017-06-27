@@ -6,6 +6,7 @@
 package rda.server;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,7 +65,7 @@ public class ServerConnectionManager {
 	}
 
 	//消す予定　DeployStrategyで記述
-	private Map deployMap;
+	/*private Map deployMap;
 	public void agentDeployServer(Map deployRule) {
 		deployMap = new HashMap();
 		List cluster = server.subList(0, server.size() - 1);
@@ -95,7 +96,7 @@ public class ServerConnectionManager {
 				i++;
 			}
 		}
-	}
+	}*/
 	
 	//UserIDによるサーバー分散
 	public AgentConnection getDealServer(Object id, int age){
@@ -156,9 +157,9 @@ public class ServerConnectionManager {
 	}
 
 	//エージェントタイプによる全サーバの取得(ローカルを含む)
-	public Map getDeployAllServer() {
+	/*public Map getDeployAllServer() {
 		return deployMap;//Strategyから取得できるように変更
-	}
+	}*/
 	
 	//全サーバの取得(ローカルを含まない)
 	public List<AgentConnection> getAllServer() {
@@ -177,5 +178,21 @@ public class ServerConnectionManager {
 	
 	public Object[] getServerInfo(AgentConnection server){
 		return new Object[]{getServerToCreateAgent().get(server), serverDestMap.get(server)};
+	}
+	
+	//Test
+	public Object[] getServerInfo(){
+		//統合
+		Map localServerToCreateAgentMap = new HashMap();
+		localServerToCreateAgentMap.put(
+				/*AgentConnection*/				getLocalServer(), 
+				/*AgentMap {top=[], bottom=[]}*/	strategy.getAgents());
+		
+		Map localServerDestMap = new HashMap();
+		localServerDestMap.put(
+				/*AgentConnection*/	getLocalServer(), 
+				/*Deal Range*/		Arrays.asList(new Object[]{0, 100}));
+		
+		return new Object[]{localServerToCreateAgentMap.get(getLocalServer()), localServerDestMap.get(getLocalServer())};
 	}
 }

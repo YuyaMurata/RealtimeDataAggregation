@@ -21,6 +21,7 @@ public class AppCountDeployStrategy extends DeployStrategy{
 	private String idRule;
 	private Map serverToAgentMap;
 	private Map agentToServerMap;
+	private Map agentMap = new HashMap();
 	
 	public AppCountDeployStrategy(Map appProp, List agents) {
 		super();
@@ -42,6 +43,9 @@ public class AppCountDeployStrategy extends DeployStrategy{
 			top = agents;
 			bottom = null;
 		}
+		
+		agentMap.put("top", top);
+		agentMap.put("bottom", bottom);
 		
 		List divTop = divideList(top, servers.size());
 		List divBottom = null;
@@ -97,5 +101,9 @@ public class AppCountDeployStrategy extends DeployStrategy{
 	@Override
 	public Map getAgentMap() {
 		return this.agentToServerMap;
+	}
+	
+	public Map getAgents(){
+		return agentMap;
 	}
 }

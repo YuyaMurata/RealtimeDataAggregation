@@ -30,12 +30,12 @@ public class UserProfile extends AgentProfile {
 	}
 
 	private static final RandomDataGenerator rand = new RandomDataGenerator();
-	private static Integer userMode = 0;
+	private static Integer userMode;
 
 	public static void setParameter(Map appProp) {
 		long seed = (Long) appProp.get(paramID.USER_SEED);
 		userMode = (Integer) appProp.get(paramID.USER_MODE);
-				
+		
 		if (seed != -1L) {
 			rand.reSeed(seed);
 		}
@@ -49,8 +49,8 @@ public class UserProfile extends AgentProfile {
 
 			map.put(profileID.ID, userID);
 			map.put(profileID.NAME, "NAME-" + userID);
-			map.put(profileID.AGE, getAge(userMode));
-			map.put(profileID.SEX, getSex(userMode));
+			map.put(profileID.AGE, getAge());
+			map.put(profileID.SEX, getSex());
 			map.put(profileID.ADDRESS, "CITY-" + userID);
 
 			profMap.put(userID, map);
@@ -59,8 +59,8 @@ public class UserProfile extends AgentProfile {
 		return profMap;
 	}
 
-	private Integer getAge(Integer mode) {
-		if (mode == 0) {
+	private Integer getAge() {
+		if (userMode == 0) {
 			return rand.nextInt(0, 100);
 		} else {
 			int age = (int) rand.nextGaussian(50, 10D);
@@ -71,7 +71,7 @@ public class UserProfile extends AgentProfile {
 		}
 	}
 
-	private Integer getSex(Integer mode) {
+	private Integer getSex() {
 		return rand.nextInt(0, 1);
 	}
 }
