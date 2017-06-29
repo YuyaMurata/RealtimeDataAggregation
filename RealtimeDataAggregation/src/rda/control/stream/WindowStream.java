@@ -9,6 +9,7 @@ import rda.extension.agent.sender.ExtensionPutMessageQueue;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import rda.agent.client.AgentConnection;
 import rda.control.flow.Window;
 import rda.control.flow.WindowController;
@@ -56,12 +57,10 @@ public class WindowStream extends Thread {
 			if (window == null) {
 				continue;
 			}
-			
 			AgentConnection server = (AgentConnection) window.id; 
 			
 			//Update
 			//System.out.println("Host::"+server.getHost());
-			
 			Long start = System.currentTimeMillis();
 			
 			//String msg = sender.send(server, window.unpack());
@@ -72,9 +71,23 @@ public class WindowStream extends Thread {
 			
 			total+=window.unpack().size();
 		}
+		
+		//終了処理
+		try{
+			exeService.shutdown();
+			if(!exeService.awaitTermination(1, TimeUnit.SECONDS))
+				exeService.shutdownNow();
+		}catch(InterruptedException e){
+			System.out.println("awaitTermination interrupted: " + e); 
+			exeService.shutdownNow();
+		}
+		
+		
 		System.out.println("WindowStream total send data = "+total);
+		
 	}
 	
+	@Override
 	public String toString(){
 		return this.name;
 	}
