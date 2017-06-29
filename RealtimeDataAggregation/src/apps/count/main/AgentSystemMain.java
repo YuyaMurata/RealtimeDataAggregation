@@ -121,13 +121,13 @@ public class AgentSystemMain {
 				if (user == null) {
 					continue;
 				}
-
+				
+				//Data
 				Integer age = (Integer) userProf.generate(user.id).get(UserProfile.profileID.AGE);
 				AgentConnection server = scManager.getDealServer(user.id, age);
 
-				if (dataLog.get(server.getHost()) == null) {
+				if (dataLog.get(server.getHost()) == null)
 					dataLog.put(server.getHost(), 0);
-				}
 				dataLog.put(server.getHost(), dataLog.get(server.getHost()) + 1);
 
 				window.in(server, user);
