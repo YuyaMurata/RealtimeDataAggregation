@@ -5,13 +5,14 @@
  */
 package rda.control.stream;
 
-import java.util.ArrayList;
-import java.util.List;
 import rda.extension.agent.sender.ExtensionPutMessageQueue;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import rda.agent.client.AgentConnection;
 import rda.control.flow.Window;
 import rda.control.flow.WindowController;
+import rda.control.thread.WindowThread;
 
 /**
  *
@@ -22,6 +23,9 @@ public class WindowStream extends Thread {
 	private WindowController flow;
 	private ExtensionPutMessageQueue sender;
 	private String name;
+	
+	private ExecutorService exeService = Executors.newFixedThreadPool(8);
+	//private Integer poolsize;
 
 	public WindowStream(Map param, ExtensionPutMessageQueue sender) {
 		this.flow = new WindowController(param);
@@ -60,10 +64,11 @@ public class WindowStream extends Thread {
 			
 			Long start = System.currentTimeMillis();
 			
-			String msg = sender.send(server, window.unpack());
+			//String msg = sender.send(server, window.unpack());
+			exeService.execute(new WindowThread(server, sender, window.unpack()));
 			
 			Long stop = System.currentTimeMillis();
-			System.out.println(msg+" - ,"+(stop-start)+",[ms]");
+			System.out.println((stop-start)+",[ms]");
 			
 			total+=window.unpack().size();
 		}

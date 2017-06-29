@@ -197,17 +197,11 @@ public class AgentSystemExtension implements Extension {
 	
 	public Boolean updateAgent(List data) {
 		try{
-			Long start = System.currentTimeMillis();
 			List nokori = putDataToMQ(data);
-			Long stop = System.currentTimeMillis();
-			
 			if(getMode() == 1)
 				while(!nokori.isEmpty()){
 					nokori = putDataToMQ(nokori);
 				}
-			Long stop2 = System.currentTimeMillis();
-			
-			System.out.println("Extension Update Time, "+(stop2-start)+", ["+(stop-start)+" , "+(stop2-stop)+"]");
 		}catch(Exception e){
 			System.out.println("Repack周りのError!");
 			e.printStackTrace();
