@@ -57,7 +57,7 @@ public class WindowStream extends Thread {
 				continue;
 			}
 			
-			AgentConnection server = (AgentConnection) window.id;
+			AgentConnection server = (AgentConnection) window.id; 
 			
 			//Update
 			//System.out.println("Host::"+server.getHost());
