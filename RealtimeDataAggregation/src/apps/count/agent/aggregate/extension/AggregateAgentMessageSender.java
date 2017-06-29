@@ -5,14 +5,11 @@
  */
 package apps.count.agent.aggregate.extension;
 
-import apps.count.agent.aggregate.table.DestinationSubTable;
 import rda.extension.agent.sender.ExtensionPutMessageQueue;
 import com.ibm.agent.exa.AgentException;
 import com.ibm.agent.exa.client.AgentClient;
 import java.util.List;
-import java.util.Map;
 import rda.agent.client.AgentConnection;
-import rda.agent.profile.AgentProfileGenerator;
 
 /**
  *

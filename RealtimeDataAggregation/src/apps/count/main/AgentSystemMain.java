@@ -105,10 +105,9 @@ public class AgentSystemMain {
 			server.returnConnection(client);
 		}
 
-		//Update Test
+		//Start Window
 		WindowStream window = new WindowStream(
 			prop.getAllParameter(),
-			//new AggregateAgentMessageSender(tableMap, userProf));
 			new AggregateAgentMessageSender());
 		window.start();
 		

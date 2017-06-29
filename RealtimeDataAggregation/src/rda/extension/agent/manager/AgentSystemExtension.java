@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.Set;
 import rda.agent.clone.AgentCloning;
 import rda.agent.creator.AgentCreator;
 import rda.agent.mq.AgentMessageQueue;
@@ -92,15 +91,14 @@ public class AgentSystemExtension implements Extension {
 
 	private void startService() {
 		System.out.println("Start AgentSystem Extension Region-" + regionName);
-
-		System.out.println("************  ************   **********     ************");
-		System.out.println("************  ************  ************  ************");
-		System.out.println("         ***           ***                    ***              **            ***        ");
-		System.out.println("         ***           ************    ********                  ***        ");
-		System.out.println("         ***           ************        ********              ***        ");
-		System.out.println("         ***           ***                    **                ***          ***        ");
-		System.out.println("         ***           ************   ************           ***        ");
-		System.out.println("         ***           ************      **********            ***       ");
+		System.out.println("*************  ************   **********    *************  ");
+		System.out.println("*************  ************  ************   *************  ");
+		System.out.println("     ***	   ***           ***        **       ***       ");
+		System.out.println("     ***       ************    ********          ***       ");
+		System.out.println("     ***       ************      ********        ***       ");
+		System.out.println("     ***       ***           **         ***      ***       ");
+		System.out.println("     ***       ************   ************       ***       ");
+		System.out.println("     ***       ************    **********        ***       ");
 	}
 	
 	private String name;
