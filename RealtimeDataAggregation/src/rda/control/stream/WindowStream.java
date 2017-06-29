@@ -61,13 +61,13 @@ public class WindowStream extends Thread {
 			
 			//Update
 			//System.out.println("Host::"+server.getHost());
-			Long start = System.currentTimeMillis();
+			//Long start = System.currentTimeMillis();
 			
 			//String msg = sender.send(server, window.unpack());
 			exeService.execute(new WindowThread(server, sender, window.unpack()));
 			
-			Long stop = System.currentTimeMillis();
-			System.out.println((stop-start)+",[ms]");
+			//Long stop = System.currentTimeMillis();
+			//System.out.println((stop-start)+",[ms]");
 			
 			total+=window.unpack().size();
 		}
