@@ -63,7 +63,7 @@ public class WindowStream extends Thread {
 			String msg = sender.send(server, window.unpack());
 			
 			Long stop = System.currentTimeMillis();
-			System.out.println(msg+" - "+(stop-start)+"[ms]");
+			System.out.println(msg+" - ,"+(stop-start)+",[ms]");
 			
 			total+=window.unpack().size();
 		}

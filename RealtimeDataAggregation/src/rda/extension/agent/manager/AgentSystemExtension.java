@@ -207,7 +207,7 @@ public class AgentSystemExtension implements Extension {
 				}
 			Long stop2 = System.currentTimeMillis();
 			
-			System.out.println("Extension Update Time="+(stop2-start)+" ["+(stop-start)+" , "+(stop2-stop)+"]");
+			System.out.println("Extension Update Time, "+(stop2-start)+", ["+(stop-start)+" , "+(stop2-stop)+"]");
 		}catch(Exception e){
 			System.out.println("Repack周りのError!");
 			e.printStackTrace();
