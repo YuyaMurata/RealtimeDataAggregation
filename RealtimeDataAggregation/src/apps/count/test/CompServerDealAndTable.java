@@ -43,6 +43,7 @@ public class CompServerDealAndTable {
 
 		//Create User ID
 		List userLists = agBench.getUserList();
+		UserProfile.setParameter(approp.getAllParameter());
 		AgentProfileGenerator userProf = new AgentProfileGenerator(new UserProfile(userLists));
 		System.out.println(userProf.toString());
 

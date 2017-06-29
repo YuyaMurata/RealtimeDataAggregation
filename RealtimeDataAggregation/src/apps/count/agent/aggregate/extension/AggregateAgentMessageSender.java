@@ -6,11 +6,8 @@
 package apps.count.agent.aggregate.extension;
 
 import apps.count.agent.aggregate.table.DestinationSubTable;
-import apps.count.appuser.UserProfile;
-import bench.template.UserData;
 import rda.extension.agent.sender.ExtensionPutMessageQueue;
 import com.ibm.agent.exa.AgentException;
-import com.ibm.agent.exa.AgentKey;
 import com.ibm.agent.exa.client.AgentClient;
 import java.util.List;
 import java.util.Map;
@@ -22,16 +19,7 @@ import rda.agent.profile.AgentProfileGenerator;
  * @author murata
  */
 public class AggregateAgentMessageSender extends ExtensionPutMessageQueue {
-	private static final String AGENT_TYPE = "aggregateagent";
-	private transient Map<AgentConnection, DestinationSubTable> table;
-	private transient AgentProfileGenerator prof;
-
 	public AggregateAgentMessageSender() {
-	}
-	
-	public AggregateAgentMessageSender(Map table, AgentProfileGenerator prof) {
-		this.table = table;
-		this.prof = prof;
 	}
 
 	public AggregateAgentMessageSender(List data) {

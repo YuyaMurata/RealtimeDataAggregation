@@ -57,14 +57,14 @@ public class WindowStream extends Thread {
 			AgentConnection server = (AgentConnection) window.id;
 			
 			//Update
-			System.out.println("Host::"+server.getHost());
+			//System.out.println("Host::"+server.getHost());
 			
 			Long start = System.currentTimeMillis();
 			String msg = sender.send(server, window.unpack());
 			Long stop = System.currentTimeMillis();
 			contime.add(stop-start);
 			
-			System.out.println(msg);
+			//System.out.println(msg);
 			
 			total+=window.unpack().size();
 		}
