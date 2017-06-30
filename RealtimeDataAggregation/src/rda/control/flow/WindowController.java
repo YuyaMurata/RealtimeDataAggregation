@@ -52,6 +52,7 @@ public class WindowController extends Thread {
 		long total = 0L;
 		while (runnable) {
 			for (Window window : windowMap.values()) {
+				System.out.println("WindowContorller="+window.getSize());
 				total += window.getSize();
 				addExecutable(window);
 			}
