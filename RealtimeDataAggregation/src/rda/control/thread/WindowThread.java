@@ -26,7 +26,11 @@ public class WindowThread implements Runnable{
 	
 	@Override
 	public void run() {
-		String msg = sender.send(server, sendData);
+		try{
+			String msg = sender.send(server, sendData);
+		}catch(Exception e){
+			// AgentClientが先に終了している．
+		}
 	}
 	
 }
