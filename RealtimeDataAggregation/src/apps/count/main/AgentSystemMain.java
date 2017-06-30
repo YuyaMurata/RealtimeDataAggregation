@@ -201,13 +201,13 @@ public class AgentSystemMain {
 		System.out.println(total + "/" + totalData + "," + (stop - start));
 
 		//Delete
-		for(AgentConnection server : scManager.getAllServer()){
+		/*for(AgentConnection server : scManager.getAllServer()){
 			AgentClient client = server.getClient();
 			
 			Dispose deletor = new Dispose();
 			deletor.delete(client);
 		
 			server.returnConnection(client);
-		}
+		}*/
 	}
 }
