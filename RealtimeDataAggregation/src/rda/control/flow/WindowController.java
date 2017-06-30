@@ -21,7 +21,7 @@ public class WindowController extends Thread {
 		Window.setParameter((Integer) param.get(paramID.WINDOW_SIZE));
 	}
 
-	public void pack(Object id, Object data) {
+	public synchronized void pack(Object id, Object data) {
 		try {
 			windowMap.get(id).pack(data);
 		} catch (NullPointerException e) {
@@ -37,7 +37,7 @@ public class WindowController extends Thread {
 		//System.out.println("Window Controller Size = "+executableQueue.size());
 	}
 
-	public Window get() {
+	public synchronized Window get() {
 		return (Window) executableQueue.poll();
 	}
 

@@ -66,9 +66,7 @@ public class WindowStream extends Thread {
 			
 			//String msg = sender.send(server, window.unpack());
 			exeService.execute(new WindowThread(server, sender, window.unpack()));
-			System.out.println(name+":"+window.getSize());
-			
-			
+
 			//Long stop = System.currentTimeMillis();
 			//System.out.println((stop-start)+",[ms]");
 			
