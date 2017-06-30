@@ -25,7 +25,8 @@ public class WindowStream extends Thread {
 	private ExtensionPutMessageQueue sender;
 	private String name;
 	
-	private ExecutorService exeService = Executors.newFixedThreadPool(16);
+	//private ExecutorService exeService = Executors.newFixedThreadPool(16);
+	private ExecutorService exeService = Executors.newSingleThreadExecutor();
 	//private Integer poolsize;
 
 	public WindowStream(Map param, ExtensionPutMessageQueue sender) {
