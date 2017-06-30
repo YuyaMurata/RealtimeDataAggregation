@@ -50,7 +50,7 @@ public class WindowStream extends Thread {
 
 	@Override
 	public void run() {
-		this.flow.start();
+		//this.flow.start();
 		int total = 0;
 		while (runnable) {
 			//Get Window
