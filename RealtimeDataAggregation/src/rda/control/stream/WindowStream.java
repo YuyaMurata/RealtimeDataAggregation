@@ -5,6 +5,8 @@
  */
 package rda.control.stream;
 
+import java.util.ArrayList;
+import java.util.List;
 import rda.extension.agent.sender.ExtensionPutMessageQueue;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -51,6 +53,7 @@ public class WindowStream extends Thread {
 	@Override
 	public void run() {
 		//this.flow.start();
+		List<Long> connectTime = new ArrayList();
 		int total = 0;
 		while (runnable) {
 			//Get Window
@@ -62,14 +65,15 @@ public class WindowStream extends Thread {
 			
 			//Update
 			//System.out.println("Host::"+server.getHost());
-			//Long start = System.currentTimeMillis();
+			Long start = System.currentTimeMillis();
 			
 			//String msg = sender.send(server, window.unpack());
 			exeService.execute(new WindowThread(server, sender, window.unpack()));
 
-			//Long stop = System.currentTimeMillis();
+			Long stop = System.currentTimeMillis();
 			//System.out.println((stop-start)+",[ms]");
 			
+			connectTime.add(stop - start);
 			total+=window.getSize();
 		}
 		
@@ -83,8 +87,8 @@ public class WindowStream extends Thread {
 			exeService.shutdownNow();
 		}
 		
-		
-		System.out.println("WindowStream total send data = "+total);
+		long avg = connectTime.stream().mapToLong(n -> n.longValue()).sum() / connectTime.size();
+		System.out.println("WindowStream total send data = "+total +" - t="+avg+"[ms]");
 		
 	}
 	
