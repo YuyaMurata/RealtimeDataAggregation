@@ -154,6 +154,11 @@ public class AgentSystemExtension implements Extension {
 		new Thread(agentMap.get(idPair.get("clone"))).start();
 		
 		//transfer original task
+		AgentMessageQueue agmq = (AgentMessageQueue) agentMap.get(agID);
+		AgentMessageQueue agmqClone = (AgentMessageQueue) agentMap.get(idPair.get("clone"));
+		for(int i=0; i < agmq.getSize(); i++)
+			agmqClone.put(agmq.get());
+		
 		//upadte table
 		table.updateTable(idPair.get("root"), idPair.get("clone"));
 

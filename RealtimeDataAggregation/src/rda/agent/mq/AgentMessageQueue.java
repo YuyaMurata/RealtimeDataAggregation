@@ -79,6 +79,10 @@ public class AgentMessageQueue implements Runnable {
 
 		System.out.println("AgentID-" + agID + " Stop Running!");
 	}
+	
+	public Integer getSize(){
+		return queue.size();
+	}
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
