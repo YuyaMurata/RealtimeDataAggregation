@@ -31,7 +31,7 @@ public class WindowController extends Thread {
 		}
 	}
 
-	public void addExecutable(Window window) {
+	public synchronized void addExecutable(Window window) {
 		executableQueue.offer(window);
 		windowMap.remove(window.id);
 		//System.out.println("Window Controller Size = "+executableQueue.size());
@@ -52,8 +52,6 @@ public class WindowController extends Thread {
 		long total = 0L;
 		while (runnable) {
 			for (Window window : windowMap.values()) {
-				System.out.println("WindowContorller="+window.getSize());
-				total += window.getSize();
 				addExecutable(window);
 			}
 
