@@ -53,7 +53,7 @@ public class WindowStream extends Thread {
 	@Override
 	public void run() {
 		//this.flow.start();
-		List<Long> connectTime = new ArrayList();
+		Long connectTime = 0L;
 		int total = 0;
 		while (runnable) {
 			//Get Window
@@ -73,7 +73,7 @@ public class WindowStream extends Thread {
 			Long stop = System.currentTimeMillis();
 			//System.out.println((stop-start)+",[ms]");
 			
-			connectTime.add(stop - start);
+			connectTime += (stop - start);
 			total+=window.getSize();
 		}
 		
@@ -86,8 +86,6 @@ public class WindowStream extends Thread {
 			System.out.println("awaitTermination interrupted: " + e); 
 			exeService.shutdownNow();
 		}
-		
-		long avg = connectTime.stream().mapToLong(n -> n.longValue()).sum() / connectTime.size();
 		System.out.println("WindowStream total send data = "+total +" - t="+avg+"[ms]");
 		
 	}
