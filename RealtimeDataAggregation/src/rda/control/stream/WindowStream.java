@@ -16,7 +16,7 @@ import rda.control.flow.WindowController;
 import rda.control.thread.WindowThread;
 
 /**
- *
+ *	
  * @author kaeru
  */
 public class WindowStream extends Thread {

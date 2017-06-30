@@ -49,9 +49,11 @@ public class WindowController extends Thread {
 
 	@Override
 	public void run() {
+		long total = 0L;
 		while (runnable) {
 			for (Window window : windowMap.values()) {
 				addExecutable(window);
+				total += window.getSize();
 			}
 
 			try {
@@ -59,5 +61,6 @@ public class WindowController extends Thread {
 			} catch (InterruptedException ex) {
 			}
 		}
+		System.out.println("Flow-"+total);
 	}
 }
