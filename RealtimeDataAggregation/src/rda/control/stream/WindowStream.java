@@ -34,7 +34,6 @@ public class WindowStream extends Thread {
 		this.sender = sender;
 
 		setRunnable(true);
-		this.flow.start();
 	}
 
 	private static Boolean runnable;
@@ -50,6 +49,7 @@ public class WindowStream extends Thread {
 
 	@Override
 	public void run() {
+		this.flow.start();
 		int total = 0;
 		while (runnable) {
 			//Get Window
