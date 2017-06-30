@@ -5,6 +5,7 @@
  */
 package rda.control.flow;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -20,7 +21,7 @@ public class Window {
 	public Window(WindowController ctrl, Object id) {
 		this.winctrl = ctrl;
 		this.id = id;
-		this.win = new CopyOnWriteArrayList();
+		this.win = new ArrayList();
 	}
 
 	private static Integer size;
