@@ -51,8 +51,8 @@ public class WindowController extends Thread {
 	public void run() {
 		long total = 0L;
 		while (runnable) {
-			for (Object id : windowMap.keySet()) {
-				addExecutable(windowMap.get(id));
+			for (Window window : windowMap.values()) {
+				addExecutable(window);
 			}
 
 			try {
