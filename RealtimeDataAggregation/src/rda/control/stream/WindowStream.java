@@ -86,7 +86,7 @@ public class WindowStream extends Thread {
 			System.out.println("awaitTermination interrupted: " + e); 
 			exeService.shutdownNow();
 		}
-		System.out.println("WindowStream total send data = "+total +" - t="+avg+"[ms]");
+		System.out.println("WindowStream total send data = "+total +" - t="+connectTime+"[ms]");
 		
 	}
 	
