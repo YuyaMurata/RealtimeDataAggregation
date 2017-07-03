@@ -20,6 +20,7 @@ import rda.agent.table.DestinationTable;
 import rda.agent.updator.AgentUpdator;
 import rda.extension.agent.comm.AgentIntaractionComm;
 import rda.extension.agent.exec.AgentSystemInitializer;
+import rda.extension.logging.AgentSystemLog;
 
 /**
  *
@@ -244,7 +245,10 @@ public class AgentSystemExtension implements Extension {
 		agentMap.values().stream()
 				.map(e -> new Thread(e))
 				.forEach(t -> ((Thread) t).start());
-
+		
+		//Logging
+		(new AgentSystemLog(10L, agentMap)).start();
+		
 		return "<"+name+">[Success AgentSystem Start !]";
 	}
 
