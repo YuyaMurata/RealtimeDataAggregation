@@ -24,7 +24,6 @@ public class WindowController extends Thread {
 	public synchronized void pack(Object id, Object data) {
 		if(windowMap.get(id) != null){
 			windowMap.get(id).pack(data);
-			return ;
 		}else{
 			windowMap.put(id, new Window(this, id));
 			windowMap.get(id).pack(data);
