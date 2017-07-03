@@ -24,9 +24,12 @@ public class BenchmarkTest {
 		Map datalog = new HashMap();
 		Long totalData = 0L;
 		Long start = System.currentTimeMillis();
+		Long best = 0L;
 		try {
 			while (true) {
+				Long bstart = System.currentTimeMillis();
 				UserData user = ag.bench();
+				best += System.currentTimeMillis() - bstart;
 				if (user == null) {
 					continue;
 				}
@@ -49,6 +52,7 @@ public class BenchmarkTest {
 			System.out.println("\t " + id + ", " + datalog.get(id));
 			idTotal++;
 		}
-		System.out.println("} Total=" + totalData + "-" + ag.getTotalGenerate() + " ID=" + idTotal + " Time[s]:" + (stop - start));
+		System.out.println("} Total=" + totalData + "-" + ag.getTotalGenerate() + " ID=" + idTotal + " Time[ms]:" + (stop - start));
+		System.out.println("Bench = "+best+"ms");
 	}
 }

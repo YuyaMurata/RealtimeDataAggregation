@@ -144,9 +144,9 @@ public class AgentBenchmark {
 	public void setDummyParameter() {
 		//Dummy Parameter
 		Map dparam = new HashMap();
-		dparam.put(paramID.TIME_RUN, 10L);
-		dparam.put(paramID.TIME_PERIOD, 1000L);
-		dparam.put(paramID.DATA_VOLUME, 10000L);
+		dparam.put(paramID.TIME_RUN, 5L);
+		dparam.put(paramID.TIME_PERIOD, 0L);
+		dparam.put(paramID.DATA_VOLUME, 100000L);
 		dparam.put(paramID.AMOUNT_USER, 1000);
 		dparam.put(paramID.AGENT_DEFAULT_VALUE, 1);
 		dparam.put(paramID.DATA_MODE, 0);
