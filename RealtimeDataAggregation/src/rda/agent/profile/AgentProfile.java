@@ -29,6 +29,8 @@ public abstract class AgentProfile implements Serializable {
 	public Map getProfile(Object agID) {
 		return profile.get(agID);
 	}
+	
+	public abstract Object getAttribute(Object agID);
 
 	public List getIDList() {
 		return idList;

@@ -16,7 +16,6 @@ import rda.agent.profile.AgentProfile;
  * @author kaeru
  */
 public class UserProfile extends AgentProfile {
-
 	public enum paramID {
 		USER_SEED, USER_MODE
 	}
@@ -49,10 +48,13 @@ public class UserProfile extends AgentProfile {
 
 			map.put(profileID.ID, userID);
 			map.put(profileID.NAME, "NAME-" + userID);
-			map.put(profileID.AGE, getAge());
+			int age = getAge();
+			map.put(profileID.AGE, age);
 			map.put(profileID.SEX, getSex());
 			map.put(profileID.ADDRESS, "CITY-" + userID);
-
+			
+			ageMap.put(userID, age);
+			
 			profMap.put(userID, map);
 		}
 
@@ -73,5 +75,11 @@ public class UserProfile extends AgentProfile {
 
 	private Integer getSex() {
 		return rand.nextInt(0, 1);
+	}
+	
+	private Map ageMap = new HashMap();
+	@Override
+	public Object getAttribute(Object agID) {
+		return ageMap.get(agID);
 	}
 }

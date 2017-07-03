@@ -29,8 +29,8 @@ public class AgentProfileGenerator implements Serializable {
 		return prof.getProfile(agID);
 	}
 
-	public Object getAttribute(Object agID, Object key) {
-		return prof.getProfile(agID).get(key);
+	public Object getAttribute(Object agID) {
+		return prof.getAttribute(agID);
 	}
 
 	public String getAgentIDRule() {

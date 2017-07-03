@@ -131,7 +131,7 @@ public class AgentSystemMain {
 				
 				//Data
 				Long pstart = System.currentTimeMillis();
-				Integer age = (Integer) userProf.getAttribute(user.id, UserProfile.profileID.AGE);
+				Integer age = (Integer) userProf.getAttribute(user.id);
 				pest += System.currentTimeMillis() - pstart;
 				AgentConnection server = scManager.getDealServer(user.id, age);
 				

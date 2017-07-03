@@ -17,6 +17,11 @@ import rda.agent.profile.AgentProfile;
  */
 public class AggregateAgentProfile extends AgentProfile {
 
+	@Override
+	public Object getAttribute(Object agID) {
+		return null;
+	}
+
 	public static enum paramID {
 		ID, MESSAGE_DATA
 	}
