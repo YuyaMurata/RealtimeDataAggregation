@@ -43,6 +43,7 @@ public class UserProfile extends AgentProfile {
 	@Override
 	public Map initProfile(List userList) {
 		Map profMap = new HashMap();
+		ageMap = new HashMap();
 		for (String userID : (List<String>) userList) {
 			Map map = new HashMap();
 
@@ -77,7 +78,7 @@ public class UserProfile extends AgentProfile {
 		return rand.nextInt(0, 1);
 	}
 	
-	private Map ageMap = new HashMap();
+	private Map ageMap;
 	@Override
 	public Object getAttribute(Object agID) {
 		return ageMap.get(agID);
