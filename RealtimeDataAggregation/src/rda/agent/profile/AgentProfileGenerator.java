@@ -13,26 +13,31 @@ import java.util.Map;
  *
  * @author kaeru
  */
-public class AgentProfileGenerator implements Serializable{
-    private AgentProfile prof;
-    
-    public AgentProfileGenerator(AgentProfile prof) {
-        this.prof = prof;
-    }
-    
-    public List registerIDList(){
-        return prof.getIDList();
-    }
-    
-    public Map generate(Object agID){
-        return prof.getProfile(agID);
-    }
-    
-    public String getAgentIDRule(){
-        return prof.getIDList().get(0).toString().split("#")[0];
-    }
-    
-    public String toString(){
-        return prof.toString();
-    }
+public class AgentProfileGenerator implements Serializable {
+
+	private AgentProfile prof;
+
+	public AgentProfileGenerator(AgentProfile prof) {
+		this.prof = prof;
+	}
+
+	public List registerIDList() {
+		return prof.getIDList();
+	}
+
+	public Map generate(Object agID) {
+		return prof.getProfile(agID);
+	}
+
+	public Object getAttribute(Object agID, Object key) {
+		return prof.getProfile(agID).get(key);
+	}
+
+	public String getAgentIDRule() {
+		return prof.getIDList().get(0).toString().split("#")[0];
+	}
+
+	public String toString() {
+		return prof.toString();
+	}
 }
