@@ -132,14 +132,14 @@ public class AgentSystemMain {
 				//Data
 				Long pstart = System.currentTimeMillis();
 				Integer age = (Integer) userProf.generate(user.id).get(UserProfile.profileID.AGE);
-				AgentConnection server = scManager.getDealServer(user.id, age);
 				pest += System.currentTimeMillis() - pstart;
+				AgentConnection server = scManager.getDealServer(user.id, age);
 				
-				Long lstart = System.currentTimeMillis();
+				/*Long lstart = System.currentTimeMillis();
 				if (dataLog.get(server.getHost()) == null)
 					dataLog.put(server.getHost(), 0);
 				dataLog.put(server.getHost(), dataLog.get(server.getHost()) + 1);
-				lest += System.currentTimeMillis() - lstart;
+				lest += System.currentTimeMillis() - lstart;*/
 				
 				Long wstart = System.currentTimeMillis();
 				window.in(server, user);
