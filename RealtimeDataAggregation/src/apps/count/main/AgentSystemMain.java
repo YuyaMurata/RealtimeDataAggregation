@@ -116,23 +116,36 @@ public class AgentSystemMain {
 		Map<Object, Integer> dataLog = new HashMap();
 		Long totalData = 0L;
 		Long start = System.currentTimeMillis();
+		
+		Long pest = 0L;
+		Long best = 0L;
+		Long lest = 0L;
+		Long west = 0L;
 		try {
 			while (true) {
+				Long bstart = System.currentTimeMillis();
 				UserData user = agBench.bench();
+				best += System.currentTimeMillis() - bstart;
 				if (user == null) {
 					continue;
 				}
 				
 				//Data
+				Long pstart = System.currentTimeMillis();
 				Integer age = (Integer) userProf.generate(user.id).get(UserProfile.profileID.AGE);
 				AgentConnection server = scManager.getDealServer(user.id, age);
-
+				pest += System.currentTimeMillis() - pstart;
+				
+				Long lstart = System.currentTimeMillis();
 				if (dataLog.get(server.getHost()) == null)
 					dataLog.put(server.getHost(), 0);
 				dataLog.put(server.getHost(), dataLog.get(server.getHost()) + 1);
-
+				lest += System.currentTimeMillis() - lstart;
+				
+				Long wstart = System.currentTimeMillis();
 				window.in(server, user);
 				//System.out.println("userID="+user.id+" ("+age+") -> "+server.getHost());
+				west += System.currentTimeMillis() - wstart;
 				
 				totalData++;
 			}
@@ -199,6 +212,7 @@ public class AgentSystemMain {
 
 		//Total Time
 		System.out.println(total + "/" + totalData + "," + (stop - start));
+		System.out.println("Bench="+best+"ms Profile="+pest+"ms Log="+lest+"ms Window="+west+"ms");
 
 		//Delete
 		/*for(AgentConnection server : scManager.getAllServer()){
