@@ -135,7 +135,6 @@ public class AgentSystemExtension implements Extension {
 	}
 
 	private Map<Object, AgentMessageQueue> agentMap = new HashMap();
-
 	public String createAgent(Object agID) {
 		Map setter = ((AgentProfileGenerator) initMap.get(AgentSystemInitializer.paramID.AGENT_PROFILE)).generate(agID);
 		String msg = ((AgentCreator) initMap.get(AgentSystemInitializer.paramID.AGENT_CREATOR)).create(agID, setter);
