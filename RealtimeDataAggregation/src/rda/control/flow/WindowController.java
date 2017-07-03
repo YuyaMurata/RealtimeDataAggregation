@@ -22,12 +22,12 @@ public class WindowController extends Thread {
 	}
 
 	public synchronized void pack(Object id, Object data) {
-		try {
+		if(windowMap.get(id) != null){
 			windowMap.get(id).pack(data);
-		} catch (NullPointerException e) {
-			Window window = new Window(this, id);
-			window.pack(data);
-			windowMap.put(id, window);
+			return ;
+		}else{
+			windowMap.put(id, new Window(this, id));
+			windowMap.get(id).pack(data);
 		}
 	}
 
