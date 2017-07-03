@@ -31,7 +31,7 @@ public abstract class AgentCreator implements AgentExecutor, Serializable {
 	public Object complete(Collection<Object> results) {
 		// TODO 自動生成されたメソッド・スタブ
 		Object[] ret = results.toArray();
-		return ret[0];
+		return ret;
 	}
 
 	@Override
