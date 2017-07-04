@@ -141,11 +141,12 @@ public class AgentBenchmark {
 			user = datagen.generate(BenchTiming.time);
 		}
 		
+		int i=0;
 		for(Map<Object, List> map : occurData){
-			System.out.println(occurData.indexOf(map));
 			for(Object key : map.keySet()){
-				System.out.println(key+" = "+map.get(key).size());
+				System.out.println(i+":"+key+" = "+map.get(key).size());
 			}
+			i++;
 		}
 		
 		datagen.initTimeVolme();
