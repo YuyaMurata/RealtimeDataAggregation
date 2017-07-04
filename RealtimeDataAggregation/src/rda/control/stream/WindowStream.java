@@ -56,6 +56,7 @@ public class WindowStream extends Thread {
 		while (runnable) {
 			//Get Window
 			Window window = flow.get();
+			System.out.println(window.id+" get!");
 			if (window == null) {
 				continue;
 			}
@@ -63,16 +64,16 @@ public class WindowStream extends Thread {
 			
 			//Update
 			//System.out.println("Host::"+server.getHost());
-			Long start = System.currentTimeMillis();
+			//Long start = System.currentTimeMillis();
 			
 			//String msg = sender.send(server, window.unpack());
 			execService.execute(new WindowThread(server, sender, window.unpack()));
 
-			Long stop = System.currentTimeMillis();
+			//Long stop = System.currentTimeMillis();
 			//System.out.println((stop-start)+",[ms]");
 			
-			connectTime += (stop - start);
-			total+=window.getSize();
+			//connectTime += (stop - start);
+			//total+=window.getSize();
 		}
 		
 		//終了処理
