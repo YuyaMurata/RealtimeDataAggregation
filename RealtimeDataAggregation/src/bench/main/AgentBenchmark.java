@@ -44,8 +44,8 @@ public class AgentBenchmark {
 	public void setParameter(Map param) {
 		this.param = param;
 
-		this.term = (Long) param.get(paramID.TIME_RUN);
-		this.period = (Long) param.get(paramID.TIME_PERIOD);
+		BenchTiming.term = (Long) param.get(paramID.TIME_RUN);
+		BenchTiming.period = (Long) param.get(paramID.TIME_PERIOD);
 
 		preparedBenchmark((Integer) param.get(paramID.AMOUNT_USER),
 				(String) param.get(paramID.ID_RULE),
@@ -65,7 +65,7 @@ public class AgentBenchmark {
 		type.setUserLists(userLists);
 
 		BenchTiming.timerFlg = true;
-		time = 1L;
+		BenchTiming.time = 1L;
 		datagen = new DataGenerator(type);
 	}
 
@@ -107,14 +107,12 @@ public class AgentBenchmark {
 	}
 
 	//BenchMark Main
-	private Long term, period, time;
-
 	public UserData bench() throws TimeOverEvent {
 		BenchTiming.start(datagen);
 
-		UserData user = datagen.generate(time);
+		UserData user = datagen.generate(BenchTiming.time);
 		
-		BenchTiming.stop(user, period, term, time);
+		BenchTiming.stop(user);
 
 		return user;
 	}

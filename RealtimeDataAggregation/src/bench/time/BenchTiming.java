@@ -14,6 +14,7 @@ import bench.template.UserData;
  */
 public class BenchTiming {
 	public static Boolean timerFlg;
+	public static Long time, period, term;
 	private static Long timer;
 	public static void start(DataGenerator datagen){
 		if (timerFlg) {
@@ -23,7 +24,7 @@ public class BenchTiming {
 		}
 	}
 	
-	public static void stop(UserData user, Long period, Long term, Long time) throws TimeOverEvent{
+	public static void stop(UserData user) throws TimeOverEvent{
 		if (user == null) {
 			Long sleepTime = System.currentTimeMillis() - timer;
 			if (period > sleepTime) {
