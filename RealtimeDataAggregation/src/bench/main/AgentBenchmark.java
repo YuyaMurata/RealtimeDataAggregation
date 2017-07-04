@@ -124,7 +124,7 @@ public class AgentBenchmark {
 	List<List> occurData = new ArrayList();
 	List users = new ArrayList();
 	Long secSize = 0L;
-	int cnt =0;
+	int cnt =-1;
 	public void setBenchList(int winSize){
 		UserData user = datagen.generate(BenchTiming.time);
 		while(user != null){
@@ -153,7 +153,7 @@ public class AgentBenchmark {
 
 		List<UserData> user = occurData.get(cnt++);
 		if(cnt > occurData.size()){
-			cnt=0;
+			cnt=-1;
 			user = null;
 		}
 		
