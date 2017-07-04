@@ -148,7 +148,7 @@ public class AgentBenchmark {
 		BenchTiming.start(datagen, new Long(size));
 		
 		Map<Object, List<UserData>> user = new HashMap(occurData.get(cnt));
-		if(cnt < occurData.size()){
+		if(cnt < occurData.size()-1){
 			cnt++;
 		}else{
 			user = null;
