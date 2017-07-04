@@ -125,7 +125,7 @@ public class AgentSystemMain {
 			while (true) {
 				Long bstart = System.currentTimeMillis();
 				//UserData user = agBench.bench();
-				Map<Object, List> user = agBench.benchList();
+				Map<Object, List<UserData>> user = agBench.benchList();
 				
 				best += System.currentTimeMillis() - bstart;
 				if (user == null) {
