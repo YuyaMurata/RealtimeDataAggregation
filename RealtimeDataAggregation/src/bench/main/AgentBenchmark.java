@@ -152,7 +152,7 @@ public class AgentBenchmark {
 		BenchTiming.start(datagen, secSize);
 
 		List<UserData> user = occurData.get(cnt++);
-		if(cnt >= occurData.size()){
+		if(cnt > occurData.size()){
 			cnt=0;
 			user = null;
 		}

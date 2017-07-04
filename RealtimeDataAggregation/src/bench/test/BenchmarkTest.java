@@ -30,19 +30,20 @@ public class BenchmarkTest {
 		try {
 			while (true) {
 				Long bstart = System.currentTimeMillis();
-				UserData user = ag.bench();
-				//List userList = ag.benchList();
+				//UserData user = ag.bench();
+				List user = ag.benchSet();
 				best += System.currentTimeMillis() - bstart;
 				if (user == null) {
 					continue;
 				}
 				
-				if (datalog.get(user.id) == null) {
+				/*if (datalog.get(user.id) == null) {
 					datalog.put(user.id, 0);
 				}
-				datalog.put(user.id, (int) datalog.get(user.id) + (int) user.data);
+				datalog.put(user.id, (int) datalog.get(user.id) + (int) user.data);*/
 
-				totalData++;
+				//totalData++;
+				totalData += user.size();
 			}
 		} catch (TimeOverEvent ex) {
 			//ex.printStackTrace();
