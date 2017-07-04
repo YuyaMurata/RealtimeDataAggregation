@@ -40,8 +40,7 @@ public class WindowController extends Thread {
 	public synchronized void addExecutable(Window window) {
 		executableQueue.offer(window);
 		windowMap.remove(window.id);
-		System.out.println(toString());
-		//System.out.println("Window Controller Size = "+executableQueue.size());
+		System.out.println("Window Controller Size = "+executableQueue.size());
 	}
 
 	public synchronized Window get() {
