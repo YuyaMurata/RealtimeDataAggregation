@@ -5,8 +5,6 @@
  */
 package rda.control.stream;
 
-import java.util.ArrayList;
-import java.util.List;
 import rda.extension.agent.sender.ExtensionPutMessageQueue;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -27,8 +25,8 @@ public class WindowStream extends Thread {
 	private ExtensionPutMessageQueue sender;
 	private String name;
 	
-	//private ExecutorService execService = Executors.newFixedThreadPool(16);
-	private ExecutorService execService = Executors.newSingleThreadExecutor();
+	private ExecutorService execService = Executors.newFixedThreadPool(16);
+	//private ExecutorService exeService = Executors.newSingleThreadExecutor();
 	//private Integer poolsize;
 
 	public WindowStream(Map param, ExtensionPutMessageQueue sender) {
@@ -87,6 +85,7 @@ public class WindowStream extends Thread {
 			execService.shutdownNow();
 		}
 		System.out.println("WindowStream total send data = "+total +" - t="+connectTime+"[ms]");
+		System.out.println(this.flow.toString());
 		
 	}
 	

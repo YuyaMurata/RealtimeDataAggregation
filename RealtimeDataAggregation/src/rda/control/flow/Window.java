@@ -13,7 +13,6 @@ import java.util.List;
  * @author kaeru
  */
 public class Window {
-
 	public Object id;
 	private List win;
 	private WindowController winctrl;
