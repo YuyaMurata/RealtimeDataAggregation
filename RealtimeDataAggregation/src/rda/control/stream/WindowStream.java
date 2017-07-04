@@ -5,6 +5,7 @@
  */
 package rda.control.stream;
 
+import java.util.List;
 import rda.extension.agent.sender.ExtensionPutMessageQueue;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -45,6 +46,11 @@ public class WindowStream extends Thread {
 	}
 
 	public void in(Object id, Object data) {
+		flow.pack(id, data);
+	}
+	
+	//Only List
+	public void in(Object id, List data) {
 		flow.pack(id, data);
 	}
 

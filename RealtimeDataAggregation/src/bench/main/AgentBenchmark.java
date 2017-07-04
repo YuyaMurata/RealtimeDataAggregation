@@ -7,6 +7,7 @@ package bench.main;
 
 import bench.generator.DataGenerator;
 import bench.template.UserData;
+import bench.time.BenchTiming;
 import bench.time.TimeOverEvent;
 import bench.type.DataType;
 import bench.type.FlatData;
@@ -63,7 +64,7 @@ public class AgentBenchmark {
 		DataType type = setTypeParameter(select);
 		type.setUserLists(userLists);
 
-		timerFlg = true;
+		BenchTiming.timerFlg = true;
 		time = 1L;
 		datagen = new DataGenerator(type);
 	}
@@ -106,36 +107,14 @@ public class AgentBenchmark {
 	}
 
 	//BenchMark Main
-	private Long watch, term, period, time;
-	private Boolean timerFlg;
+	private Long term, period, time;
 
 	public UserData bench() throws TimeOverEvent {
-		if (timerFlg) {
-			watch = System.currentTimeMillis();
-			System.out.println("DataGen="+datagen.getTimeVolme());
-			timerFlg = false;
-		}
+		BenchTiming.start(datagen);
 
 		UserData user = datagen.generate(time);
-		if (user == null) {
-			Long sleepTime = System.currentTimeMillis() - watch;
-			if (period > sleepTime) {
-				try {
-					Thread.sleep(period - sleepTime);
-				} catch (InterruptedException ex) {
-				}
-			}
-
-			//Test
-			sleepTime = System.currentTimeMillis() - watch;
-			System.out.println("Time[s] = " + time + " TimePeriod[ms] : " + sleepTime);
-
-			timerFlg = true;
-			time++;
-
-			if (term < time) 
-				throw new TimeOverEvent("AgentBenchmark", time);
-		}
+		
+		BenchTiming.stop(user, period, term, time);
 
 		return user;
 	}
