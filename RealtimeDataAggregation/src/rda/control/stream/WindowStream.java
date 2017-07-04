@@ -56,10 +56,10 @@ public class WindowStream extends Thread {
 		while (runnable) {
 			//Get Window
 			Window window = flow.get();
-			System.out.println(window.id+" get!");
 			if (window == null) {
 				continue;
 			}
+			System.out.println(window.id+" get!");
 			AgentConnection server = (AgentConnection) window.id; 
 			
 			//Update
