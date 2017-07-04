@@ -124,9 +124,7 @@ public class AgentSystemMain {
 		try {
 			while (true) {
 				Long bstart = System.currentTimeMillis();
-				//UserData user = agBench.bench();
-				Map<Object, List<UserData>> user = agBench.benchList();
-				
+				UserData user = agBench.bench();
 				best += System.currentTimeMillis() - bstart;
 				if (user == null) {
 					continue;
@@ -134,9 +132,9 @@ public class AgentSystemMain {
 				
 				//Data
 				Long pstart = System.currentTimeMillis();
-				//Integer age = (Integer) userProf.getAttribute(user.id);
+				Integer age = (Integer) userProf.getAttribute(user.id);
 				pest += System.currentTimeMillis() - pstart;
-				//AgentConnection server = scManager.getDealServer(user.id, age);
+				AgentConnection server = scManager.getDealServer(user.id, age);
 				
 				/*//Log
 				Long lstart = System.currentTimeMillis();
@@ -147,10 +145,7 @@ public class AgentSystemMain {
 				
 				Long wstart = System.currentTimeMillis();
 				
-				for(Object server : user.keySet()){
-					window.in(server, user.get(server));
-				}
-				//window.in(server, user);
+				window.in(server, user);
 				//System.out.println("userID="+user.id+" ("+age+") -> "+server.getHost());
 				west += System.currentTimeMillis() - wstart;
 				
