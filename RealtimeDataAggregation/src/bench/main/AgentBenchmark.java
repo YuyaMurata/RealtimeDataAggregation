@@ -133,8 +133,10 @@ public class AgentBenchmark {
 				userMap.put(key, new ArrayList());
 			userMap.get(key).add(user);
 			
-			if(userMap.get(key).size() >= winSize)
+			if(userMap.get(key).size() >= winSize){
 				occurData.add(userMap);
+				userMap.remove(key);
+			}
 			
 			user = datagen.generate(BenchTiming.time);
 		}
