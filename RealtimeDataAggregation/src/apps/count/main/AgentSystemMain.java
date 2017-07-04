@@ -17,7 +17,6 @@ import apps.count.manager.AggregateAgentManager;
 import apps.count.property.AppCountProperty;
 import bench.main.AgentBenchmark;
 import bench.property.BenchmarkProperty;
-import bench.template.UserData;
 import bench.time.TimeOverEvent;
 import com.ibm.agent.exa.client.AgentClient;
 import java.util.HashMap;
