@@ -1,6 +1,7 @@
 package rda.control.flow;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
@@ -29,6 +30,11 @@ public class WindowController extends Thread {
 			windowMap.put(id, new Window(this, id));
 			windowMap.get(id).pack(data);
 		}
+	}
+	
+	public synchronized void pack(Object id, List data) {
+		Window win =  new Window(this, id);
+		win.pack(data);
 	}
 
 	public synchronized void addExecutable(Window window) {

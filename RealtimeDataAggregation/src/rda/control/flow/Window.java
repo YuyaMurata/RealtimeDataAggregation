@@ -26,13 +26,20 @@ public class Window {
 	public static void setParameter(Integer wsize) {
 		size = wsize;
 	}
-
+	
+	//1 Data Input
 	public void pack(Object obj) {
 		win.add(obj);
 
 		if (win.size() >= size) {
 			winctrl.addExecutable(this);
 		}
+	}
+	
+	//List Input
+	public void pack(List data){
+		win.addAll(data);
+		winctrl.addExecutable(this);
 	}
 
 	public List unpack() {
