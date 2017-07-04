@@ -13,7 +13,7 @@ public class WindowController extends Thread {
 		WINDOW_SIZE, WINDOW_TIME
 	}
 
-	private Map<Object, Window> windowMap = new HashMap<>();
+	private Map<Object, Window> windowMap = new ConcurrentHashMap<>();
 	private BlockingQueue executableQueue;
 	private Long aliveTime;
 
