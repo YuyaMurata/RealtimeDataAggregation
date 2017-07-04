@@ -161,7 +161,9 @@ public class AgentSystemExtension implements Extension {
 		
 		//upadte table
 		table.updateTable(idPair.get("root"), idPair.get("clone"));
-
+		
+		connectTime = 0L;
+		
 		return msg;
 	}
 
@@ -200,7 +202,10 @@ public class AgentSystemExtension implements Extension {
 		return nokori;
 	}
 	
+	Long connectTime;
 	public Boolean updateAgent(List data) {
+		Long start = System.currentTimeMillis();
+		
 		try{
 			List nokori = putDataToMQ(data);
 			if(getMode() == 1)
@@ -214,6 +219,8 @@ public class AgentSystemExtension implements Extension {
 		
 		//後で修正
 		Boolean result = true;
+		connectTime += System.currentTimeMillis() - start;
+		
 		return result;
 	}
 
@@ -263,7 +270,7 @@ public class AgentSystemExtension implements Extension {
 			agmq.put(dummy);
 		}
 
-		return "<"+name+">[Success AgentSystem Shutdown !]";
+		return "<"+name+">[Success AgentSystem Shutdown ! - "+connectTime+"]";
 	}
 	
 	public String getName(){
