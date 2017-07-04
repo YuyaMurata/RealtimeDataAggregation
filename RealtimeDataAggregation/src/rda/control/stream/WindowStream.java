@@ -51,7 +51,6 @@ public class WindowStream extends Thread {
 	
 	//Only List
 	public void in(Object id, List data) {
-		System.out.println("Window = "+data.size());
 		flow.pack(id, data);
 	}
 
