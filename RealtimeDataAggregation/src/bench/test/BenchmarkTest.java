@@ -17,11 +17,12 @@ import java.util.Map;
  * @author kaeru
  */
 public class BenchmarkTest {
-
+	
+	//agSetbenchを変更したため動かない
 	public static void main(String[] args) {
 		AgentBenchmark ag = AgentBenchmark.getInstance();
 		ag.setDummyParameter();
-		ag.setBenchList(1000);
+		//ag.setBenchList(1000);
 		
 		Map datalog = new HashMap();
 		Long totalData = 0L;
@@ -31,7 +32,7 @@ public class BenchmarkTest {
 			while (true) {
 				Long bstart = System.currentTimeMillis();
 				//UserData user = ag.bench();
-				List user = ag.benchSet();
+				Map<Object, List> user = ag.benchSet();
 				best += System.currentTimeMillis() - bstart;
 				if (user == null) {
 					continue;
@@ -43,7 +44,8 @@ public class BenchmarkTest {
 				datalog.put(user.id, (int) datalog.get(user.id) + (int) user.data);*/
 
 				//totalData++;
-				totalData += user.size();
+				for(Object key : user.keySet())
+					totalData += user.get(key).size();
 			}
 		} catch (TimeOverEvent ex) {
 			//ex.printStackTrace();

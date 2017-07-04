@@ -112,7 +112,7 @@ public class AgentSystemMain {
 		window.start();
 		
 		//Start Benchmark
-		//agBench.setBenchList(scManager, userProf, window.getWindowSize());
+		agBench.setBenchList(scManager, userProf, window.getWindowSize());
 		Map<Object, Integer> dataLog = new HashMap();
 		Long totalData = 0L;
 		Long start = System.currentTimeMillis();
@@ -124,18 +124,19 @@ public class AgentSystemMain {
 		try {
 			while (true) {
 				Long bstart = System.currentTimeMillis();
-				UserData user = agBench.bench();
+				//UserData user = agBench.bench();
+				Map<Object, List> user = agBench.benchSet();
 				best += System.currentTimeMillis() - bstart;
 				if (user == null) {
 					continue;
 				}
 				
 				//Data
-				Long pstart = System.currentTimeMillis();
+				/*Long pstart = System.currentTimeMillis();
 				Integer age = (Integer) userProf.getAttribute(user.id);
 				pest += System.currentTimeMillis() - pstart;
 				AgentConnection server = scManager.getDealServer(user.id, age);
-				
+				*/
 				/*//Log
 				Long lstart = System.currentTimeMillis();
 				if (dataLog.get(server.getHost()) == null)
@@ -145,11 +146,15 @@ public class AgentSystemMain {
 				
 				Long wstart = System.currentTimeMillis();
 				
-				window.in(server, user);
+				for(Object server : user.keySet()){
+					window.in(server, user.get(server));
+					totalData+=user.get(server).size();
+				}
+				//window.in(server, user);
 				//System.out.println("userID="+user.id+" ("+age+") -> "+server.getHost());
 				west += System.currentTimeMillis() - wstart;
 				
-				totalData++;
+				//totalData++;
 			}
 		} catch (TimeOverEvent ex) {
 			//ex.printStackTrace();

@@ -121,40 +121,51 @@ public class AgentBenchmark {
 	}
 	
 	//Bencmark List 実験でしか動かない
-	List<List> occurData = new ArrayList();
-	List users = new ArrayList();
-	Long secSize = 0L;
-	int cnt =-1;
-	public void setBenchList(int winSize){
+	List<Map> occurData = new ArrayList();
+	Map<Object, List> users = new HashMap<>();
+	Long secSize = 0L, ws = 0L;
+	int cnt =0;
+	public void setBenchList(ServerConnectionManager manager, AgentProfileGenerator profgen, int winSize){
 		UserData user = datagen.generate(BenchTiming.time);
 		while(user != null){
-			users.add(user);
+			Object key = manager.getDealServer(user.id, (int) profgen.getAttribute(user.id));//"key";
 			
-			if(users.size() >= winSize){
-				occurData.add(new ArrayList(users));
+			if(users.get(key) == null)
+				users.put(key, new ArrayList());
+			users.get(key).add(user);
+			
+			ws++;
+			
+			if(ws >= winSize){
+				occurData.add(new HashMap(users));
 				users.clear();
+				ws = 0L;
 			}
+			
 			secSize++;
 			user = datagen.generate(BenchTiming.time);
 		}
 		
 		int i=0;
-		for(List list : occurData){
-			System.out.println(i+":"+list.size());
+		for(Map<Object, List> map : occurData){
+			for(Object key : map.keySet())
+				System.out.println(i+":"+key+" = "+map.get(key).size());
 			i++;
 		}
+		System.out.println("size="+secSize);
 		
 		datagen.initTimeVolme();
 	}
 	
 	//BenchMark Main
-	public List<UserData> benchSet() throws TimeOverEvent {
+	public Map<Object, List> benchSet() throws TimeOverEvent {
 		BenchTiming.start(datagen, secSize);
 
-		List<UserData> user = occurData.get(cnt++);
-		if(cnt > occurData.size()){
-			cnt=-1;
-			user = null;
+		Map<Object, List> user = null;
+		if(cnt <occurData.size()){
+			user = occurData.get(cnt++);
+		}else{
+			cnt=0;
 		}
 		
 		BenchTiming.stop(user);
