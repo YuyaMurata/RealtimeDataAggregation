@@ -63,6 +63,6 @@ public class WindowController extends Thread {
 	}
 	
 	public String toString(){
-		return "WindowContoroller";
+		return "WindowContoroller = "+executableQueue.size();
 	}
 }

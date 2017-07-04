@@ -59,21 +59,21 @@ public class WindowStream extends Thread {
 			if (window == null) {
 				continue;
 			}
-			System.out.println(window.id+" get!");
+			System.out.println(this.flow.toString());
 			AgentConnection server = (AgentConnection) window.id; 
 			
 			//Update
 			//System.out.println("Host::"+server.getHost());
-			//Long start = System.currentTimeMillis();
+			Long start = System.currentTimeMillis();
 			
 			//String msg = sender.send(server, window.unpack());
 			execService.execute(new WindowThread(server, sender, window.unpack()));
 
-			//Long stop = System.currentTimeMillis();
+			Long stop = System.currentTimeMillis();
 			//System.out.println((stop-start)+",[ms]");
 			
-			//connectTime += (stop - start);
-			//total+=window.getSize();
+			connectTime += (stop - start);
+			total+=window.getSize();
 		}
 		
 		//終了処理
