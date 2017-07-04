@@ -38,7 +38,6 @@ public class Window {
 	
 	//List Input
 	public void pack(List data){
-		System.out.println("Winodw="+data.size());
 		win.addAll(data);
 		winctrl.addExecutable(this);
 	}
