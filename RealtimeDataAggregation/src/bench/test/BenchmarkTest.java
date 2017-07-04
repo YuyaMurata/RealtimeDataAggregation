@@ -21,7 +21,7 @@ public class BenchmarkTest {
 	public static void main(String[] args) {
 		AgentBenchmark ag = AgentBenchmark.getInstance();
 		ag.setDummyParameter();
-		//ag.setBenchList();
+		ag.setBenchList(1000);
 		
 		Map datalog = new HashMap();
 		Long totalData = 0L;

@@ -112,7 +112,7 @@ public class AgentSystemMain {
 		window.start();
 		
 		//Start Benchmark
-		agBench.setBenchList(scManager, userProf, window.getWindowSize());
+		//agBench.setBenchList(scManager, userProf, window.getWindowSize());
 		Map<Object, Integer> dataLog = new HashMap();
 		Long totalData = 0L;
 		Long start = System.currentTimeMillis();
