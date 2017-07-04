@@ -12,6 +12,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import rda.agent.clone.AgentCloning;
 import rda.agent.creator.AgentCreator;
 import rda.agent.mq.AgentMessageQueue;
@@ -20,6 +23,7 @@ import rda.agent.table.DestinationTable;
 import rda.agent.updator.AgentUpdator;
 import rda.extension.agent.comm.AgentIntaractionComm;
 import rda.extension.agent.exec.AgentSystemInitializer;
+import rda.extension.agent.thread.ExtensionPutThread;
 import rda.extension.logging.AgentSystemLog;
 
 /**
@@ -201,19 +205,11 @@ public class AgentSystemExtension implements Extension {
 	}
 	
 	Long connectTime;
+	ExecutorService execService = Executors.newSingleThreadExecutor();
 	public Boolean updateAgent(List data) {
 		Long start = System.currentTimeMillis();
 		
-		try{
-			List nokori = putDataToMQ(data);
-			if(getMode() == 1)
-				while(!nokori.isEmpty()){
-					nokori = putDataToMQ(nokori);
-				}
-		}catch(Exception e){
-			System.out.println("Repack周りのError!");
-			e.printStackTrace();
-		}
+		execService.execute(new ExtensionPutThread(data));
 		
 		//後で修正
 		Boolean result = true;
@@ -268,6 +264,16 @@ public class AgentSystemExtension implements Extension {
 			List dummy = new ArrayList();
 			dummy.add("quit");
 			agmq.put(dummy);
+		}
+		
+		//終了処理
+		try{
+			execService.shutdown();
+			if(!execService.awaitTermination(1, TimeUnit.SECONDS))
+				execService.shutdownNow();
+		}catch(InterruptedException e){
+			System.out.println("awaitTermination interrupted: " + e); 
+			execService.shutdownNow();
 		}
 
 		return "<"+name+">[Success AgentSystem Shutdown ! - "+connectTime+"]";
