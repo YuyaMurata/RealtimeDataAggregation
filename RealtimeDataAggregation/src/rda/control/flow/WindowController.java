@@ -68,6 +68,10 @@ public class WindowController extends Thread {
 		}
 	}
 	
+	public Integer getSize(){
+		return Window.getMaxSize();
+	}
+	
 	public String toString(){
 		return "WindowContoroller = "+executableQueue.size();
 	}

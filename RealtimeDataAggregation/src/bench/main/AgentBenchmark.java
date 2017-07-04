@@ -121,16 +121,20 @@ public class AgentBenchmark {
 	}
 	
 	//Bencmark List 実験でしか動かない
-	Map<Object, List> occurData = new HashMap();
+	List<Map<Object, List>> occurData = new ArrayList();
+	Map<Object, List> userMap = new HashMap();
 	int cnt =0;
-	public void setBenchList(ServerConnectionManager server, AgentProfileGenerator prof){
+	public void setBenchList(ServerConnectionManager server, AgentProfileGenerator prof, int winSize){
 		UserData user = datagen.generate(BenchTiming.time);
 		while(user != null){
 			Object key = server.getDealServer(user.id, (int) prof.getAttribute(user.id));
 			
-			if(occurData.get(key) == null)
-				occurData.put(key, new ArrayList());
-			occurData.get(key).add(user);
+			if(userMap.get(key) == null)
+				userMap.put(key, new ArrayList());
+			userMap.get(key).add(user);
+			
+			if(userMap.get(key).size() >= winSize)
+				occurData.add(userMap);
 			
 			user = datagen.generate(BenchTiming.time);
 		}
@@ -138,14 +142,14 @@ public class AgentBenchmark {
 	}
 	
 	public Map<Object, List<UserData>> benchList() throws TimeOverEvent {
-		int size = occurData.values().stream().mapToInt(l -> l.size()).sum();
+		int size = occurData.stream().map(map -> map.values()).mapToInt(list -> list.size()).sum();
 		BenchTiming.start(datagen, new Long(size));
 		
-		Map<Object, List<UserData>> user = null;
-		if(cnt==0){
-			user = new HashMap(occurData);
+		Map<Object, List<UserData>> user = new HashMap(occurData.get(cnt));
+		if(cnt < occurData.size()){
 			cnt++;
 		}else{
+			user = null;
 			cnt = 0;
 		}
 		

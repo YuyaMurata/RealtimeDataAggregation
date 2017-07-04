@@ -96,6 +96,10 @@ public class WindowStream extends Thread {
 		
 	}
 	
+	public Integer getWindowSize(){
+		return this.flow.getSize();
+	}
+	
 	@Override
 	public String toString(){
 		return this.name;

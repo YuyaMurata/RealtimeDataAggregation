@@ -49,4 +49,8 @@ public class Window {
 	public Integer getSize() {
 		return this.win.size();
 	}
+	
+	public static Integer getMaxSize(){
+		return size;
+	}
 }
