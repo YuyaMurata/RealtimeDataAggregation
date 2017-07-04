@@ -59,7 +59,6 @@ public class WindowStream extends Thread {
 			if (window == null) {
 				continue;
 			}
-			System.out.println(this.flow.toString());
 			AgentConnection server = (AgentConnection) window.id; 
 			
 			//Update
