@@ -162,8 +162,6 @@ public class AgentSystemExtension implements Extension {
 		//upadte table
 		table.updateTable(idPair.get("root"), idPair.get("clone"));
 		
-		connectTime = 0L;
-		
 		return msg;
 	}
 
@@ -254,6 +252,8 @@ public class AgentSystemExtension implements Extension {
 		
 		//Logging
 		(new AgentSystemLog(10L, agentMap)).start();
+		
+		connectTime = 0L;
 		
 		return "<"+name+">[Success AgentSystem Start !]";
 	}
