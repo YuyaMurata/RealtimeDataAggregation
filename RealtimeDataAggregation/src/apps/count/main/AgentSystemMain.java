@@ -148,7 +148,7 @@ public class AgentSystemMain {
 				Long wstart = System.currentTimeMillis();
 				
 				for(Object server : user.keySet()){
-					System.out.println(user.get(server));
+					//System.out.println(user.get(server));
 					window.in(server, user.get(server));
 				}
 				//window.in(server, user);
