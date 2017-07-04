@@ -27,8 +27,8 @@ public class WindowStream extends Thread {
 	private ExtensionPutMessageQueue sender;
 	private String name;
 	
-	private ExecutorService exeService = Executors.newFixedThreadPool(16);
-	//private ExecutorService exeService = Executors.newSingleThreadExecutor();
+	//private ExecutorService execService = Executors.newFixedThreadPool(16);
+	private ExecutorService execService = Executors.newSingleThreadExecutor();
 	//private Integer poolsize;
 
 	public WindowStream(Map param, ExtensionPutMessageQueue sender) {
@@ -68,7 +68,7 @@ public class WindowStream extends Thread {
 			Long start = System.currentTimeMillis();
 			
 			//String msg = sender.send(server, window.unpack());
-			exeService.execute(new WindowThread(server, sender, window.unpack()));
+			execService.execute(new WindowThread(server, sender, window.unpack()));
 
 			Long stop = System.currentTimeMillis();
 			//System.out.println((stop-start)+",[ms]");
@@ -79,12 +79,12 @@ public class WindowStream extends Thread {
 		
 		//終了処理
 		try{
-			exeService.shutdown();
-			if(!exeService.awaitTermination(1, TimeUnit.SECONDS))
-				exeService.shutdownNow();
+			execService.shutdown();
+			if(!execService.awaitTermination(1, TimeUnit.SECONDS))
+				execService.shutdownNow();
 		}catch(InterruptedException e){
 			System.out.println("awaitTermination interrupted: " + e); 
-			exeService.shutdownNow();
+			execService.shutdownNow();
 		}
 		System.out.println("WindowStream total send data = "+total +" - t="+connectTime+"[ms]");
 		
