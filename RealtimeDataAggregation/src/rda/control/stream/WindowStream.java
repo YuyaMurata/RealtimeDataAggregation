@@ -56,7 +56,7 @@ public class WindowStream extends Thread {
 
 	@Override
 	public void run() {
-		//this.flow.start();
+		this.flow.start();
 		Long connectTime = 0L;
 		int total = 0;
 		while (runnable) {
