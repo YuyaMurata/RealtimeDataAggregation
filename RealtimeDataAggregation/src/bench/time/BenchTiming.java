@@ -24,7 +24,7 @@ public class BenchTiming {
 		}
 	}
 	
-	public static void stop(UserData user) throws TimeOverEvent{
+	public static void stop(Object user) throws TimeOverEvent{
 		if (user == null) {
 			Long sleepTime = System.currentTimeMillis() - timer;
 			if (period > sleepTime) {
@@ -40,9 +40,20 @@ public class BenchTiming {
 
 			timerFlg = true;
 			time++;
+			
 
 			if (term < time) 
 				throw new TimeOverEvent("AgentBenchmark", time);
+		}
+	}
+	
+	//Only List
+	public static void start(DataGenerator datagen, Long datasize){
+		if (timerFlg) {
+			timer = System.currentTimeMillis();
+			System.out.println("DataGen="+datagen.getTimeVolme());
+			datagen.subTimeVolme(datasize);
+			timerFlg = false;
 		}
 	}
 }

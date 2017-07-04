@@ -9,6 +9,7 @@ import bench.main.AgentBenchmark;
 import bench.template.UserData;
 import bench.time.TimeOverEvent;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,7 +21,8 @@ public class BenchmarkTest {
 	public static void main(String[] args) {
 		AgentBenchmark ag = AgentBenchmark.getInstance();
 		ag.setDummyParameter();
-
+		//ag.setBenchList();
+		
 		Map datalog = new HashMap();
 		Long totalData = 0L;
 		Long start = System.currentTimeMillis();
@@ -29,11 +31,12 @@ public class BenchmarkTest {
 			while (true) {
 				Long bstart = System.currentTimeMillis();
 				UserData user = ag.bench();
+				//List userList = ag.benchList();
 				best += System.currentTimeMillis() - bstart;
 				if (user == null) {
 					continue;
 				}
-
+				
 				if (datalog.get(user.id) == null) {
 					datalog.put(user.id, 0);
 				}
@@ -49,7 +52,7 @@ public class BenchmarkTest {
 		Integer idTotal = 0;
 		System.out.println("Results {");
 		for (Object id : datalog.keySet()) {
-			System.out.println("\t " + id + ", " + datalog.get(id));
+			//System.out.println("\t " + id + ", " + datalog.get(id));
 			idTotal++;
 		}
 		System.out.println("} Total=" + totalData + "-" + ag.getTotalGenerate() + " ID=" + idTotal + " Time[ms]:" + (stop - start));

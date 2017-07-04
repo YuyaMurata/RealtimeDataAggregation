@@ -35,4 +35,12 @@ public class DataGenerator {
 	public Long getTimeVolme(){
 		return type.getVolume();
 	}
+	
+	public void initTimeVolme(){
+		type.initVolume();
+	}
+	
+	public void subTimeVolme(Long sub){
+		type.subVolume(sub);
+	}
 }

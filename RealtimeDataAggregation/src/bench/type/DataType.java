@@ -69,4 +69,12 @@ public abstract class DataType {
 	public Long getVolume(){
 		return timeVolume;
 	}
+	
+	public void initVolume(){
+		this.timeVolume = volume;
+	}
+	
+	public void subVolume(Long subtract){
+		this.timeVolume -= subtract;
+	}
 }
