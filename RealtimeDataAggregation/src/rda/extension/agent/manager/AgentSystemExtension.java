@@ -121,6 +121,9 @@ public class AgentSystemExtension implements Extension {
 			
 			AgentMessageQueue.setParameter(param);
 			
+			agentMap = new HashMap();
+			execService = Executors.newSingleThreadExecutor();
+			
 			//AgentCreate
 			StringBuilder sb = new StringBuilder();
 			for(Object id : table.getAgents()){
@@ -138,7 +141,7 @@ public class AgentSystemExtension implements Extension {
 		}
 	}
 
-	private Map<Object, AgentMessageQueue> agentMap = new HashMap();
+	private Map<Object, AgentMessageQueue> agentMap;
 	public String createAgent(Object agID) {
 		Map setter = ((AgentProfileGenerator) initMap.get(AgentSystemInitializer.paramID.AGENT_PROFILE)).generate(agID);
 		String msg = ((AgentCreator) initMap.get(AgentSystemInitializer.paramID.AGENT_CREATOR)).create(agID, setter);
@@ -205,7 +208,7 @@ public class AgentSystemExtension implements Extension {
 	}
 	
 	Long connectTime;
-	ExecutorService execService = Executors.newSingleThreadExecutor();
+	ExecutorService execService;
 	public Boolean updateAgent(List data) {
 		Long start = System.currentTimeMillis();
 		
